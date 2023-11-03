@@ -267,6 +267,116 @@ TEST_CASE("draw - known-values circled") {
     });
 }
 
+TEST_CASE("draw - all inputs") {
+  TestImage image("tests/unit/explanation/art/draw-all-inputs.png");
+  const double grid_size = round_grid_size(image.viewport_size);
+  image.cr->translate((image.viewport_size - grid_size) / 2, (image.viewport_size - grid_size) / 2);
+  Sudoku sudoku;
+  for (const auto cell : Sudoku::cells) {
+    const auto [row, col] = cell;
+    sudoku.set(cell, (row + 2 * col) % Sudoku::size);
+  }
+  draw(
+    image.cr,
+    {
+      .sudoku = sudoku,
+      .inputs = {Sudoku::cells.begin(), Sudoku::cells.end()},
+    },
+    {
+      .grid_size = grid_size,
+      .possible = true,
+    });
+}
+
+TEST_CASE("draw - all todo") {
+  TestImage image("tests/unit/explanation/art/draw-all-todo.png");
+  const double grid_size = round_grid_size(image.viewport_size);
+  image.cr->translate((image.viewport_size - grid_size) / 2, (image.viewport_size - grid_size) / 2);
+  Sudoku sudoku;
+  for (const auto cell : Sudoku::cells) {
+    const auto [row, col] = cell;
+    sudoku.set(cell, (row + 2 * col) % Sudoku::size);
+  }
+  draw(
+    image.cr,
+    {
+      .sudoku = sudoku,
+    },
+    {
+      .grid_size = grid_size,
+      .possible = true,
+      .bold_todo = true,
+    });
+}
+
+TEST_CASE("draw - all processed") {
+  TestImage image("tests/unit/explanation/art/draw-all-processed.png");
+  const double grid_size = round_grid_size(image.viewport_size);
+  image.cr->translate((image.viewport_size - grid_size) / 2, (image.viewport_size - grid_size) / 2);
+  Sudoku sudoku;
+  for (const auto cell : Sudoku::cells) {
+    const auto [row, col] = cell;
+    sudoku.set(cell, (row + 2 * col) % Sudoku::size);
+  }
+  draw(
+    image.cr,
+    {
+      .sudoku = sudoku,
+      .processed = {Sudoku::cells.begin(), Sudoku::cells.end()},
+    },
+    {
+      .grid_size = grid_size,
+      .possible = true,
+      .bold_todo = true,
+    });
+}
+
+TEST_CASE("draw - known-values boxed") {
+  TestImage image("tests/unit/explanation/art/draw-known-values-boxed.png");
+  const double grid_size = round_grid_size(image.viewport_size);
+  image.cr->translate((image.viewport_size - grid_size) / 2, (image.viewport_size - grid_size) / 2);
+  Sudoku sudoku;
+  for (const auto cell : Sudoku::cells) {
+    const auto [row, col] = cell;
+    sudoku.set(cell, (row + 2 * col) % Sudoku::size);
+  }
+  draw(
+    image.cr,
+    {
+      .sudoku = sudoku,
+    },
+    {
+      .grid_size = grid_size,
+      .possible = true,
+      .boxed_cells = {Sudoku::cells.begin(), Sudoku::cells.end()},
+      .boxed_cells_color = {0, 1, 0},
+    });
+}
+
+TEST_CASE("draw - all forbidden") {
+  TestImage image("tests/unit/explanation/art/draw-all-forbidden.png");
+  const double grid_size = round_grid_size(image.viewport_size);
+  image.cr->translate((image.viewport_size - grid_size) / 2, (image.viewport_size - grid_size) / 2);
+  Sudoku sudoku;
+  for (const auto cell : Sudoku::cells) {
+    const auto [row, col] = cell;
+    for (const unsigned value : Sudoku::values) {
+      if (value != (row + 2 * col) % Sudoku::size) {
+        sudoku.forbid(cell, value);
+      }
+    }
+  }
+  draw(
+    image.cr,
+    {
+      .sudoku = sudoku,
+    },
+    {
+      .grid_size = grid_size,
+      .possible = true,
+    });
+}
+
 TEST_CASE("draw - possible-values circled") {
   TestImage image("tests/unit/explanation/art/draw-possible-values-circled.png");
   const double grid_size = round_grid_size(image.viewport_size);
@@ -287,6 +397,39 @@ TEST_CASE("draw - possible-values circled") {
       .grid_size = grid_size,
       .possible = true,
       .circled_values = circled_values,
+    });
+}
+
+TEST_CASE("draw - possible-values linked") {
+  TestImage image("tests/unit/explanation/art/draw-possible-values-linked.png");
+  const double grid_size = round_grid_size(image.viewport_size);
+  image.cr->translate((image.viewport_size - grid_size) / 2, (image.viewport_size - grid_size) / 2);
+  Sudoku sudoku;
+  std::vector<std::tuple<Sudoku::Coordinates, Sudoku::Coordinates, unsigned>> links_from_cell_to_value;
+  std::vector<std::tuple<Sudoku::Coordinates, unsigned>> circled_values;
+  Sudoku::Coordinates source_cell = {2, 3};
+  for (const auto cell : Sudoku::cells) {
+    if (cell != source_cell) {
+      const auto [row, col] = cell;
+      for (const unsigned value : Sudoku::values) {
+        if (value == (row + 2 * col) % Sudoku::size) {
+          links_from_cell_to_value.push_back({source_cell, cell, value});
+          circled_values.push_back({cell, value});
+        }
+      }
+    }
+  }
+  draw(
+    image.cr,
+    {
+      .sudoku = sudoku,
+    },
+    {
+      .grid_size = grid_size,
+      .possible = true,
+      .circled_cells = {source_cell},
+      .circled_values = circled_values,
+      .links_from_cell_to_value = links_from_cell_to_value,
     });
 }
 
