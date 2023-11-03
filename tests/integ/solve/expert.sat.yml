@@ -1,0 +1,13 @@
+command: build/bin/sudoku solve --sat inputs/expert.txt
+returncode: 0
+stderr: |
+stdout: |
+  687593412
+  915426783
+  423871569
+  594637821
+  231948675
+  876215934
+  762354198
+  159782346
+  348169257

@@ -1,0 +1,14 @@
+command: build/bin/sudoku solve --help
+returncode: 0
+stderr: |
+stdout: |
+  Just solve a Sudoku
+  Usage: build/bin/sudoku solve [OPTIONS] INPUT
+  
+  Positionals:
+    INPUT TEXT:FILE(or - for stdin) REQUIRED
+                                Input file
+  
+  Options:
+    -h,--help                   Print this help message and exit
+    --sat                       Use the 'Minisat' SAT solver instead of the default exploration algorithm

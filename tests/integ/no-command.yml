@@ -1,0 +1,6 @@
+command: build/bin/sudoku
+returncode: 106
+stderr: |
+  A subcommand is required
+  Run with --help for more information.
+stdout: |

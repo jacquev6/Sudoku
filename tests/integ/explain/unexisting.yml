@@ -1,0 +1,6 @@
+command: build/bin/sudoku explain unexisting-file
+returncode: 105
+stderr: |
+  INPUT: File does not exist: unexisting-file
+  Run with --help for more information.
+stdout: |

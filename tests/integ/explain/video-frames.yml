@@ -1,0 +1,16 @@
+setup: |
+  rm -rf tests/integ/explain/video-frames
+command: build/bin/sudoku explain --video-frames tests/integ/explain/video-frames --quick-video -
+stdin: |
+  719528436
+  248136579
+  56379428.
+  827619345
+  136245897
+  954873162
+  675482913
+  382961754
+  491357628
+returncode: 0
+stderr: |
+stdout: |

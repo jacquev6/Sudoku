@@ -1,0 +1,13 @@
+command: build/bin/sudoku solve --sat inputs/easy.txt
+returncode: 0
+stderr: |
+stdout: |
+  719528436
+  248136579
+  563794281
+  827619345
+  136245897
+  954873162
+  675482913
+  382961754
+  491357628

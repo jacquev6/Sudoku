@@ -1,0 +1,544 @@
+command: build/bin/sudoku explain inputs/easy.txt
+returncode: 0
+stderr: |
+stdout: |
+  (1, 2) is set to 1 in the input
+  (1, 4) is set to 5 in the input
+  (1, 5) is set to 2 in the input
+  (1, 7) is set to 4 in the input
+  (1, 8) is set to 3 in the input
+  (2, 3) is set to 8 in the input
+  (2, 6) is set to 6 in the input
+  (3, 1) is set to 5 in the input
+  (3, 3) is set to 3 in the input
+  (3, 4) is set to 7 in the input
+  (3, 5) is set to 9 in the input
+  (3, 7) is set to 2 in the input
+  (4, 2) is set to 2 in the input
+  (4, 3) is set to 7 in the input
+  (4, 6) is set to 9 in the input
+  (4, 9) is set to 5 in the input
+  (5, 2) is set to 3 in the input
+  (5, 3) is set to 6 in the input
+  (5, 4) is set to 2 in the input
+  (5, 5) is set to 4 in the input
+  (5, 9) is set to 7 in the input
+  (6, 1) is set to 9 in the input
+  (6, 3) is set to 4 in the input
+  (6, 5) is set to 7 in the input
+  (6, 6) is set to 3 in the input
+  (6, 8) is set to 6 in the input
+  (7, 2) is set to 7 in the input
+  (7, 5) is set to 8 in the input
+  (7, 8) is set to 1 in the input
+  (8, 4) is set to 9 in the input
+  (8, 5) is set to 6 in the input
+  (8, 7) is set to 7 in the input
+  (8, 9) is set to 4 in the input
+  (9, 4) is set to 3 in the input
+  (9, 7) is set to 6 in the input
+  All inputs have been set
+  Propagation starts
+  Propagation starts for 1 in (1, 2)
+  1 in (1, 2) forbids 1 in (1, 1)
+  1 in (1, 2) forbids 1 in (1, 3)
+  1 in (1, 2) forbids 1 in (1, 6)
+  1 in (1, 2) forbids 1 in (1, 9)
+  1 in (1, 2) forbids 1 in (2, 2)
+  1 in (1, 2) forbids 1 in (3, 2)
+  1 in (1, 2) forbids 1 in (6, 2)
+  1 in (1, 2) forbids 1 in (8, 2)
+  1 in (1, 2) forbids 1 in (9, 2)
+  1 in (1, 2) forbids 1 in (2, 1)
+  1 in (1, 2) has been fully propagated
+  Propagation starts for 5 in (1, 4)
+  5 in (1, 4) forbids 5 in (1, 1)
+  5 in (1, 4) forbids 5 in (1, 3)
+  5 in (1, 4) forbids 5 in (1, 6)
+  5 in (1, 4) forbids 5 in (1, 9)
+  5 in (1, 4) forbids 5 in (2, 4)
+  5 in (1, 4) forbids 5 in (4, 4)
+  5 in (1, 4) forbids 5 in (6, 4)
+  5 in (1, 4) forbids 5 in (7, 4)
+  5 in (1, 4) forbids 5 in (2, 5)
+  5 in (1, 4) forbids 5 in (3, 6)
+  5 in (1, 4) has been fully propagated
+  Propagation starts for 2 in (1, 5)
+  2 in (1, 5) forbids 2 in (1, 1)
+  2 in (1, 5) forbids 2 in (1, 3)
+  2 in (1, 5) forbids 2 in (1, 6)
+  2 in (1, 5) forbids 2 in (1, 9)
+  2 in (1, 5) forbids 2 in (2, 5)
+  2 in (1, 5) forbids 2 in (4, 5)
+  2 in (1, 5) forbids 2 in (9, 5)
+  2 in (1, 5) forbids 2 in (2, 4)
+  2 in (1, 5) forbids 2 in (3, 6)
+  2 in (1, 5) has been fully propagated
+  Propagation starts for 4 in (1, 7)
+  4 in (1, 7) forbids 4 in (1, 1)
+  4 in (1, 7) forbids 4 in (1, 3)
+  4 in (1, 7) forbids 4 in (1, 6)
+  4 in (1, 7) forbids 4 in (1, 9)
+  4 in (1, 7) forbids 4 in (2, 7)
+  4 in (1, 7) forbids 4 in (4, 7)
+  4 in (1, 7) forbids 4 in (5, 7)
+  4 in (1, 7) forbids 4 in (6, 7)
+  4 in (1, 7) forbids 4 in (7, 7)
+  4 in (1, 7) forbids 4 in (2, 8)
+  4 in (1, 7) forbids 4 in (2, 9)
+  4 in (1, 7) forbids 4 in (3, 8)
+  4 in (1, 7) forbids 4 in (3, 9)
+  4 in (1, 7) has been fully propagated
+  Propagation starts for 3 in (1, 8)
+  3 in (1, 8) forbids 3 in (1, 1)
+  3 in (1, 8) forbids 3 in (1, 3)
+  3 in (1, 8) forbids 3 in (1, 6)
+  3 in (1, 8) forbids 3 in (1, 9)
+  3 in (1, 8) forbids 3 in (2, 8)
+  3 in (1, 8) forbids 3 in (3, 8)
+  3 in (1, 8) forbids 3 in (4, 8)
+  3 in (1, 8) forbids 3 in (5, 8)
+  3 in (1, 8) forbids 3 in (8, 8)
+  3 in (1, 8) forbids 3 in (9, 8)
+  3 in (1, 8) forbids 3 in (2, 7)
+  3 in (1, 8) forbids 3 in (2, 9)
+  3 in (1, 8) forbids 3 in (3, 9)
+  3 in (1, 8) has been fully propagated
+  Propagation starts for 8 in (2, 3)
+  8 in (2, 3) forbids 8 in (2, 1)
+  8 in (2, 3) forbids 8 in (2, 2)
+  8 in (2, 3) forbids 8 in (2, 4)
+  8 in (2, 3) forbids 8 in (2, 5)
+  8 in (2, 3) forbids 8 in (2, 7)
+  8 in (2, 3) forbids 8 in (2, 8)
+  8 in (2, 3) forbids 8 in (2, 9)
+  8 in (2, 3) forbids 8 in (1, 3)
+  8 in (2, 3) forbids 8 in (7, 3)
+  8 in (2, 3) forbids 8 in (8, 3)
+  8 in (2, 3) forbids 8 in (9, 3)
+  8 in (2, 3) forbids 8 in (1, 1)
+  8 in (2, 3) forbids 8 in (3, 2)
+  8 in (2, 3) has been fully propagated
+  Propagation starts for 6 in (2, 6)
+  6 in (2, 6) forbids 6 in (2, 1)
+  6 in (2, 6) forbids 6 in (2, 2)
+  6 in (2, 6) forbids 6 in (2, 4)
+  6 in (2, 6) forbids 6 in (2, 5)
+  6 in (2, 6) forbids 6 in (2, 7)
+  6 in (2, 6) forbids 6 in (2, 8)
+  6 in (2, 6) forbids 6 in (2, 9)
+  6 in (2, 6) forbids 6 in (1, 6)
+  6 in (2, 6) forbids 6 in (3, 6)
+  6 in (2, 6) forbids 6 in (5, 6)
+  6 in (2, 6) forbids 6 in (7, 6)
+  6 in (2, 6) forbids 6 in (8, 6)
+  6 in (2, 6) forbids 6 in (9, 6)
+  6 in (2, 6) has been fully propagated
+  Propagation starts for 5 in (3, 1)
+  5 in (3, 1) forbids 5 in (3, 2)
+  5 in (3, 1) forbids 5 in (3, 8)
+  5 in (3, 1) forbids 5 in (3, 9)
+  5 in (3, 1) forbids 5 in (2, 1)
+  5 in (3, 1) forbids 5 in (4, 1)
+  5 in (3, 1) forbids 5 in (5, 1)
+  In region 22, only (6, 2) can be 5
+  5 in (3, 1) forbids 5 in (7, 1)
+  5 in (3, 1) forbids 5 in (8, 1)
+  5 in (3, 1) forbids 5 in (9, 1)
+  5 in (3, 1) forbids 5 in (2, 2)
+  5 in (3, 1) has been fully propagated
+  Propagation starts for 3 in (3, 3)
+  3 in (3, 3) forbids 3 in (3, 2)
+  3 in (3, 3) forbids 3 in (3, 6)
+  3 in (3, 3) forbids 3 in (7, 3)
+  3 in (3, 3) forbids 3 in (8, 3)
+  3 in (3, 3) forbids 3 in (9, 3)
+  3 in (3, 3) forbids 3 in (2, 1)
+  3 in (3, 3) forbids 3 in (2, 2)
+  3 in (3, 3) has been fully propagated
+  Propagation starts for 7 in (3, 4)
+  7 in (3, 4) forbids 7 in (3, 2)
+  7 in (3, 4) forbids 7 in (3, 6)
+  7 in (3, 4) forbids 7 in (3, 8)
+  7 in (3, 4) forbids 7 in (3, 9)
+  7 in (3, 4) forbids 7 in (2, 4)
+  7 in (3, 4) forbids 7 in (4, 4)
+  7 in (3, 4) forbids 7 in (6, 4)
+  7 in (3, 4) forbids 7 in (7, 4)
+  7 in (3, 4) forbids 7 in (1, 6)
+  7 in (3, 4) forbids 7 in (2, 5)
+  7 in (3, 4) has been fully propagated
+  Propagation starts for 9 in (3, 5)
+  9 in (3, 5) forbids 9 in (3, 2)
+  9 in (3, 5) forbids 9 in (3, 6)
+  9 in (3, 5) forbids 9 in (3, 8)
+  9 in (3, 5) forbids 9 in (3, 9)
+  9 in (3, 5) forbids 9 in (2, 5)
+  9 in (3, 5) forbids 9 in (4, 5)
+  9 in (3, 5) forbids 9 in (9, 5)
+  9 in (3, 5) forbids 9 in (1, 6)
+  (1, 6) can only be 8
+  9 in (3, 5) forbids 9 in (2, 4)
+  9 in (3, 5) has been fully propagated
+  Propagation starts for 2 in (3, 7)
+  2 in (3, 7) forbids 2 in (3, 2)
+  2 in (3, 7) forbids 2 in (3, 8)
+  2 in (3, 7) forbids 2 in (3, 9)
+  2 in (3, 7) forbids 2 in (2, 7)
+  2 in (3, 7) forbids 2 in (4, 7)
+  2 in (3, 7) forbids 2 in (5, 7)
+  2 in (3, 7) forbids 2 in (6, 7)
+  2 in (3, 7) forbids 2 in (7, 7)
+  2 in (3, 7) forbids 2 in (2, 8)
+  2 in (3, 7) forbids 2 in (2, 9)
+  2 in (3, 7) has been fully propagated
+  Propagation starts for 2 in (4, 2)
+  2 in (4, 2) forbids 2 in (4, 1)
+  2 in (4, 2) forbids 2 in (4, 4)
+  2 in (4, 2) forbids 2 in (4, 8)
+  2 in (4, 2) forbids 2 in (2, 2)
+  In region 2, only (2, 1) can be 2
+  2 in (4, 2) forbids 2 in (8, 2)
+  2 in (4, 2) forbids 2 in (9, 2)
+  2 in (4, 2) forbids 2 in (5, 1)
+  2 in (4, 2) has been fully propagated
+  Propagation starts for 7 in (4, 3)
+  7 in (4, 3) forbids 7 in (4, 1)
+  7 in (4, 3) forbids 7 in (4, 5)
+  7 in (4, 3) forbids 7 in (4, 7)
+  7 in (4, 3) forbids 7 in (4, 8)
+  7 in (4, 3) forbids 7 in (1, 3)
+  7 in (4, 3) forbids 7 in (7, 3)
+  7 in (4, 3) forbids 7 in (8, 3)
+  7 in (4, 3) forbids 7 in (9, 3)
+  7 in (4, 3) forbids 7 in (5, 1)
+  7 in (4, 3) has been fully propagated
+  Propagation starts for 9 in (4, 6)
+  9 in (4, 6) forbids 9 in (4, 1)
+  9 in (4, 6) forbids 9 in (4, 4)
+  9 in (4, 6) forbids 9 in (4, 7)
+  9 in (4, 6) forbids 9 in (4, 8)
+  9 in (4, 6) forbids 9 in (5, 6)
+  9 in (4, 6) forbids 9 in (7, 6)
+  9 in (4, 6) forbids 9 in (8, 6)
+  9 in (4, 6) forbids 9 in (9, 6)
+  9 in (4, 6) forbids 9 in (6, 4)
+  9 in (4, 6) has been fully propagated
+  Propagation starts for 5 in (4, 9)
+  5 in (4, 9) forbids 5 in (4, 5)
+  In region 14, only (9, 5) can be 5
+  In region 23, only (5, 6) can be 5
+  5 in (4, 9) forbids 5 in (4, 7)
+  5 in (4, 9) forbids 5 in (4, 8)
+  5 in (4, 9) forbids 5 in (2, 9)
+  5 in (4, 9) forbids 5 in (6, 9)
+  5 in (4, 9) forbids 5 in (7, 9)
+  5 in (4, 9) forbids 5 in (9, 9)
+  5 in (4, 9) forbids 5 in (5, 7)
+  5 in (4, 9) forbids 5 in (5, 8)
+  5 in (4, 9) forbids 5 in (6, 7)
+  5 in (4, 9) has been fully propagated
+  Propagation starts for 3 in (5, 2)
+  3 in (5, 2) forbids 3 in (5, 1)
+  3 in (5, 2) forbids 3 in (5, 7)
+  3 in (5, 2) forbids 3 in (8, 2)
+  3 in (5, 2) forbids 3 in (9, 2)
+  3 in (5, 2) forbids 3 in (4, 1)
+  3 in (5, 2) has been fully propagated
+  Propagation starts for 6 in (5, 3)
+  6 in (5, 3) forbids 6 in (5, 1)
+  6 in (5, 3) forbids 6 in (5, 7)
+  6 in (5, 3) forbids 6 in (5, 8)
+  6 in (5, 3) forbids 6 in (1, 3)
+  (1, 3) can only be 9
+  6 in (5, 3) forbids 6 in (7, 3)
+  6 in (5, 3) forbids 6 in (8, 3)
+  6 in (5, 3) forbids 6 in (9, 3)
+  6 in (5, 3) forbids 6 in (4, 1)
+  6 in (5, 3) has been fully propagated
+  Propagation starts for 2 in (5, 4)
+  2 in (5, 4) forbids 2 in (5, 8)
+  In region 24, only (6, 9) can be 2
+  2 in (5, 4) forbids 2 in (6, 4)
+  2 in (5, 4) forbids 2 in (7, 4)
+  2 in (5, 4) has been fully propagated
+  Propagation starts for 4 in (5, 5)
+  4 in (5, 5) forbids 4 in (5, 1)
+  4 in (5, 5) forbids 4 in (5, 8)
+  In region 24, only (4, 8) can be 4
+  4 in (5, 5) forbids 4 in (2, 5)
+  4 in (5, 5) forbids 4 in (4, 5)
+  4 in (5, 5) forbids 4 in (4, 4)
+  4 in (5, 5) forbids 4 in (6, 4)
+  4 in (5, 5) has been fully propagated
+  Propagation starts for 7 in (5, 9)
+  7 in (5, 9) forbids 7 in (5, 7)
+  7 in (5, 9) forbids 7 in (5, 8)
+  7 in (5, 9) forbids 7 in (1, 9)
+  In region 1, only (1, 1) can be 7
+  7 in (5, 9) forbids 7 in (2, 9)
+  7 in (5, 9) forbids 7 in (7, 9)
+  7 in (5, 9) forbids 7 in (9, 9)
+  7 in (5, 9) forbids 7 in (6, 7)
+  7 in (5, 9) has been fully propagated
+  Propagation starts for 9 in (6, 1)
+  9 in (6, 1) forbids 9 in (6, 7)
+  9 in (6, 1) forbids 9 in (5, 1)
+  9 in (6, 1) forbids 9 in (7, 1)
+  9 in (6, 1) forbids 9 in (8, 1)
+  9 in (6, 1) forbids 9 in (9, 1)
+  9 in (6, 1) has been fully propagated
+  Propagation starts for 4 in (6, 3)
+  4 in (6, 3) forbids 4 in (7, 3)
+  4 in (6, 3) forbids 4 in (8, 3)
+  4 in (6, 3) forbids 4 in (9, 3)
+  4 in (6, 3) forbids 4 in (4, 1)
+  4 in (6, 3) has been fully propagated
+  Propagation starts for 7 in (6, 5)
+  7 in (6, 5) has been fully propagated
+  Propagation starts for 3 in (6, 6)
+  3 in (6, 6) forbids 3 in (6, 4)
+  3 in (6, 6) forbids 3 in (6, 7)
+  In region 24, only (4, 7) can be 3
+  3 in (6, 6) forbids 3 in (7, 6)
+  3 in (6, 6) forbids 3 in (8, 6)
+  In region 8, only (8, 1) can be 3
+  3 in (6, 6) forbids 3 in (9, 6)
+  3 in (6, 6) forbids 3 in (4, 4)
+  3 in (6, 6) forbids 3 in (4, 5)
+  In region 14, only (2, 5) can be 3
+  3 in (6, 6) has been fully propagated
+  Propagation starts for 6 in (6, 8)
+  6 in (6, 8) forbids 6 in (6, 4)
+  6 in (6, 8) forbids 6 in (6, 7)
+  6 in (6, 8) forbids 6 in (3, 8)
+  6 in (6, 8) forbids 6 in (8, 8)
+  6 in (6, 8) forbids 6 in (9, 8)
+  6 in (6, 8) has been fully propagated
+  Propagation starts for 7 in (7, 2)
+  7 in (7, 2) forbids 7 in (7, 1)
+  7 in (7, 2) forbids 7 in (7, 6)
+  7 in (7, 2) forbids 7 in (7, 7)
+  7 in (7, 2) forbids 7 in (2, 2)
+  7 in (7, 2) forbids 7 in (8, 2)
+  7 in (7, 2) forbids 7 in (9, 2)
+  7 in (7, 2) forbids 7 in (9, 1)
+  7 in (7, 2) has been fully propagated
+  Propagation starts for 8 in (7, 5)
+  8 in (7, 5) forbids 8 in (7, 1)
+  8 in (7, 5) forbids 8 in (7, 4)
+  8 in (7, 5) forbids 8 in (7, 6)
+  8 in (7, 5) forbids 8 in (7, 7)
+  8 in (7, 5) forbids 8 in (7, 9)
+  8 in (7, 5) forbids 8 in (4, 5)
+  8 in (7, 5) forbids 8 in (8, 6)
+  8 in (7, 5) forbids 8 in (9, 6)
+  8 in (7, 5) has been fully propagated
+  Propagation starts for 1 in (7, 8)
+  1 in (7, 8) forbids 1 in (7, 1)
+  1 in (7, 8) forbids 1 in (7, 3)
+  1 in (7, 8) forbids 1 in (7, 4)
+  1 in (7, 8) forbids 1 in (7, 6)
+  1 in (7, 8) forbids 1 in (7, 7)
+  1 in (7, 8) forbids 1 in (7, 9)
+  1 in (7, 8) forbids 1 in (2, 8)
+  1 in (7, 8) forbids 1 in (3, 8)
+  (3, 8) can only be 8
+  1 in (7, 8) forbids 1 in (5, 8)
+  1 in (7, 8) forbids 1 in (8, 8)
+  1 in (7, 8) forbids 1 in (9, 8)
+  1 in (7, 8) forbids 1 in (9, 9)
+  1 in (7, 8) has been fully propagated
+  Propagation starts for 9 in (8, 4)
+  9 in (8, 4) forbids 9 in (8, 2)
+  9 in (8, 4) forbids 9 in (8, 3)
+  9 in (8, 4) forbids 9 in (8, 8)
+  9 in (8, 4) forbids 9 in (7, 4)
+  9 in (8, 4) has been fully propagated
+  Propagation starts for 6 in (8, 5)
+  6 in (8, 5) forbids 6 in (8, 2)
+  6 in (8, 5) forbids 6 in (4, 5)
+  (4, 5) can only be 1
+  In region 4, only (4, 4) can be 6
+  6 in (8, 5) forbids 6 in (7, 4)
+  6 in (8, 5) has been fully propagated
+  Propagation starts for 7 in (8, 7)
+  7 in (8, 7) forbids 7 in (8, 6)
+  In region 15, only (9, 6) can be 7
+  7 in (8, 7) forbids 7 in (8, 8)
+  7 in (8, 7) forbids 7 in (2, 7)
+  In region 2, only (2, 8) can be 7
+  7 in (8, 7) forbids 7 in (9, 8)
+  7 in (8, 7) has been fully propagated
+  Propagation starts for 4 in (8, 9)
+  4 in (8, 9) forbids 4 in (8, 2)
+  4 in (8, 9) forbids 4 in (8, 6)
+  4 in (8, 9) forbids 4 in (8, 8)
+  4 in (8, 9) forbids 4 in (7, 9)
+  4 in (8, 9) forbids 4 in (9, 9)
+  4 in (8, 9) forbids 4 in (9, 8)
+  4 in (8, 9) has been fully propagated
+  Propagation starts for 3 in (9, 4)
+  3 in (9, 4) forbids 3 in (9, 1)
+  3 in (9, 4) forbids 3 in (9, 9)
+  In region 18, only (7, 9) can be 3
+  3 in (9, 4) forbids 3 in (2, 4)
+  3 in (9, 4) forbids 3 in (7, 4)
+  (7, 4) can only be 4
+  3 in (9, 4) has been fully propagated
+  Propagation starts for 6 in (9, 7)
+  6 in (9, 7) forbids 6 in (9, 1)
+  In region 10, only (7, 1) can be 6
+  6 in (9, 7) forbids 6 in (9, 2)
+  In region 11, only (3, 2) can be 6
+  6 in (9, 7) forbids 6 in (9, 9)
+  6 in (9, 7) forbids 6 in (7, 7)
+  6 in (9, 7) has been fully propagated
+  Propagation starts for 5 in (6, 2)
+  5 in (6, 2) forbids 5 in (8, 2)
+  (8, 2) can only be 8
+  5 in (6, 2) forbids 5 in (9, 2)
+  5 in (6, 2) has been fully propagated
+  Propagation starts for 8 in (1, 6)
+  8 in (1, 6) forbids 8 in (1, 9)
+  8 in (1, 6) forbids 8 in (3, 6)
+  8 in (1, 6) has been fully propagated
+  Propagation starts for 2 in (2, 1)
+  2 in (2, 1) forbids 2 in (9, 1)
+  2 in (2, 1) has been fully propagated
+  Propagation starts for 5 in (9, 5)
+  5 in (9, 5) forbids 5 in (9, 3)
+  5 in (9, 5) forbids 5 in (9, 8)
+  In region 17, only (8, 8) can be 5
+  5 in (9, 5) forbids 5 in (7, 6)
+  5 in (9, 5) forbids 5 in (8, 6)
+  5 in (9, 5) has been fully propagated
+  Propagation starts for 5 in (5, 6)
+  5 in (5, 6) has been fully propagated
+  Propagation starts for 9 in (1, 3)
+  9 in (1, 3) forbids 9 in (1, 9)
+  (1, 9) can only be 6
+  9 in (1, 3) forbids 9 in (7, 3)
+  In region 7, only (7, 7) can be 9
+  9 in (1, 3) forbids 9 in (9, 3)
+  In region 25, only (9, 2) can be 9
+  9 in (1, 3) forbids 9 in (2, 2)
+  (2, 2) can only be 4
+  9 in (1, 3) has been fully propagated
+  Propagation starts for 2 in (6, 9)
+  2 in (6, 9) forbids 2 in (9, 9)
+  In region 27, only (9, 8) can be 2
+  2 in (6, 9) has been fully propagated
+  Propagation starts for 4 in (4, 8)
+  4 in (4, 8) has been fully propagated
+  Propagation starts for 7 in (1, 1)
+  7 in (1, 1) has been fully propagated
+  Propagation starts for 3 in (4, 7)
+  3 in (4, 7) has been fully propagated
+  Propagation starts for 3 in (8, 1)
+  3 in (8, 1) has been fully propagated
+  Propagation starts for 3 in (2, 5)
+  3 in (2, 5) has been fully propagated
+  Propagation starts for 8 in (3, 8)
+  8 in (3, 8) forbids 8 in (3, 9)
+  In region 18, only (9, 9) can be 8
+  8 in (3, 8) forbids 8 in (5, 8)
+  (5, 8) can only be 9
+  8 in (3, 8) has been fully propagated
+  Propagation starts for 1 in (4, 5)
+  1 in (4, 5) forbids 1 in (4, 1)
+  (4, 1) can only be 8
+  In region 22, only (5, 1) can be 1
+  1 in (4, 5) forbids 1 in (6, 4)
+  (6, 4) can only be 8
+  In region 6, only (6, 7) can be 1
+  In region 13, only (2, 4) can be 1
+  1 in (4, 5) has been fully propagated
+  Propagation starts for 6 in (4, 4)
+  6 in (4, 4) has been fully propagated
+  Propagation starts for 7 in (9, 6)
+  7 in (9, 6) has been fully propagated
+  Propagation starts for 7 in (2, 8)
+  7 in (2, 8) has been fully propagated
+  Propagation starts for 3 in (7, 9)
+  3 in (7, 9) has been fully propagated
+  Propagation starts for 4 in (7, 4)
+  4 in (7, 4) forbids 4 in (7, 6)
+  (7, 6) can only be 2
+  In region 15, only (3, 6) can be 4
+  4 in (7, 4) has been fully propagated
+  Propagation starts for 6 in (7, 1)
+  6 in (7, 1) has been fully propagated
+  Propagation starts for 6 in (3, 2)
+  6 in (3, 2) forbids 6 in (3, 9)
+  (3, 9) can only be 1
+  6 in (3, 2) has been fully propagated
+  Propagation starts for 8 in (8, 2)
+  8 in (8, 2) forbids 8 in (9, 1)
+  8 in (8, 2) has been fully propagated
+  Propagation starts for 5 in (8, 8)
+  5 in (8, 8) forbids 5 in (8, 3)
+  In region 12, only (7, 3) can be 5
+  5 in (8, 8) has been fully propagated
+  Propagation starts for 6 in (1, 9)
+  6 in (1, 9) has been fully propagated
+  Propagation starts for 9 in (7, 7)
+  9 in (7, 7) forbids 9 in (2, 7)
+  In region 2, only (2, 9) can be 9
+  9 in (7, 7) forbids 9 in (5, 7)
+  9 in (7, 7) has been fully propagated
+  Propagation starts for 9 in (9, 2)
+  9 in (9, 2) has been fully propagated
+  Propagation starts for 4 in (2, 2)
+  4 in (2, 2) has been fully propagated
+  Propagation starts for 2 in (9, 8)
+  2 in (9, 8) forbids 2 in (9, 3)
+  (9, 3) can only be 1
+  In region 12, only (8, 3) can be 2
+  2 in (9, 8) has been fully propagated
+  Propagation starts for 8 in (9, 9)
+  8 in (9, 9) has been fully propagated
+  Propagation starts for 9 in (5, 8)
+  9 in (5, 8) has been fully propagated
+  Propagation starts for 8 in (4, 1)
+  8 in (4, 1) has been fully propagated
+  Propagation starts for 1 in (5, 1)
+  1 in (5, 1) forbids 1 in (5, 7)
+  (5, 7) can only be 8
+  1 in (5, 1) forbids 1 in (9, 1)
+  (9, 1) can only be 4
+  1 in (5, 1) has been fully propagated
+  Propagation starts for 8 in (6, 4)
+  8 in (6, 4) has been fully propagated
+  Propagation starts for 1 in (6, 7)
+  1 in (6, 7) forbids 1 in (2, 7)
+  (2, 7) can only be 5
+  1 in (6, 7) has been fully propagated
+  Propagation starts for 1 in (2, 4)
+  1 in (2, 4) has been fully propagated
+  Propagation starts for 2 in (7, 6)
+  2 in (7, 6) forbids 2 in (8, 6)
+  (8, 6) can only be 1
+  Sudoku is solved
+  2 in (7, 6) has been fully propagated
+  Propagation starts for 4 in (3, 6)
+  4 in (3, 6) has been fully propagated
+  Propagation starts for 1 in (3, 9)
+  1 in (3, 9) has been fully propagated
+  Propagation starts for 5 in (7, 3)
+  5 in (7, 3) has been fully propagated
+  Propagation starts for 9 in (2, 9)
+  9 in (2, 9) has been fully propagated
+  Propagation starts for 1 in (9, 3)
+  1 in (9, 3) has been fully propagated
+  Propagation starts for 2 in (8, 3)
+  2 in (8, 3) has been fully propagated
+  Propagation starts for 8 in (5, 7)
+  8 in (5, 7) has been fully propagated
+  Propagation starts for 4 in (9, 1)
+  4 in (9, 1) has been fully propagated
+  Propagation starts for 5 in (2, 7)
+  5 in (2, 7) has been fully propagated
+  Propagation starts for 1 in (8, 6)
+  1 in (8, 6) has been fully propagated
+  All cells have been fully propagated

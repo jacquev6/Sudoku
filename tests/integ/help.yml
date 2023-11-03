@@ -1,0 +1,13 @@
+command: build/bin/sudoku --help
+returncode: 0
+stderr: |
+stdout: |
+  Solve a Sudoku, and explain how!
+  Usage: build/bin/sudoku [OPTIONS] SUBCOMMAND
+  
+  Options:
+    -h,--help                   Print this help message and exit
+  
+  Subcommands:
+    solve                       Just solve a Sudoku
+    explain                     Explain how to solve a Sudoku
