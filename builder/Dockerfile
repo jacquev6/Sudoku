@@ -16,6 +16,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
       cairomm-1.16-dev \
       g++ \
       gdb \
+      lcov \
       libavcodec-dev \
       libboost-dev \
       make \
