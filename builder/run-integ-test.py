@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Copyright 2023 Vincent Jacques
 
 import subprocess
 import sys
