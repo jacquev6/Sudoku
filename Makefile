@@ -12,6 +12,7 @@ default: test lint
 
 # Inputs
 
+root_directory := $(shell pwd)
 source_files := $(shell find src -name '*.cpp')
 header_files := $(shell find src -name '*.hpp')
 integ_test_files := $(shell find tests/integ -name '*.yml')
@@ -89,6 +90,11 @@ build/tests/unit.ok: ${unit_test_sentinels}
 	@lcov --quiet $(patsubst src/%.cpp,--add-tracefile build/tests/unit/%.coverage/lcov/info,$(filter-out ${untested_source_files},${source_files})) --output-file build/tests/unit.coverage/lcov/info
 	@genhtml --quiet --legend --demangle-cpp --show-details build/tests/unit.coverage/lcov/info --output-directory build/tests/unit.coverage/lcov
 
+	@${echo} "Report coverage: gcovr ... build/tests/unit.coverage/gcovr"
+	@rm -rf build/tests/unit.coverage/gcovr
+	@mkdir -p build/tests/unit.coverage/gcovr
+	@gcovr $(patsubst src/%.cpp,--add-tracefile build/tests/unit/%.coverage/gcovr/info.json,$(filter-out ${untested_source_files},${source_files})) --decisions --html-details build/tests/unit.coverage/gcovr/index.html --json build/tests/unit.coverage/gcovr/info.json
+
 	@touch $@
 
 gcov_prefix_strip := $(shell pwd | sed 's|/| |g' | wc -w | xargs expr 2 +)
@@ -102,14 +108,19 @@ build/tests/unit/%.ok: build/obj/%.o build/obj/test-main.o
 	@${echo} "Test (unit): build/tests/unit/$*"
 	@rm -rf build/tests/unit/$*.coverage/gcov
 	@GCOV_PREFIX=build/tests/unit/$*.coverage/gcov GCOV_PREFIX_STRIP=${gcov_prefix_strip} build/tests/unit/$* --minimal --source-file=src/$*.cpp
+	@find build/tests/unit/$*.coverage/gcov -name '*.gcda' | sed 's|\(build/tests/unit/$*.coverage/gcov/\(.*\)\).gcda|ln build/obj/\2.gcno \1.gcno|' | sh
 
 	@${echo} "Report coverage: genhtml ... build/tests/unit/$*.coverage/lcov"
 	@rm -rf build/tests/unit/$*.coverage/lcov
 	@mkdir -p build/tests/unit/$*.coverage/lcov
-	@find build/tests/unit/$*.coverage/gcov -name '*.gcda' | sed 's|\(build/tests/unit/$*.coverage/gcov/\(.*\)\).gcda|ln build/obj/\2.gcno \1.gcno|' | sh
 	@lcov --quiet --capture --directory build/tests/unit/$*.coverage/gcov --output-file build/tests/unit/$*.coverage/lcov/info
 	@lcov --quiet --extract build/tests/unit/$*.coverage/lcov/info "$$PWD/src/$*.*" --output-file build/tests/unit/$*.coverage/lcov/info
 	@genhtml --quiet --legend --demangle-cpp --show-details build/tests/unit/$*.coverage/lcov/info --output-directory build/tests/unit/$*.coverage/lcov
+
+	@${echo} "Report coverage: gcovr ... build/tests/unit/$*.coverage/gcovr"
+	@rm -rf build/tests/unit/$*.coverage/gcovr
+	@mkdir -p build/tests/unit/$*.coverage/gcovr
+	@(cd build/tests/unit/$*.coverage; cp -r ${root_directory}/src .; gcovr gcov --object-directory gcov --decisions --filter 'src/$*.*' --html-details gcovr/index.html --json gcovr/info.json; rm -r src)
 
 	@touch $@
 
@@ -133,6 +144,11 @@ build/tests/integ.ok: ${integ_test_sentinels}
 	@lcov --quiet $(patsubst %.yml,--add-tracefile build/%.coverage/lcov/info,${integ_test_files}) --output-file build/tests/integ.coverage/lcov/info
 	@genhtml --quiet --legend --demangle-cpp --show-details build/tests/integ.coverage/lcov/info --output-directory build/tests/integ.coverage/lcov
 
+	@${echo} "Report coverage: gcovr ... build/tests/integ.coverage/gcovr"
+	@rm -rf build/tests/integ.coverage/gcovr
+	@mkdir -p build/tests/integ.coverage/gcovr
+	@gcovr $(patsubst %.yml,--add-tracefile build/%.coverage/gcovr/info.json,${integ_test_files}) --decisions --html-details build/tests/integ.coverage/gcovr/index.html --json build/tests/integ.coverage/gcovr/info.json
+
 	@touch $@
 
 build/%.ok: %.yml build/bin/sudoku builder/run-integ-test.py
@@ -141,14 +157,19 @@ build/%.ok: %.yml build/bin/sudoku builder/run-integ-test.py
 	@${echo} "Test (integ): run-integ-test.py $<"
 	@rm -rf build/$*.coverage/gcov
 	@GCOV_PREFIX=build/$*.coverage/gcov GCOV_PREFIX_STRIP=${gcov_prefix_strip} builder/run-integ-test.py $<
+	@find build/$*.coverage/gcov -name '*.gcda' | sed 's|\(build/$*.coverage/gcov/\(.*\)\).gcda|ln build/obj/\2.gcno \1.gcno|' | sh
 
 	@${echo} "Report coverage: genhtml ... build/$*.coverage/lcov"
 	@rm -rf build/$*.coverage/lcov
 	@mkdir -p build/$*.coverage/lcov
-	@find build/$*.coverage/gcov -name '*.gcda' | sed 's|\(build/$*.coverage/gcov/\(.*\)\).gcda|ln build/obj/\2.gcno \1.gcno|' | sh
 	@lcov --quiet --capture --directory build/$*.coverage/gcov --output-file build/$*.coverage/lcov/info
 	@lcov --quiet --extract build/$*.coverage/lcov/info "$$PWD/src/*" --output-file build/$*.coverage/lcov/info
 	@genhtml --quiet --legend --demangle-cpp --show-details build/$*.coverage/lcov/info --output-directory build/$*.coverage/lcov
+
+	@${echo} "Report coverage: gcovr ... build/$*.coverage/gcovr"
+	@rm -rf build/$*.coverage/gcovr
+	@mkdir -p build/$*.coverage/gcovr
+	@(cd build/$*.coverage; cp -r ${root_directory}/src .; gcovr gcov --object-directory gcov --decisions --filter 'src/*' --html-details gcovr/index.html --json gcovr/info.json; rm -r src)
 
 	@touch $@
 
@@ -166,5 +187,10 @@ build/tests.ok: build/tests/unit.ok build/tests/integ.ok
 	@mkdir -p build/tests.coverage/lcov
 	@lcov --quiet $(patsubst %,--add-tracefile build/tests/%.coverage/lcov/info,unit integ) --output-file build/tests.coverage/lcov/info
 	@genhtml --quiet --legend --demangle-cpp --show-details build/tests.coverage/lcov/info --output-directory build/tests.coverage/lcov
+
+	@${echo} "Report coverage: gcovr ... build/tests.coverage/gcovr"
+	@rm -rf build/tests.coverage/gcovr
+	@mkdir -p build/tests.coverage/gcovr
+	@gcovr $(patsubst %,--add-tracefile build/tests/%.coverage/gcovr/info.json,unit integ) --decisions --html-details build/tests.coverage/gcovr/index.html --json build/tests.coverage/gcovr/info.json
 
 	@touch $@

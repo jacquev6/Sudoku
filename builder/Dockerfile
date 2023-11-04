@@ -86,6 +86,7 @@ ENV CCACHE_DIR=/ccache
 RUN --mount=type=cache,target=/root/.cache/pip,sharing=locked \
     pip3 install --break-system-packages \
       cpplint \
+      gcovr \
       PyYAML \
  && true
 
