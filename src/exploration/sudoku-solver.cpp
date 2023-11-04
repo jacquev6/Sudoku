@@ -253,9 +253,10 @@ io::Sudoku solve_using_exploration(
   try {
     propagate_and_explore(&sudoku, std::move(todo), add_event);
   } catch (NeedsBacktracking&) {
-    // Nothing to do, just return the unsolved Sudoku
+    return io::Sudoku();
   }
 
+  assert(sudoku.is_solved());
   io::Sudoku solved;
   for (auto cell : Sudoku::cells) {
     if (sudoku.is_set(cell)) {
