@@ -3,9 +3,9 @@
 #ifndef SAT_SUDOKU_SOLVER_HPP_
 #define SAT_SUDOKU_SOLVER_HPP_
 
-#include "../sudoku.hpp"
+#include "../io/sudoku.hpp"
 
 
-Sudoku solve_using_sat(Sudoku sudoku);
+io::Sudoku solve_using_sat(const io::Sudoku&);
 
 #endif  // SAT_SUDOKU_SOLVER_HPP_

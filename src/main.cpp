@@ -100,31 +100,31 @@ int main(int argc, char* argv[]) {
 
   CLI11_PARSE(app, argc, argv);
 
-  const Sudoku sudoku = ([input_path](){
+  const io::Sudoku sudoku = ([input_path](){
     if (input_path == "-") {
-      return Sudoku::load(std::cin);
+      return io::Sudoku::load(std::cin);
     } else {
       // Race condition: the input file could have been deleted since 'CLI11_PARSE' checked. Risk accepted.
       std::ifstream input(input_path);
       assert(input.is_open());
-      return Sudoku::load(input);
+      return io::Sudoku::load(input);
     }
   })();
 
   if (solve->parsed()) {
     if (use_sat) {
-      const Sudoku solved = solve_using_sat(sudoku);
+      const io::Sudoku solved = solve_using_sat(sudoku);
 
-      if (solved.is_solved()) {
+      if (solved.is_all_set()) {
         solved.dump(std::cout);
       } else {
         std::cerr << "FAILED to solve this Sudoku using SAT" << std::endl;
         return 1;
       }
     } else {
-      const Sudoku solved = solve_using_exploration(sudoku);
+      const io::Sudoku solved = solve_using_exploration(sudoku);
 
-      if (solved.is_solved()) {
+      if (solved.is_all_set()) {
         solved.dump(std::cout);
       } else {
         std::cerr << "FAILED to solve this Sudoku using exploration" << std::endl;
@@ -133,13 +133,13 @@ int main(int argc, char* argv[]) {
     }
   } else if (explain->parsed()) {
     std::vector<std::unique_ptr<exploration::Event>> events;
-    const Sudoku solved = solve_using_exploration(
+    const io::Sudoku solved = solve_using_exploration(
       sudoku,
       [&events](std::unique_ptr<exploration::Event> event) {
         events.push_back(std::move(event));
       });
 
-    if (solved.is_solved()) {
+    if (solved.is_all_set()) {
       std::vector<std::unique_ptr<exploration::EventVisitor>> event_visitors;
 
       if (!text_path && !html_path && !html_text_path && !video_path && !video_frames_path && !video_text_path) {

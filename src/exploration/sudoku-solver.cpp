@@ -235,15 +235,18 @@ void propagate_and_explore(
 }
 
 
-Sudoku solve_using_exploration(
-  Sudoku sudoku,
+io::Sudoku solve_using_exploration(
+  const io::Sudoku& input,
   const std::function<void(std::unique_ptr<exploration::Event>)>& add_event
 ) {
+  Sudoku sudoku;
   std::set<Sudoku::Coordinates> todo;
   for (auto cell : Sudoku::cells) {
-    if (sudoku.is_set(cell)) {
+    const auto val = input.get(cell);
+    if (val) {
+      sudoku.set(cell, *val);
       todo.insert(cell);
-      add_event(std::make_unique<exploration::CellIsSetInInput>(cell, sudoku.get(cell)));
+      add_event(std::make_unique<exploration::CellIsSetInInput>(cell, *val));
     }
   }
   add_event(std::make_unique<exploration::InputsAreDone>());
@@ -253,5 +256,11 @@ Sudoku solve_using_exploration(
     // Nothing to do, just return the unsolved Sudoku
   }
 
-  return sudoku;
+  io::Sudoku solved;
+  for (auto cell : Sudoku::cells) {
+    if (sudoku.is_set(cell)) {
+      solved.set(cell, sudoku.get(cell));
+    }
+  }
+  return solved;
 }

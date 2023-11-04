@@ -113,6 +113,8 @@ build/tests/unit/%.ok: build/obj/%.o build/obj/test-main.o
 
 build/tests/unit/explanation/html-explainer.ok: build/obj/explanation/art.o
 build/tests/unit/explanation/video/video-explainer.ok: build/obj/explanation/art.o
+build/tests/unit/exploration/sudoku-solver.ok: build/obj/io/sudoku.o
+build/tests/unit/sat/sudoku-solver.ok: build/obj/io/sudoku.o
 
 
 # Integ tests

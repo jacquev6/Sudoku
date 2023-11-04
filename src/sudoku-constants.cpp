@@ -3,18 +3,18 @@
 #include "sudoku-constants.hpp"
 
 
-static_assert(SudokuConstantsMaker<4>::make_values() == decltype(SudokuConstantsMaker<4>::make_values()){
+static_assert(SudokuConstantsT<4>::values == decltype(SudokuConstantsT<4>::values){
   0, 1, 2, 3
 });
 
-static_assert(SudokuConstantsMaker<4>::make_cells() == decltype(SudokuConstantsMaker<4>::make_cells()){{
+static_assert(SudokuConstantsT<4>::cells == decltype(SudokuConstantsT<4>::cells){{
   {0, 0}, {0, 1}, {0, 2}, {0, 3},
   {1, 0}, {1, 1}, {1, 2}, {1, 3},
   {2, 0}, {2, 1}, {2, 2}, {2, 3},
   {3, 0}, {3, 1}, {3, 2}, {3, 3},
 }});
 
-static_assert(SudokuConstantsMaker<4>::make_regions() == decltype(SudokuConstantsMaker<4>::make_regions()){{
+static_assert(SudokuConstantsT<4>::regions == decltype(SudokuConstantsT<4>::regions){{
   // Rows
   {{{0, 0}, {0, 1}, {0, 2}, {0, 3}}},
   {{{1, 0}, {1, 1}, {1, 2}, {1, 3}}},
@@ -32,7 +32,7 @@ static_assert(SudokuConstantsMaker<4>::make_regions() == decltype(SudokuConstant
   {{{2, 2}, {2, 3}, {3, 2}, {3, 3}}},
 }});
 
-static_assert(SudokuConstantsMaker<9>::make_regions() == decltype(SudokuConstantsMaker<9>::make_regions()){{
+static_assert(SudokuConstantsT<9>::regions == decltype(SudokuConstantsT<9>::regions){{
   // Rows
   {{{0, 0}, {0, 1}, {0, 2}, {0, 3}, {0, 4}, {0, 5}, {0, 6}, {0, 7}, {0, 8}}},
   {{{1, 0}, {1, 1}, {1, 2}, {1, 3}, {1, 4}, {1, 5}, {1, 6}, {1, 7}, {1, 8}}},
@@ -65,14 +65,14 @@ static_assert(SudokuConstantsMaker<9>::make_regions() == decltype(SudokuConstant
   {{{6, 6}, {6, 7}, {6, 8}, {7, 6}, {7, 7}, {7, 8}, {8, 6}, {8, 7}, {8, 8}}},
 }});
 
-static_assert(SudokuConstantsMaker<4>::make_regions_of() == decltype(SudokuConstantsMaker<4>::make_regions_of()){{
+static_assert(SudokuConstantsT<4>::regions_of == decltype(SudokuConstantsT<4>::regions_of){{
   {{{0, 4, 8}, {0, 5, 8}, {0, 6, 9}, {0, 7, 9}}},
   {{{1, 4, 8}, {1, 5, 8}, {1, 6, 9}, {1, 7, 9}}},
   {{{2, 4, 10}, {2, 5, 10}, {2, 6, 11}, {2, 7, 11}}},
   {{{3, 4, 10}, {3, 5, 10}, {3, 6, 11}, {3, 7, 11}}},
 }});
 
-static_assert(SudokuConstantsMaker<9>::make_regions_of() == decltype(SudokuConstantsMaker<9>::make_regions_of()){{
+static_assert(SudokuConstantsT<9>::regions_of == decltype(SudokuConstantsT<9>::regions_of){{
   {{
     {0, 9, 18}, {0, 10, 18}, {0, 11, 18}, {0, 12, 19}, {0, 13, 19}, {0, 14, 19}, {0, 15, 20}, {0, 16, 20}, {0, 17, 20}
   }},

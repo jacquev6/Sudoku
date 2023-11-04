@@ -6,25 +6,14 @@
 #include <array>
 #include <bitset>
 #include <cassert>
-#include <iostream>
 #include <optional>
 #include <string>
 #include <utility>
 
-#include "sudoku-constants.hpp"
+#include "../sudoku-constants.hpp"
 
 
-class Sudoku {
- public:
-  typedef std::pair<unsigned, unsigned> Coordinates;
-
- public:
-  static constexpr unsigned size = 9;
-  static constexpr auto values = SudokuConstantsMaker<size>::make_values();
-  static constexpr auto cells = SudokuConstantsMaker<size>::make_cells();
-  static constexpr auto regions = SudokuConstantsMaker<size>::make_regions();
-  static constexpr auto regions_of = SudokuConstantsMaker<size>::make_regions_of();
-
+class Sudoku : public SudokuConstants {
  public:
   Sudoku() : allowed_values(), set_values() {
     for (unsigned row : values) {
@@ -42,39 +31,6 @@ class Sudoku {
   Sudoku& operator=(Sudoku&&) = default;
 
   ~Sudoku() = default;
-
- public:
-  static Sudoku load(std::istream& is) {
-    Sudoku sudoku;
-
-    std::string line;
-    // @todo Improve robustness to malformed inputs
-    for (const unsigned row : Sudoku::values) {
-      std::getline(is, line);
-
-      for (const unsigned col : Sudoku::values) {
-        const char c = line[col];
-        if (c >= '1' && c <= '9') {
-          sudoku.set({row, col}, c - '1');
-        }
-      }
-    }
-
-    return sudoku;
-  }
-
-  void dump(std::ostream& os) const {
-    for (const unsigned row : values) {
-      for (const unsigned col : values) {
-        if (is_set({row, col})) {
-          os << get({row, col}) + 1;
-        } else {
-          os << '.';
-        }
-      }
-      os << '\n';
-    }
-  }
 
  public:
   bool is_solved() const {

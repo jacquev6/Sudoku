@@ -7,8 +7,9 @@
 #include <utility>
 
 
-template<unsigned size>
-class SudokuConstantsMaker {
+template<unsigned size_>
+class SudokuConstantsT {
+ private:
   // Square root heavily inspired by
   // https://baptiste-wicht.com/posts/2014/07/compile-integer-square-roots-at-compile-time-in-cpp.html
   static constexpr unsigned sqrt(unsigned res, unsigned l, unsigned r) {
@@ -28,11 +29,11 @@ class SudokuConstantsMaker {
     return sqrt(res, 1, res);
   }
 
-  static constexpr unsigned sqrt_size = sqrt(size);
+  static constexpr unsigned sqrt_size = sqrt(size_);
 
-  static_assert(sqrt_size * sqrt_size == size, "'size' must be a perfect square");
+  static_assert(sqrt_size * sqrt_size == size_, "'size' must be a perfect square");
 
- public:
+ private:
   static constexpr auto make_values() {
     std::array<unsigned, size> values;
     for (unsigned i = 0; i != size; ++i) {
@@ -90,6 +91,17 @@ class SudokuConstantsMaker {
     }
     return regions_of;
   }
+
+ public:
+  typedef std::pair<unsigned, unsigned> Coordinates;
+
+  static constexpr unsigned size = size_;
+  static constexpr auto values = make_values();
+  static constexpr auto cells = make_cells();
+  static constexpr auto regions = make_regions();
+  static constexpr auto regions_of = make_regions_of();
 };
+
+typedef SudokuConstantsT<9> SudokuConstants;
 
 #endif  // SUDOKU_CONSTANTS_HPP_

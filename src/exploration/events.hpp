@@ -5,7 +5,7 @@
 
 #include <vector>
 
-#include "../sudoku.hpp"
+#include "sudoku.hpp"
 
 
 namespace exploration {

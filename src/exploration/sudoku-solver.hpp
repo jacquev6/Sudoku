@@ -6,12 +6,12 @@
 #include <functional>
 #include <memory>
 
-#include "../sudoku.hpp"
+#include "../io/sudoku.hpp"
 #include "events.hpp"
 
 
-Sudoku solve_using_exploration(
-  Sudoku,
+io::Sudoku solve_using_exploration(
+  const io::Sudoku&,
   const std::function<void(std::unique_ptr<exploration::Event>)>& = [](std::unique_ptr<exploration::Event>) {});
 
 #endif  // EXPLORATION_SUDOKU_SOLVER_HPP_
