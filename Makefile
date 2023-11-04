@@ -73,35 +73,44 @@ build/bin/sudoku: ${object_files}
 
 # Unit tests
 
+untested_source_files := src/main.cpp src/sudoku.cpp src/explanation/video/video-serializer.cpp src/explanation/video/video-video-serializer.cpp src/explanation/video/frames-video-serializer.cpp src/explanation/follower.cpp src/explanation/text-explainer.cpp src/sudoku-constants.cpp
+
 .PHONY: test-unit
 test-unit: build/tests/unit.ok
 
-unit_test_sentinels := $(patsubst src/%.cpp,build/tests/unit/%.ok,$(filter-out src/main.cpp,${source_files}))
+unit_test_sentinels := $(patsubst src/%.cpp,build/tests/unit/%.ok,$(filter-out ${untested_source_files},${source_files}))
 
 build/tests/unit.ok: ${unit_test_sentinels}
-	@${echo} "Report coverage: genhtml ... build/tests/unit.coverage"
-	@rm -rf build/tests/unit.coverage
-	@mkdir build/tests/unit.coverage
-	@lcov $(patsubst src/%.cpp,--add-tracefile build/tests/unit/%.coverage/lcov.info,$(filter-out src/main.cpp src/sudoku.cpp src/explanation/video/video-serializer.cpp src/explanation/video/video-video-serializer.cpp src/explanation/video/frames-video-serializer.cpp src/explanation/follower.cpp src/explanation/text-explainer.cpp src/sudoku-constants.cpp,${source_files})) --output-file build/tests/unit.coverage/lcov.info >/dev/null 2>&1 || true
-	@genhtml --quiet --legend --demangle-cpp --show-details build/tests/unit.coverage/lcov.info --output-directory build/tests/unit.coverage >/dev/null 2>&1 || true
+	@mkdir -p ${@D}
+
+	@${echo} "Report coverage: genhtml ... build/tests/unit.coverage/lcov"
+	@rm -rf build/tests/unit.coverage/lcov
+	@mkdir -p build/tests/unit.coverage/lcov
+	@lcov --quiet $(patsubst src/%.cpp,--add-tracefile build/tests/unit/%.coverage/lcov/info,$(filter-out ${untested_source_files},${source_files})) --output-file build/tests/unit.coverage/lcov/info
+	@genhtml --quiet --legend --demangle-cpp --show-details build/tests/unit.coverage/lcov/info --output-directory build/tests/unit.coverage/lcov
+
 	@touch $@
 
 gcov_prefix_strip := $(shell pwd | sed 's|/| |g' | wc -w | xargs expr 2 +)
 
 build/tests/unit/%.ok: build/obj/%.o build/obj/test-main.o
-	@${echo} "Link: g++ ... -o build/tests/unit/$*"
 	@mkdir -p ${@D}
+
+	@${echo} "Link: g++ ... -o build/tests/unit/$*"
 	@g++ -g --coverage $^ $$(pkg-config cairomm-1.16 libavutil libavcodec --libs) -lminisat -o build/tests/unit/$*
 
 	@${echo} "Test (unit): build/tests/unit/$*"
-	@rm -rf build/tests/unit/$*.coverage
-	@GCOV_PREFIX=build/tests/unit/$*.coverage GCOV_PREFIX_STRIP=${gcov_prefix_strip} build/tests/unit/$* --minimal --source-file=src/$*.cpp
+	@rm -rf build/tests/unit/$*.coverage/gcov
+	@GCOV_PREFIX=build/tests/unit/$*.coverage/gcov GCOV_PREFIX_STRIP=${gcov_prefix_strip} build/tests/unit/$* --minimal --source-file=src/$*.cpp
 
-	@${echo} "Report coverage: genhtml ... build/tests/unit/$*.coverage"
-	@find build/tests/unit/$*.coverage -name '*.gcda' | sed 's|\(build/tests/unit/$*.coverage/\(.*\)\).gcda|ln build/obj/\2.gcno \1.gcno|' | sh
-	@lcov --quiet --capture --directory build/tests/unit/$*.coverage --output-file build/tests/unit/$*.coverage/lcov.info >/dev/null 2>&1 || true
-	@lcov --quiet --extract build/tests/unit/$*.coverage/lcov.info "$$PWD/src/$*.*" --output-file build/tests/unit/$*.coverage/lcov.info >/dev/null 2>&1 || true
-	@genhtml --quiet --legend --demangle-cpp --show-details build/tests/unit/$*.coverage/lcov.info --output-directory build/tests/unit/$*.coverage >/dev/null 2>&1 || true
+	@${echo} "Report coverage: genhtml ... build/tests/unit/$*.coverage/lcov"
+	@rm -rf build/tests/unit/$*.coverage/lcov
+	@mkdir -p build/tests/unit/$*.coverage/lcov
+	@find build/tests/unit/$*.coverage/gcov -name '*.gcda' | sed 's|\(build/tests/unit/$*.coverage/gcov/\(.*\)\).gcda|ln build/obj/\2.gcno \1.gcno|' | sh
+	@lcov --quiet --capture --directory build/tests/unit/$*.coverage/gcov --output-file build/tests/unit/$*.coverage/lcov/info
+	@lcov --quiet --extract build/tests/unit/$*.coverage/lcov/info "$$PWD/src/$*.*" --output-file build/tests/unit/$*.coverage/lcov/info
+	@genhtml --quiet --legend --demangle-cpp --show-details build/tests/unit/$*.coverage/lcov/info --output-directory build/tests/unit/$*.coverage/lcov
+
 	@touch $@
 
 build/tests/unit/explanation/html-explainer.ok: build/obj/explanation/art.o
@@ -116,24 +125,31 @@ test-integ: build/tests/integ.ok
 integ_test_sentinels := $(patsubst %.yml,build/%.ok,${integ_test_files})
 
 build/tests/integ.ok: ${integ_test_sentinels}
-	@${echo} "Report coverage: genhtml ... build/tests/integ.coverage"
-	@rm -rf build/tests/integ.coverage
-	@mkdir build/tests/integ.coverage
-	@lcov $(patsubst %.yml,--add-tracefile build/%.coverage/lcov.info,${integ_test_files}) --output-file build/tests/integ.coverage/lcov.info >/dev/null 2>&1 || true
-	@genhtml --quiet --legend --demangle-cpp --show-details build/tests/integ.coverage/lcov.info --output-directory build/tests/integ.coverage >/dev/null 2>&1 || true
+	@mkdir -p ${@D}
+
+	@${echo} "Report coverage: genhtml ... build/tests/integ.coverage/lcov"
+	@rm -rf build/tests/integ.coverage/lcov
+	@mkdir -p build/tests/integ.coverage/lcov
+	@lcov --quiet $(patsubst %.yml,--add-tracefile build/%.coverage/lcov/info,${integ_test_files}) --output-file build/tests/integ.coverage/lcov/info
+	@genhtml --quiet --legend --demangle-cpp --show-details build/tests/integ.coverage/lcov/info --output-directory build/tests/integ.coverage/lcov
+
 	@touch $@
 
 build/%.ok: %.yml build/bin/sudoku builder/run-integ-test.py
-	@${echo} "Test (integ): run-integ-test.py $<"
 	@mkdir -p ${@D}
-	@rm -rf build/$*.coverage
-	@GCOV_PREFIX=build/$*.coverage GCOV_PREFIX_STRIP=${gcov_prefix_strip} builder/run-integ-test.py $<
 
-	@${echo} "Report coverage: genhtml ... build/$*.coverage"
-	@find build/$*.coverage -name '*.gcda' | sed 's|\(build/$*.coverage/\(.*\)\).gcda|ln build/obj/\2.gcno \1.gcno|' | sh
-	@lcov --quiet --capture --directory build/$*.coverage --output-file build/$*.coverage/lcov.info >/dev/null 2>&1 || true
-	@lcov --quiet --extract build/$*.coverage/lcov.info "$$PWD/src/*" --output-file build/$*.coverage/lcov.info >/dev/null 2>&1 || true
-	@genhtml --quiet --legend --demangle-cpp --show-details build/$*.coverage/lcov.info --output-directory build/$*.coverage >/dev/null 2>&1 || true
+	@${echo} "Test (integ): run-integ-test.py $<"
+	@rm -rf build/$*.coverage/gcov
+	@GCOV_PREFIX=build/$*.coverage/gcov GCOV_PREFIX_STRIP=${gcov_prefix_strip} builder/run-integ-test.py $<
+
+	@${echo} "Report coverage: genhtml ... build/$*.coverage/lcov"
+	@rm -rf build/$*.coverage/lcov
+	@mkdir -p build/$*.coverage/lcov
+	@find build/$*.coverage/gcov -name '*.gcda' | sed 's|\(build/$*.coverage/gcov/\(.*\)\).gcda|ln build/obj/\2.gcno \1.gcno|' | sh
+	@lcov --quiet --capture --directory build/$*.coverage/gcov --output-file build/$*.coverage/lcov/info
+	@lcov --quiet --extract build/$*.coverage/lcov/info "$$PWD/src/*" --output-file build/$*.coverage/lcov/info
+	@genhtml --quiet --legend --demangle-cpp --show-details build/$*.coverage/lcov/info --output-directory build/$*.coverage/lcov
+
 	@touch $@
 
 
@@ -142,10 +158,13 @@ build/%.ok: %.yml build/bin/sudoku builder/run-integ-test.py
 .PHONY: test
 test: build/tests.ok
 
-build/tests.ok: test-unit test-integ
-	@${echo} "Report coverage: genhtml ... build/tests.coverage"
-	@rm -rf build/tests.coverage
-	@mkdir build/tests.coverage
-	@lcov $(patsubst %,--add-tracefile build/tests/%.coverage/lcov.info,unit integ) --output-file build/tests.coverage/lcov.info >/dev/null 2>&1 || true
-	@genhtml --quiet --legend --demangle-cpp --show-details build/tests.coverage/lcov.info --output-directory build/tests.coverage >/dev/null 2>&1 || true
+build/tests.ok: build/tests/unit.ok build/tests/integ.ok
+	@mkdir -p ${@D}
+
+	@${echo} "Report coverage: genhtml ... build/tests.coverage/lcov"
+	@rm -rf build/tests.coverage/lcov
+	@mkdir -p build/tests.coverage/lcov
+	@lcov --quiet $(patsubst %,--add-tracefile build/tests/%.coverage/lcov/info,unit integ) --output-file build/tests.coverage/lcov/info
+	@genhtml --quiet --legend --demangle-cpp --show-details build/tests.coverage/lcov/info --output-directory build/tests.coverage/lcov
+
 	@touch $@
