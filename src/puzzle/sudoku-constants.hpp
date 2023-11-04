@@ -1,7 +1,7 @@
 // Copyright 2023 Vincent Jacques
 
-#ifndef SUDOKU_CONSTANTS_HPP_
-#define SUDOKU_CONSTANTS_HPP_
+#ifndef PUZZLE_SUDOKU_CONSTANTS_HPP_
+#define PUZZLE_SUDOKU_CONSTANTS_HPP_
 
 #include <array>
 #include <utility>
@@ -104,4 +104,4 @@ class SudokuConstantsT {
 
 typedef SudokuConstantsT<9> SudokuConstants;
 
-#endif  // SUDOKU_CONSTANTS_HPP_
+#endif  // PUZZLE_SUDOKU_CONSTANTS_HPP_

@@ -3,7 +3,7 @@
 #ifndef SAT_SUDOKU_SOLVER_HPP_
 #define SAT_SUDOKU_SOLVER_HPP_
 
-#include "../io/sudoku.hpp"
+#include "../puzzle/sudoku.hpp"
 
 
 io::Sudoku solve_using_sat(io::Sudoku);

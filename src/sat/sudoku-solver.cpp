@@ -4,7 +4,7 @@
 
 #include <minisat/simp/SimpSolver.h>
 
-#include "../sudoku-constants.hpp"
+#include "../puzzle/sudoku-constants.hpp"
 
 
 io::Sudoku solve_using_sat(io::Sudoku sudoku) {

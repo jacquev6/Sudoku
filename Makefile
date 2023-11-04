@@ -111,11 +111,12 @@ build/tests/unit/%.ok: build/obj/%.o build/obj/test-main.o
 	@find build/tests/unit/$*.coverage/gcov -name '*.gcda' | sed 's|\(build/tests/unit/$*.coverage/gcov/\(.*\)\).gcda|ln build/obj/\2.gcno \1.gcno|' | sh
 	@touch $@
 
-build/tests/unit/check.ok: build/obj/io/sudoku.o
-build/tests/unit/explanation/html-explainer.ok: build/obj/explanation/art.o
-build/tests/unit/explanation/video/video-explainer.ok: build/obj/explanation/art.o
-build/tests/unit/exploration/sudoku-solver.ok: build/obj/io/sudoku.o
-build/tests/unit/sat/sudoku-solver.ok: build/obj/io/sudoku.o
+# Using 'filter' to get an error if a source file is removed but the object file is still in 'build'
+build/tests/unit/explanation/html-explainer.ok: $(filter build/obj/explanation/art.o,${object_files})
+build/tests/unit/explanation/video/video-explainer.ok: $(filter build/obj/explanation/art.o,${object_files})
+build/tests/unit/exploration/sudoku-solver.ok: $(filter build/obj/puzzle/sudoku.o,${object_files})
+build/tests/unit/puzzle/check.ok: $(filter build/obj/puzzle/sudoku.o,${object_files})
+build/tests/unit/sat/sudoku-solver.ok: $(filter build/obj/puzzle/sudoku.o,${object_files})
 
 # Integ tests
 

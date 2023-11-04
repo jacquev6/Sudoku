@@ -2,13 +2,13 @@
 
 #include <CLI11.hpp>
 
-#include "check.hpp"
 #include "explanation/html-explainer.hpp"
 #include "explanation/text-explainer.hpp"
 #include "explanation/video/frames-video-serializer.hpp"
 #include "explanation/video/video-explainer.hpp"
 #include "explanation/video/video-video-serializer.hpp"
 #include "exploration/sudoku-solver.hpp"
+#include "puzzle/check.hpp"
 #include "sat/sudoku-solver.hpp"
 
 #define DOCTEST_CONFIG_IMPLEMENT

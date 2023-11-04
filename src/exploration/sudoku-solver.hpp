@@ -6,7 +6,7 @@
 #include <functional>
 #include <memory>
 
-#include "../io/sudoku.hpp"
+#include "../puzzle/sudoku.hpp"
 #include "events.hpp"
 
 

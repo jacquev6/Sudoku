@@ -10,7 +10,7 @@
 #include <string>
 #include <utility>
 
-#include "../sudoku-constants.hpp"
+#include "../puzzle/sudoku-constants.hpp"
 
 
 class Sudoku : public SudokuConstants {

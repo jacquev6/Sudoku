@@ -4,8 +4,6 @@
 
 #include <cassert>
 
-#include "../sudoku-constants.hpp"
-
 
 namespace io {
 

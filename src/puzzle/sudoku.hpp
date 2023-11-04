@@ -1,14 +1,14 @@
 // Copyright 2023 Vincent Jacques
 
-#ifndef IO_SUDOKU_HPP_
-#define IO_SUDOKU_HPP_
+#ifndef PUZZLE_SUDOKU_HPP_
+#define PUZZLE_SUDOKU_HPP_
 
 #include <array>
 #include <iostream>
 #include <optional>
 #include <string>
 
-#include "../sudoku-constants.hpp"
+#include "sudoku-constants.hpp"
 
 
 namespace io {
@@ -43,4 +43,4 @@ class Sudoku {
 
 }  // namespace io
 
-#endif  // IO_SUDOKU_HPP_
+#endif  // PUZZLE_SUDOKU_HPP_
