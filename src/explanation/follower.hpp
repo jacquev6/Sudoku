@@ -10,6 +10,7 @@
 #include "../exploration/events.hpp"
 
 
+// @todo Remove this class: this should be a feature of the events themselves, not done through the visitor.
 // Apply events to a Sudoku and keep track of the state.
 class Follower : public exploration::EventVisitor {
  public:
