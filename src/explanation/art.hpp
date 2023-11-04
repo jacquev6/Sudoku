@@ -8,7 +8,7 @@
 #include <tuple>
 #include <vector>
 
-#include "follower.hpp"
+#include "../exploration/follower.hpp"
 
 
 namespace Cairo {

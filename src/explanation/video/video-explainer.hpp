@@ -13,7 +13,7 @@
 #include <vector>
 
 #include "../../exploration/events.hpp"
-#include "../follower.hpp"
+#include "../../exploration/follower.hpp"
 #include "video-serializer.hpp"
 
 

@@ -7,7 +7,7 @@
 #include <fstream>
 
 #include "../exploration/events.hpp"
-#include "follower.hpp"
+#include "../exploration/follower.hpp"
 
 
 class HtmlExplainer : public exploration::EventVisitor {
