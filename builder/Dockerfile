@@ -38,6 +38,15 @@ FROM download AS download-icecream
 RUN wget https://github.com/renatoGarcia/icecream-cpp/raw/fc3a8edcf174d27d8c8628bb68fbe8bca86e8275/icecream.hpp
 
 
+# Work around https://bugs.launchpad.net/ubuntu/+source/lcov/+bug/2002238
+FROM download AS download-lcov
+
+RUN set -x \
+ && mkdir lcov \
+ && cd lcov \
+ && wget https://github.com/linux-test-project/lcov/releases/download/v1.16/lcov-1.16.tar.gz -O - | tar -xz --strip-components=1
+
+
 FROM download AS download-minisat
 
 RUN set -x \
@@ -57,10 +66,10 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
       ccache \
       g++ \
       gdb \
-      lcov \
       libavcodec-dev \
       libboost-dev \
       make \
+      perl \
       pkg-config \
       python3-pip \
  && true
@@ -88,6 +97,11 @@ RUN --mount=type=bind,from=download-doctest,source=/download,target=/download \
 
 RUN --mount=type=bind,from=download-icecream,source=/download,target=/download \
     cp /download/icecream.hpp /usr/local/include
+
+RUN --mount=type=bind,from=download-lcov,source=/download,target=/download \
+    set -x \
+ && cd /download/lcov \
+ && make install
 
 RUN --mount=type=cache,target=/ccache \
     --mount=type=bind,from=download-minisat,source=/download,target=/download,rw \
