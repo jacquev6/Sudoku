@@ -37,10 +37,6 @@ class Sudoku {
   void set(const Coordinates& cell, unsigned value);
   std::optional<unsigned> get(const Coordinates& cell) const;
 
- public:
-  // @todo Remove, add an 'is_solved' free function in 'checker.hpp'/'.cpp'
-  bool is_all_set() const;
-
  private:
   std::array<std::array<std::optional<unsigned>, size>, size> cells;
 };

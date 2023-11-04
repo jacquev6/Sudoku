@@ -111,11 +111,11 @@ build/tests/unit/%.ok: build/obj/%.o build/obj/test-main.o
 	@find build/tests/unit/$*.coverage/gcov -name '*.gcda' | sed 's|\(build/tests/unit/$*.coverage/gcov/\(.*\)\).gcda|ln build/obj/\2.gcno \1.gcno|' | sh
 	@touch $@
 
+build/tests/unit/check.ok: build/obj/io/sudoku.o
 build/tests/unit/explanation/html-explainer.ok: build/obj/explanation/art.o
 build/tests/unit/explanation/video/video-explainer.ok: build/obj/explanation/art.o
 build/tests/unit/exploration/sudoku-solver.ok: build/obj/io/sudoku.o
 build/tests/unit/sat/sudoku-solver.ok: build/obj/io/sudoku.o
-
 
 # Integ tests
 

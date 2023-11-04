@@ -2,6 +2,7 @@
 
 #include <CLI11.hpp>
 
+#include "check.hpp"
 #include "explanation/html-explainer.hpp"
 #include "explanation/text-explainer.hpp"
 #include "explanation/video/frames-video-serializer.hpp"
@@ -115,7 +116,7 @@ int main(int argc, char* argv[]) {
     if (use_sat) {
       const io::Sudoku solved = solve_using_sat(sudoku);
 
-      if (solved.is_all_set()) {
+      if (is_solved(solved)) {
         solved.dump(std::cout);
       } else {
         std::cerr << "FAILED to solve this Sudoku using SAT" << std::endl;
@@ -124,7 +125,7 @@ int main(int argc, char* argv[]) {
     } else {
       const io::Sudoku solved = solve_using_exploration(sudoku);
 
-      if (solved.is_all_set()) {
+      if (is_solved(solved)) {
         solved.dump(std::cout);
       } else {
         std::cerr << "FAILED to solve this Sudoku using exploration" << std::endl;
@@ -139,7 +140,7 @@ int main(int argc, char* argv[]) {
         events.push_back(std::move(event));
       });
 
-    if (solved.is_all_set()) {
+    if (is_solved(solved)) {
       std::vector<std::unique_ptr<exploration::EventVisitor>> event_visitors;
 
       if (!text_path && !html_path && !html_text_path && !video_path && !video_frames_path && !video_text_path) {

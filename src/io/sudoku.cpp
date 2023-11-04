@@ -14,6 +14,7 @@ void Sudoku::set(const Coordinates& cell, unsigned val) {
   assert(row < size);
   assert(col < size);
   assert(val < size);
+  assert(!cells[row][col] || *cells[row][col] == val);
   cells[row][col] = val;
 }
 
@@ -55,17 +56,6 @@ void Sudoku::dump(std::ostream& os) const {
     }
     os << '\n';
   }
-}
-
-bool Sudoku::is_all_set() const {
-  for (const unsigned row : SudokuConstants::values) {
-    for (const unsigned col : SudokuConstants::values) {
-      if (!get({row, col})) {
-        return false;
-      }
-    }
-  }
-  return true;
 }
 
 }  // namespace io

@@ -6,6 +6,6 @@
 #include "../io/sudoku.hpp"
 
 
-io::Sudoku solve_using_sat(const io::Sudoku&);
+io::Sudoku solve_using_sat(io::Sudoku);
 
 #endif  // SAT_SUDOKU_SOLVER_HPP_

@@ -11,7 +11,7 @@
 
 
 io::Sudoku solve_using_exploration(
-  const io::Sudoku&,
+  io::Sudoku,
   const std::function<void(std::unique_ptr<exploration::Event>)>& = [](std::unique_ptr<exploration::Event>) {});
 
 #endif  // EXPLORATION_SUDOKU_SOLVER_HPP_

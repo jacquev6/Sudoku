@@ -7,7 +7,7 @@
 #include "../sudoku-constants.hpp"
 
 
-io::Sudoku solve_using_sat(const io::Sudoku& sudoku) {
+io::Sudoku solve_using_sat(io::Sudoku sudoku) {
   Minisat::SimpSolver solver;
 
   std::array<std::array<std::array<Minisat::Var, SudokuConstants::size>, SudokuConstants::size>, SudokuConstants::size> has_value;
@@ -70,21 +70,17 @@ io::Sudoku solve_using_sat(const io::Sudoku& sudoku) {
     }
   }
 
-  io::Sudoku solved;
-
   Minisat::vec<Minisat::Lit> dummy;
-  const auto ret = solver.solveLimited(dummy);
-  if (ret == Minisat::l_True) {
-    for (const unsigned row : SudokuConstants::values) {
-      for (const unsigned col : SudokuConstants::values) {
-        for (const unsigned val : SudokuConstants::values) {
-          if (solver.model[has_value[row][col][val]] == Minisat::l_True) {
-            solved.set({row, col}, val);
-          }
+  if (solver.solveLimited(dummy) == Minisat::l_True) {
+    for (const auto& cell : SudokuConstants::cells) {
+      const auto [row, col] = cell;
+      for (const unsigned val : SudokuConstants::values) {
+        if (solver.model[has_value[row][col][val]] == Minisat::l_True) {
+          sudoku.set({row, col}, val);
         }
       }
     }
   }
 
-  return solved;
+  return sudoku;
 }
