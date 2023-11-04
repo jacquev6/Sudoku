@@ -1,7 +1,7 @@
 // Copyright 2023 Vincent Jacques
 
-#ifndef SUDOKU_HPP_
-#define SUDOKU_HPP_
+#ifndef EXPLORATION_SUDOKU_HPP_
+#define EXPLORATION_SUDOKU_HPP_
 
 #include <array>
 #include <bitset>
@@ -135,4 +135,4 @@ class Sudoku : public SudokuConstants {
   std::array<std::array<std::optional<unsigned>, size>, size> set_values;
 };
 
-#endif  // SUDOKU_HPP_
+#endif  // EXPLORATION_SUDOKU_HPP_

@@ -1,7 +1,7 @@
 // Copyright 2023 Vincent Jacques
 
-#ifndef EXPLANATION_FOLLOWER_HPP_
-#define EXPLANATION_FOLLOWER_HPP_
+#ifndef EXPLORATION_FOLLOWER_HPP_
+#define EXPLORATION_FOLLOWER_HPP_
 
 #include <list>
 #include <set>
@@ -125,4 +125,4 @@ class Follower : public exploration::EventVisitor {
   std::list<State> stack;
 };
 
-#endif  // EXPLANATION_FOLLOWER_HPP_
+#endif  // EXPLORATION_FOLLOWER_HPP_

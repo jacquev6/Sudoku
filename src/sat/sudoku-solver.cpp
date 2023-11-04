@@ -10,7 +10,8 @@
 io::Sudoku solve_using_sat(io::Sudoku sudoku) {
   Minisat::SimpSolver solver;
 
-  std::array<std::array<std::array<Minisat::Var, SudokuConstants::size>, SudokuConstants::size>, SudokuConstants::size> has_value;
+  std::array<std::array<std::array<Minisat::Var,
+    SudokuConstants::size>, SudokuConstants::size>, SudokuConstants::size> has_value;
   for (const unsigned row : SudokuConstants::values) {
     for (const unsigned col : SudokuConstants::values) {
       for (const unsigned val : SudokuConstants::values) {
