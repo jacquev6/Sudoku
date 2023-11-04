@@ -54,6 +54,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
  && apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends \
       cairomm-1.16-dev \
+      ccache \
       g++ \
       gdb \
       lcov \
@@ -63,6 +64,14 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
       pkg-config \
       python3-pip \
  && true
+
+RUN cd /usr/local/bin \
+ && ln -s /usr/bin/ccache g++ \
+ && ln -s /usr/bin/ccache gcc \
+ && mkdir /ccache \
+ && chmod 777 /ccache
+
+ENV CCACHE_DIR=/ccache
 
 # Cache Python packages
 RUN --mount=type=cache,target=/root/.cache/pip,sharing=locked \
@@ -80,7 +89,8 @@ RUN --mount=type=bind,from=download-doctest,source=/download,target=/download \
 RUN --mount=type=bind,from=download-icecream,source=/download,target=/download \
     cp /download/icecream.hpp /usr/local/include
 
-RUN --mount=type=bind,from=download-minisat,source=/download,target=/download,rw \
+RUN --mount=type=cache,target=/ccache \
+    --mount=type=bind,from=download-minisat,source=/download,target=/download,rw \
     set -x \
  && cd /download/minisat \
  && sed -i minisat/core/SolverTypes.h -e '55s#bool sign = false#bool sign#' -e '63s#bool sign#bool sign=false#' \

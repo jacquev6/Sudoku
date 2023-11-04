@@ -23,6 +23,7 @@ docker run \
   --rm --interactive --tty \
   --user $(id -u):$(id -g) \
   --volume "$PWD:/wd" --workdir /wd \
+  --volume sudoku-development-ccache:/ccache \
   --env SUDOKU_MAKE_CALLED_BY_SCRIPT=true \
   jacquev6/sudoku-development \
   make "$@"

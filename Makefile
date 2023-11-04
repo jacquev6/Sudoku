@@ -42,12 +42,12 @@ compile: ${object_files}
 
 build/obj/%.o: src/%.cpp
 	@mkdir -p ${@D}
-	g++ -g --coverage -c -std=c++20 $$(pkg-config cairomm-1.16 libavutil libavcodec --cflags) -include icecream.hpp -MMD -MP $< -o $@
+	CCACHE_LOGFILE=$@.ccache-log g++ -g --coverage -c -std=c++20 $$(pkg-config cairomm-1.16 libavutil libavcodec --cflags) -include icecream.hpp -MMD -MP $< -o $@
 
 # Special object file containing doctest's main function
 build/obj/test-main.o:
 	@mkdir -p ${@D}
-	g++ -g -c -x c++ -std=c++20 -include doctest.h -DDOCTEST_CONFIG_IMPLEMENT_WITH_MAIN /dev/null -o $@
+	CCACHE_LOGFILE=$@.ccache-log g++ -g -c -x c++ -std=c++20 -include doctest.h -DDOCTEST_CONFIG_IMPLEMENT_WITH_MAIN /dev/null -o $@
 
 include $(shell find build -name '*.d' 2>/dev/null)
 
