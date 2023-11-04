@@ -196,6 +196,8 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const Follower::State& state, const 
 }
 
 
+// LCOV_EXCL_START
+
 struct TestImage {
   static constexpr unsigned frame_size = 321;
   static constexpr unsigned margin = 10;
@@ -432,5 +434,7 @@ TEST_CASE("draw - possible-values linked") {
       .links_from_cell_to_value = links_from_cell_to_value,
     });
 }
+
+// LCOV_EXCL_STOP
 
 }  // namespace art
