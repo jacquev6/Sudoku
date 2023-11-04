@@ -84,7 +84,16 @@ build/bin/sudoku: ${object_files}
 
 # Unit tests
 
-untested_source_files := src/main.cpp src/sudoku.cpp src/explanation/video/video-serializer.cpp src/explanation/video/video-video-serializer.cpp src/explanation/video/frames-video-serializer.cpp src/explanation/follower.cpp src/explanation/text-explainer.cpp src/sudoku-constants.cpp
+untested_source_files := src/main.cpp  # Only the 'main' function and command-line parsing
+untested_source_files += src/sudoku-constants.cpp  # Tested with static asserts
+
+# @todo Test the following files
+untested_source_files += src/explanation/follower.cpp
+untested_source_files += src/explanation/text-explainer.cpp
+untested_source_files += src/explanation/video/frames-video-serializer.cpp
+untested_source_files += src/explanation/video/video-serializer.cpp
+untested_source_files += src/explanation/video/video-video-serializer.cpp
+untested_source_files += src/sudoku.cpp
 
 .PHONY: test-unit
 test-unit: $(patsubst src/%.cpp,build/tests/unit/%.ok,$(filter-out ${untested_source_files},${source_files}))
