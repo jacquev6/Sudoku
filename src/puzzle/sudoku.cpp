@@ -7,7 +7,8 @@
 
 namespace io {
 
-void Sudoku::set(const Coordinates& cell, unsigned val) {
+template<unsigned size>
+void Sudoku<size>::set(const Coordinates& cell, unsigned val) {
   const auto [row, col] = cell;
   assert(row < size);
   assert(col < size);
@@ -16,22 +17,24 @@ void Sudoku::set(const Coordinates& cell, unsigned val) {
   cells[row][col] = val;
 }
 
-std::optional<unsigned> Sudoku::get(const Coordinates& cell) const {
+template<unsigned size>
+std::optional<unsigned> Sudoku<size>::get(const Coordinates& cell) const {
   const auto [row, col] = cell;
   assert(row < size);
   assert(col < size);
   return cells[row][col];
 }
 
-Sudoku Sudoku::load(std::istream& is) {
-  Sudoku sudoku;
+template<unsigned size>
+Sudoku<size> Sudoku<size>::load(std::istream& is) {
+  Sudoku<size> sudoku;
 
   std::string line;
   // @todo Improve robustness to malformed inputs
-  for (const unsigned row : SudokuConstants::values) {
+  for (const unsigned row : SudokuConstants<size>::values) {
     std::getline(is, line);
 
-    for (const unsigned col : SudokuConstants::values) {
+    for (const unsigned col : SudokuConstants<size>::values) {
       const char c = line[col];
       if (c >= '1' && c <= '9') {
         sudoku.set({row, col}, c - '1');
@@ -42,9 +45,10 @@ Sudoku Sudoku::load(std::istream& is) {
   return sudoku;
 }
 
-void Sudoku::dump(std::ostream& os) const {
-  for (const unsigned row : SudokuConstants::values) {
-    for (const unsigned col : SudokuConstants::values) {
+template<unsigned size>
+void Sudoku<size>::dump(std::ostream& os) const {
+  for (const unsigned row : SudokuConstants<size>::values) {
+    for (const unsigned col : SudokuConstants<size>::values) {
       const auto value = get({row, col});
       if (value) {
         os << *value + 1;
@@ -55,5 +59,7 @@ void Sudoku::dump(std::ostream& os) const {
     os << '\n';
   }
 }
+
+template class Sudoku<9>;
 
 }  // namespace io

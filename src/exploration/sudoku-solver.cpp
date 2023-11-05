@@ -50,27 +50,29 @@ struct NeedsBacktracking {};
 // This design ensures that the events returned to the client can replicate exactly the evolution of the
 // stack that happened during the exploration, because the stack actually evolved only through said events.
 // (I think this is brilliant, but I *may* biased as I'm the author of this code).
+template<unsigned size>
 struct AddEvent {
-  AddEvent(Stack* stack_, const std::function<void(std::unique_ptr<exploration::Event>)>& add_event_)
+  AddEvent(Stack<size>* stack_, const std::function<void(std::unique_ptr<exploration::Event<size>>)>& add_event_)
     : stack(stack_), add_event(add_event_) {}
 
-  void operator()(std::unique_ptr<exploration::Event> event) const {
+  void operator()(std::unique_ptr<exploration::Event<size>> event) const {
     event->apply(stack);
     add_event(std::move(event));
   }
 
  private:
-  Stack* stack;
-  const std::function<void(std::unique_ptr<exploration::Event>)>& add_event;
+  Stack<size>* stack;
+  const std::function<void(std::unique_ptr<exploration::Event<size>>)>& add_event;
 };
 
 
 // Make sure a closing event is added, however the scope is exited
+template<unsigned size>
 struct EventsPairGuard {
   EventsPairGuard(
-    const AddEvent& add_event_,
-    std::unique_ptr<exploration::Event> in,
-    std::unique_ptr<exploration::Event> out_
+    const AddEvent<size>& add_event_,
+    std::unique_ptr<exploration::Event<size>> in,
+    std::unique_ptr<exploration::Event<size>> out_
   ) :  // NOLINT(whitespace/parens)
     add_event(add_event_),
     out(std::move(out_))
@@ -82,39 +84,40 @@ struct EventsPairGuard {
     add_event(std::move(out));
   }
 
-  const AddEvent& add_event;
-  std::unique_ptr<exploration::Event> out;
+  const AddEvent<size>& add_event;
+  std::unique_ptr<exploration::Event<size>> out;
 };
 
 
+template<unsigned size>
 void propagate(
-  const Stack& stack,
-  const std::set<AnnotatedSudoku::Coordinates>& todo_,
-  const AddEvent& add_event
+  const Stack<size>& stack,
+  const std::set<Coordinates>& todo_,
+  const AddEvent<size>& add_event
 ) {
-  UniqueQueue<AnnotatedSudoku::Coordinates> todo;
+  UniqueQueue<Coordinates> todo;
   for (const auto cell : todo_) {
     todo.add(cell);
   }
 
-  EventsPairGuard guard(
+  EventsPairGuard<size> guard(
     add_event,
-    std::make_unique<exploration::PropagationStartsForSudoku>(),
-    std::make_unique<exploration::PropagationIsDoneForSudoku>());
+    std::make_unique<exploration::PropagationStartsForSudoku<size>>(),
+    std::make_unique<exploration::PropagationIsDoneForSudoku<size>>());
 
   while (!todo.empty()) {
     const auto source_cell = todo.get();
     assert(stack.current().is_set(source_cell));
     const unsigned value = stack.current().get(source_cell);
 
-    EventsPairGuard guard(
+    EventsPairGuard<size> guard(
       add_event,
-      std::make_unique<exploration::PropagationStartsForCell>(source_cell, value),
-      std::make_unique<exploration::PropagationIsDoneForCell>(source_cell, value));
+      std::make_unique<exploration::PropagationStartsForCell<size>>(source_cell, value),
+      std::make_unique<exploration::PropagationIsDoneForCell<size>>(source_cell, value));
 
     const auto [row, col] = source_cell;
-    for (const auto region : AnnotatedSudoku::regions_of[row][col]) {
-      for (const auto target_cell : AnnotatedSudoku::regions[region]) {
+    for (const auto region : SudokuConstants<size>::regions_of[row][col]) {
+      for (const auto target_cell : SudokuConstants<size>::regions[region]) {
         if (target_cell != source_cell) {
           if (stack.current().is_set(target_cell)) {
             if (stack.current().get(target_cell) == value) {
@@ -123,12 +126,12 @@ void propagate(
           } else {
             assert(stack.current().allowed_count(target_cell) > 1);
             if (stack.current().is_allowed(target_cell, value)) {
-              add_event(std::make_unique<exploration::CellPropagates>(source_cell, target_cell, value));
+              add_event(std::make_unique<exploration::CellPropagates<size>>(source_cell, target_cell, value));
 
               if (stack.current().allowed_count(target_cell) == 1) {
-                for (unsigned value : AnnotatedSudoku::values) {
+                for (unsigned value : SudokuConstants<size>::values) {
                   if (stack.current().is_allowed(target_cell, value)) {
-                    add_event(std::make_unique<exploration::CellIsDeducedFromSingleAllowedValue>(
+                    add_event(std::make_unique<exploration::CellIsDeducedFromSingleAllowedValue<size>>(
                       target_cell, value));
                     todo.add(target_cell);
                     break;
@@ -136,17 +139,17 @@ void propagate(
                 }
               }
 
-              for (unsigned region : AnnotatedSudoku::regions_of[target_cell.first][target_cell.second]) {
+              for (unsigned region : SudokuConstants<size>::regions_of[target_cell.first][target_cell.second]) {
                 unsigned count = 0;
-                AnnotatedSudoku::Coordinates single_cell;
-                for (auto cell : AnnotatedSudoku::regions[region]) {
+                Coordinates single_cell;
+                for (auto cell : SudokuConstants<size>::regions[region]) {
                   if (stack.current().is_allowed(cell, value)) {
                     ++count;
                     single_cell = cell;
                   }
                 }
                 if (count == 1 && !stack.current().is_set(single_cell)) {
-                  add_event(std::make_unique<exploration::CellIsDeducedAsSinglePlaceForValueInRegion>(
+                  add_event(std::make_unique<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>>(
                     single_cell, value, region));
                   todo.add(single_cell);
                 }
@@ -157,7 +160,7 @@ void propagate(
               // but the *whole* solving algorithm still executes in less than 100ms for size 9,
               // so it's not worth it yet.
               if (stack.current().is_solved()) {
-                add_event(std::make_unique<exploration::SudokuIsSolved>());
+                add_event(std::make_unique<exploration::SudokuIsSolved<size>>());
               }
             } else {
               // Nothing to do: this is old news
@@ -170,11 +173,12 @@ void propagate(
 }
 
 
-AnnotatedSudoku::Coordinates get_most_constrained_cell(const AnnotatedSudoku& sudoku) {
-  AnnotatedSudoku::Coordinates best_cell;
-  unsigned best_count = AnnotatedSudoku::size + 1;
+template<unsigned size>
+Coordinates get_most_constrained_cell(const AnnotatedSudoku<size>& sudoku) {
+  Coordinates best_cell;
+  unsigned best_count = size + 1;
 
-  for (const auto cell : AnnotatedSudoku::cells) {
+  for (const auto cell : SudokuConstants<size>::cells) {
     if (sudoku.is_set(cell)) {
       continue;
     }
@@ -192,55 +196,58 @@ AnnotatedSudoku::Coordinates get_most_constrained_cell(const AnnotatedSudoku& su
 }
 
 
+template<unsigned size>
 void propagate_and_explore(
-  const Stack&,
-  const std::set<AnnotatedSudoku::Coordinates>& todo,
-  const AddEvent&
+  const Stack<size>&,
+  const std::set<Coordinates>& todo,
+  const AddEvent<size>&
 );
 
 
-void explore(const Stack& stack, const AddEvent& add_event) {
+template<unsigned size>
+void explore(const Stack<size>& stack, const AddEvent<size>& add_event) {
   assert(!stack.current().is_solved());
 
   const auto cell = get_most_constrained_cell(stack.current());
   std::vector<unsigned> allowed_values;
-  for (unsigned val : AnnotatedSudoku::values) {
+  for (unsigned val : SudokuConstants<size>::values) {
     if (stack.current().is_allowed(cell, val)) {
       allowed_values.push_back(val);
     }
   }
 
-  EventsPairGuard guard(
+  EventsPairGuard<size> guard(
     add_event,
-    std::make_unique<exploration::ExplorationStarts>(cell, allowed_values),
-    std::make_unique<exploration::ExplorationIsDone>(cell));
+    std::make_unique<exploration::ExplorationStarts<size>>(cell, allowed_values),
+    std::make_unique<exploration::ExplorationIsDone<size>>(cell));
 
   // @todo Artificially favor values without solution to demonstrate and visualize backtracking
   for (unsigned val : allowed_values) {
-    auto hypothesis_ = std::make_unique<exploration::HypothesisIsMade>(cell, val);
-    exploration::HypothesisIsMade* hypothesis = hypothesis_.get();
+    auto hypothesis_ = std::make_unique<exploration::HypothesisIsMade<size>>(cell, val);
+    exploration::HypothesisIsMade<size>* hypothesis = hypothesis_.get();
     add_event(std::move(hypothesis_));
     try {
       propagate_and_explore(stack, {cell}, add_event);
       if (stack.current().is_solved()) {
         hypothesis->spoiler = true;
-        add_event(std::make_unique<exploration::HypothesisIsAccepted>(cell, val));
+        add_event(std::make_unique<exploration::HypothesisIsAccepted<size>>(cell, val));
         break;
       } else {
         throw NeedsBacktracking();
       }
     } catch (NeedsBacktracking&) {
       hypothesis->spoiler = false;
-      add_event(std::make_unique<exploration::HypothesisIsRejected>(cell, val));
+      add_event(std::make_unique<exploration::HypothesisIsRejected<size>>(cell, val));
     }
   }
 }
 
 
+template<unsigned size>
 void propagate_and_explore(
-  const Stack& stack,
-  const std::set<AnnotatedSudoku::Coordinates>& todo,
-  const AddEvent& add_event
+  const Stack<size>& stack,
+  const std::set<Coordinates>& todo,
+  const AddEvent<size>& add_event
 ) {
   propagate(stack, todo, add_event);
   if (!stack.current().is_solved()) {
@@ -249,22 +256,23 @@ void propagate_and_explore(
 }
 
 
-io::Sudoku solve_using_exploration(
-  io::Sudoku sudoku,
-  const std::function<void(std::unique_ptr<exploration::Event>)>& add_event_
+template<unsigned size>
+io::Sudoku<size> solve_using_exploration(
+  io::Sudoku<size> sudoku,
+  const std::function<void(std::unique_ptr<exploration::Event<size>>)>& add_event_
 ) {
-  Stack stack;
-  AddEvent add_event(&stack, add_event_);
-  std::set<AnnotatedSudoku::Coordinates> todo;
-  for (auto cell : AnnotatedSudoku::cells) {
+  Stack<size> stack;
+  AddEvent<size> add_event(&stack, add_event_);
+  std::set<Coordinates> todo;
+  for (auto cell : SudokuConstants<size>::cells) {
     const auto val = sudoku.get(cell);
     if (val) {
-      add_event(std::make_unique<exploration::CellIsSetInInput>(cell, *val));
+      add_event(std::make_unique<exploration::CellIsSetInInput<size>>(cell, *val));
       todo.insert(cell);
     }
   }
 
-  add_event(std::make_unique<exploration::InputsAreDone>());
+  add_event(std::make_unique<exploration::InputsAreDone<size>>());
 
   try {
     propagate_and_explore(stack, std::move(todo), add_event);
@@ -272,10 +280,14 @@ io::Sudoku solve_using_exploration(
     // Nothing to do, just return the unsolved Sudoku
   }
 
-  for (auto cell : AnnotatedSudoku::cells) {
+  for (auto cell : SudokuConstants<size>::cells) {
     if (stack.current().is_set(cell)) {
       sudoku.set(cell, stack.current().get(cell));
     }
   }
   return sudoku;
 }
+
+template io::Sudoku<9> solve_using_exploration(
+  io::Sudoku<9>,
+  const std::function<void(std::unique_ptr<exploration::Event<9>>)>&);

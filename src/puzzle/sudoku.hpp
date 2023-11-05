@@ -13,11 +13,8 @@
 
 namespace io {
 
+template<unsigned size>
 class Sudoku {
- public:
-  static constexpr unsigned size = SudokuConstants::size;
-  using Coordinates = SudokuConstants::Coordinates;
-
  public:
   Sudoku() = default;
 

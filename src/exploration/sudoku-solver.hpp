@@ -10,8 +10,10 @@
 #include "events.hpp"
 
 
-io::Sudoku solve_using_exploration(
-  io::Sudoku,
-  const std::function<void(std::unique_ptr<exploration::Event>)>& = [](std::unique_ptr<exploration::Event>) {});
+template<unsigned size>
+io::Sudoku<size> solve_using_exploration(
+  io::Sudoku<size>,
+  const std::function<void(std::unique_ptr<exploration::Event<size>>)>& =
+    [](std::unique_ptr<exploration::Event<size>>) {});
 
 #endif  // EXPLORATION_SUDOKU_SOLVER_HPP_

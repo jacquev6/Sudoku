@@ -13,11 +13,12 @@
 #include "../puzzle/sudoku-constants.hpp"
 
 
-class AnnotatedSudoku : public SudokuConstants {
+template<unsigned size>
+class AnnotatedSudoku {
  public:
   AnnotatedSudoku() : allowed_values(), set_values() {
-    for (unsigned row : values) {
-      for (unsigned col : values) {
+    for (unsigned row : SudokuConstants<size>::values) {
+      for (unsigned col : SudokuConstants<size>::values) {
         allowed_values[row][col].set();
       }
     }
@@ -34,7 +35,7 @@ class AnnotatedSudoku : public SudokuConstants {
 
  public:
   bool is_solved() const {
-    for (const auto& cell : cells) {
+    for (const auto& cell : SudokuConstants<size>::cells) {
       if (!is_set(cell)) {
         return false;
       }
@@ -166,15 +167,15 @@ class AnnotatedSudoku : public SudokuConstants {
 
   void assert_invariants() const {
     // At least one value is always allowed
-    for (unsigned row : values) {
-      for (unsigned col : values) {
+    for (unsigned row : SudokuConstants<size>::values) {
+      for (unsigned col : SudokuConstants<size>::values) {
         assert(allowed_values[row][col].any());
       }
     }
 
     // 'inputs' forces 'set_values'
-    for (unsigned row : values) {
-      for (unsigned col : values) {
+    for (unsigned row : SudokuConstants<size>::values) {
+      for (unsigned col : SudokuConstants<size>::values) {
         if (inputs[row][col]) {
           assert(set_values[row][col].has_value());
         }
@@ -182,8 +183,8 @@ class AnnotatedSudoku : public SudokuConstants {
     }
 
     // 'propagated' forces 'set_values'
-    for (unsigned row : values) {
-      for (unsigned col : values) {
+    for (unsigned row : SudokuConstants<size>::values) {
+      for (unsigned col : SudokuConstants<size>::values) {
         if (propagated[row][col]) {
           assert(set_values[row][col].has_value());
         }
@@ -191,8 +192,8 @@ class AnnotatedSudoku : public SudokuConstants {
     }
 
     // 'set_values' forces 'allowed_values'
-    for (unsigned row : values) {
-      for (unsigned col : values) {
+    for (unsigned row : SudokuConstants<size>::values) {
+      for (unsigned col : SudokuConstants<size>::values) {
         if (set_values[row][col].has_value()) {
           assert(allowed_values[row][col].count() == 1);
           assert(allowed_values[row][col].test(set_values[row][col].value()));

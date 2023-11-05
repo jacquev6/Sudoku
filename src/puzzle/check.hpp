@@ -5,7 +5,7 @@
 
 #include "sudoku.hpp"
 
-
-bool is_solved(const io::Sudoku&);
+template<unsigned size>
+bool is_solved(const io::Sudoku<size>&);
 
 #endif  // PUZZLE_CHECK_HPP_

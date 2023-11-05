@@ -101,14 +101,16 @@ int main(int argc, char* argv[]) {
 
   CLI11_PARSE(app, argc, argv);
 
-  const io::Sudoku sudoku = ([input_path](){
+  constexpr unsigned size = 9;
+
+  const io::Sudoku<size> sudoku = ([input_path](){
     if (input_path == "-") {
-      return io::Sudoku::load(std::cin);
+      return io::Sudoku<size>::load(std::cin);
     } else {
       // Race condition: the input file could have been deleted since 'CLI11_PARSE' checked. Risk accepted.
       std::ifstream input(input_path);
       assert(input.is_open());
-      return io::Sudoku::load(input);
+      return io::Sudoku<size>::load(input);
     }
   })();
 
@@ -133,15 +135,15 @@ int main(int argc, char* argv[]) {
       }
     }
   } else if (explain->parsed()) {
-    std::vector<std::unique_ptr<exploration::Event>> events;
-    const io::Sudoku solved = solve_using_exploration(
+    std::vector<std::unique_ptr<exploration::Event<size>>> events;
+    const io::Sudoku<size> solved = solve_using_exploration<size>(
       sudoku,
-      [&events](std::unique_ptr<exploration::Event> event) {
+      [&events](std::unique_ptr<exploration::Event<size>> event) {
         events.push_back(std::move(event));
       });
 
     if (is_solved(solved)) {
-      std::vector<std::unique_ptr<exploration::EventVisitor>> event_visitors;
+      std::vector<std::unique_ptr<exploration::EventVisitor<size>>> event_visitors;
 
       if (!text_path && !html_path && !html_text_path && !video_path && !video_frames_path && !video_text_path) {
         text_path = "-";
@@ -150,16 +152,16 @@ int main(int argc, char* argv[]) {
       unsigned stdout_users = 0;
       std::unique_ptr<std::ofstream> text_output;
       if (text_path == "-") {
-        event_visitors.push_back(std::make_unique<TextExplainer>(std::cout));
+        event_visitors.push_back(std::make_unique<TextExplainer<size>>(std::cout));
         ++stdout_users;
       } else if (text_path) {
         text_output = std::make_unique<std::ofstream>(*text_path);
         assert(text_output->is_open());
-        event_visitors.push_back(std::make_unique<TextExplainer>(*text_output));
+        event_visitors.push_back(std::make_unique<TextExplainer<size>>(*text_output));
       }
 
       if (html_path) {
-        event_visitors.push_back(std::make_unique<HtmlExplainer>(*html_path));
+        event_visitors.push_back(std::make_unique<HtmlExplainer<size>>(*html_path));
       }
 
       if (html_text_path == "-") {
@@ -181,7 +183,7 @@ int main(int argc, char* argv[]) {
         assert(video_text_output->is_open());
         video_text_output_ptr = video_text_output.get();
       }
-      TextExplainer video_text_explainer(*video_text_output_ptr);
+      TextExplainer<size> video_text_explainer(*video_text_output_ptr);
       if (video_frames_path) {
         video_serializers.push_back(std::make_unique<FramesVideoSerializer>(*video_frames_path));
       }
@@ -195,7 +197,7 @@ int main(int argc, char* argv[]) {
       }
       if (!video_serializers.empty()) {
         event_visitors.push_back(
-          std::make_unique<VideoExplainer>(video_serializers.back().get(), &video_text_explainer, quick_video));
+          std::make_unique<VideoExplainer<size>>(video_serializers.back().get(), &video_text_explainer, quick_video));
       }
 
       if (stdout_users > 1) {

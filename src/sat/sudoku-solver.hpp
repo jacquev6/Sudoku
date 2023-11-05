@@ -6,6 +6,7 @@
 #include "../puzzle/sudoku.hpp"
 
 
-io::Sudoku solve_using_sat(io::Sudoku);
+template<unsigned size>
+io::Sudoku<size> solve_using_sat(io::Sudoku<size>);
 
 #endif  // SAT_SUDOKU_SOLVER_HPP_
