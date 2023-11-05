@@ -7,6 +7,8 @@ stdout: |
   
   Options:
     -h,--help                   Print this help message and exit
+    --size 4, 9 (default), 16...
+                                Size of the Sudoku
   
   Subcommands:
     solve                       Just solve a Sudoku

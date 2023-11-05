@@ -86,4 +86,5 @@ io::Sudoku<size> solve_using_sat(io::Sudoku<size> sudoku) {
   return sudoku;
 }
 
+template io::Sudoku<4> solve_using_sat(io::Sudoku<4>);
 template io::Sudoku<9> solve_using_sat(io::Sudoku<9>);

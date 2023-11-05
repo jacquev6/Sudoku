@@ -96,20 +96,49 @@ template<unsigned size>
 void ExplorationIsDone<size>::apply(Stack<size>* stack) const {
 }
 
+template struct CellIsSetInInput<4>;
 template struct CellIsSetInInput<9>;
+
+template struct InputsAreDone<4>;
 template struct InputsAreDone<9>;
+
+template struct PropagationStartsForSudoku<4>;
 template struct PropagationStartsForSudoku<9>;
+
+template struct PropagationStartsForCell<4>;
 template struct PropagationStartsForCell<9>;
+
+template struct CellPropagates<4>;
 template struct CellPropagates<9>;
+
+template struct CellIsDeducedFromSingleAllowedValue<4>;
 template struct CellIsDeducedFromSingleAllowedValue<9>;
+
+template struct CellIsDeducedAsSinglePlaceForValueInRegion<4>;
 template struct CellIsDeducedAsSinglePlaceForValueInRegion<9>;
+
+template struct PropagationIsDoneForCell<4>;
 template struct PropagationIsDoneForCell<9>;
+
+template struct PropagationIsDoneForSudoku<4>;
 template struct PropagationIsDoneForSudoku<9>;
+
+template struct ExplorationStarts<4>;
 template struct ExplorationStarts<9>;
+
+template struct HypothesisIsMade<4>;
 template struct HypothesisIsMade<9>;
+
+template struct HypothesisIsRejected<4>;
 template struct HypothesisIsRejected<9>;
+
+template struct SudokuIsSolved<4>;
 template struct SudokuIsSolved<9>;
+
+template struct HypothesisIsAccepted<4>;
 template struct HypothesisIsAccepted<9>;
+
+template struct ExplorationIsDone<4>;
 template struct ExplorationIsDone<9>;
 
 }  // namespace exploration

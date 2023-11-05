@@ -499,4 +499,5 @@ void VideoExplainer<size>::flush_pending_events() {
   flush_pending_cell_is_deduced_as_single_place_for_value_in_region_events();
 }
 
+template class VideoExplainer<4>;
 template class VideoExplainer<9>;

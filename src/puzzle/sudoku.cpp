@@ -60,6 +60,7 @@ void Sudoku<size>::dump(std::ostream& os) const {
   }
 }
 
+template class Sudoku<4>;
 template class Sudoku<9>;
 
 }  // namespace io

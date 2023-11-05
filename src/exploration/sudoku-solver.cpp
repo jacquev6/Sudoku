@@ -288,6 +288,10 @@ io::Sudoku<size> solve_using_exploration(
   return sudoku;
 }
 
+template io::Sudoku<4> solve_using_exploration(
+  io::Sudoku<4>,
+  const std::function<void(std::unique_ptr<exploration::Event<4>>)>&);
+
 template io::Sudoku<9> solve_using_exploration(
   io::Sudoku<9>,
   const std::function<void(std::unique_ptr<exploration::Event<9>>)>&);

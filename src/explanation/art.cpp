@@ -197,6 +197,12 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku<size>& sudoku,
   }
 }
 
+template double round_grid_size<4>(unsigned available_size);
+template double round_grid_size<9>(unsigned available_size);
+
+template void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku<4>& sudoku, const DrawOptions& options);
+template void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku<9>& sudoku, const DrawOptions& options);
+
 
 // LCOV_EXCL_START
 

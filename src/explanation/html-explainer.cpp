@@ -175,4 +175,5 @@ void HtmlExplainer<size>::visit(const exploration::HypothesisIsAccepted<size>& e
 template<unsigned size>
 void HtmlExplainer<size>::visit(const exploration::ExplorationIsDone<size>& event) {}
 
+template class HtmlExplainer<4>;
 template class HtmlExplainer<9>;

@@ -28,4 +28,5 @@ bool is_solved(const io::Sudoku<size>& sudoku) {
   return true;
 }
 
+template bool is_solved(const io::Sudoku<4>&);
 template bool is_solved(const io::Sudoku<9>&);

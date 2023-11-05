@@ -182,10 +182,10 @@ const FileValidator File;
 int main(int argc, char* argv[]) {
   CLI::App app{"Solve a Sudoku, and explain how!"};
 
-  // unsigned size = 9;
-  // app
-  //   .add_option("--size", size, "Size of the Sudoku")
-  //   ->option_text("4, 9 (default)), 16, 25 or 36");
+  unsigned size = 9;
+  app
+    .add_option("--size", size, "Size of the Sudoku")
+    ->option_text("4, 9 (default), 16...");
 
   app.require_subcommand(1);
   CLI::App* solve = app.add_subcommand("solve", "Just solve a Sudoku");
@@ -258,5 +258,13 @@ int main(int argc, char* argv[]) {
     .video_text_path = video_text_path,
   };
 
-  return main_<9>(options);
+  switch (size) {
+    case 4:
+      return main_<4>(options);
+    case 9:
+      return main_<9>(options);
+    default:
+      std::cerr << "ERROR: unsupported size: " << size << std::endl;
+      return 1;
+  }
 }
