@@ -8,7 +8,7 @@
 #include <tuple>
 #include <vector>
 
-#include "../exploration/follower.hpp"
+#include "../exploration/sudoku.hpp"
 
 
 namespace Cairo {
@@ -52,7 +52,7 @@ struct DrawOptions {
   std::tuple<double, double, double> links_from_cell_to_value_color = {1, 0, 0};
 };
 
-void draw(Cairo::RefPtr<Cairo::Context>, const Follower::State&, const DrawOptions&);
+void draw(Cairo::RefPtr<Cairo::Context>, const AnnotatedSudoku&, const DrawOptions&);
 
 }  // namespace art
 

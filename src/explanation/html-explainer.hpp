@@ -39,7 +39,7 @@ class HtmlExplainer : public exploration::EventVisitor {
   void visit(const exploration::ExplorationIsDone&) override;
 
  private:
-  const Follower::State& current() const { return follower.current(); }
+  const AnnotatedSudoku& current() const { return follower.current(); }
 
  private:
   std::filesystem::path directory_path;

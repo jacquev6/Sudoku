@@ -20,7 +20,7 @@ double round_grid_size(unsigned available_size) {
   return (available_size - thick_line_width) / AnnotatedSudoku::size * AnnotatedSudoku::size + thick_line_width;
 }
 
-void draw(Cairo::RefPtr<Cairo::Context> cr, const Follower::State& state, const DrawOptions& options) {
+void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku& sudoku, const DrawOptions& options) {
   Cairo::SaveGuard saver(cr);
 
   cr->translate(thick_line_width / 2, thick_line_width / 2);
@@ -46,17 +46,17 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const Follower::State& state, const 
   cr->set_font_size(3 * cell_interior_size / 4);
   cr->set_source_rgb(0.0, 0.0, 0.0);
   for (const auto cell : AnnotatedSudoku::cells) {
-    if (state.sudoku.is_set(cell)) {
-      assert(state.sudoku.is_set(cell));
-      const std::string text = std::to_string(state.sudoku.get(cell) + 1);
+    if (sudoku.is_set(cell)) {
+      assert(sudoku.is_set(cell));
+      const std::string text = std::to_string(sudoku.get(cell) + 1);
 
-      if (options.bold_todo && !state.sudoku.is_propagated(cell)) {
+      if (options.bold_todo && !sudoku.is_propagated(cell)) {
         cr->select_font_face("sans-serif", Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::BOLD);
       } else {
         cr->select_font_face("sans-serif", Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::NORMAL);
       }
 
-      if (state.sudoku.is_input(cell)) {
+      if (sudoku.is_input(cell)) {
         Cairo::SaveGuard saver(cr);
 
         const auto [x, y] = cell_center(cell);
@@ -81,8 +81,8 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const Follower::State& state, const 
     cr->select_font_face("sans-serif", Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::NORMAL);
 
     for (const auto cell : AnnotatedSudoku::cells) {
-      if (!state.sudoku.is_set(cell)) {
-        assert(!state.sudoku.is_propagated(cell));
+      if (!sudoku.is_set(cell)) {
+        assert(!sudoku.is_propagated(cell));
 
         for (unsigned value : AnnotatedSudoku::values) {
           Cairo::SaveGuard saver(cr);
@@ -94,7 +94,7 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const Follower::State& state, const 
             const auto [x, y] = value_center(cell, value);
             cr->move_to(x - extents.width / 2 - extents.x_bearing, y - extents.height / 2 - extents.y_bearing);
           }
-          if (state.sudoku.is_allowed(cell, value)) {
+          if (sudoku.is_allowed(cell, value)) {
             cr->set_source_rgb(0.0, 0.0, 0.0);
           } else {
             cr->set_source_rgb(0.8, 0.8, 0.8);
@@ -240,9 +240,7 @@ TEST_CASE("draw - grid") {
   AnnotatedSudoku sudoku;
   draw(
     image.cr,
-    {
-      .sudoku = sudoku,
-    },
+    sudoku,
     {
       .grid_size = grid_size,
     });
@@ -259,9 +257,7 @@ TEST_CASE("draw - known-values circled") {
   }
   draw(
     image.cr,
-    {
-      .sudoku = sudoku,
-    },
+    sudoku,
     {
       .grid_size = grid_size,
       .possible = true,
@@ -280,9 +276,7 @@ TEST_CASE("draw - all inputs") {
   }
   draw(
     image.cr,
-    {
-      .sudoku = sudoku,
-    },
+    sudoku,
     {
       .grid_size = grid_size,
       .possible = true,
@@ -300,9 +294,7 @@ TEST_CASE("draw - all todo") {
   }
   draw(
     image.cr,
-    {
-      .sudoku = sudoku,
-    },
+    sudoku,
     {
       .grid_size = grid_size,
       .possible = true,
@@ -322,9 +314,7 @@ TEST_CASE("draw - all processed") {
   }
   draw(
     image.cr,
-    {
-      .sudoku = sudoku,
-    },
+    sudoku,
     {
       .grid_size = grid_size,
       .possible = true,
@@ -343,9 +333,7 @@ TEST_CASE("draw - known-values boxed") {
   }
   draw(
     image.cr,
-    {
-      .sudoku = sudoku,
-    },
+    sudoku,
     {
       .grid_size = grid_size,
       .possible = true,
@@ -369,9 +357,7 @@ TEST_CASE("draw - all forbidden") {
   }
   draw(
     image.cr,
-    {
-      .sudoku = sudoku,
-    },
+    sudoku,
     {
       .grid_size = grid_size,
       .possible = true,
@@ -391,9 +377,7 @@ TEST_CASE("draw - possible-values circled") {
   }
   draw(
     image.cr,
-    {
-      .sudoku = sudoku,
-    },
+    sudoku,
     {
       .grid_size = grid_size,
       .possible = true,
@@ -423,9 +407,7 @@ TEST_CASE("draw - possible-values linked") {
   }
   draw(
     image.cr,
-    {
-      .sudoku = sudoku,
-    },
+    sudoku,
     {
       .grid_size = grid_size,
       .possible = true,
