@@ -50,13 +50,13 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const Follower::State& state, const 
       assert(state.sudoku.is_set(cell));
       const std::string text = std::to_string(state.sudoku.get(cell) + 1);
 
-      if (options.bold_todo && state.processed.count(cell) == 0) {
+      if (options.bold_todo && !state.sudoku.is_propagated(cell)) {
         cr->select_font_face("sans-serif", Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::BOLD);
       } else {
         cr->select_font_face("sans-serif", Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::NORMAL);
       }
 
-      if (state.inputs.count(cell) == 1) {
+      if (state.sudoku.is_input(cell)) {
         Cairo::SaveGuard saver(cr);
 
         const auto [x, y] = cell_center(cell);
@@ -82,7 +82,7 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const Follower::State& state, const 
 
     for (const auto cell : AnnotatedSudoku::cells) {
       if (!state.sudoku.is_set(cell)) {
-        assert(state.processed.count(cell) == 0);
+        assert(!state.sudoku.is_propagated(cell));
 
         for (unsigned value : AnnotatedSudoku::values) {
           Cairo::SaveGuard saver(cr);
@@ -255,7 +255,7 @@ TEST_CASE("draw - known-values circled") {
   AnnotatedSudoku sudoku;
   for (const auto cell : AnnotatedSudoku::cells) {
     const auto [row, col] = cell;
-    sudoku.set(cell, (row + 2 * col) % AnnotatedSudoku::size);
+    sudoku.set_deduced(cell, (row + 2 * col) % AnnotatedSudoku::size);
   }
   draw(
     image.cr,
@@ -276,13 +276,12 @@ TEST_CASE("draw - all inputs") {
   AnnotatedSudoku sudoku;
   for (const auto cell : AnnotatedSudoku::cells) {
     const auto [row, col] = cell;
-    sudoku.set(cell, (row + 2 * col) % AnnotatedSudoku::size);
+    sudoku.set_input(cell, (row + 2 * col) % AnnotatedSudoku::size);
   }
   draw(
     image.cr,
     {
       .sudoku = sudoku,
-      .inputs = {AnnotatedSudoku::cells.begin(), AnnotatedSudoku::cells.end()},
     },
     {
       .grid_size = grid_size,
@@ -297,7 +296,7 @@ TEST_CASE("draw - all todo") {
   AnnotatedSudoku sudoku;
   for (const auto cell : AnnotatedSudoku::cells) {
     const auto [row, col] = cell;
-    sudoku.set(cell, (row + 2 * col) % AnnotatedSudoku::size);
+    sudoku.set_deduced(cell, (row + 2 * col) % AnnotatedSudoku::size);
   }
   draw(
     image.cr,
@@ -318,13 +317,13 @@ TEST_CASE("draw - all processed") {
   AnnotatedSudoku sudoku;
   for (const auto cell : AnnotatedSudoku::cells) {
     const auto [row, col] = cell;
-    sudoku.set(cell, (row + 2 * col) % AnnotatedSudoku::size);
+    sudoku.set_deduced(cell, (row + 2 * col) % AnnotatedSudoku::size);
+    sudoku.set_propagated(cell);
   }
   draw(
     image.cr,
     {
       .sudoku = sudoku,
-      .processed = {AnnotatedSudoku::cells.begin(), AnnotatedSudoku::cells.end()},
     },
     {
       .grid_size = grid_size,
@@ -340,7 +339,7 @@ TEST_CASE("draw - known-values boxed") {
   AnnotatedSudoku sudoku;
   for (const auto cell : AnnotatedSudoku::cells) {
     const auto [row, col] = cell;
-    sudoku.set(cell, (row + 2 * col) % AnnotatedSudoku::size);
+    sudoku.set_deduced(cell, (row + 2 * col) % AnnotatedSudoku::size);
   }
   draw(
     image.cr,

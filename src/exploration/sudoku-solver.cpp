@@ -110,7 +110,7 @@ void propagate(
               if (sudoku->allowed_count(target_cell) == 1) {
                 for (unsigned value : AnnotatedSudoku::values) {
                   if (sudoku->is_allowed(target_cell, value)) {
-                    sudoku->set(target_cell, value);
+                    sudoku->set_deduced(target_cell, value);
                     break;
                   }
                 }
@@ -129,7 +129,7 @@ void propagate(
                   }
                 }
                 if (count == 1 && !sudoku->is_set(single_cell)) {
-                  sudoku->set(single_cell, value);
+                  sudoku->set_deduced(single_cell, value);
                   add_event(std::make_unique<exploration::CellIsDeducedAsSinglePlaceForValueInRegion>(
                     single_cell, value, region));
                   todo.add(single_cell);
@@ -206,7 +206,7 @@ void explore(AnnotatedSudoku* sudoku, const std::function<void(std::unique_ptr<e
     add_event(std::move(hypothesis_));
     try {
       AnnotatedSudoku copy = *sudoku;
-      copy.set(cell, val);
+      copy.set_deduced(cell, val);
       propagate_and_explore(&copy, {cell}, add_event);
       if (copy.is_solved()) {
         hypothesis->spoiler = true;
@@ -244,7 +244,7 @@ io::Sudoku solve_using_exploration(
   for (auto cell : AnnotatedSudoku::cells) {
     const auto val = sudoku.get(cell);
     if (val) {
-      in_progress.set(cell, *val);
+      in_progress.set_input(cell, *val);
       todo.insert(cell);
       add_event(std::make_unique<exploration::CellIsSetInInput>(cell, *val));
     }

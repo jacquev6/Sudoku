@@ -19,8 +19,6 @@ class Follower : public exploration::EventVisitor {
  public:
   struct State {
     AnnotatedSudoku sudoku;
-    std::set<AnnotatedSudoku::Coordinates> inputs;
-    std::set<AnnotatedSudoku::Coordinates> processed;
   };
 
  public:
@@ -54,8 +52,7 @@ class Follower : public exploration::EventVisitor {
 
  public:
   void visit(const exploration::CellIsSetInInput& event) override {
-    current().sudoku.set(event.cell, event.value);
-    current().inputs.insert(event.cell);
+    current().sudoku.set_input(event.cell, event.value);
   }
 
   void visit(const exploration::InputsAreDone&) override {}
@@ -69,31 +66,31 @@ class Follower : public exploration::EventVisitor {
     assert(current().sudoku.get(event.source_cell) == event.value);
     assert(!current().sudoku.is_set(event.target_cell));
     assert(current().sudoku.is_allowed(event.target_cell, event.value));
-    assert(current().processed.count(event.source_cell) == 0);
+    assert(!current().sudoku.is_propagated(event.source_cell));
 
     current().sudoku.forbid(event.target_cell, event.value);
   }
 
   void visit(const exploration::CellIsDeducedFromSingleAllowedValue& event) override {
     assert(!current().sudoku.is_set(event.cell));
-    assert(current().processed.count(event.cell) == 0);
+    assert(!current().sudoku.is_propagated(event.cell));
 
-    current().sudoku.set(event.cell, event.value);
+    current().sudoku.set_deduced(event.cell, event.value);
   }
 
   void visit(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion& event) override {
     assert(!current().sudoku.is_set(event.cell));
-    assert(current().processed.count(event.cell) == 0);
+    assert(!current().sudoku.is_propagated(event.cell));
 
-    current().sudoku.set(event.cell, event.value);
+    current().sudoku.set_deduced(event.cell, event.value);
   }
 
   void visit(const exploration::PropagationIsDoneForCell& event) override {
     assert(current().sudoku.is_set(event.cell));
     assert(current().sudoku.get(event.cell) == event.value);
-    assert(current().processed.count(event.cell) == 0);
+    assert(!current().sudoku.is_propagated(event.cell));
 
-    current().processed.insert(event.cell);
+    current().sudoku.set_propagated(event.cell);
   }
 
   void visit(const exploration::PropagationIsDoneForSudoku&) override {}
@@ -103,10 +100,10 @@ class Follower : public exploration::EventVisitor {
   void visit(const exploration::HypothesisIsMade& event) override {
     assert(!current().sudoku.is_set(event.cell));
     assert(current().sudoku.is_allowed(event.cell, event.value));
-    assert(current().processed.count(event.cell) == 0);
+    assert(!current().sudoku.is_propagated(event.cell));
 
     push();
-    current().sudoku.set(event.cell, event.value);
+    current().sudoku.set_deduced(event.cell, event.value);
   }
 
   void visit(const exploration::HypothesisIsRejected& event) override {
