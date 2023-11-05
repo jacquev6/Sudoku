@@ -15,8 +15,6 @@ struct EventVisitor;
 struct Event {
   virtual ~Event() = default;
   virtual void accept(EventVisitor&) const = 0;
-  // @todo Keep a 'Stack' and 'apply' each new event created during exploration on it,
-  // to ensure the 'apply' methods are consistent with the exploration algorithm
   virtual void apply(Stack*) const = 0;
 };
 
