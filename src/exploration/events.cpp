@@ -15,6 +15,9 @@ void PropagationStartsForSudoku::apply(Stack* stack) const {
 }
 
 void PropagationStartsForCell::apply(Stack* stack) const {
+  assert(stack->current().is_set(cell));
+  assert(stack->current().get(cell) == value);
+  assert(!stack->current().is_propagated(cell));
 }
 
 void CellPropagates::apply(Stack* stack) const {
