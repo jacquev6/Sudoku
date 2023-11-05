@@ -34,10 +34,6 @@ class SudokuConstants {
     return sqrt(res, 1, res);
   }
 
-  static constexpr unsigned sqrt_size = sqrt(size);
-
-  static_assert(sqrt_size * sqrt_size == size, "'size' must be a perfect square");
-
  private:
   static constexpr auto make_values() {
     std::array<unsigned, size> values;
@@ -98,10 +94,14 @@ class SudokuConstants {
   }
 
  public:
+  static constexpr unsigned sqrt_size = sqrt(size);
   static constexpr auto values = make_values();
   static constexpr auto cells = make_cells();
   static constexpr auto regions = make_regions();
   static constexpr auto regions_of = make_regions_of();
+
+ private:
+  static_assert(sqrt_size * sqrt_size == size, "'size' must be a perfect square");
 };
 
 #endif  // PUZZLE_SUDOKU_CONSTANTS_HPP_
