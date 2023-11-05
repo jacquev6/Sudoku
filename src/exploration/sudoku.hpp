@@ -154,7 +154,10 @@ class AnnotatedSudoku : public SudokuConstants {
     return arr[row][col];
   }
 
-  std::bitset<size>::reference at(std::array<std::bitset<size>, size>& arr, const Coordinates& cell) {
+  std::bitset<size>::reference at(
+    std::array<std::bitset<size>, size>& arr,  // NOLINT(runtime/references)
+    const Coordinates& cell
+  ) {
     const auto [row, col] = cell;
     assert(row < size);
     assert(col < size);

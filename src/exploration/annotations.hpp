@@ -28,10 +28,10 @@ class Stack {
 //  public:
 //   struct Saved {
 //     Saved(const Stack& stack) : begin_(std::next(stack.stack.rbegin())), end_(stack.stack.rend()) {}
-    
+
 //     std::vector<AnnotatedSudoku>::const_reverse_iterator begin() { return begin_; }
 //     std::vector<AnnotatedSudoku>::const_reverse_iterator end() { return end_; }
-  
+
 //    private:
 //     const std::vector<AnnotatedSudoku>::const_reverse_iterator begin_;
 //     const std::vector<AnnotatedSudoku>::const_reverse_iterator end_;
