@@ -60,7 +60,7 @@ compile: ${object_files}
 build/obj/%.o: src/%.cpp
 	@${echo} "Compile: g++ -c $<"
 	@mkdir -p ${@D}
-	@CCACHE_LOGFILE=$@.ccache-log g++ -g --coverage -c -std=c++20 $$(pkg-config cairomm-1.16 libavutil libavcodec --cflags) -include icecream.hpp -MMD -MP $< -o $@
+	@CCACHE_LOGFILE=$@.ccache-log g++ -g --coverage -O0 -c -std=c++20 $$(pkg-config cairomm-1.16 libavutil libavcodec --cflags) -include icecream.hpp -MMD -MP $< -o $@
 
 # Special object file containing doctest's main function
 build/obj/test-main.o:
@@ -79,7 +79,7 @@ link: build/bin/sudoku
 build/bin/sudoku: ${object_files}
 	@${echo} "Link: g++ ... -o $@"
 	@mkdir -p ${@D}
-	@g++ -g --coverage $^ $$(pkg-config cairomm-1.16 libavutil libavcodec --libs) -lminisat -o $@
+	@g++ -g --coverage -O0 $^ $$(pkg-config cairomm-1.16 libavutil libavcodec --libs) -lminisat -o $@
 
 
 # Unit tests
