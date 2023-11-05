@@ -263,6 +263,12 @@ int main(int argc, char* argv[]) {
       return main_<4>(options);
     case 9:
       return main_<9>(options);
+    case 16:
+      return main_<16>(options);
+    case 25:
+      return main_<25>(options);
+    case 36:
+      return main_<36>(options);
     default:
       std::cerr << "ERROR: unsupported size: " << size << std::endl;
       return 1;

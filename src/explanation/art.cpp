@@ -199,9 +199,15 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku<size>& sudoku,
 
 template double round_grid_size<4>(unsigned available_size);
 template double round_grid_size<9>(unsigned available_size);
+template double round_grid_size<16>(unsigned available_size);
+template double round_grid_size<25>(unsigned available_size);
+template double round_grid_size<36>(unsigned available_size);
 
 template void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku<4>& sudoku, const DrawOptions& options);
 template void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku<9>& sudoku, const DrawOptions& options);
+template void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku<16>& sudoku, const DrawOptions& options);
+template void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku<25>& sudoku, const DrawOptions& options);
+template void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku<36>& sudoku, const DrawOptions& options);
 
 
 // LCOV_EXCL_START
