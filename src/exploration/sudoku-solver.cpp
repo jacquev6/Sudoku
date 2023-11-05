@@ -46,10 +46,29 @@ class UniqueQueue {
 struct NeedsBacktracking {};
 
 
+// This is the only way to modify the Stack (everywhere else, it's manipulated through const references).
+// This design ensures that the events returned to the client can replicate exactly the evolution of the
+// stack that happened during the exploration, because the stack actually evolved only through said events.
+// (I think this is brilliant, but I *may* biased as I'm the author of this code).
+struct AddEvent {
+  AddEvent(Stack* stack_, const std::function<void(std::unique_ptr<exploration::Event>)>& add_event_)
+    : stack(stack_), add_event(add_event_) {}
+
+  void operator()(std::unique_ptr<exploration::Event> event) const {
+    event->apply(stack);
+    add_event(std::move(event));
+  }
+
+ private:
+  Stack* stack;
+  const std::function<void(std::unique_ptr<exploration::Event>)>& add_event;
+};
+
+
 // Make sure a closing event is added, however the scope is exited
 struct EventsPairGuard {
   EventsPairGuard(
-    const std::function<void(std::unique_ptr<exploration::Event>)>& add_event_,
+    const AddEvent& add_event_,
     std::unique_ptr<exploration::Event> in,
     std::unique_ptr<exploration::Event> out_
   ) :  // NOLINT(whitespace/parens)
@@ -63,17 +82,17 @@ struct EventsPairGuard {
     add_event(std::move(out));
   }
 
-  const std::function<void(std::unique_ptr<exploration::Event>)>& add_event;
+  const AddEvent& add_event;
   std::unique_ptr<exploration::Event> out;
 };
 
 
 void propagate(
-  Sudoku* sudoku,
-  const std::set<Sudoku::Coordinates>& todo_,
-  const std::function<void(std::unique_ptr<exploration::Event>)>& add_event
+  const Stack& stack,
+  const std::set<AnnotatedSudoku::Coordinates>& todo_,
+  const AddEvent& add_event
 ) {
-  UniqueQueue<Sudoku::Coordinates> todo;
+  UniqueQueue<AnnotatedSudoku::Coordinates> todo;
   for (const auto cell : todo_) {
     todo.add(cell);
   }
@@ -85,8 +104,8 @@ void propagate(
 
   while (!todo.empty()) {
     const auto source_cell = todo.get();
-    assert(sudoku->is_set(source_cell));
-    const unsigned value = sudoku->get(source_cell);
+    assert(stack.current().is_set(source_cell));
+    const unsigned value = stack.current().get(source_cell);
 
     EventsPairGuard guard(
       add_event,
@@ -94,53 +113,50 @@ void propagate(
       std::make_unique<exploration::PropagationIsDoneForCell>(source_cell, value));
 
     const auto [row, col] = source_cell;
-    for (const auto region : Sudoku::regions_of[row][col]) {
-      for (const auto target_cell : Sudoku::regions[region]) {
+    for (const auto region : AnnotatedSudoku::regions_of[row][col]) {
+      for (const auto target_cell : AnnotatedSudoku::regions[region]) {
         if (target_cell != source_cell) {
-          if (sudoku->is_set(target_cell)) {
-            if (sudoku->get(target_cell) == value) {
+          if (stack.current().is_set(target_cell)) {
+            if (stack.current().get(target_cell) == value) {
               throw NeedsBacktracking();
             }
           } else {
-            assert(sudoku->allowed_count(target_cell) > 1);
-            if (sudoku->is_allowed(target_cell, value)) {
+            assert(stack.current().allowed_count(target_cell) > 1);
+            if (stack.current().is_allowed(target_cell, value)) {
               add_event(std::make_unique<exploration::CellPropagates>(source_cell, target_cell, value));
-              sudoku->forbid(target_cell, value);
 
-              if (sudoku->allowed_count(target_cell) == 1) {
-                for (unsigned value : Sudoku::values) {
-                  if (sudoku->is_allowed(target_cell, value)) {
-                    sudoku->set(target_cell, value);
+              if (stack.current().allowed_count(target_cell) == 1) {
+                for (unsigned value : AnnotatedSudoku::values) {
+                  if (stack.current().is_allowed(target_cell, value)) {
+                    add_event(std::make_unique<exploration::CellIsDeducedFromSingleAllowedValue>(
+                      target_cell, value));
+                    todo.add(target_cell);
                     break;
                   }
                 }
-                add_event(std::make_unique<exploration::CellIsDeducedFromSingleAllowedValue>(
-                  target_cell, sudoku->get(target_cell)));
-                todo.add(target_cell);
               }
 
-              for (unsigned region : Sudoku::regions_of[target_cell.first][target_cell.second]) {
+              for (unsigned region : AnnotatedSudoku::regions_of[target_cell.first][target_cell.second]) {
                 unsigned count = 0;
-                Sudoku::Coordinates single_cell;
-                for (auto cell : Sudoku::regions[region]) {
-                  if (sudoku->is_allowed(cell, value)) {
+                AnnotatedSudoku::Coordinates single_cell;
+                for (auto cell : AnnotatedSudoku::regions[region]) {
+                  if (stack.current().is_allowed(cell, value)) {
                     ++count;
                     single_cell = cell;
                   }
                 }
-                if (count == 1 && !sudoku->is_set(single_cell)) {
-                  sudoku->set(single_cell, value);
+                if (count == 1 && !stack.current().is_set(single_cell)) {
                   add_event(std::make_unique<exploration::CellIsDeducedAsSinglePlaceForValueInRegion>(
                     single_cell, value, region));
                   todo.add(single_cell);
                 }
               }
 
-              // 'Sudoku::is_solved' is currently O(Sudoku::size^2),
+              // 'AnnotatedSudoku::is_solved' is currently O(AnnotatedSudoku::size^2),
               // which we could optimize easily with additional book-keeping,
               // but the *whole* solving algorithm still executes in less than 100ms for size 9,
               // so it's not worth it yet.
-              if (sudoku->is_solved()) {
+              if (stack.current().is_solved()) {
                 add_event(std::make_unique<exploration::SudokuIsSolved>());
               }
             } else {
@@ -154,11 +170,11 @@ void propagate(
 }
 
 
-Sudoku::Coordinates get_most_constrained_cell(const Sudoku& sudoku) {
-  Sudoku::Coordinates best_cell;
-  unsigned best_count = Sudoku::size + 1;
+AnnotatedSudoku::Coordinates get_most_constrained_cell(const AnnotatedSudoku& sudoku) {
+  AnnotatedSudoku::Coordinates best_cell;
+  unsigned best_count = AnnotatedSudoku::size + 1;
 
-  for (const auto cell : Sudoku::cells) {
+  for (const auto cell : AnnotatedSudoku::cells) {
     if (sudoku.is_set(cell)) {
       continue;
     }
@@ -177,19 +193,19 @@ Sudoku::Coordinates get_most_constrained_cell(const Sudoku& sudoku) {
 
 
 void propagate_and_explore(
-  Sudoku* sudoku,
-  const std::set<Sudoku::Coordinates>& todo,
-  const std::function<void(std::unique_ptr<exploration::Event>)>&
+  const Stack&,
+  const std::set<AnnotatedSudoku::Coordinates>& todo,
+  const AddEvent&
 );
 
 
-void explore(Sudoku* sudoku, const std::function<void(std::unique_ptr<exploration::Event>)>& add_event) {
-  assert(!sudoku->is_solved());
+void explore(const Stack& stack, const AddEvent& add_event) {
+  assert(!stack.current().is_solved());
 
-  const auto cell = get_most_constrained_cell(*sudoku);
+  const auto cell = get_most_constrained_cell(stack.current());
   std::vector<unsigned> allowed_values;
-  for (unsigned val : Sudoku::values) {
-    if (sudoku->is_allowed(cell, val)) {
+  for (unsigned val : AnnotatedSudoku::values) {
+    if (stack.current().is_allowed(cell, val)) {
       allowed_values.push_back(val);
     }
   }
@@ -205,13 +221,10 @@ void explore(Sudoku* sudoku, const std::function<void(std::unique_ptr<exploratio
     exploration::HypothesisIsMade* hypothesis = hypothesis_.get();
     add_event(std::move(hypothesis_));
     try {
-      Sudoku copy = *sudoku;
-      copy.set(cell, val);
-      propagate_and_explore(&copy, {cell}, add_event);
-      if (copy.is_solved()) {
+      propagate_and_explore(stack, {cell}, add_event);
+      if (stack.current().is_solved()) {
         hypothesis->spoiler = true;
         add_event(std::make_unique<exploration::HypothesisIsAccepted>(cell, val));
-        *sudoku = copy;
         break;
       } else {
         throw NeedsBacktracking();
@@ -225,40 +238,43 @@ void explore(Sudoku* sudoku, const std::function<void(std::unique_ptr<exploratio
 
 
 void propagate_and_explore(
-  Sudoku* sudoku, const std::set<Sudoku::Coordinates>& todo,
-  const std::function<void(std::unique_ptr<exploration::Event>)>& add_event
+  const Stack& stack,
+  const std::set<AnnotatedSudoku::Coordinates>& todo,
+  const AddEvent& add_event
 ) {
-  propagate(sudoku, todo, add_event);
-  if (!sudoku->is_solved()) {
-    explore(sudoku, add_event);
+  propagate(stack, todo, add_event);
+  if (!stack.current().is_solved()) {
+    explore(stack, add_event);
   }
 }
 
 
 io::Sudoku solve_using_exploration(
   io::Sudoku sudoku,
-  const std::function<void(std::unique_ptr<exploration::Event>)>& add_event
+  const std::function<void(std::unique_ptr<exploration::Event>)>& add_event_
 ) {
-  Sudoku in_progress;
-  std::set<Sudoku::Coordinates> todo;
-  for (auto cell : Sudoku::cells) {
+  Stack stack;
+  AddEvent add_event(&stack, add_event_);
+  std::set<AnnotatedSudoku::Coordinates> todo;
+  for (auto cell : AnnotatedSudoku::cells) {
     const auto val = sudoku.get(cell);
     if (val) {
-      in_progress.set(cell, *val);
-      todo.insert(cell);
       add_event(std::make_unique<exploration::CellIsSetInInput>(cell, *val));
+      todo.insert(cell);
     }
   }
+
   add_event(std::make_unique<exploration::InputsAreDone>());
+
   try {
-    propagate_and_explore(&in_progress, std::move(todo), add_event);
+    propagate_and_explore(stack, std::move(todo), add_event);
   } catch (NeedsBacktracking&) {
     // Nothing to do, just return the unsolved Sudoku
   }
 
-  for (auto cell : Sudoku::cells) {
-    if (in_progress.is_set(cell)) {
-      sudoku.set(cell, in_progress.get(cell));
+  for (auto cell : AnnotatedSudoku::cells) {
+    if (stack.current().is_set(cell)) {
+      sudoku.set(cell, stack.current().get(cell));
     }
   }
   return sudoku;

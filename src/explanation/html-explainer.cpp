@@ -51,11 +51,11 @@ struct Image {
 
 
 void HtmlExplainer::visit(const exploration::CellIsSetInInput& event) {
-  follower.visit(event);
+  event.apply(&stack);
 }
 
 void HtmlExplainer::visit(const exploration::InputsAreDone& event) {
-  follower.visit(event);
+  event.apply(&stack);
 
   index_file << "<html><head><title>jacquev6/Sudoku - Solving explanation</title></head><body>\n";
   index_file << "<h1>Input grid</h1>\n";
@@ -75,18 +75,18 @@ void HtmlExplainer::visit(const exploration::InputsAreDone& event) {
 void HtmlExplainer::visit(const exploration::PropagationStartsForSudoku& event) {
   index_file << "<h1>Propagation</h1>\n";
 
-  follower.visit(event);
+  event.apply(&stack);
 }
 
 void HtmlExplainer::visit(const exploration::PropagationStartsForCell& event) {
   const auto [row, col] = event.cell;
   index_file << "<h2>Propagation from (" << row << ", " << col << ")</h2>\n";
 
-  follower.visit(event);
+  event.apply(&stack);
 }
 
 void HtmlExplainer::visit(const exploration::CellPropagates& event) {
-  follower.visit(event);
+  event.apply(&stack);
 
   const auto [src_row, src_col] = event.source_cell;
   const auto [tgt_row, tgt_col] = event.target_cell;
@@ -112,35 +112,35 @@ void HtmlExplainer::visit(const exploration::CellPropagates& event) {
 }
 
 void HtmlExplainer::visit(const exploration::CellIsDeducedFromSingleAllowedValue& event) {
-  follower.visit(event);
+  event.apply(&stack);
 }
 
 void HtmlExplainer::visit(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion& event) {
-  follower.visit(event);
+  event.apply(&stack);
 }
 
 void HtmlExplainer::visit(const exploration::PropagationIsDoneForCell& event) {
-  follower.visit(event);
+  event.apply(&stack);
 }
 
 void HtmlExplainer::visit(const exploration::PropagationIsDoneForSudoku& event) {
-  follower.visit(event);
+  event.apply(&stack);
 }
 
 void HtmlExplainer::visit(const exploration::ExplorationStarts& event) {
-  follower.visit(event);
+  event.apply(&stack);
 }
 
 void HtmlExplainer::visit(const exploration::HypothesisIsMade& event) {
-  follower.visit(event);
+  event.apply(&stack);
 }
 
 void HtmlExplainer::visit(const exploration::HypothesisIsRejected& event) {
-  follower.visit(event);
+  event.apply(&stack);
 }
 
 void HtmlExplainer::visit(const exploration::SudokuIsSolved& event) {
-  follower.visit(event);
+  event.apply(&stack);
 
   index_file << "<h1>Solved grid</h1>\n";
   Image solved(directory_path / "solved.png");

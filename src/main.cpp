@@ -193,9 +193,7 @@ int main(int argc, char* argv[]) {
         video_serializers.push_back(std::make_unique<MultipleVideoSerializer>(
           std::vector<VideoSerializer*>{video_serializers[0].get(), video_serializers[1].get()}));
       }
-      if (video_serializers.empty()) {
-        event_visitors.push_back(std::make_unique<Follower>());  // Only to check asserts when not generating video
-      } else {
+      if (!video_serializers.empty()) {
         event_visitors.push_back(
           std::make_unique<VideoExplainer>(video_serializers.back().get(), &video_text_explainer, quick_video));
       }
