@@ -26,8 +26,8 @@ class CairoSaveGuard {
   Cairo::Context& cr;
 };
 
-
-class VideoExplainer : public exploration::EventVisitor {
+template<unsigned size>
+class VideoExplainer : public exploration::EventVisitor<size> {
   // Keep consistent with 'VideoVideoSerializer'
   static constexpr unsigned frame_width_pixels = 640;
   static constexpr unsigned frame_height_pixels = 480;
@@ -38,7 +38,7 @@ class VideoExplainer : public exploration::EventVisitor {
   static constexpr unsigned thin_line_width = 2;
 
  public:
-  VideoExplainer(VideoSerializer* video_serializer_, exploration::EventVisitor* printer_, const bool quick_) :
+  VideoExplainer(VideoSerializer* video_serializer_, exploration::EventVisitor<size>* printer_, const bool quick_) :
     before(),
     after(),
     surface(Cairo::ImageSurface::create(Cairo::Surface::Format::ARGB32, frame_width_pixels, frame_height_pixels)),
@@ -52,7 +52,7 @@ class VideoExplainer : public exploration::EventVisitor {
  private:
   class VisitEventsGuard {
    public:
-    VisitEventsGuard(VideoExplainer* explainer_, const exploration::Event& event) :
+    VisitEventsGuard(VideoExplainer* explainer_, const exploration::Event<size>& event) :
       explainer(*explainer_),
       events(),
       before(explainer.before),
@@ -73,7 +73,7 @@ class VideoExplainer : public exploration::EventVisitor {
       for (const T& event : events_) {
         event.apply(&explainer.after);
         event.accept(*explainer.printer);
-        events.push_back(static_cast<const exploration::Event*>(&event));
+        events.push_back(static_cast<const exploration::Event<size>*>(&event));
       }
     }
 
@@ -83,18 +83,18 @@ class VideoExplainer : public exploration::EventVisitor {
     VisitEventsGuard& operator=(VisitEventsGuard&&) = delete;
 
     ~VisitEventsGuard() {
-      for (const exploration::Event* const event : events) {
+      for (const exploration::Event<size>* const event : events) {
         event->apply(&explainer.before);
       }
     }
 
    private:
     VideoExplainer& explainer;
-    std::vector<const exploration::Event*> events;
+    std::vector<const exploration::Event<size>*> events;
 
    public:
-    const Stack& before;
-    const Stack& after;
+    const Stack<size>& before;
+    const Stack<size>& after;
   };
 
   class FrameGuard {
@@ -158,21 +158,21 @@ class VideoExplainer : public exploration::EventVisitor {
   }
 
  private:
-  void visit(const exploration::CellIsSetInInput&) override;
-  void visit(const exploration::InputsAreDone&) override;
-  void visit(const exploration::PropagationStartsForSudoku&) override;
-  void visit(const exploration::PropagationStartsForCell&) override;
-  void visit(const exploration::CellPropagates&) override;
-  void visit(const exploration::CellIsDeducedFromSingleAllowedValue&) override;
-  void visit(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion&) override;
-  void visit(const exploration::PropagationIsDoneForCell&) override;
-  void visit(const exploration::PropagationIsDoneForSudoku&) override;
-  void visit(const exploration::ExplorationStarts&) override;
-  void visit(const exploration::HypothesisIsMade&) override;
-  void visit(const exploration::HypothesisIsRejected&) override;
-  void visit(const exploration::SudokuIsSolved&) override;
-  void visit(const exploration::HypothesisIsAccepted&) override;
-  void visit(const exploration::ExplorationIsDone&) override;
+  void visit(const exploration::CellIsSetInInput<size>&) override;
+  void visit(const exploration::InputsAreDone<size>&) override;
+  void visit(const exploration::PropagationStartsForSudoku<size>&) override;
+  void visit(const exploration::PropagationStartsForCell<size>&) override;
+  void visit(const exploration::CellPropagates<size>&) override;
+  void visit(const exploration::CellIsDeducedFromSingleAllowedValue<size>&) override;
+  void visit(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>&) override;
+  void visit(const exploration::PropagationIsDoneForCell<size>&) override;
+  void visit(const exploration::PropagationIsDoneForSudoku<size>&) override;
+  void visit(const exploration::ExplorationStarts<size>&) override;
+  void visit(const exploration::HypothesisIsMade<size>&) override;
+  void visit(const exploration::HypothesisIsRejected<size>&) override;
+  void visit(const exploration::SudokuIsSolved<size>&) override;
+  void visit(const exploration::HypothesisIsAccepted<size>&) override;
+  void visit(const exploration::ExplorationIsDone<size>&) override;
 
   void flush_pending_cell_propagates_events();
   void flush_pending_cell_is_deduced_from_single_allowed_value_events();
@@ -229,7 +229,7 @@ class VideoExplainer : public exploration::EventVisitor {
     const unsigned available_height = viewport_height_pixels - above_height - below_height;
     // @todo Use 'art::round_grid_size' instead of this custom code
     const unsigned grid_size =
-      (available_height - thick_line_width) / AnnotatedSudoku::size * AnnotatedSudoku::size + thick_line_width;
+      (available_height - thick_line_width) / size * size + thick_line_width;
     const unsigned grid_x = (viewport_width_pixels - grid_size) / 2;
     const unsigned grid_y = above_height + (available_height - grid_size) / 2;
 
@@ -247,7 +247,7 @@ class VideoExplainer : public exploration::EventVisitor {
     const double below_height_before = compute_text_height(before.below);
     const unsigned available_height_before = viewport_height_pixels - above_height_before - below_height_before;
     const unsigned grid_size_before =
-      (available_height_before - thick_line_width) / AnnotatedSudoku::size * AnnotatedSudoku::size + thick_line_width;
+      (available_height_before - thick_line_width) / size * size + thick_line_width;
     const double grid_x_before = (viewport_width_pixels - grid_size_before) / 2;
     const double grid_y_before = above_height_before + (available_height_before - grid_size_before) / 2;
 
@@ -255,7 +255,7 @@ class VideoExplainer : public exploration::EventVisitor {
     const double below_height_after = compute_text_height(after.below);
     const unsigned available_height_after = viewport_height_pixels - above_height_after - below_height_after;
     const unsigned grid_size_after =
-      (available_height_after - thick_line_width) / AnnotatedSudoku::size * AnnotatedSudoku::size + thick_line_width;
+      (available_height_after - thick_line_width) / size * size + thick_line_width;
     const double grid_x_after = (viewport_width_pixels - grid_size_after) / 2;
     const double grid_y_after = above_height_after + (available_height_after - grid_size_after) / 2;
 
@@ -290,23 +290,23 @@ class VideoExplainer : public exploration::EventVisitor {
   }
 
  private:
-  Stack before;
-  Stack after;
+  Stack<size> before;
+  Stack<size> after;
   Cairo::RefPtr<Cairo::ImageSurface> surface;
   Cairo::RefPtr<Cairo::Context> context;
   Cairo::Context& cr;
   VideoSerializer* video_serializer;
-  exploration::EventVisitor* printer;
+  exploration::EventVisitor<size>* printer;
   const bool quick;
 
  private:
   unsigned single_propagations_handled = 0;
   unsigned cell_propagations_handled = 0;
   unsigned deductions_handled = 0;
-  std::vector<exploration::CellPropagates> pending_cell_propagates_events;
-  std::vector<exploration::CellIsDeducedFromSingleAllowedValue>
+  std::vector<exploration::CellPropagates<size>> pending_cell_propagates_events;
+  std::vector<exploration::CellIsDeducedFromSingleAllowedValue<size>>
     pending_cell_is_deduced_from_single_allowed_value_events;
-  std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion>
+  std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>>
     pending_cell_is_deduced_as_single_place_for_value_in_region_events;
 };
 

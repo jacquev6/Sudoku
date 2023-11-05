@@ -15,6 +15,139 @@
 #include <doctest.h>  // NOLINT(build/include_order): keep last because it defines really common names like CHECK
 
 
+struct Options {
+  bool solve;
+  bool use_sat;
+
+  bool explain;
+  std::filesystem::path input_path;
+  std::optional<std::filesystem::path> text_path;
+  std::optional<std::filesystem::path> html_path;
+  std::optional<std::filesystem::path> html_text_path;
+  std::optional<std::filesystem::path> video_path;
+  bool quick_video;
+  std::optional<std::filesystem::path> video_frames_path;
+  std::optional<std::filesystem::path> video_text_path;
+};
+
+template<unsigned size>
+int main_(const Options& options) {
+  const io::Sudoku<size> sudoku = ([&options](){
+    if (options.input_path == "-") {
+      return io::Sudoku<size>::load(std::cin);
+    } else {
+      // Race condition: the input file could have been deleted since 'CLI11_PARSE' checked. Risk accepted.
+      std::ifstream input(options.input_path);
+      assert(input.is_open());
+      return io::Sudoku<size>::load(input);
+    }
+  })();
+
+  if (options.solve) {
+    if (options.use_sat) {
+      const io::Sudoku solved = solve_using_sat(sudoku);
+
+      if (is_solved(solved)) {
+        solved.dump(std::cout);
+        return 0;
+      } else {
+        std::cerr << "FAILED to solve this Sudoku using SAT" << std::endl;
+        return 1;
+      }
+    } else {
+      const io::Sudoku solved = solve_using_exploration(sudoku);
+
+      if (is_solved(solved)) {
+        solved.dump(std::cout);
+        return 0;
+      } else {
+        std::cerr << "FAILED to solve this Sudoku using exploration" << std::endl;
+        return 1;
+      }
+    }
+  } else if (options.explain) {
+    std::vector<std::unique_ptr<exploration::Event<size>>> events;
+    const io::Sudoku<size> solved = solve_using_exploration<size>(
+      sudoku,
+      [&events](std::unique_ptr<exploration::Event<size>> event) {
+        events.push_back(std::move(event));
+      });
+
+    if (is_solved(solved)) {
+      std::vector<std::unique_ptr<exploration::EventVisitor<size>>> event_visitors;
+
+      unsigned stdout_users = 0;
+      std::unique_ptr<std::ofstream> text_output;
+      if (options.text_path == "-") {
+        event_visitors.push_back(std::make_unique<TextExplainer<size>>(std::cout));
+        ++stdout_users;
+      } else if (options.text_path) {
+        text_output = std::make_unique<std::ofstream>(*options.text_path);
+        assert(text_output->is_open());
+        event_visitors.push_back(std::make_unique<TextExplainer<size>>(*text_output));
+      }
+
+      if (options.html_path) {
+        event_visitors.push_back(std::make_unique<HtmlExplainer<size>>(*options.html_path));
+      }
+
+      if (options.html_text_path == "-") {
+        ++stdout_users;
+      }
+
+      std::vector<std::unique_ptr<VideoSerializer>> video_serializers;
+      std::unique_ptr<std::ofstream> video_text_output;
+      std::ostream* video_text_output_ptr;
+      if (options.video_text_path == "-") {
+        video_text_output_ptr = &std::cout;
+        ++stdout_users;
+      } else {
+        if (options.video_text_path) {
+          video_text_output = std::make_unique<std::ofstream>(*options.video_text_path);
+        } else {
+          video_text_output = std::make_unique<std::ofstream>("/dev/null");
+        }
+        assert(video_text_output->is_open());
+        video_text_output_ptr = video_text_output.get();
+      }
+      TextExplainer<size> video_text_explainer(*video_text_output_ptr);
+      if (options.video_frames_path) {
+        video_serializers.push_back(std::make_unique<FramesVideoSerializer>(*options.video_frames_path));
+      }
+      if (options.video_path) {
+        video_serializers.push_back(std::make_unique<VideoVideoSerializer>(*options.video_path));
+      }
+      if (video_serializers.size() >= 2) {
+        assert(video_serializers.size() == 2);
+        video_serializers.push_back(std::make_unique<MultipleVideoSerializer>(
+          std::vector<VideoSerializer*>{video_serializers[0].get(), video_serializers[1].get()}));
+      }
+      if (!video_serializers.empty()) {
+        event_visitors.push_back(
+          std::make_unique<VideoExplainer<size>>(
+            video_serializers.back().get(), &video_text_explainer, options.quick_video));
+      }
+
+      if (stdout_users > 1) {
+        std::cerr << "WARNING: several explanations are interleaved on stdout." << std::endl;
+      }
+
+      for (const auto& event : events) {
+        for (const auto& event_visitor : event_visitors) {
+          event->accept(*event_visitor);
+        }
+      }
+
+      return 0;
+    } else {
+      std::cerr << "FAILED to solve this Sudoku using exploration" << std::endl;
+      return 1;
+    }
+  } else {
+    __builtin_unreachable();
+  }
+}
+
 struct ExistingFileOrStdinValidator : public CLI::Validator {
   ExistingFileOrStdinValidator() : CLI::Validator("FILE(or - for stdin)") {
     func_ = [](const std::string &str) {
@@ -48,6 +181,12 @@ const FileValidator File;
 
 int main(int argc, char* argv[]) {
   CLI::App app{"Solve a Sudoku, and explain how!"};
+
+  unsigned size = 9;
+  app
+    .add_option("--size", size, "Size of the Sudoku")
+    ->option_text("4, 9 (default), 16...");
+
   app.require_subcommand(1);
   CLI::App* solve = app.add_subcommand("solve", "Just solve a Sudoku");
   CLI::App* explain = app.add_subcommand("explain", "Explain how to solve a Sudoku");
@@ -101,117 +240,37 @@ int main(int argc, char* argv[]) {
 
   CLI11_PARSE(app, argc, argv);
 
-  const io::Sudoku sudoku = ([input_path](){
-    if (input_path == "-") {
-      return io::Sudoku::load(std::cin);
-    } else {
-      // Race condition: the input file could have been deleted since 'CLI11_PARSE' checked. Risk accepted.
-      std::ifstream input(input_path);
-      assert(input.is_open());
-      return io::Sudoku::load(input);
-    }
-  })();
+  if (!text_path && !html_path && !html_text_path && !video_path && !video_frames_path && !video_text_path) {
+    text_path = "-";
+  }
 
-  if (solve->parsed()) {
-    if (use_sat) {
-      const io::Sudoku solved = solve_using_sat(sudoku);
+  Options options {
+    .solve = solve->parsed(),
+    .use_sat = use_sat,
+    .explain = explain->parsed(),
+    .input_path = input_path,
+    .text_path = text_path,
+    .html_path = html_path,
+    .html_text_path = html_text_path,
+    .video_path = video_path,
+    .quick_video = quick_video,
+    .video_frames_path = video_frames_path,
+    .video_text_path = video_text_path,
+  };
 
-      if (is_solved(solved)) {
-        solved.dump(std::cout);
-      } else {
-        std::cerr << "FAILED to solve this Sudoku using SAT" << std::endl;
-        return 1;
-      }
-    } else {
-      const io::Sudoku solved = solve_using_exploration(sudoku);
-
-      if (is_solved(solved)) {
-        solved.dump(std::cout);
-      } else {
-        std::cerr << "FAILED to solve this Sudoku using exploration" << std::endl;
-        return 1;
-      }
-    }
-  } else if (explain->parsed()) {
-    std::vector<std::unique_ptr<exploration::Event>> events;
-    const io::Sudoku solved = solve_using_exploration(
-      sudoku,
-      [&events](std::unique_ptr<exploration::Event> event) {
-        events.push_back(std::move(event));
-      });
-
-    if (is_solved(solved)) {
-      std::vector<std::unique_ptr<exploration::EventVisitor>> event_visitors;
-
-      if (!text_path && !html_path && !html_text_path && !video_path && !video_frames_path && !video_text_path) {
-        text_path = "-";
-      }
-
-      unsigned stdout_users = 0;
-      std::unique_ptr<std::ofstream> text_output;
-      if (text_path == "-") {
-        event_visitors.push_back(std::make_unique<TextExplainer>(std::cout));
-        ++stdout_users;
-      } else if (text_path) {
-        text_output = std::make_unique<std::ofstream>(*text_path);
-        assert(text_output->is_open());
-        event_visitors.push_back(std::make_unique<TextExplainer>(*text_output));
-      }
-
-      if (html_path) {
-        event_visitors.push_back(std::make_unique<HtmlExplainer>(*html_path));
-      }
-
-      if (html_text_path == "-") {
-        ++stdout_users;
-      }
-
-      std::vector<std::unique_ptr<VideoSerializer>> video_serializers;
-      std::unique_ptr<std::ofstream> video_text_output;
-      std::ostream* video_text_output_ptr;
-      if (video_text_path == "-") {
-        video_text_output_ptr = &std::cout;
-        ++stdout_users;
-      } else {
-        if (video_text_path) {
-          video_text_output = std::make_unique<std::ofstream>(*video_text_path);
-        } else {
-          video_text_output = std::make_unique<std::ofstream>("/dev/null");
-        }
-        assert(video_text_output->is_open());
-        video_text_output_ptr = video_text_output.get();
-      }
-      TextExplainer video_text_explainer(*video_text_output_ptr);
-      if (video_frames_path) {
-        video_serializers.push_back(std::make_unique<FramesVideoSerializer>(*video_frames_path));
-      }
-      if (video_path) {
-        video_serializers.push_back(std::make_unique<VideoVideoSerializer>(*video_path));
-      }
-      if (video_serializers.size() >= 2) {
-        assert(video_serializers.size() == 2);
-        video_serializers.push_back(std::make_unique<MultipleVideoSerializer>(
-          std::vector<VideoSerializer*>{video_serializers[0].get(), video_serializers[1].get()}));
-      }
-      if (!video_serializers.empty()) {
-        event_visitors.push_back(
-          std::make_unique<VideoExplainer>(video_serializers.back().get(), &video_text_explainer, quick_video));
-      }
-
-      if (stdout_users > 1) {
-        std::cerr << "WARNING: several explanations are interleaved on stdout." << std::endl;
-      }
-
-      for (const auto& event : events) {
-        for (const auto& event_visitor : event_visitors) {
-          event->accept(*event_visitor);
-        }
-      }
-    } else {
-      std::cerr << "FAILED to solve this Sudoku using exploration" << std::endl;
+  switch (size) {
+    case 4:
+      return main_<4>(options);
+    case 9:
+      return main_<9>(options);
+    case 16:
+      return main_<16>(options);
+    case 25:
+      return main_<25>(options);
+    case 36:
+      return main_<36>(options);
+    default:
+      std::cerr << "ERROR: unsupported size: " << size << std::endl;
       return 1;
-    }
-  } else {
-    __builtin_unreachable();
   }
 }

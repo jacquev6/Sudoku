@@ -7,8 +7,13 @@
 #include <utility>
 
 
-template<unsigned size_>
-class SudokuConstantsT {
+// @todo Put this typedef in a template<unsigned size> (probably SudokuConstants),
+// to let the type system detect if we try to mix coordinates for different size puzzles
+typedef std::pair<unsigned, unsigned> Coordinates;
+
+
+template<unsigned size>
+class SudokuConstants {
  private:
   // Square root heavily inspired by
   // https://baptiste-wicht.com/posts/2014/07/compile-integer-square-roots-at-compile-time-in-cpp.html
@@ -28,10 +33,6 @@ class SudokuConstantsT {
   static constexpr unsigned sqrt(unsigned res) {
     return sqrt(res, 1, res);
   }
-
-  static constexpr unsigned sqrt_size = sqrt(size_);
-
-  static_assert(sqrt_size * sqrt_size == size_, "'size' must be a perfect square");
 
  private:
   static constexpr auto make_values() {
@@ -93,15 +94,14 @@ class SudokuConstantsT {
   }
 
  public:
-  typedef std::pair<unsigned, unsigned> Coordinates;
-
-  static constexpr unsigned size = size_;
+  static constexpr unsigned sqrt_size = sqrt(size);
   static constexpr auto values = make_values();
   static constexpr auto cells = make_cells();
   static constexpr auto regions = make_regions();
   static constexpr auto regions_of = make_regions_of();
-};
 
-typedef SudokuConstantsT<9> SudokuConstants;
+ private:
+  static_assert(sqrt_size * sqrt_size == size, "'size' must be a perfect square");
+};
 
 #endif  // PUZZLE_SUDOKU_CONSTANTS_HPP_

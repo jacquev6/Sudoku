@@ -10,17 +10,18 @@
 #include "sudoku.hpp"
 
 
+template<unsigned size>
 class Stack {
  public:
   Stack() : stack(1) {}
 
  public:
-  const AnnotatedSudoku& current() const {
+  const AnnotatedSudoku<size>& current() const {
     assert(!stack.empty());
     return stack.back();
   }
 
-  AnnotatedSudoku& current() {
+  AnnotatedSudoku<size>& current() {
     assert(!stack.empty());
     return stack.back();
   }
@@ -29,12 +30,12 @@ class Stack {
 //   struct Saved {
 //     Saved(const Stack& stack) : begin_(std::next(stack.stack.rbegin())), end_(stack.stack.rend()) {}
 
-//     std::vector<AnnotatedSudoku>::const_reverse_iterator begin() { return begin_; }
-//     std::vector<AnnotatedSudoku>::const_reverse_iterator end() { return end_; }
+//     std::vector<AnnotatedSudoku<size>>::const_reverse_iterator begin() { return begin_; }
+//     std::vector<AnnotatedSudoku<size>>::const_reverse_iterator end() { return end_; }
 
 //    private:
-//     const std::vector<AnnotatedSudoku>::const_reverse_iterator begin_;
-//     const std::vector<AnnotatedSudoku>::const_reverse_iterator end_;
+//     const std::vector<AnnotatedSudoku<size>>::const_reverse_iterator begin_;
+//     const std::vector<AnnotatedSudoku<size>>::const_reverse_iterator end_;
 //   };
 
 //   Saved saved() const;
@@ -50,7 +51,7 @@ class Stack {
   }
 
  private:
-  std::vector<AnnotatedSudoku> stack;
+  std::vector<AnnotatedSudoku<size>> stack;
 };
 
 #endif  // EXPLORATION_ANNOTATIONS_HPP_

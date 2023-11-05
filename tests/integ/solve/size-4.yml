@@ -1,0 +1,13 @@
+command: build/bin/sudoku --size 4 solve -
+stdin: |
+  1234
+  ....
+  ....
+  ....
+returncode: 0
+stderr: |
+stdout: |
+  1234
+  3412
+  2143
+  4321

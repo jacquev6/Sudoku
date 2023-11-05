@@ -8,11 +8,13 @@
 #include "../art.hpp"
 
 
-void VideoExplainer::visit(const exploration::CellIsSetInInput& event) {
+template<unsigned size>
+void VideoExplainer<size>::visit(const exploration::CellIsSetInInput<size>& event) {
   VisitEventsGuard visit(this, event);
 }
 
-void VideoExplainer::visit(const exploration::InputsAreDone& event) {
+template<unsigned size>
+void VideoExplainer<size>::visit(const exploration::InputsAreDone<size>& event) {
   VisitEventsGuard visit(this, event);
 
   Layout title{.above = {
@@ -77,11 +79,13 @@ void VideoExplainer::visit(const exploration::InputsAreDone& event) {
   }
 }
 
-void VideoExplainer::visit(const exploration::PropagationStartsForSudoku& event) {
+template<unsigned size>
+void VideoExplainer<size>::visit(const exploration::PropagationStartsForSudoku<size>& event) {
   VisitEventsGuard visit(this, event);
 }
 
-void VideoExplainer::visit(const exploration::PropagationStartsForCell& event) {
+template<unsigned size>
+void VideoExplainer<size>::visit(const exploration::PropagationStartsForCell<size>& event) {
   VisitEventsGuard visit(this, event);
 
   Layout propagate{.below = {{"Propagate constraints", 20}}};
@@ -107,7 +111,8 @@ void VideoExplainer::visit(const exploration::PropagationStartsForCell& event) {
   }
 }
 
-void VideoExplainer::visit(const exploration::CellPropagates& event) {
+template<unsigned size>
+void VideoExplainer<size>::visit(const exploration::CellPropagates<size>& event) {
   Layout propagate{.below = {{"Propagate constraints", 20}}};
 
   const double widths[] = {2, 4, 5, 3, 2};
@@ -193,15 +198,18 @@ void VideoExplainer::visit(const exploration::CellPropagates& event) {
   }
 }
 
-void VideoExplainer::visit(const exploration::CellIsDeducedFromSingleAllowedValue& event) {
+template<unsigned size>
+void VideoExplainer<size>::visit(const exploration::CellIsDeducedFromSingleAllowedValue<size>& event) {
   pending_cell_is_deduced_from_single_allowed_value_events.push_back(event);
 }
 
-void VideoExplainer::visit(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion& event) {
+template<unsigned size>
+void VideoExplainer<size>::visit(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>& event) {
   pending_cell_is_deduced_as_single_place_for_value_in_region_events.push_back(event);
 }
 
-void VideoExplainer::visit(const exploration::PropagationIsDoneForCell& event) {
+template<unsigned size>
+void VideoExplainer<size>::visit(const exploration::PropagationIsDoneForCell<size>& event) {
   flush_pending_cell_propagates_events();
 
   VisitEventsGuard visit(this, event);
@@ -212,7 +220,8 @@ void VideoExplainer::visit(const exploration::PropagationIsDoneForCell& event) {
   ++cell_propagations_handled;
 }
 
-void VideoExplainer::flush_pending_cell_propagates_events() {
+template<unsigned size>
+void VideoExplainer<size>::flush_pending_cell_propagates_events() {
   Layout propagate{.below = {{"Propagate constraints", 20}}};
 
   const double widths[] = {2, 4, 5, 3, 2};
@@ -226,10 +235,9 @@ void VideoExplainer::flush_pending_cell_propagates_events() {
       const auto [grid_x, grid_y, grid_size] = draw_layout(propagate);
       cr.translate(grid_x, grid_y);
 
-      const AnnotatedSudoku::Coordinates source_cell = pending_cell_propagates_events.front().source_cell;
-      std::vector<std::tuple<AnnotatedSudoku::Coordinates, unsigned>> circled_values;
-      std::vector<std::tuple<AnnotatedSudoku::Coordinates, AnnotatedSudoku::Coordinates, unsigned>>
-        links_from_cell_to_value;
+      const Coordinates source_cell = pending_cell_propagates_events.front().source_cell;
+      std::vector<std::tuple<Coordinates, unsigned>> circled_values;
+      std::vector<std::tuple<Coordinates, Coordinates, unsigned>> links_from_cell_to_value;
       for (const auto& event : pending_cell_propagates_events) {
         assert(event.source_cell == source_cell);
         circled_values.push_back({event.target_cell, event.value});
@@ -257,10 +265,9 @@ void VideoExplainer::flush_pending_cell_propagates_events() {
       const auto [grid_x, grid_y, grid_size] = draw_layout(propagate);
       cr.translate(grid_x, grid_y);
 
-      const AnnotatedSudoku::Coordinates source_cell = pending_cell_propagates_events.front().source_cell;
-      std::vector<std::tuple<AnnotatedSudoku::Coordinates, unsigned>> circled_values;
-      std::vector<std::tuple<AnnotatedSudoku::Coordinates, AnnotatedSudoku::Coordinates, unsigned>>
-        links_from_cell_to_value;
+      const Coordinates source_cell = pending_cell_propagates_events.front().source_cell;
+      std::vector<std::tuple<Coordinates, unsigned>> circled_values;
+      std::vector<std::tuple<Coordinates, Coordinates, unsigned>> links_from_cell_to_value;
       for (const auto& event : pending_cell_propagates_events) {
         assert(event.source_cell == source_cell);
         circled_values.push_back({event.target_cell, event.value});
@@ -298,7 +305,8 @@ void VideoExplainer::flush_pending_cell_propagates_events() {
   pending_cell_propagates_events.clear();
 }
 
-void VideoExplainer::flush_pending_cell_is_deduced_from_single_allowed_value_events() {
+template<unsigned size>
+void VideoExplainer<size>::flush_pending_cell_is_deduced_from_single_allowed_value_events() {
   Layout propagate{.below = {{"Propagate constraints", 20}}};
 
   const double widths[] = {2, 4, 5, 3, 2};
@@ -313,7 +321,7 @@ void VideoExplainer::flush_pending_cell_is_deduced_from_single_allowed_value_eve
         const auto [grid_x, grid_y, grid_size] = draw_layout(propagate);
         cr.translate(grid_x, grid_y);
 
-        std::vector<AnnotatedSudoku::Coordinates> circled_cells;
+        std::vector<Coordinates> circled_cells;
         for (const auto& event : pending_cell_is_deduced_from_single_allowed_value_events) {
           circled_cells.push_back(event.cell);
         }
@@ -336,7 +344,7 @@ void VideoExplainer::flush_pending_cell_is_deduced_from_single_allowed_value_eve
         const auto [grid_x, grid_y, grid_size] = draw_layout(propagate);
         cr.translate(grid_x, grid_y);
 
-        std::vector<AnnotatedSudoku::Coordinates> circled_cells;
+        std::vector<Coordinates> circled_cells;
         for (const auto& event : pending_cell_is_deduced_from_single_allowed_value_events) {
           circled_cells.push_back(event.cell);
         }
@@ -359,7 +367,8 @@ void VideoExplainer::flush_pending_cell_is_deduced_from_single_allowed_value_eve
   pending_cell_is_deduced_from_single_allowed_value_events.clear();
 }
 
-void VideoExplainer::flush_pending_cell_is_deduced_as_single_place_for_value_in_region_events() {
+template<unsigned size>
+void VideoExplainer<size>::flush_pending_cell_is_deduced_as_single_place_for_value_in_region_events() {
   Layout propagate{.below = {{"Propagate constraints", 20}}};
 
   const double widths[] = {2, 4, 5, 3, 2};
@@ -374,7 +383,7 @@ void VideoExplainer::flush_pending_cell_is_deduced_as_single_place_for_value_in_
         const auto [grid_x, grid_y, grid_size] = draw_layout(propagate);
         cr.translate(grid_x, grid_y);
 
-        std::vector<AnnotatedSudoku::Coordinates> boxed_cells;
+        std::vector<Coordinates> boxed_cells;
         for (const auto& event : pending_cell_is_deduced_as_single_place_for_value_in_region_events) {
           boxed_cells.push_back(event.cell);
         }
@@ -397,7 +406,7 @@ void VideoExplainer::flush_pending_cell_is_deduced_as_single_place_for_value_in_
         const auto [grid_x, grid_y, grid_size] = draw_layout(propagate);
         cr.translate(grid_x, grid_y);
 
-        std::vector<AnnotatedSudoku::Coordinates> boxed_cells;
+        std::vector<Coordinates> boxed_cells;
         for (const auto& event : pending_cell_is_deduced_as_single_place_for_value_in_region_events) {
           boxed_cells.push_back(event.cell);
         }
@@ -420,31 +429,36 @@ void VideoExplainer::flush_pending_cell_is_deduced_as_single_place_for_value_in_
   pending_cell_is_deduced_as_single_place_for_value_in_region_events.clear();
 }
 
-void VideoExplainer::visit(const exploration::PropagationIsDoneForSudoku& event) {
+template<unsigned size>
+void VideoExplainer<size>::visit(const exploration::PropagationIsDoneForSudoku<size>& event) {
   flush_pending_events();
 
   VisitEventsGuard visit(this, event);
 }
 
-void VideoExplainer::visit(const exploration::ExplorationStarts& event) {
+template<unsigned size>
+void VideoExplainer<size>::visit(const exploration::ExplorationStarts<size>& event) {
   flush_pending_events();
 
   VisitEventsGuard visit(this, event);
 }
 
-void VideoExplainer::visit(const exploration::HypothesisIsMade& event) {
+template<unsigned size>
+void VideoExplainer<size>::visit(const exploration::HypothesisIsMade<size>& event) {
   flush_pending_events();
 
   VisitEventsGuard visit(this, event);
 }
 
-void VideoExplainer::visit(const exploration::HypothesisIsRejected& event) {
+template<unsigned size>
+void VideoExplainer<size>::visit(const exploration::HypothesisIsRejected<size>& event) {
   flush_pending_events();
 
   VisitEventsGuard visit(this, event);
 }
 
-void VideoExplainer::visit(const exploration::SudokuIsSolved& event) {
+template<unsigned size>
+void VideoExplainer<size>::visit(const exploration::SudokuIsSolved<size>& event) {
   flush_pending_events();
 
   VisitEventsGuard visit(this, event);
@@ -464,20 +478,29 @@ void VideoExplainer::visit(const exploration::SudokuIsSolved& event) {
   }
 }
 
-void VideoExplainer::visit(const exploration::HypothesisIsAccepted& event) {
+template<unsigned size>
+void VideoExplainer<size>::visit(const exploration::HypothesisIsAccepted<size>& event) {
   flush_pending_events();
 
   VisitEventsGuard visit(this, event);
 }
 
-void VideoExplainer::visit(const exploration::ExplorationIsDone& event) {
+template<unsigned size>
+void VideoExplainer<size>::visit(const exploration::ExplorationIsDone<size>& event) {
   flush_pending_events();
 
   VisitEventsGuard visit(this, event);
 }
 
-void VideoExplainer::flush_pending_events() {
+template<unsigned size>
+void VideoExplainer<size>::flush_pending_events() {
   flush_pending_cell_propagates_events();
   flush_pending_cell_is_deduced_from_single_allowed_value_events();
   flush_pending_cell_is_deduced_as_single_place_for_value_in_region_events();
 }
+
+template class VideoExplainer<4>;
+template class VideoExplainer<9>;
+template class VideoExplainer<16>;
+template class VideoExplainer<25>;
+template class VideoExplainer<36>;

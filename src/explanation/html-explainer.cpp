@@ -50,17 +50,19 @@ struct Image {
 };
 
 
-void HtmlExplainer::visit(const exploration::CellIsSetInInput& event) {
+template<unsigned size>
+void HtmlExplainer<size>::visit(const exploration::CellIsSetInInput<size>& event) {
   event.apply(&stack);
 }
 
-void HtmlExplainer::visit(const exploration::InputsAreDone& event) {
+template<unsigned size>
+void HtmlExplainer<size>::visit(const exploration::InputsAreDone<size>& event) {
   event.apply(&stack);
 
   index_file << "<html><head><title>jacquev6/Sudoku - Solving explanation</title></head><body>\n";
   index_file << "<h1>Input grid</h1>\n";
   Image input(directory_path / "input.png");
-  const double grid_size = art::round_grid_size(input.viewport_height);
+  const double grid_size = art::round_grid_size<size>(input.viewport_height);
   input.cr->translate((input.viewport_width - grid_size) / 2, (input.viewport_height - grid_size) / 2);
   art::draw(input.cr, current(), {.grid_size = grid_size});
   index_file << "<p><img src=\"input.png\"/></p>\n";
@@ -72,20 +74,23 @@ void HtmlExplainer::visit(const exploration::InputsAreDone& event) {
   index_file << "<p><img src=\"initial-possible.png\"/></p>\n";
 }
 
-void HtmlExplainer::visit(const exploration::PropagationStartsForSudoku& event) {
+template<unsigned size>
+void HtmlExplainer<size>::visit(const exploration::PropagationStartsForSudoku<size>& event) {
   index_file << "<h1>Propagation</h1>\n";
 
   event.apply(&stack);
 }
 
-void HtmlExplainer::visit(const exploration::PropagationStartsForCell& event) {
+template<unsigned size>
+void HtmlExplainer<size>::visit(const exploration::PropagationStartsForCell<size>& event) {
   const auto [row, col] = event.cell;
   index_file << "<h2>Propagation from (" << row << ", " << col << ")</h2>\n";
 
   event.apply(&stack);
 }
 
-void HtmlExplainer::visit(const exploration::CellPropagates& event) {
+template<unsigned size>
+void HtmlExplainer<size>::visit(const exploration::CellPropagates<size>& event) {
   event.apply(&stack);
 
   const auto [src_row, src_col] = event.source_cell;
@@ -93,7 +98,7 @@ void HtmlExplainer::visit(const exploration::CellPropagates& event) {
   const std::string image_name =
     str(boost::format("propagation-%1%-%2%--%3%-%4%.png") % src_row % src_col % tgt_row % tgt_col);
   Image propagation(directory_path / image_name);
-  const double grid_size = art::round_grid_size(propagation.viewport_height);
+  const double grid_size = art::round_grid_size<size>(propagation.viewport_height);
   propagation.cr->translate(
     (propagation.viewport_width - grid_size) / 2,
     (propagation.viewport_height - grid_size) / 2);
@@ -111,40 +116,48 @@ void HtmlExplainer::visit(const exploration::CellPropagates& event) {
   index_file << "<p><img src=\"" << image_name << "\"/></p>\n";
 }
 
-void HtmlExplainer::visit(const exploration::CellIsDeducedFromSingleAllowedValue& event) {
+template<unsigned size>
+void HtmlExplainer<size>::visit(const exploration::CellIsDeducedFromSingleAllowedValue<size>& event) {
   event.apply(&stack);
 }
 
-void HtmlExplainer::visit(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion& event) {
+template<unsigned size>
+void HtmlExplainer<size>::visit(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>& event) {
   event.apply(&stack);
 }
 
-void HtmlExplainer::visit(const exploration::PropagationIsDoneForCell& event) {
+template<unsigned size>
+void HtmlExplainer<size>::visit(const exploration::PropagationIsDoneForCell<size>& event) {
   event.apply(&stack);
 }
 
-void HtmlExplainer::visit(const exploration::PropagationIsDoneForSudoku& event) {
+template<unsigned size>
+void HtmlExplainer<size>::visit(const exploration::PropagationIsDoneForSudoku<size>& event) {
   event.apply(&stack);
 }
 
-void HtmlExplainer::visit(const exploration::ExplorationStarts& event) {
+template<unsigned size>
+void HtmlExplainer<size>::visit(const exploration::ExplorationStarts<size>& event) {
   event.apply(&stack);
 }
 
-void HtmlExplainer::visit(const exploration::HypothesisIsMade& event) {
+template<unsigned size>
+void HtmlExplainer<size>::visit(const exploration::HypothesisIsMade<size>& event) {
   event.apply(&stack);
 }
 
-void HtmlExplainer::visit(const exploration::HypothesisIsRejected& event) {
+template<unsigned size>
+void HtmlExplainer<size>::visit(const exploration::HypothesisIsRejected<size>& event) {
   event.apply(&stack);
 }
 
-void HtmlExplainer::visit(const exploration::SudokuIsSolved& event) {
+template<unsigned size>
+void HtmlExplainer<size>::visit(const exploration::SudokuIsSolved<size>& event) {
   event.apply(&stack);
 
   index_file << "<h1>Solved grid</h1>\n";
   Image solved(directory_path / "solved.png");
-  const double grid_size = art::round_grid_size(solved.viewport_height);
+  const double grid_size = art::round_grid_size<size>(solved.viewport_height);
   solved.cr->translate((solved.viewport_width - grid_size) / 2, (solved.viewport_height - grid_size) / 2);
   art::draw(
     solved.cr,
@@ -156,6 +169,14 @@ void HtmlExplainer::visit(const exploration::SudokuIsSolved& event) {
   index_file << "</body></html>\n";
 }
 
-void HtmlExplainer::visit(const exploration::HypothesisIsAccepted& event) {}
+template<unsigned size>
+void HtmlExplainer<size>::visit(const exploration::HypothesisIsAccepted<size>& event) {}
 
-void HtmlExplainer::visit(const exploration::ExplorationIsDone& event) {}
+template<unsigned size>
+void HtmlExplainer<size>::visit(const exploration::ExplorationIsDone<size>& event) {}
+
+template class HtmlExplainer<4>;
+template class HtmlExplainer<9>;
+template class HtmlExplainer<16>;
+template class HtmlExplainer<25>;
+template class HtmlExplainer<36>;

@@ -1,0 +1,5 @@
+command: build/bin/sudoku --size 3 solve -
+returncode: 1
+stderr: |
+  ERROR: unsupported size: 3
+stdout: |
