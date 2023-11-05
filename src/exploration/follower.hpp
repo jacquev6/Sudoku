@@ -7,42 +7,28 @@
 #include <set>
 #include <vector>
 
-#include "../exploration/events.hpp"
+#include "events.hpp"
 
 
 // @todo Remove this class: this should be a feature of the events themselves, not done through the visitor.
 // Apply events to a Sudoku and keep track of the state.
 class Follower : public exploration::EventVisitor {
  public:
-  Follower() : stack(1) {}
-
- public:
   const AnnotatedSudoku& current() const {
-    assert(!stack.empty());
-    return stack.back();
-  }
-
-  std::vector<const AnnotatedSudoku*> saved() const {
-    std::vector<const AnnotatedSudoku*> result;
-    for (auto it = std::next(stack.rbegin()); it != stack.rend(); ++it) {
-      result.push_back(&(*it));
-    }
-    return result;
+    return stack.current();
   }
 
  private:
   AnnotatedSudoku& current() {
-    assert(!stack.empty());
-    return stack.back();
+    return stack.current();
   }
 
   void push() {
-    stack.push_back(current());
+    stack.push();
   }
 
   void pop() {
-    assert(!stack.empty());
-    stack.pop_back();
+    stack.pop();
   }
 
  public:
@@ -114,7 +100,7 @@ class Follower : public exploration::EventVisitor {
   void visit(const exploration::ExplorationIsDone&) override {}
 
  private:
-  std::list<AnnotatedSudoku> stack;
+  Stack stack;
 };
 
 #endif  // EXPLORATION_FOLLOWER_HPP_
