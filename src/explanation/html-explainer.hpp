@@ -7,7 +7,6 @@
 #include <fstream>
 
 #include "../exploration/events.hpp"
-#include "../exploration/follower.hpp"
 
 
 class HtmlExplainer : public exploration::EventVisitor {
@@ -15,7 +14,7 @@ class HtmlExplainer : public exploration::EventVisitor {
   explicit HtmlExplainer(const std::filesystem::path& directory_path_) :
     directory_path(directory_path_),
     index_file(),
-    follower()
+    stack()
   {  // NOLINT(whitespace/braces)
     std::filesystem::create_directories(directory_path);
     index_file.open(directory_path / "index.html");
@@ -39,12 +38,12 @@ class HtmlExplainer : public exploration::EventVisitor {
   void visit(const exploration::ExplorationIsDone&) override;
 
  private:
-  const AnnotatedSudoku& current() const { return follower.current(); }
+  const AnnotatedSudoku& current() const { return stack.current(); }
 
  private:
   std::filesystem::path directory_path;
   std::ofstream index_file;
-  Follower follower;
+  Stack stack;
 };
 
 #endif  // EXPLANATION_HTML_EXPLAINER_HPP_

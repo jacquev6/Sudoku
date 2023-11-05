@@ -13,7 +13,6 @@
 #include <vector>
 
 #include "../../exploration/events.hpp"
-#include "../../exploration/follower.hpp"
 #include "video-serializer.hpp"
 
 
@@ -59,7 +58,7 @@ class VideoExplainer : public exploration::EventVisitor {
       before(explainer.before),
       after(explainer.after)
     {  // NOLINT(whitespace/braces)
-      event.accept(explainer.after);
+      event.apply(&explainer.after);
       event.accept(*explainer.printer);
       events.push_back(&event);
     }
@@ -72,7 +71,7 @@ class VideoExplainer : public exploration::EventVisitor {
       after(explainer.after)
     {  // NOLINT(whitespace/braces)
       for (const T& event : events_) {
-        event.accept(explainer.after);
+        event.apply(&explainer.after);
         event.accept(*explainer.printer);
         events.push_back(static_cast<const exploration::Event*>(&event));
       }
@@ -85,7 +84,7 @@ class VideoExplainer : public exploration::EventVisitor {
 
     ~VisitEventsGuard() {
       for (const exploration::Event* const event : events) {
-        event->accept(explainer.before);
+        event->apply(&explainer.before);
       }
     }
 
@@ -94,8 +93,8 @@ class VideoExplainer : public exploration::EventVisitor {
     std::vector<const exploration::Event*> events;
 
    public:
-    const Follower& before;
-    const Follower& after;
+    const Stack& before;
+    const Stack& after;
   };
 
   class FrameGuard {
@@ -291,8 +290,8 @@ class VideoExplainer : public exploration::EventVisitor {
   }
 
  private:
-  Follower before;
-  Follower after;
+  Stack before;
+  Stack after;
   Cairo::RefPtr<Cairo::ImageSurface> surface;
   Cairo::RefPtr<Cairo::Context> context;
   Cairo::Context& cr;
