@@ -32,72 +32,35 @@ class Follower : public exploration::EventVisitor {
   }
 
  public:
-  void visit(const exploration::CellIsSetInInput& event) override {
-    current().set_input(event.cell, event.value);
-  }
+  void visit(const exploration::CellIsSetInInput& event) override { event.apply(&stack); }
 
-  void visit(const exploration::InputsAreDone&) override {}
+  void visit(const exploration::InputsAreDone& event) override { event.apply(&stack); }
 
-  void visit(const exploration::PropagationStartsForSudoku&) override {}
+  void visit(const exploration::PropagationStartsForSudoku& event) override { event.apply(&stack); }
 
-  void visit(const exploration::PropagationStartsForCell&) override {}
+  void visit(const exploration::PropagationStartsForCell& event) override { event.apply(&stack); }
 
-  void visit(const exploration::CellPropagates& event) override {
-    assert(current().is_set(event.source_cell));
-    assert(current().get(event.source_cell) == event.value);
-    assert(!current().is_set(event.target_cell));
-    assert(current().is_allowed(event.target_cell, event.value));
-    assert(!current().is_propagated(event.source_cell));
+  void visit(const exploration::CellPropagates& event) override { event.apply(&stack); }
 
-    current().forbid(event.target_cell, event.value);
-  }
+  void visit(const exploration::CellIsDeducedFromSingleAllowedValue& event) override { event.apply(&stack); }
 
-  void visit(const exploration::CellIsDeducedFromSingleAllowedValue& event) override {
-    assert(!current().is_set(event.cell));
-    assert(!current().is_propagated(event.cell));
+  void visit(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion& event) override { event.apply(&stack); }
 
-    current().set_deduced(event.cell, event.value);
-  }
+  void visit(const exploration::PropagationIsDoneForCell& event) override { event.apply(&stack); }
 
-  void visit(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion& event) override {
-    assert(!current().is_set(event.cell));
-    assert(!current().is_propagated(event.cell));
+  void visit(const exploration::PropagationIsDoneForSudoku& event) override { event.apply(&stack); }
 
-    current().set_deduced(event.cell, event.value);
-  }
+  void visit(const exploration::ExplorationStarts& event) override { event.apply(&stack); }
 
-  void visit(const exploration::PropagationIsDoneForCell& event) override {
-    assert(current().is_set(event.cell));
-    assert(current().get(event.cell) == event.value);
-    assert(!current().is_propagated(event.cell));
+  void visit(const exploration::HypothesisIsMade& event) override { event.apply(&stack); }
 
-    current().set_propagated(event.cell);
-  }
+  void visit(const exploration::HypothesisIsRejected& event) override { event.apply(&stack); }
 
-  void visit(const exploration::PropagationIsDoneForSudoku&) override {}
+  void visit(const exploration::SudokuIsSolved& event) override { event.apply(&stack); }
 
-  void visit(const exploration::ExplorationStarts&) override {}
+  void visit(const exploration::HypothesisIsAccepted& event) override { event.apply(&stack); }
 
-  void visit(const exploration::HypothesisIsMade& event) override {
-    assert(!current().is_set(event.cell));
-    assert(current().is_allowed(event.cell, event.value));
-    assert(!current().is_propagated(event.cell));
-
-    push();
-    current().set_deduced(event.cell, event.value);
-  }
-
-  void visit(const exploration::HypothesisIsRejected& event) override {
-    pop();
-  }
-
-  void visit(const exploration::SudokuIsSolved& event) override {
-    assert(current().is_solved());
-  }
-
-  void visit(const exploration::HypothesisIsAccepted&) override {}
-
-  void visit(const exploration::ExplorationIsDone&) override {}
+  void visit(const exploration::ExplorationIsDone& event) override { event.apply(&stack); }
 
  private:
   Stack stack;

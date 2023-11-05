@@ -5,7 +5,7 @@
 
 #include <vector>
 
-#include "sudoku.hpp"
+#include "annotations.hpp"
 
 
 namespace exploration {
@@ -15,6 +15,7 @@ struct EventVisitor;
 struct Event {
   virtual ~Event() = default;
   virtual void accept(EventVisitor&) const = 0;
+  virtual void apply(Stack*) const = 0;
 };
 
 // Name events like affirmative sentences in present tense
@@ -62,6 +63,7 @@ struct CellIsSetInInput : Event {
   CellIsSetInInput(const AnnotatedSudoku::Coordinates& cell_, unsigned value_) : cell(cell_), value(value_) {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
+  void apply(Stack*) const override;
 
   const AnnotatedSudoku::Coordinates cell;
   const unsigned value;
@@ -69,16 +71,19 @@ struct CellIsSetInInput : Event {
 
 struct InputsAreDone : Event {
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
+  void apply(Stack*) const override;
 };
 
 struct PropagationStartsForSudoku : Event {
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
+  void apply(Stack*) const override;
 };
 
 struct PropagationStartsForCell : Event {
   PropagationStartsForCell(const AnnotatedSudoku::Coordinates& cell_, unsigned value_) : cell(cell_), value(value_) {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
+  void apply(Stack*) const override;
 
   const AnnotatedSudoku::Coordinates cell;
   const unsigned value;
@@ -92,6 +97,7 @@ struct CellPropagates : Event {
   {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
+  void apply(Stack*) const override;
 
   const AnnotatedSudoku::Coordinates source_cell;
   const AnnotatedSudoku::Coordinates target_cell;
@@ -104,6 +110,7 @@ struct CellIsDeducedFromSingleAllowedValue : Event {
   {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
+  void apply(Stack*) const override;
 
   const AnnotatedSudoku::Coordinates cell;
   const unsigned value;
@@ -117,6 +124,7 @@ struct CellIsDeducedAsSinglePlaceForValueInRegion : Event {
   {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
+  void apply(Stack*) const override;
 
   const AnnotatedSudoku::Coordinates cell;
   const unsigned value;
@@ -127,6 +135,7 @@ struct PropagationIsDoneForCell : Event {
   PropagationIsDoneForCell(const AnnotatedSudoku::Coordinates& cell_, unsigned value_) : cell(cell_), value(value_) {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
+  void apply(Stack*) const override;
 
   const AnnotatedSudoku::Coordinates cell;
   const unsigned value;
@@ -134,6 +143,7 @@ struct PropagationIsDoneForCell : Event {
 
 struct PropagationIsDoneForSudoku : Event {
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
+  void apply(Stack*) const override;
 };
 
 struct ExplorationStarts : Event {
@@ -142,6 +152,7 @@ struct ExplorationStarts : Event {
   {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
+  void apply(Stack*) const override;
 
   const AnnotatedSudoku::Coordinates cell;
   const std::vector<unsigned> allowed_values;
@@ -153,6 +164,7 @@ struct HypothesisIsMade : Event {
   {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
+  void apply(Stack*) const override;
 
   const AnnotatedSudoku::Coordinates cell;
   const unsigned value;
@@ -163,6 +175,7 @@ struct HypothesisIsRejected : Event {
   HypothesisIsRejected(const AnnotatedSudoku::Coordinates& cell_, unsigned value_) : cell(cell_), value(value_) {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
+  void apply(Stack*) const override;
 
   const AnnotatedSudoku::Coordinates cell;
   const unsigned value;
@@ -170,12 +183,14 @@ struct HypothesisIsRejected : Event {
 
 struct SudokuIsSolved : Event {
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
+  void apply(Stack*) const override;
 };
 
 struct HypothesisIsAccepted : Event {
   HypothesisIsAccepted(const AnnotatedSudoku::Coordinates& cell_, unsigned value_) : cell(cell_), value(value_) {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
+  void apply(Stack*) const override;
 
   const AnnotatedSudoku::Coordinates cell;
   const unsigned value;
@@ -185,6 +200,7 @@ struct ExplorationIsDone : Event {
   explicit ExplorationIsDone(const AnnotatedSudoku::Coordinates& cell_) : cell(cell_) {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
+  void apply(Stack*) const override;
 
   const AnnotatedSudoku::Coordinates cell;
 };
