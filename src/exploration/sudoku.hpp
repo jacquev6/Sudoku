@@ -13,9 +13,9 @@
 #include "../puzzle/sudoku-constants.hpp"
 
 
-class Sudoku : public SudokuConstants {
+class AnnotatedSudoku : public SudokuConstants {
  public:
-  Sudoku() : allowed_values(), set_values() {
+  AnnotatedSudoku() : allowed_values(), set_values() {
     for (unsigned row : values) {
       for (unsigned col : values) {
         allowed_values[row][col].set();
@@ -25,12 +25,12 @@ class Sudoku : public SudokuConstants {
     assert_invariants();
   }
 
-  Sudoku(const Sudoku&) = default;
-  Sudoku& operator=(const Sudoku&) = default;
-  Sudoku(Sudoku&&) = default;
-  Sudoku& operator=(Sudoku&&) = default;
+  AnnotatedSudoku(const AnnotatedSudoku&) = default;
+  AnnotatedSudoku& operator=(const AnnotatedSudoku&) = default;
+  AnnotatedSudoku(AnnotatedSudoku&&) = default;
+  AnnotatedSudoku& operator=(AnnotatedSudoku&&) = default;
 
-  ~Sudoku() = default;
+  ~AnnotatedSudoku() = default;
 
  public:
   bool is_solved() const {

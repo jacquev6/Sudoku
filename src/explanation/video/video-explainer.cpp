@@ -226,9 +226,10 @@ void VideoExplainer::flush_pending_cell_propagates_events() {
       const auto [grid_x, grid_y, grid_size] = draw_layout(propagate);
       cr.translate(grid_x, grid_y);
 
-      const Sudoku::Coordinates source_cell = pending_cell_propagates_events.front().source_cell;
-      std::vector<std::tuple<Sudoku::Coordinates, unsigned>> circled_values;
-      std::vector<std::tuple<Sudoku::Coordinates, Sudoku::Coordinates, unsigned>> links_from_cell_to_value;
+      const AnnotatedSudoku::Coordinates source_cell = pending_cell_propagates_events.front().source_cell;
+      std::vector<std::tuple<AnnotatedSudoku::Coordinates, unsigned>> circled_values;
+      std::vector<std::tuple<AnnotatedSudoku::Coordinates, AnnotatedSudoku::Coordinates, unsigned>>
+        links_from_cell_to_value;
       for (const auto& event : pending_cell_propagates_events) {
         assert(event.source_cell == source_cell);
         circled_values.push_back({event.target_cell, event.value});
@@ -256,9 +257,10 @@ void VideoExplainer::flush_pending_cell_propagates_events() {
       const auto [grid_x, grid_y, grid_size] = draw_layout(propagate);
       cr.translate(grid_x, grid_y);
 
-      const Sudoku::Coordinates source_cell = pending_cell_propagates_events.front().source_cell;
-      std::vector<std::tuple<Sudoku::Coordinates, unsigned>> circled_values;
-      std::vector<std::tuple<Sudoku::Coordinates, Sudoku::Coordinates, unsigned>> links_from_cell_to_value;
+      const AnnotatedSudoku::Coordinates source_cell = pending_cell_propagates_events.front().source_cell;
+      std::vector<std::tuple<AnnotatedSudoku::Coordinates, unsigned>> circled_values;
+      std::vector<std::tuple<AnnotatedSudoku::Coordinates, AnnotatedSudoku::Coordinates, unsigned>>
+        links_from_cell_to_value;
       for (const auto& event : pending_cell_propagates_events) {
         assert(event.source_cell == source_cell);
         circled_values.push_back({event.target_cell, event.value});
@@ -311,7 +313,7 @@ void VideoExplainer::flush_pending_cell_is_deduced_from_single_allowed_value_eve
         const auto [grid_x, grid_y, grid_size] = draw_layout(propagate);
         cr.translate(grid_x, grid_y);
 
-        std::vector<Sudoku::Coordinates> circled_cells;
+        std::vector<AnnotatedSudoku::Coordinates> circled_cells;
         for (const auto& event : pending_cell_is_deduced_from_single_allowed_value_events) {
           circled_cells.push_back(event.cell);
         }
@@ -334,7 +336,7 @@ void VideoExplainer::flush_pending_cell_is_deduced_from_single_allowed_value_eve
         const auto [grid_x, grid_y, grid_size] = draw_layout(propagate);
         cr.translate(grid_x, grid_y);
 
-        std::vector<Sudoku::Coordinates> circled_cells;
+        std::vector<AnnotatedSudoku::Coordinates> circled_cells;
         for (const auto& event : pending_cell_is_deduced_from_single_allowed_value_events) {
           circled_cells.push_back(event.cell);
         }
@@ -372,7 +374,7 @@ void VideoExplainer::flush_pending_cell_is_deduced_as_single_place_for_value_in_
         const auto [grid_x, grid_y, grid_size] = draw_layout(propagate);
         cr.translate(grid_x, grid_y);
 
-        std::vector<Sudoku::Coordinates> boxed_cells;
+        std::vector<AnnotatedSudoku::Coordinates> boxed_cells;
         for (const auto& event : pending_cell_is_deduced_as_single_place_for_value_in_region_events) {
           boxed_cells.push_back(event.cell);
         }
@@ -395,7 +397,7 @@ void VideoExplainer::flush_pending_cell_is_deduced_as_single_place_for_value_in_
         const auto [grid_x, grid_y, grid_size] = draw_layout(propagate);
         cr.translate(grid_x, grid_y);
 
-        std::vector<Sudoku::Coordinates> boxed_cells;
+        std::vector<AnnotatedSudoku::Coordinates> boxed_cells;
         for (const auto& event : pending_cell_is_deduced_as_single_place_for_value_in_region_events) {
           boxed_cells.push_back(event.cell);
         }

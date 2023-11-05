@@ -228,7 +228,9 @@ class VideoExplainer : public exploration::EventVisitor {
 
     // Use integer to ensure no aliasing occurs on the grid
     const unsigned available_height = viewport_height_pixels - above_height - below_height;
-    const unsigned grid_size = (available_height - thick_line_width) / Sudoku::size * Sudoku::size + thick_line_width;
+    // @todo Use 'art::round_grid_size' instead of this custom code
+    const unsigned grid_size =
+      (available_height - thick_line_width) / AnnotatedSudoku::size * AnnotatedSudoku::size + thick_line_width;
     const unsigned grid_x = (viewport_width_pixels - grid_size) / 2;
     const unsigned grid_y = above_height + (available_height - grid_size) / 2;
 
@@ -246,7 +248,7 @@ class VideoExplainer : public exploration::EventVisitor {
     const double below_height_before = compute_text_height(before.below);
     const unsigned available_height_before = viewport_height_pixels - above_height_before - below_height_before;
     const unsigned grid_size_before =
-      (available_height_before - thick_line_width) / Sudoku::size * Sudoku::size + thick_line_width;
+      (available_height_before - thick_line_width) / AnnotatedSudoku::size * AnnotatedSudoku::size + thick_line_width;
     const double grid_x_before = (viewport_width_pixels - grid_size_before) / 2;
     const double grid_y_before = above_height_before + (available_height_before - grid_size_before) / 2;
 
@@ -254,7 +256,7 @@ class VideoExplainer : public exploration::EventVisitor {
     const double below_height_after = compute_text_height(after.below);
     const unsigned available_height_after = viewport_height_pixels - above_height_after - below_height_after;
     const unsigned grid_size_after =
-      (available_height_after - thick_line_width) / Sudoku::size * Sudoku::size + thick_line_width;
+      (available_height_after - thick_line_width) / AnnotatedSudoku::size * AnnotatedSudoku::size + thick_line_width;
     const double grid_x_after = (viewport_width_pixels - grid_size_after) / 2;
     const double grid_y_after = above_height_after + (available_height_after - grid_size_after) / 2;
 

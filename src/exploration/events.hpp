@@ -59,11 +59,11 @@ struct EventVisitor {
 };
 
 struct CellIsSetInInput : Event {
-  CellIsSetInInput(const Sudoku::Coordinates& cell_, unsigned value_) : cell(cell_), value(value_) {}
+  CellIsSetInInput(const AnnotatedSudoku::Coordinates& cell_, unsigned value_) : cell(cell_), value(value_) {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
 
-  const Sudoku::Coordinates cell;
+  const AnnotatedSudoku::Coordinates cell;
   const unsigned value;
 };
 
@@ -76,53 +76,59 @@ struct PropagationStartsForSudoku : Event {
 };
 
 struct PropagationStartsForCell : Event {
-  PropagationStartsForCell(const Sudoku::Coordinates& cell_, unsigned value_) : cell(cell_), value(value_) {}
+  PropagationStartsForCell(const AnnotatedSudoku::Coordinates& cell_, unsigned value_) : cell(cell_), value(value_) {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
 
-  const Sudoku::Coordinates cell;
+  const AnnotatedSudoku::Coordinates cell;
   const unsigned value;
 };
 
 struct CellPropagates : Event {
-  CellPropagates(const Sudoku::Coordinates& source_cell_, const Sudoku::Coordinates& target_cell_, unsigned value_) :
+  CellPropagates(
+    const AnnotatedSudoku::Coordinates& source_cell_, const AnnotatedSudoku::Coordinates& target_cell_, unsigned value_
+  ) :  // NOLINT(whitespace/parens)
     source_cell(source_cell_), target_cell(target_cell_), value(value_)
   {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
 
-  const Sudoku::Coordinates source_cell;
-  const Sudoku::Coordinates target_cell;
+  const AnnotatedSudoku::Coordinates source_cell;
+  const AnnotatedSudoku::Coordinates target_cell;
   const unsigned value;
 };
 
 struct CellIsDeducedFromSingleAllowedValue : Event {
-  CellIsDeducedFromSingleAllowedValue(const Sudoku::Coordinates& cell_, unsigned value_) : cell(cell_), value(value_) {}
+  CellIsDeducedFromSingleAllowedValue(const AnnotatedSudoku::Coordinates& cell_, unsigned value_) :
+    cell(cell_), value(value_)
+  {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
 
-  const Sudoku::Coordinates cell;
+  const AnnotatedSudoku::Coordinates cell;
   const unsigned value;
 };
 
 struct CellIsDeducedAsSinglePlaceForValueInRegion : Event {
-  CellIsDeducedAsSinglePlaceForValueInRegion(const Sudoku::Coordinates& cell_, unsigned value_, unsigned region_) :
+  CellIsDeducedAsSinglePlaceForValueInRegion(
+    const AnnotatedSudoku::Coordinates& cell_, unsigned value_, unsigned region_
+  ) :  // NOLINT(whitespace/parens)
     cell(cell_), value(value_), region(region_)
   {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
 
-  const Sudoku::Coordinates cell;
+  const AnnotatedSudoku::Coordinates cell;
   const unsigned value;
   const unsigned region;
 };
 
 struct PropagationIsDoneForCell : Event {
-  PropagationIsDoneForCell(const Sudoku::Coordinates& cell_, unsigned value_) : cell(cell_), value(value_) {}
+  PropagationIsDoneForCell(const AnnotatedSudoku::Coordinates& cell_, unsigned value_) : cell(cell_), value(value_) {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
 
-  const Sudoku::Coordinates cell;
+  const AnnotatedSudoku::Coordinates cell;
   const unsigned value;
 };
 
@@ -131,34 +137,34 @@ struct PropagationIsDoneForSudoku : Event {
 };
 
 struct ExplorationStarts : Event {
-  ExplorationStarts(const Sudoku::Coordinates& cell_, const std::vector<unsigned>& allowed_values_) :
+  ExplorationStarts(const AnnotatedSudoku::Coordinates& cell_, const std::vector<unsigned>& allowed_values_) :
     cell(cell_), allowed_values(allowed_values_)
   {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
 
-  const Sudoku::Coordinates cell;
+  const AnnotatedSudoku::Coordinates cell;
   const std::vector<unsigned> allowed_values;
 };
 
 struct HypothesisIsMade : Event {
-  HypothesisIsMade(const Sudoku::Coordinates& cell_, unsigned value_) :
+  HypothesisIsMade(const AnnotatedSudoku::Coordinates& cell_, unsigned value_) :
     cell(cell_), value(value_), spoiler(std::nullopt)
   {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
 
-  const Sudoku::Coordinates cell;
+  const AnnotatedSudoku::Coordinates cell;
   const unsigned value;
   std::optional<bool> spoiler;
 };
 
 struct HypothesisIsRejected : Event {
-  HypothesisIsRejected(const Sudoku::Coordinates& cell_, unsigned value_) : cell(cell_), value(value_) {}
+  HypothesisIsRejected(const AnnotatedSudoku::Coordinates& cell_, unsigned value_) : cell(cell_), value(value_) {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
 
-  const Sudoku::Coordinates cell;
+  const AnnotatedSudoku::Coordinates cell;
   const unsigned value;
 };
 
@@ -167,20 +173,20 @@ struct SudokuIsSolved : Event {
 };
 
 struct HypothesisIsAccepted : Event {
-  HypothesisIsAccepted(const Sudoku::Coordinates& cell_, unsigned value_) : cell(cell_), value(value_) {}
+  HypothesisIsAccepted(const AnnotatedSudoku::Coordinates& cell_, unsigned value_) : cell(cell_), value(value_) {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
 
-  const Sudoku::Coordinates cell;
+  const AnnotatedSudoku::Coordinates cell;
   const unsigned value;
 };
 
 struct ExplorationIsDone : Event {
-  explicit ExplorationIsDone(const Sudoku::Coordinates& cell_) : cell(cell_) {}
+  explicit ExplorationIsDone(const AnnotatedSudoku::Coordinates& cell_) : cell(cell_) {}
 
   void accept(EventVisitor& visitor) const override { visitor.visit(*this); }
 
-  const Sudoku::Coordinates cell;
+  const AnnotatedSudoku::Coordinates cell;
 };
 
 }  // namespace exploration

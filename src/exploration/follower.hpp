@@ -18,9 +18,9 @@ class Follower : public exploration::EventVisitor {
 
  public:
   struct State {
-    Sudoku sudoku;
-    std::set<Sudoku::Coordinates> inputs;
-    std::set<Sudoku::Coordinates> processed;
+    AnnotatedSudoku sudoku;
+    std::set<AnnotatedSudoku::Coordinates> inputs;
+    std::set<AnnotatedSudoku::Coordinates> processed;
   };
 
  public:
