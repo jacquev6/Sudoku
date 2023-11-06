@@ -13,3 +13,10 @@ returncode: 1
 stderr: |
   FAILED to solve this Sudoku using exploration
 stdout: |
+  (1, 1) is set to 1 in the input
+  (1, 2) is set to 1 in the input
+  All inputs have been set
+  Propagation starts
+  Propagation starts for 1 in (1, 1)
+  1 in (1, 1) has been fully propagated
+  All cells have been fully propagated

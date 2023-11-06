@@ -68,80 +68,75 @@ int main_(const Options& options) {
       }
     }
   } else if (options.explain) {
-    std::vector<std::unique_ptr<exploration::Event<size>>> events;
+    std::vector<std::unique_ptr<exploration::EventVisitor<size>>> event_visitors;
+
+    unsigned stdout_users = 0;
+    std::unique_ptr<std::ofstream> text_output;
+    if (options.text_path == "-") {
+      event_visitors.push_back(std::make_unique<TextExplainer<size>>(std::cout));
+      ++stdout_users;
+    } else if (options.text_path) {
+      text_output = std::make_unique<std::ofstream>(*options.text_path);
+      assert(text_output->is_open());
+      event_visitors.push_back(std::make_unique<TextExplainer<size>>(*text_output));
+    }
+
+    if (options.html_path) {
+      event_visitors.push_back(std::make_unique<HtmlExplainer<size>>(
+        *options.html_path, options.width, options.height));
+    }
+
+    if (options.html_text_path == "-") {
+      ++stdout_users;
+    }
+
+    std::vector<std::unique_ptr<VideoSerializer>> video_serializers;
+    std::unique_ptr<std::ofstream> video_text_output;
+    std::ostream* video_text_output_ptr;
+    if (options.video_text_path == "-") {
+      video_text_output_ptr = &std::cout;
+      ++stdout_users;
+    } else {
+      if (options.video_text_path) {
+        video_text_output = std::make_unique<std::ofstream>(*options.video_text_path);
+      } else {
+        video_text_output = std::make_unique<std::ofstream>("/dev/null");
+      }
+      assert(video_text_output->is_open());
+      video_text_output_ptr = video_text_output.get();
+    }
+    TextExplainer<size> video_text_explainer(*video_text_output_ptr);
+    if (options.video_frames_path) {
+      video_serializers.push_back(std::make_unique<FramesVideoSerializer>(*options.video_frames_path));
+    }
+    if (options.video_path) {
+      video_serializers.push_back(std::make_unique<VideoVideoSerializer>(
+        *options.video_path, options.width, options.height));
+    }
+    if (video_serializers.size() >= 2) {
+      assert(video_serializers.size() == 2);
+      video_serializers.push_back(std::make_unique<MultipleVideoSerializer>(
+        std::vector<VideoSerializer*>{video_serializers[0].get(), video_serializers[1].get()}));
+    }
+    if (!video_serializers.empty()) {
+      event_visitors.push_back(
+        std::make_unique<VideoExplainer<size>>(
+          video_serializers.back().get(), &video_text_explainer, options.quick_video, options.width, options.height));
+    }
+
+    if (stdout_users > 1) {
+      std::cerr << "WARNING: several explanations are interleaved on stdout." << std::endl;
+    }
+
     const io::Sudoku<size> solved = solve_using_exploration<size>(
       sudoku,
-      [&events](std::unique_ptr<exploration::Event<size>> event) {
-        events.push_back(std::move(event));
-      });
-
-    if (is_solved(solved)) {
-      std::vector<std::unique_ptr<exploration::EventVisitor<size>>> event_visitors;
-
-      unsigned stdout_users = 0;
-      std::unique_ptr<std::ofstream> text_output;
-      if (options.text_path == "-") {
-        event_visitors.push_back(std::make_unique<TextExplainer<size>>(std::cout));
-        ++stdout_users;
-      } else if (options.text_path) {
-        text_output = std::make_unique<std::ofstream>(*options.text_path);
-        assert(text_output->is_open());
-        event_visitors.push_back(std::make_unique<TextExplainer<size>>(*text_output));
-      }
-
-      if (options.html_path) {
-        event_visitors.push_back(std::make_unique<HtmlExplainer<size>>(
-          *options.html_path, options.width, options.height));
-      }
-
-      if (options.html_text_path == "-") {
-        ++stdout_users;
-      }
-
-      std::vector<std::unique_ptr<VideoSerializer>> video_serializers;
-      std::unique_ptr<std::ofstream> video_text_output;
-      std::ostream* video_text_output_ptr;
-      if (options.video_text_path == "-") {
-        video_text_output_ptr = &std::cout;
-        ++stdout_users;
-      } else {
-        if (options.video_text_path) {
-          video_text_output = std::make_unique<std::ofstream>(*options.video_text_path);
-        } else {
-          video_text_output = std::make_unique<std::ofstream>("/dev/null");
-        }
-        assert(video_text_output->is_open());
-        video_text_output_ptr = video_text_output.get();
-      }
-      TextExplainer<size> video_text_explainer(*video_text_output_ptr);
-      if (options.video_frames_path) {
-        video_serializers.push_back(std::make_unique<FramesVideoSerializer>(*options.video_frames_path));
-      }
-      if (options.video_path) {
-        video_serializers.push_back(std::make_unique<VideoVideoSerializer>(
-          *options.video_path, options.width, options.height));
-      }
-      if (video_serializers.size() >= 2) {
-        assert(video_serializers.size() == 2);
-        video_serializers.push_back(std::make_unique<MultipleVideoSerializer>(
-          std::vector<VideoSerializer*>{video_serializers[0].get(), video_serializers[1].get()}));
-      }
-      if (!video_serializers.empty()) {
-        event_visitors.push_back(
-          std::make_unique<VideoExplainer<size>>(
-            video_serializers.back().get(), &video_text_explainer, options.quick_video, options.width, options.height));
-      }
-
-      if (stdout_users > 1) {
-        std::cerr << "WARNING: several explanations are interleaved on stdout." << std::endl;
-      }
-
-      for (const auto& event : events) {
+      [&event_visitors](std::unique_ptr<exploration::Event<size>> event) {
         for (const auto& event_visitor : event_visitors) {
           event->accept(*event_visitor);
         }
-      }
+      });
 
+    if (is_solved(solved)) {
       return 0;
     } else {
       std::cerr << "FAILED to solve this Sudoku using exploration" << std::endl;

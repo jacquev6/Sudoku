@@ -229,14 +229,12 @@ void explore(const Stack<size>& stack, const AddEvent<size>& add_event) {
     try {
       propagate_and_explore(stack, {cell}, add_event);
       if (stack.current().is_solved()) {
-        hypothesis->spoiler = true;
         add_event(std::make_unique<exploration::HypothesisIsAccepted<size>>(cell, val));
         break;
       } else {
         throw NeedsBacktracking();
       }
     } catch (NeedsBacktracking&) {
-      hypothesis->spoiler = false;
       add_event(std::make_unique<exploration::HypothesisIsRejected<size>>(cell, val));
     }
   }

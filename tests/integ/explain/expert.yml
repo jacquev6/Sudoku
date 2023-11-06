@@ -401,7 +401,7 @@ stdout: |
   8 in (1, 2) has been fully propagated
   All cells have been fully propagated
   Exploration starts for (1, 6) with 2 possible values
-  (1, 6) may be 1 (spoiler: it can't)
+  (1, 6) may be 1
     Propagation starts
     Propagation starts for 1 in (1, 6)
     1 in (1, 6) forbids 1 in (1, 5)
@@ -492,7 +492,7 @@ stdout: |
     5 in (8, 2) has been fully propagated
     All cells have been fully propagated
     Hypothesis that (1, 6) may have been 1 must be back-tracked
-  (1, 6) may be 3 (spoiler: it can)
+  (1, 6) may be 3
     Propagation starts
     Propagation starts for 3 in (1, 6)
     3 in (1, 6) forbids 3 in (1, 3)
@@ -511,7 +511,7 @@ stdout: |
     1 in (3, 6) has been fully propagated
     All cells have been fully propagated
     Exploration starts for (1, 5) with 2 possible values
-    (1, 5) may be 2 (spoiler: it can't)
+    (1, 5) may be 2
       Propagation starts
       Propagation starts for 2 in (1, 5)
       2 in (1, 5) forbids 2 in (1, 3)
@@ -555,7 +555,7 @@ stdout: |
       7 in (1, 9) has been fully propagated
       All cells have been fully propagated
       Exploration starts for (1, 1) with 2 possible values
-      (1, 1) may be 6 (spoiler: it can't)
+      (1, 1) may be 6
         Propagation starts
         Propagation starts for 6 in (1, 1)
         6 in (1, 1) forbids 6 in (1, 3)
@@ -595,7 +595,7 @@ stdout: |
         1 in (4, 1) has been fully propagated
         All cells have been fully propagated
         Exploration starts for (3, 2) with 2 possible values
-        (3, 2) may be 2 (spoiler: it can't)
+        (3, 2) may be 2
           Propagation starts
           Propagation starts for 2 in (3, 2)
           2 in (3, 2) forbids 2 in (3, 3)
@@ -625,7 +625,7 @@ stdout: |
           7 in (6, 3) has been fully propagated
           All cells have been fully propagated
           Hypothesis that (3, 2) may have been 2 must be back-tracked
-        (3, 2) may be 3 (spoiler: it can't)
+        (3, 2) may be 3
           Propagation starts
           Propagation starts for 3 in (3, 2)
           3 in (3, 2) forbids 3 in (3, 3)
@@ -644,7 +644,7 @@ stdout: |
           Hypothesis that (3, 2) may have been 3 must be back-tracked
         Exploration is done for (3, 2)
         Hypothesis that (1, 1) may have been 6 must be back-tracked
-      (1, 1) may be 9 (spoiler: it can't)
+      (1, 1) may be 9
         Propagation starts
         Propagation starts for 9 in (1, 1)
         9 in (1, 1) forbids 9 in (1, 3)
@@ -695,7 +695,7 @@ stdout: |
         Hypothesis that (1, 1) may have been 9 must be back-tracked
       Exploration is done for (1, 1)
       Hypothesis that (1, 5) may have been 2 must be back-tracked
-    (1, 5) may be 9 (spoiler: it can)
+    (1, 5) may be 9
       Propagation starts
       Propagation starts for 9 in (1, 5)
       9 in (1, 5) forbids 9 in (1, 1)
@@ -818,7 +818,7 @@ stdout: |
       2 in (1, 9) has been fully propagated
       All cells have been fully propagated
       Exploration starts for (2, 4) with 2 possible values
-      (2, 4) may be 2 (spoiler: it can't)
+      (2, 4) may be 2
         Propagation starts
         Propagation starts for 2 in (2, 4)
         2 in (2, 4) forbids 2 in (2, 5)
@@ -868,7 +868,7 @@ stdout: |
         1 in (4, 9) has been fully propagated
         All cells have been fully propagated
         Hypothesis that (2, 4) may have been 2 must be back-tracked
-      (2, 4) may be 4 (spoiler: it can)
+      (2, 4) may be 4
         Propagation starts
         Propagation starts for 4 in (2, 4)
         4 in (2, 4) forbids 4 in (2, 5)
@@ -883,7 +883,7 @@ stdout: |
         2 in (6, 4) has been fully propagated
         All cells have been fully propagated
         Exploration starts for (3, 7) with 2 possible values
-        (3, 7) may be 5 (spoiler: it can)
+        (3, 7) may be 5
           Propagation starts
           Propagation starts for 5 in (3, 7)
           5 in (3, 7) forbids 5 in (3, 8)
@@ -911,7 +911,7 @@ stdout: |
           5 in (7, 5) has been fully propagated
           All cells have been fully propagated
           Exploration starts for (4, 9) with 2 possible values
-          (4, 9) may be 1 (spoiler: it can)
+          (4, 9) may be 1
             Propagation starts
             Propagation starts for 1 in (4, 9)
             1 in (4, 9) forbids 1 in (4, 4)

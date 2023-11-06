@@ -81,16 +81,8 @@ class TextExplainer : public exploration::EventVisitor<size> {
   void visit(const exploration::HypothesisIsMade<size>& event) override {
     print_prefix();
     ++hypotheses_count;
-    std::string spoiler;
-    if (event.spoiler) {
-      if (*event.spoiler) {
-        spoiler = " (spoiler: it can)";
-      } else {
-        spoiler = " (spoiler: it can't)";
-      }
-    }
-    os << boost::format("(%1%, %2%) may be %3%%4%\n")
-      % (event.cell.first + 1) % (event.cell.second + 1) % (event.value + 1) % spoiler;
+    os << boost::format("(%1%, %2%) may be %3%\n")
+      % (event.cell.first + 1) % (event.cell.second + 1) % (event.value + 1);
   }
 
   void visit(const exploration::HypothesisIsRejected<size>& event) override {

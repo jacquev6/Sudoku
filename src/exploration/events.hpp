@@ -189,7 +189,7 @@ struct ExplorationStarts : Event<size> {
 template<unsigned size>
 struct HypothesisIsMade : Event<size> {
   HypothesisIsMade(const Coordinates& cell_, unsigned value_) :
-    cell(cell_), value(value_), spoiler(std::nullopt)
+    cell(cell_), value(value_)
   {}
 
   void accept(EventVisitor<size>& visitor) const override { visitor.visit(*this); }
@@ -197,7 +197,6 @@ struct HypothesisIsMade : Event<size> {
 
   const Coordinates cell;
   const unsigned value;
-  std::optional<bool> spoiler;
 };
 
 template<unsigned size>
