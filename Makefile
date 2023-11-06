@@ -7,7 +7,11 @@ endif
 
 # Top-level targets
 
+.PHONY: default
 default: coverage-gcovr lint
+
+.PHONY: no-cover
+no-cover: test lint
 
 .PHONY: test
 test: test-unit test-integ
