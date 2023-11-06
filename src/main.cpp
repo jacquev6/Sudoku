@@ -90,7 +90,6 @@ int main_(const Options& options) {
       ++stdout_users;
     }
 
-    std::vector<std::unique_ptr<VideoSerializer>> video_serializers;
     std::unique_ptr<std::ofstream> video_text_output;
     std::ostream* video_text_output_ptr;
     if (options.video_text_path == "-") {
@@ -106,6 +105,12 @@ int main_(const Options& options) {
       video_text_output_ptr = video_text_output.get();
     }
     TextExplainer<size> video_text_explainer(*video_text_output_ptr);
+
+    std::vector<std::unique_ptr<VideoSerializer>> video_serializers;
+    if (options.video_text_path) {
+      // @todo Implement "'--video-text' work without '--video'" using a 'Reorder' instead of a 'NullVideoSerializer'
+      video_serializers.push_back(std::make_unique<NullVideoSerializer>());
+    }
     if (options.video_frames_path) {
       video_serializers.push_back(std::make_unique<FramesVideoSerializer>(*options.video_frames_path));
     }
@@ -113,8 +118,7 @@ int main_(const Options& options) {
       video_serializers.push_back(std::make_unique<VideoVideoSerializer>(
         *options.video_path, options.width, options.height));
     }
-    if (video_serializers.size() >= 2) {
-      assert(video_serializers.size() == 2);
+    if (options.video_frames_path && options.video_path) {
       video_serializers.push_back(std::make_unique<MultipleVideoSerializer>(
         std::vector<VideoSerializer*>{video_serializers[0].get(), video_serializers[1].get()}));
     }

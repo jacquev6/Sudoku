@@ -1,4 +1,4 @@
-command: build/bin/sudoku explain --text - --video-text - --video tests/integ/explain/several-explanations-on-stdout.mpg -
+command: build/bin/sudoku explain --text - --video-text - -
 stdin: |
   719528436
   248136579
@@ -9,10 +9,6 @@ stdin: |
   675482913
   382961754
   491357628
-teardown: |
-  # @todo Make --video-text work without --video
-  # @todo Remove the --video option above
-  rm tests/integ/explain/several-explanations-on-stdout.mpg
 returncode: 0
 stderr: |
   WARNING: several explanations are interleaved on stdout.

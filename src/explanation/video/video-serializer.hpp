@@ -28,4 +28,8 @@ struct MultipleVideoSerializer : VideoSerializer {
   std::vector<VideoSerializer*> serializers;
 };
 
+struct NullVideoSerializer : VideoSerializer {
+  void serialize(Cairo::RefPtr<Cairo::ImageSurface>) override {}
+};
+
 #endif  // EXPLANATION_VIDEO_VIDEO_SERIALIZER_HPP_
