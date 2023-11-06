@@ -1,6 +1,6 @@
 setup: |
   rm -rf tests/integ/explain/html
-command: build/bin/sudoku explain --html tests/integ/explain/html -
+command: build/bin/sudoku explain --html tests/integ/explain/html --width 480 --height 320 -
 stdin: |
   719528436
   248136579

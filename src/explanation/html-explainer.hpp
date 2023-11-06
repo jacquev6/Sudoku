@@ -5,6 +5,7 @@
 
 #include <filesystem>
 #include <fstream>
+#include <string>
 
 #include "../exploration/events.hpp"
 
@@ -12,8 +13,10 @@
 template<unsigned size>
 class HtmlExplainer : public exploration::EventVisitor<size> {
  public:
-  explicit HtmlExplainer(const std::filesystem::path& directory_path_) :
+  explicit HtmlExplainer(const std::filesystem::path& directory_path_, unsigned frame_width_, unsigned frame_height_) :
     directory_path(directory_path_),
+    frame_width(frame_width_),
+    frame_height(frame_height_),
     index_file(),
     stack()
   {  // NOLINT(whitespace/braces)
@@ -40,9 +43,13 @@ class HtmlExplainer : public exploration::EventVisitor<size> {
 
  private:
   const AnnotatedSudoku<size>& current() const { return stack.current(); }
+  struct Image;
+  Image image(const std::string&) const;
 
  private:
   std::filesystem::path directory_path;
+  unsigned frame_width;
+  unsigned frame_height;
   std::ofstream index_file;
   Stack<size> stack;
 };

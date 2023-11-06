@@ -28,19 +28,24 @@ class CairoSaveGuard {
 
 template<unsigned size>
 class VideoExplainer : public exploration::EventVisitor<size> {
-  // Keep consistent with 'VideoVideoSerializer'
-  static constexpr unsigned frame_width_pixels = 640;
-  static constexpr unsigned frame_height_pixels = 480;
   static constexpr unsigned margin_pixels = 10;
-  static constexpr unsigned viewport_height_pixels = frame_height_pixels - 2 * margin_pixels;
-  static constexpr unsigned viewport_width_pixels = frame_width_pixels - 2 * margin_pixels;
   static constexpr unsigned thick_line_width = 4;
   static constexpr unsigned thin_line_width = 2;
 
  public:
-  VideoExplainer(VideoSerializer* video_serializer_, exploration::EventVisitor<size>* printer_, const bool quick_) :
+  VideoExplainer(
+    VideoSerializer* video_serializer_,
+    exploration::EventVisitor<size>* printer_,
+    const bool quick_,
+    unsigned frame_width_,
+    unsigned frame_height_
+  ) :  // NOLINT(whitespace/parens)
     before(),
     after(),
+    frame_width_pixels(frame_width_),
+    frame_height_pixels(frame_height_),
+    viewport_height_pixels(frame_height_pixels - 2 * margin_pixels),
+    viewport_width_pixels(frame_width_pixels - 2 * margin_pixels),
     surface(Cairo::ImageSurface::create(Cairo::Surface::Format::ARGB32, frame_width_pixels, frame_height_pixels)),
     context(Cairo::Context::create(surface)),
     cr(*context),
@@ -106,12 +111,14 @@ class VideoExplainer : public exploration::EventVisitor<size> {
         cr.set_source_rgb(1.0, 0.8, 0.8);
         cr.paint();
         cr.set_source_rgb(1.0, 1.0, 1.0);
-        cr.rectangle(margin_pixels, margin_pixels, viewport_width_pixels, viewport_height_pixels);
+        cr.rectangle(
+          explainer.margin_pixels, explainer.margin_pixels,
+          explainer.viewport_width_pixels, explainer.viewport_height_pixels);
         cr.fill();
       }
 
       cr.save();
-      cr.translate(margin_pixels, margin_pixels);
+      cr.translate(explainer.margin_pixels, explainer.margin_pixels);
     }
 
     FrameGuard(const FrameGuard&) = delete;
@@ -123,8 +130,10 @@ class VideoExplainer : public exploration::EventVisitor<size> {
       cr.restore();
 
       CairoSaveGuard saver(cr);
-      cr.rectangle(0, 0, frame_width_pixels, frame_height_pixels);
-      cr.rectangle(margin_pixels, margin_pixels, viewport_width_pixels, viewport_height_pixels);
+      cr.rectangle(0, 0, explainer.frame_width_pixels, explainer.frame_height_pixels);
+      cr.rectangle(
+        explainer.margin_pixels, explainer.margin_pixels,
+        explainer.viewport_width_pixels, explainer.viewport_height_pixels);
       cr.set_source_rgba(0.5, 0.5, 0.5, 0.5);
       cr.set_fill_rule(Cairo::Context::FillRule::EVEN_ODD);
       cr.fill();
@@ -292,6 +301,10 @@ class VideoExplainer : public exploration::EventVisitor<size> {
  private:
   Stack<size> before;
   Stack<size> after;
+  unsigned frame_width_pixels;
+  unsigned frame_height_pixels;
+  unsigned viewport_height_pixels;
+  unsigned viewport_width_pixels;
   Cairo::RefPtr<Cairo::ImageSurface> surface;
   Cairo::RefPtr<Cairo::Context> context;
   Cairo::Context& cr;

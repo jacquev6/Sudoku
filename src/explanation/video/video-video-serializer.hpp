@@ -19,13 +19,15 @@ extern "C" {
 
 
 struct VideoVideoSerializer : VideoSerializer {
-  // Keep consistent with 'Artist'
-  static constexpr unsigned frame_width_pixels = 640;
-  static constexpr unsigned frame_height_pixels = 480;
-
-  explicit VideoVideoSerializer(const std::filesystem::path& video_path_) :
+  explicit VideoVideoSerializer(
+    const std::filesystem::path& video_path_,
+    unsigned frame_width_,
+    unsigned frame_height_
+  ) :  // NOLINT(whitespace/parens)
     frame_index(0),
     video_path(video_path_),
+    frame_width_pixels(frame_width_),
+    frame_height_pixels(frame_height_),
     codec(avcodec_find_encoder(AV_CODEC_ID_MPEG1VIDEO)),
     context(avcodec_alloc_context3(codec)),
     picture(av_frame_alloc()),
@@ -141,6 +143,8 @@ struct VideoVideoSerializer : VideoSerializer {
  private:
   unsigned frame_index;
   std::filesystem::path video_path;
+  unsigned frame_width_pixels;
+  unsigned frame_height_pixels;
   const AVCodec* codec;
   AVCodecContext* context;
   AVFrame* picture;

@@ -28,6 +28,8 @@ struct Options {
   bool quick_video;
   std::optional<std::filesystem::path> video_frames_path;
   std::optional<std::filesystem::path> video_text_path;
+  unsigned width;
+  unsigned height;
 };
 
 template<unsigned size>
@@ -88,7 +90,8 @@ int main_(const Options& options) {
       }
 
       if (options.html_path) {
-        event_visitors.push_back(std::make_unique<HtmlExplainer<size>>(*options.html_path));
+        event_visitors.push_back(std::make_unique<HtmlExplainer<size>>(
+          *options.html_path, options.width, options.height));
       }
 
       if (options.html_text_path == "-") {
@@ -115,7 +118,8 @@ int main_(const Options& options) {
         video_serializers.push_back(std::make_unique<FramesVideoSerializer>(*options.video_frames_path));
       }
       if (options.video_path) {
-        video_serializers.push_back(std::make_unique<VideoVideoSerializer>(*options.video_path));
+        video_serializers.push_back(std::make_unique<VideoVideoSerializer>(
+          *options.video_path, options.width, options.height));
       }
       if (video_serializers.size() >= 2) {
         assert(video_serializers.size() == 2);
@@ -125,7 +129,7 @@ int main_(const Options& options) {
       if (!video_serializers.empty()) {
         event_visitors.push_back(
           std::make_unique<VideoExplainer<size>>(
-            video_serializers.back().get(), &video_text_explainer, options.quick_video));
+            video_serializers.back().get(), &video_text_explainer, options.quick_video, options.width, options.height));
       }
 
       if (stdout_users > 1) {
@@ -230,6 +234,13 @@ int main(int argc, char* argv[]) {
       "Generate textual explanation in the given file, reordered to match the video explanation")
     ->check(FileOrStdout);
 
+  unsigned width = 640;
+  explain->add_option("--width", width, "Width of the images in the HTML and video explanations")
+    ->default_val("640");
+  unsigned height = 480;
+  explain->add_option("--height", height, "Height of the images in the HTML and video explanations")
+    ->default_val("480");
+
   std::filesystem::path input_path;
   for (auto* subcommand : {solve, explain}) {
     subcommand
@@ -256,6 +267,8 @@ int main(int argc, char* argv[]) {
     .quick_video = quick_video,
     .video_frames_path = video_frames_path,
     .video_text_path = video_text_path,
+    .width = width,
+    .height = height,
   };
 
   switch (size) {

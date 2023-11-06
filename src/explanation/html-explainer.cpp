@@ -11,15 +11,16 @@
 #include "art.hpp"
 
 
-struct Image {
-  static constexpr unsigned frame_width = 480;
-  static constexpr unsigned frame_height = 320;
+template<unsigned size>
+struct HtmlExplainer<size>::Image {
   static constexpr unsigned margin = 10;
-  static constexpr unsigned viewport_width = frame_width - 2 * margin;
-  static constexpr unsigned viewport_height = frame_height - 2 * margin;
 
-  explicit Image(const std::filesystem::path& path_) :
+  explicit Image(const std::filesystem::path& path_, unsigned frame_width_, unsigned frame_height_) :
     path(path_),
+    frame_width(frame_width_),
+    frame_height(frame_height_),
+    viewport_width(frame_width - 2 * margin),
+    viewport_height(frame_height - 2 * margin),
     surface(Cairo::ImageSurface::create(Cairo::Surface::Format::ARGB32, frame_width, frame_height)),
     cr(Cairo::Context::create(surface))
   {  // NOLINT(whitespace/braces)
@@ -41,14 +42,19 @@ struct Image {
     surface->write_to_png(path.string());
   }
 
- private:
   std::filesystem::path path;
+  unsigned frame_width;
+  unsigned frame_height;
+  unsigned viewport_width;
+  unsigned viewport_height;
   Cairo::RefPtr<Cairo::ImageSurface> surface;
-
- public:
   Cairo::RefPtr<Cairo::Context> cr;
 };
 
+template<unsigned size>
+HtmlExplainer<size>::Image HtmlExplainer<size>::image(const std::string& name) const {
+  return Image(directory_path / name, frame_width, frame_height);
+}
 
 template<unsigned size>
 void HtmlExplainer<size>::visit(const exploration::CellIsSetInInput<size>& event) {
@@ -61,14 +67,14 @@ void HtmlExplainer<size>::visit(const exploration::InputsAreDone<size>& event) {
 
   index_file << "<html><head><title>jacquev6/Sudoku - Solving explanation</title></head><body>\n";
   index_file << "<h1>Input grid</h1>\n";
-  Image input(directory_path / "input.png");
+  Image input = image("input.png");
   const double grid_size = art::round_grid_size<size>(input.viewport_height);
   input.cr->translate((input.viewport_width - grid_size) / 2, (input.viewport_height - grid_size) / 2);
   art::draw(input.cr, current(), {.grid_size = grid_size});
   index_file << "<p><img src=\"input.png\"/></p>\n";
 
   index_file << "<h1>Possible values</h1>\n";
-  Image possible(directory_path / "initial-possible.png");
+  Image possible = image("initial-possible.png");
   possible.cr->translate((possible.viewport_width - grid_size) / 2, (possible.viewport_height - grid_size) / 2);
   art::draw(possible.cr, current(), {.grid_size = grid_size, .possible = true});
   index_file << "<p><img src=\"initial-possible.png\"/></p>\n";
@@ -97,7 +103,7 @@ void HtmlExplainer<size>::visit(const exploration::CellPropagates<size>& event) 
   const auto [tgt_row, tgt_col] = event.target_cell;
   const std::string image_name =
     str(boost::format("propagation-%1%-%2%--%3%-%4%.png") % src_row % src_col % tgt_row % tgt_col);
-  Image propagation(directory_path / image_name);
+  Image propagation = image(image_name);
   const double grid_size = art::round_grid_size<size>(propagation.viewport_height);
   propagation.cr->translate(
     (propagation.viewport_width - grid_size) / 2,
@@ -156,7 +162,7 @@ void HtmlExplainer<size>::visit(const exploration::SudokuIsSolved<size>& event) 
   event.apply(&stack);
 
   index_file << "<h1>Solved grid</h1>\n";
-  Image solved(directory_path / "solved.png");
+  Image solved = image("solved.png");
   const double grid_size = art::round_grid_size<size>(solved.viewport_height);
   solved.cr->translate((solved.viewport_width - grid_size) / 2, (solved.viewport_height - grid_size) / 2);
   art::draw(
