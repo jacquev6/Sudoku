@@ -295,15 +295,3 @@ template io::Sudoku<4> solve_using_exploration(
 template io::Sudoku<9> solve_using_exploration(
   io::Sudoku<9>,
   const std::function<void(std::unique_ptr<exploration::Event<9>>)>&);
-
-template io::Sudoku<16> solve_using_exploration(
-  io::Sudoku<16>,
-  const std::function<void(std::unique_ptr<exploration::Event<16>>)>&);
-
-template io::Sudoku<25> solve_using_exploration(
-  io::Sudoku<25>,
-  const std::function<void(std::unique_ptr<exploration::Event<25>>)>&);
-
-template io::Sudoku<36> solve_using_exploration(
-  io::Sudoku<36>,
-  const std::function<void(std::unique_ptr<exploration::Event<36>>)>&);

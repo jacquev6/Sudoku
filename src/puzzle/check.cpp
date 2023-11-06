@@ -30,6 +30,3 @@ bool is_solved(const io::Sudoku<size>& sudoku) {
 
 template bool is_solved(const io::Sudoku<4>&);
 template bool is_solved(const io::Sudoku<9>&);
-template bool is_solved(const io::Sudoku<16>&);
-template bool is_solved(const io::Sudoku<25>&);
-template bool is_solved(const io::Sudoku<36>&);

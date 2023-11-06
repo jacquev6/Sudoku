@@ -501,6 +501,3 @@ void VideoExplainer<size>::flush_pending_events() {
 
 template class VideoExplainer<4>;
 template class VideoExplainer<9>;
-template class VideoExplainer<16>;
-template class VideoExplainer<25>;
-template class VideoExplainer<36>;

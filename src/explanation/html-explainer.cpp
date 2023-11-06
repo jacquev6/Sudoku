@@ -177,6 +177,3 @@ void HtmlExplainer<size>::visit(const exploration::ExplorationIsDone<size>& even
 
 template class HtmlExplainer<4>;
 template class HtmlExplainer<9>;
-template class HtmlExplainer<16>;
-template class HtmlExplainer<25>;
-template class HtmlExplainer<36>;
