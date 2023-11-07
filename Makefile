@@ -88,6 +88,9 @@ build/bin/sudoku: ${object_files}
 
 # Unit tests
 
+# @todo Run tests under valgrind to check for memory leaks
+# @todo Run tests with libasan and co.
+
 untested_source_files := src/main.cpp  # Only the 'main' function and command-line parsing
 untested_source_files += src/sudoku-constants.cpp  # Tested with static asserts
 
