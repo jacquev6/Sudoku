@@ -35,7 +35,6 @@ class VideoExplainer : public exploration::EventVisitor<size> {
  public:
   VideoExplainer(
     VideoSerializer* video_serializer_,
-    exploration::EventVisitor<size>* printer_,
     const bool quick_,
     unsigned frame_width_,
     unsigned frame_height_
@@ -50,7 +49,6 @@ class VideoExplainer : public exploration::EventVisitor<size> {
     context(Cairo::Context::create(surface)),
     cr(*context),
     video_serializer(video_serializer_),
-    printer(printer_),
     quick(quick_)
   {}
 
@@ -64,7 +62,6 @@ class VideoExplainer : public exploration::EventVisitor<size> {
       after(explainer.after)
     {  // NOLINT(whitespace/braces)
       event.apply(&explainer.after);
-      event.accept(*explainer.printer);
       events.push_back(&event);
     }
 
@@ -77,7 +74,6 @@ class VideoExplainer : public exploration::EventVisitor<size> {
     {  // NOLINT(whitespace/braces)
       for (const T& event : events_) {
         event.apply(&explainer.after);
-        event.accept(*explainer.printer);
         events.push_back(static_cast<const exploration::Event<size>*>(&event));
       }
     }
@@ -309,7 +305,6 @@ class VideoExplainer : public exploration::EventVisitor<size> {
   Cairo::RefPtr<Cairo::Context> context;
   Cairo::Context& cr;
   VideoSerializer* video_serializer;
-  exploration::EventVisitor<size>* printer;
   const bool quick;
 
  private:

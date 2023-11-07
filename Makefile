@@ -124,6 +124,7 @@ build/tests/unit/explanation/video/video-explainer.ok: $(filter build/obj/explan
 build/tests/unit/exploration/sudoku-solver.ok: $(filter build/obj/exploration/events.o build/obj/puzzle/sudoku.o,${object_files})
 build/tests/unit/puzzle/check.ok: $(filter build/obj/puzzle/sudoku.o,${object_files})
 build/tests/unit/sat/sudoku-solver.ok: $(filter build/obj/puzzle/sudoku.o,${object_files})
+build/tests/unit/explanation/reorder.ok: $(filter build/obj/exploration/events.o,${object_files})
 
 
 # Integ tests

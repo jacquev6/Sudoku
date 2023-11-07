@@ -86,6 +86,8 @@ void VideoExplainer<size>::visit(const exploration::PropagationStartsForSudoku<s
 
 template<unsigned size>
 void VideoExplainer<size>::visit(const exploration::PropagationStartsForCell<size>& event) {
+  flush_pending_cell_is_deduced_from_single_allowed_value_events();
+  flush_pending_cell_is_deduced_as_single_place_for_value_in_region_events();
   VisitEventsGuard visit(this, event);
 
   Layout propagate{.below = {{"Propagate constraints", 20}}};
@@ -213,9 +215,6 @@ void VideoExplainer<size>::visit(const exploration::PropagationIsDoneForCell<siz
   flush_pending_cell_propagates_events();
 
   VisitEventsGuard visit(this, event);
-
-  flush_pending_cell_is_deduced_from_single_allowed_value_events();
-  flush_pending_cell_is_deduced_as_single_place_for_value_in_region_events();
 
   ++cell_propagations_handled;
 }

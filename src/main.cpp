@@ -3,6 +3,7 @@
 #include <CLI11.hpp>
 
 #include "explanation/html-explainer.hpp"
+#include "explanation/reorder.hpp"
 #include "explanation/text-explainer.hpp"
 #include "explanation/video/frames-video-serializer.hpp"
 #include "explanation/video/video-explainer.hpp"
@@ -73,8 +74,8 @@ int main_(const Options& options) {
     unsigned stdout_users = 0;
     std::unique_ptr<std::ofstream> text_output;
     if (options.text_path == "-") {
-      event_visitors.push_back(std::make_unique<TextExplainer<size>>(std::cout));
       ++stdout_users;
+      event_visitors.push_back(std::make_unique<TextExplainer<size>>(std::cout));
     } else if (options.text_path) {
       text_output = std::make_unique<std::ofstream>(*options.text_path);
       assert(text_output->is_open());
@@ -91,26 +92,21 @@ int main_(const Options& options) {
     }
 
     std::unique_ptr<std::ofstream> video_text_output;
-    std::ostream* video_text_output_ptr;
-    if (options.video_text_path == "-") {
-      video_text_output_ptr = &std::cout;
-      ++stdout_users;
-    } else {
-      if (options.video_text_path) {
-        video_text_output = std::make_unique<std::ofstream>(*options.video_text_path);
+    std::unique_ptr<TextExplainer<size>> video_text_explainer;
+    if (options.video_text_path) {
+      if (options.video_text_path == "-") {
+        ++stdout_users;
+        video_text_explainer = std::make_unique<TextExplainer<size>>(std::cout);
       } else {
-        video_text_output = std::make_unique<std::ofstream>("/dev/null");
+        video_text_output = std::make_unique<std::ofstream>(*options.video_text_path);
+        assert(video_text_output->is_open());
+        video_text_explainer = std::make_unique<TextExplainer<size>>(*video_text_output);
       }
-      assert(video_text_output->is_open());
-      video_text_output_ptr = video_text_output.get();
+      event_visitors.push_back(std::make_unique<Reorder<size>>(video_text_explainer.get()));
     }
-    TextExplainer<size> video_text_explainer(*video_text_output_ptr);
 
     std::vector<std::unique_ptr<VideoSerializer>> video_serializers;
-    if (options.video_text_path) {
-      // @todo Implement "'--video-text' work without '--video'" using a 'Reorder' instead of a 'NullVideoSerializer'
-      video_serializers.push_back(std::make_unique<NullVideoSerializer>());
-    }
+    std::unique_ptr<VideoExplainer<size>> video_explainer;
     if (options.video_frames_path) {
       video_serializers.push_back(std::make_unique<FramesVideoSerializer>(*options.video_frames_path));
     }
@@ -118,14 +114,16 @@ int main_(const Options& options) {
       video_serializers.push_back(std::make_unique<VideoVideoSerializer>(
         *options.video_path, options.width, options.height));
     }
-    if (options.video_frames_path && options.video_path) {
+    if (video_serializers.size() > 1) {
+      assert(video_serializers.size() == 2);
       video_serializers.push_back(std::make_unique<MultipleVideoSerializer>(
         std::vector<VideoSerializer*>{video_serializers[0].get(), video_serializers[1].get()}));
     }
     if (!video_serializers.empty()) {
+      video_explainer = std::make_unique<VideoExplainer<size>>(
+        video_serializers.back().get(), options.quick_video, options.width, options.height);
       event_visitors.push_back(
-        std::make_unique<VideoExplainer<size>>(
-          video_serializers.back().get(), &video_text_explainer, options.quick_video, options.width, options.height));
+        std::make_unique<Reorder<size>>(video_explainer.get()));
     }
 
     if (stdout_users > 1) {
