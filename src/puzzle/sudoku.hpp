@@ -11,6 +11,9 @@
 #include <utility>
 #include <vector>
 
+#include <boost/iterator/transform_iterator.hpp>
+#include <boost/range.hpp>
+
 #include "sudoku-constants.hpp"
 
 
@@ -66,6 +69,17 @@ class SudokuBase {
     assert(row < size);
     assert(col < size);
     return cells[row][col];
+  }
+
+  auto all_cells() const {
+    const auto convert = [this](const auto& cell) -> const Cell& {
+      const auto [row, col] = cell;
+      return this->cells[row][col];
+    };
+
+    return boost::make_iterator_range(
+      boost::make_transform_iterator(SudokuConstants<size>::cells.begin(), convert),
+      boost::make_transform_iterator(SudokuConstants<size>::cells.end(), convert));
   }
 
  protected:

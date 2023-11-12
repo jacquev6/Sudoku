@@ -11,204 +11,193 @@
 #include <utility>
 #include <vector>
 
-#include "../puzzle/sudoku-constants.hpp"
+#include "../puzzle/sudoku.hpp"
 
 
 template<unsigned size>
-class AnnotatedSudoku {
+class AnnotatedCell {
  public:
-  AnnotatedSudoku() : allowed_values(), set_values() {
-    for (unsigned row : SudokuConstants<size>::values) {
-      for (unsigned col : SudokuConstants<size>::values) {
-        allowed_values[row][col].set();
-      }
-    }
+  AnnotatedCell() :
+    allowed_values(),
+    set_value(),
+    input(false),
+    propagated(false)
+  {  // NOLINT(whitespace/braces)
+    allowed_values.set();
+    assert_invariants();
+  }
+
+ public:
+  bool is_input() const {
+    assert_invariants();
+    return input;
+  }
+
+  bool is_set() const {
+    assert_invariants();
+    return set_value.has_value();
+  }
+
+  unsigned get() const {
+    assert_invariants();
+    assert(is_set());
+
+    return set_value.value();
+  }
+
+  bool is_allowed(const unsigned value) const {
+    assert_invariants();
+    assert(value < size);
+
+    return allowed_values.test(value);
+  }
+
+  void set_input(const unsigned value) {
+    assert_invariants();
+    assert(value < size);
+    assert(is_allowed(value));
+    assert(!is_set());
+
+    allowed_values.reset();
+    allowed_values.set(value);
+    set_value = value;
+    input = true;
 
     assert_invariants();
   }
 
-  AnnotatedSudoku(const AnnotatedSudoku&) = default;
-  AnnotatedSudoku& operator=(const AnnotatedSudoku&) = default;
-  AnnotatedSudoku(AnnotatedSudoku&&) = default;
-  AnnotatedSudoku& operator=(AnnotatedSudoku&&) = default;
+  void set_deduced(const unsigned value) {
+    assert_invariants();
+    assert(value < size);
+    assert(is_allowed(value));
+    assert(!is_set());
 
-  ~AnnotatedSudoku() = default;
+    allowed_values.reset();
+    allowed_values.set(value);
+    set_value = value;
 
+    assert_invariants();
+  }
+
+  void set_propagated() {
+    assert_invariants();
+    assert(is_set());
+
+    propagated = true;
+
+    assert_invariants();
+  }
+
+  bool is_propagated() const {
+    assert_invariants();
+
+    return propagated;
+  }
+
+  void forbid(const unsigned value) {
+    assert_invariants();
+    assert(value < size);
+    assert(is_allowed(value));
+
+    allowed_values.reset(value);
+
+    assert_invariants();
+  }
+
+  unsigned allowed_count() const {
+    assert_invariants();
+
+    return allowed_values.count();
+  }
+
+ private:
+  void assert_invariants() const {
+    // At least one value is always allowed
+    assert(allowed_values.any());
+
+    // 'input' forces 'set_value'
+    if (input) {
+      assert(set_value.has_value());
+    }
+
+    // 'propagated' forces 'set_value'
+    if (propagated) {
+      assert(set_value.has_value());
+    }
+
+    // 'set_value' forces 'allowed_values'
+    if (set_value.has_value()) {
+      assert(allowed_values.count() == 1);
+      assert(allowed_values.test(set_value.value()));
+    }
+  }
+
+ private:
+  std::bitset<size> allowed_values;
+  std::optional<unsigned> set_value;
+  bool input;
+  bool propagated;
+};
+
+namespace experimental {
+
+template<unsigned size>
+class Sudoku<AnnotatedCell<size>, size> : public details::SudokuBase<AnnotatedCell<size>, size> {
  public:
   bool is_solved() const {
-    for (const auto& cell : SudokuConstants<size>::cells) {
-      if (!is_set(cell)) {
+    for (const auto& cell : this->all_cells()) {
+      if (!cell.is_set()) {
         return false;
       }
     }
     return true;
   }
 
- public:
-  void set_input(const Coordinates& cell, unsigned value) {
-    assert_invariants();
-    assert(value < size);
-    assert(is_allowed(cell, value));
-    assert(!is_set(cell));
-
-    at(allowed_values, cell).reset();
-    at(allowed_values, cell).set(value);
-    at(set_values, cell) = value;
-    at(inputs, cell) = true;
-
-    assert_invariants();
-  }
-
-  void set_deduced(const Coordinates& cell, unsigned value) {
-    assert_invariants();
-    assert(value < size);
-    assert(is_allowed(cell, value));
-    assert(!is_set(cell));
-
-    at(allowed_values, cell).reset();
-    at(allowed_values, cell).set(value);
-    at(set_values, cell) = value;
-
-    assert_invariants();
-  }
-
   bool is_input(const Coordinates& cell) const {
-    assert_invariants();
-
-    return at(inputs, cell);
+    return this->cell_at(cell).is_input();
   }
 
   bool is_set(const Coordinates& cell) const {
-    assert_invariants();
-
-    return at(set_values, cell).has_value();
+    return this->cell_at(cell).is_set();
   }
 
   unsigned get(const Coordinates& cell) const {
-    assert_invariants();
-
-    return at(set_values, cell).value();
+    return this->cell_at(cell).get();
   }
 
-  void set_propagated(const Coordinates& cell) {
-    assert_invariants();
-    assert(is_set(cell));
+  void set_input(const Coordinates& cell, const unsigned value) {
+    this->cell_at(cell).set_input(value);
+  }
 
-    at(propagated, cell) = true;
-
-    assert_invariants();
+  void set_deduced(const Coordinates& cell, const unsigned value) {
+    this->cell_at(cell).set_deduced(value);
   }
 
   bool is_propagated(const Coordinates& cell) const {
-    assert_invariants();
-
-    return at(propagated, cell);
+    return this->cell_at(cell).is_propagated();
   }
 
- public:
-  void forbid(const Coordinates& cell, unsigned value) {
-    assert_invariants();
-    assert(value < size);
-    assert(is_allowed(cell, value));
+  void set_propagated(const Coordinates& cell) {
+    this->cell_at(cell).set_propagated();
+  }
 
-    at(allowed_values, cell).reset(value);
-
-    assert_invariants();
+  void forbid(const Coordinates& cell, const unsigned value) {
+    this->cell_at(cell).forbid(value);
   }
 
   unsigned allowed_count(const Coordinates& cell) const {
-    assert_invariants();
-
-    return at(allowed_values, cell).count();
+    return this->cell_at(cell).allowed_count();
   }
 
-  bool is_allowed(const Coordinates& cell, unsigned value) const {
-    assert_invariants();
-    assert(value < size);
-
-    return at(allowed_values, cell).test(value);
+  bool is_allowed(const Coordinates& cell, const unsigned value) const {
+    return this->cell_at(cell).is_allowed(value);
   }
-
- private:
-  template<typename T>
-  const T& at(const std::array<std::array<T, size>, size>& arr, const Coordinates& cell) const {
-    const auto [row, col] = cell;
-    assert(row < size);
-    assert(col < size);
-    return arr[row][col];
-  }
-
-  template<typename T>
-  T& at(
-    std::array<std::array<T, size>, size>& arr,  // NOLINT(runtime/references)  This is private, and convenient
-    const Coordinates& cell
-  ) {
-    const auto [row, col] = cell;
-    assert(row < size);
-    assert(col < size);
-    return arr[row][col];
-  }
-
-  bool at(const std::array<std::bitset<size>, size>& arr, const Coordinates& cell) const {
-    const auto [row, col] = cell;
-    assert(row < size);
-    assert(col < size);
-    return arr[row][col];
-  }
-
-  std::bitset<size>::reference at(
-    std::array<std::bitset<size>, size>& arr,  // NOLINT(runtime/references)
-    const Coordinates& cell
-  ) {
-    const auto [row, col] = cell;
-    assert(row < size);
-    assert(col < size);
-    return arr[row][col];
-  }
-
-  void assert_invariants() const {
-    // At least one value is always allowed
-    for (unsigned row : SudokuConstants<size>::values) {
-      for (unsigned col : SudokuConstants<size>::values) {
-        assert(allowed_values[row][col].any());
-      }
-    }
-
-    // 'inputs' forces 'set_values'
-    for (unsigned row : SudokuConstants<size>::values) {
-      for (unsigned col : SudokuConstants<size>::values) {
-        if (inputs[row][col]) {
-          assert(set_values[row][col].has_value());
-        }
-      }
-    }
-
-    // 'propagated' forces 'set_values'
-    for (unsigned row : SudokuConstants<size>::values) {
-      for (unsigned col : SudokuConstants<size>::values) {
-        if (propagated[row][col]) {
-          assert(set_values[row][col].has_value());
-        }
-      }
-    }
-
-    // 'set_values' forces 'allowed_values'
-    for (unsigned row : SudokuConstants<size>::values) {
-      for (unsigned col : SudokuConstants<size>::values) {
-        if (set_values[row][col].has_value()) {
-          assert(allowed_values[row][col].count() == 1);
-          assert(allowed_values[row][col].test(set_values[row][col].value()));
-        }
-      }
-    }
-  }
-
- private:
-  std::array<std::array<std::bitset<size>, size>, size> allowed_values;
-  std::array<std::array<std::optional<unsigned>, size>, size> set_values;
-  std::array<std::bitset<size>, size> inputs;
-  std::array<std::bitset<size>, size> propagated;
 };
+
+}  // namespace experimental
+
+template<unsigned size>
+using AnnotatedSudoku = experimental::Sudoku<AnnotatedCell<size>, size>;
 
 
 template<unsigned size>
