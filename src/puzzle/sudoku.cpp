@@ -5,29 +5,28 @@
 #include <cassert>
 
 
-namespace io {
+namespace experimental {
 
 template<unsigned size>
-void Sudoku<size>::set(const Coordinates& cell, unsigned val) {
+void Sudoku<ValueCell, size>::set(const Coordinates& cell, unsigned val) {
   const auto [row, col] = cell;
   assert(row < size);
   assert(col < size);
   assert(val < size);
-  assert(!cells[row][col] || *cells[row][col] == val);
-  cells[row][col] = val;
+  this->cells[row][col].set(val);
 }
 
 template<unsigned size>
-std::optional<unsigned> Sudoku<size>::get(const Coordinates& cell) const {
+std::optional<unsigned> Sudoku<ValueCell, size>::get(const Coordinates& cell) const {
   const auto [row, col] = cell;
   assert(row < size);
   assert(col < size);
-  return cells[row][col];
+  return this->cells[row][col].get();
 }
 
 template<unsigned size>
-Sudoku<size> Sudoku<size>::load(std::istream& is) {
-  Sudoku<size> sudoku;
+Sudoku<ValueCell, size> Sudoku<ValueCell, size>::load(std::istream& is) {
+  Sudoku<ValueCell, size> sudoku;
 
   std::string line;
   // @todo Improve robustness to malformed inputs
@@ -46,7 +45,7 @@ Sudoku<size> Sudoku<size>::load(std::istream& is) {
 }
 
 template<unsigned size>
-void Sudoku<size>::dump(std::ostream& os) const {
+void Sudoku<ValueCell, size>::dump(std::ostream& os) const {
   for (const unsigned row : SudokuConstants<size>::values) {
     for (const unsigned col : SudokuConstants<size>::values) {
       const auto value = get({row, col});
@@ -60,7 +59,7 @@ void Sudoku<size>::dump(std::ostream& os) const {
   }
 }
 
-template class Sudoku<4>;
-template class Sudoku<9>;
+template class Sudoku<ValueCell, 4>;
+template class Sudoku<ValueCell, 9>;
 
-}  // namespace io
+}  // namespace experimental
