@@ -8,7 +8,7 @@
 #include <tuple>
 #include <vector>
 
-#include "../exploration/sudoku.hpp"
+#include "../exploration/annotations.hpp"
 
 
 namespace Cairo {
