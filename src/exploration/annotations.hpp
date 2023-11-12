@@ -152,46 +152,6 @@ class Sudoku<AnnotatedCell<size>, size> : public details::SudokuBase<AnnotatedCe
     }
     return true;
   }
-
-  bool is_input(const Coordinates& cell) const {
-    return this->cell_at(cell).is_input();
-  }
-
-  bool is_set(const Coordinates& cell) const {
-    return this->cell_at(cell).is_set();
-  }
-
-  unsigned get(const Coordinates& cell) const {
-    return this->cell_at(cell).get();
-  }
-
-  void set_input(const Coordinates& cell, const unsigned value) {
-    this->cell_at(cell).set_input(value);
-  }
-
-  void set_deduced(const Coordinates& cell, const unsigned value) {
-    this->cell_at(cell).set_deduced(value);
-  }
-
-  bool is_propagated(const Coordinates& cell) const {
-    return this->cell_at(cell).is_propagated();
-  }
-
-  void set_propagated(const Coordinates& cell) {
-    this->cell_at(cell).set_propagated();
-  }
-
-  void forbid(const Coordinates& cell, const unsigned value) {
-    this->cell_at(cell).forbid(value);
-  }
-
-  unsigned allowed_count(const Coordinates& cell) const {
-    return this->cell_at(cell).allowed_count();
-  }
-
-  bool is_allowed(const Coordinates& cell, const unsigned value) const {
-    return this->cell_at(cell).is_allowed(value);
-  }
 };
 
 }  // namespace experimental

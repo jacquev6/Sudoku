@@ -48,17 +48,16 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku<size>& sudoku,
   cr->set_font_size(3 * cell_interior_size / 4);
   cr->set_source_rgb(0.0, 0.0, 0.0);
   for (const auto cell : SudokuConstants<size>::cells) {
-    if (sudoku.is_set(cell)) {
-      assert(sudoku.is_set(cell));
-      const std::string text = std::to_string(sudoku.get(cell) + 1);
+    if (sudoku.cell_at(cell).is_set()) {
+      const std::string text = std::to_string(sudoku.cell_at(cell).get() + 1);
 
-      if (options.bold_todo && !sudoku.is_propagated(cell)) {
+      if (options.bold_todo && !sudoku.cell_at(cell).is_propagated()) {
         cr->select_font_face("sans-serif", Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::BOLD);
       } else {
         cr->select_font_face("sans-serif", Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::NORMAL);
       }
 
-      if (sudoku.is_input(cell)) {
+      if (sudoku.cell_at(cell).is_input()) {
         Cairo::SaveGuard saver(cr);
 
         const auto [x, y] = cell_center(cell);
@@ -83,8 +82,8 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku<size>& sudoku,
     cr->select_font_face("sans-serif", Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::NORMAL);
 
     for (const auto cell : SudokuConstants<size>::cells) {
-      if (!sudoku.is_set(cell)) {
-        assert(!sudoku.is_propagated(cell));
+      if (!sudoku.cell_at(cell).is_set()) {
+        assert(!sudoku.cell_at(cell).is_propagated());
 
         for (unsigned value : SudokuConstants<size>::values) {
           Cairo::SaveGuard saver(cr);
@@ -96,7 +95,7 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku<size>& sudoku,
             const auto [x, y] = value_center(cell, value);
             cr->move_to(x - extents.width / 2 - extents.x_bearing, y - extents.height / 2 - extents.y_bearing);
           }
-          if (sudoku.is_allowed(cell, value)) {
+          if (sudoku.cell_at(cell).is_allowed(value)) {
             cr->set_source_rgb(0.0, 0.0, 0.0);
           } else {
             cr->set_source_rgb(0.8, 0.8, 0.8);
@@ -299,7 +298,7 @@ TEST_CASE("draw - known-values circled") {
     AnnotatedSudoku<4> sudoku;
     for (const auto cell : SudokuConstants<4>::cells) {
       const auto [row, col] = cell;
-      sudoku.set_deduced(cell, (row + 2 * col) % 4);
+      sudoku.cell_at(cell).set_deduced((row + 2 * col) % 4);
     }
     draw(
       image.crs[0][0],
@@ -316,7 +315,7 @@ TEST_CASE("draw - known-values circled") {
     AnnotatedSudoku<9> sudoku;
     for (const auto cell : SudokuConstants<9>::cells) {
       const auto [row, col] = cell;
-      sudoku.set_deduced(cell, (row + 2 * col) % 9);
+      sudoku.cell_at(cell).set_deduced((row + 2 * col) % 9);
     }
     draw(
       image.crs[1][0],
@@ -336,7 +335,7 @@ TEST_CASE("draw - all inputs") {
   AnnotatedSudoku<9> sudoku;
   for (const auto cell : SudokuConstants<9>::cells) {
     const auto [row, col] = cell;
-    sudoku.set_input(cell, (row + 2 * col) % 9);
+    sudoku.cell_at(cell).set_input((row + 2 * col) % 9);
   }
   draw(
     image.crs[1][0],
@@ -354,7 +353,7 @@ TEST_CASE("draw - all todo") {
   AnnotatedSudoku<9> sudoku;
   for (const auto cell : SudokuConstants<9>::cells) {
     const auto [row, col] = cell;
-    sudoku.set_deduced(cell, (row + 2 * col) % 9);
+    sudoku.cell_at(cell).set_deduced((row + 2 * col) % 9);
   }
   draw(
     image.crs[1][0],
@@ -373,8 +372,8 @@ TEST_CASE("draw - all processed") {
   AnnotatedSudoku<9> sudoku;
   for (const auto cell : SudokuConstants<9>::cells) {
     const auto [row, col] = cell;
-    sudoku.set_deduced(cell, (row + 2 * col) % 9);
-    sudoku.set_propagated(cell);
+    sudoku.cell_at(cell).set_deduced((row + 2 * col) % 9);
+    sudoku.cell_at(cell).set_propagated();
   }
   draw(
     image.crs[1][0],
@@ -393,7 +392,7 @@ TEST_CASE("draw - known-values boxed") {
   AnnotatedSudoku<9> sudoku;
   for (const auto cell : SudokuConstants<9>::cells) {
     const auto [row, col] = cell;
-    sudoku.set_deduced(cell, (row + 2 * col) % 9);
+    sudoku.cell_at(cell).set_deduced((row + 2 * col) % 9);
   }
   draw(
     image.crs[1][0],
@@ -415,7 +414,7 @@ TEST_CASE("draw - all forbidden") {
     const auto [row, col] = cell;
     for (const unsigned value : SudokuConstants<9>::values) {
       if (value != (row + 2 * col) % 9) {
-        sudoku.forbid(cell, value);
+        sudoku.cell_at(cell).forbid(value);
       }
     }
   }

@@ -107,8 +107,8 @@ void propagate(
 
   while (!todo.empty()) {
     const auto source_cell = todo.get();
-    assert(stack.current().is_set(source_cell));
-    const unsigned value = stack.current().get(source_cell);
+    assert(stack.current().cell_at(source_cell).is_set());
+    const unsigned value = stack.current().cell_at(source_cell).get();
 
     EventsPairGuard<size> guard(
       add_event,
@@ -119,18 +119,18 @@ void propagate(
     for (const auto region : SudokuConstants<size>::regions_of[row][col]) {
       for (const auto target_cell : SudokuConstants<size>::regions[region]) {
         if (target_cell != source_cell) {
-          if (stack.current().is_set(target_cell)) {
-            if (stack.current().get(target_cell) == value) {
+          if (stack.current().cell_at(target_cell).is_set()) {
+            if (stack.current().cell_at(target_cell).get() == value) {
               throw NeedsBacktracking();
             }
           } else {
-            assert(stack.current().allowed_count(target_cell) > 1);
-            if (stack.current().is_allowed(target_cell, value)) {
+            assert(stack.current().cell_at(target_cell).allowed_count() > 1);
+            if (stack.current().cell_at(target_cell).is_allowed(value)) {
               add_event(std::make_unique<exploration::CellPropagates<size>>(source_cell, target_cell, value));
 
-              if (stack.current().allowed_count(target_cell) == 1) {
+              if (stack.current().cell_at(target_cell).allowed_count() == 1) {
                 for (unsigned value : SudokuConstants<size>::values) {
-                  if (stack.current().is_allowed(target_cell, value)) {
+                  if (stack.current().cell_at(target_cell).is_allowed(value)) {
                     add_event(std::make_unique<exploration::CellIsDeducedFromSingleAllowedValue<size>>(
                       target_cell, value));
                     todo.add(target_cell);
@@ -143,12 +143,12 @@ void propagate(
                 unsigned count = 0;
                 Coordinates single_cell;
                 for (auto cell : SudokuConstants<size>::regions[region]) {
-                  if (stack.current().is_allowed(cell, value)) {
+                  if (stack.current().cell_at(cell).is_allowed(value)) {
                     ++count;
                     single_cell = cell;
                   }
                 }
-                if (count == 1 && !stack.current().is_set(single_cell)) {
+                if (count == 1 && !stack.current().cell_at(single_cell).is_set()) {
                   add_event(std::make_unique<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>>(
                     single_cell, value, region));
                   todo.add(single_cell);
@@ -179,10 +179,10 @@ Coordinates get_most_constrained_cell(const AnnotatedSudoku<size>& sudoku) {
   unsigned best_count = size + 1;
 
   for (const auto cell : SudokuConstants<size>::cells) {
-    if (sudoku.is_set(cell)) {
+    if (sudoku.cell_at(cell).is_set()) {
       continue;
     }
-    unsigned count = sudoku.allowed_count(cell);
+    unsigned count = sudoku.cell_at(cell).allowed_count();
     if (count < best_count) {
       best_cell = cell;
       best_count = count;
@@ -211,7 +211,7 @@ void explore(const Stack<size>& stack, const AddEvent<size>& add_event) {
   const auto cell = get_most_constrained_cell(stack.current());
   std::vector<unsigned> allowed_values;
   for (unsigned val : SudokuConstants<size>::values) {
-    if (stack.current().is_allowed(cell, val)) {
+    if (stack.current().cell_at(cell).is_allowed(val)) {
       allowed_values.push_back(val);
     }
   }
@@ -279,8 +279,8 @@ io::Sudoku<size> solve_using_exploration(
   }
 
   for (auto cell : SudokuConstants<size>::cells) {
-    if (stack.current().is_set(cell)) {
-      sudoku.cell_at(cell).set(stack.current().get(cell));
+    if (stack.current().cell_at(cell).is_set()) {
+      sudoku.cell_at(cell).set(stack.current().cell_at(cell).get());
     }
   }
   return sudoku;
