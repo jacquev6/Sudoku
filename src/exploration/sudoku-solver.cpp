@@ -263,7 +263,7 @@ io::Sudoku<size> solve_using_exploration(
   AddEvent<size> add_event(&stack, add_event_);
   std::set<Coordinates> todo;
   for (auto cell : SudokuConstants<size>::cells) {
-    const auto val = sudoku.get(cell);
+    const auto val = sudoku.cell_at(cell).get();
     if (val) {
       add_event(std::make_unique<exploration::CellIsSetInInput<size>>(cell, *val));
       todo.insert(cell);
@@ -280,7 +280,7 @@ io::Sudoku<size> solve_using_exploration(
 
   for (auto cell : SudokuConstants<size>::cells) {
     if (stack.current().is_set(cell)) {
-      sudoku.set(cell, stack.current().get(cell));
+      sudoku.cell_at(cell).set(stack.current().get(cell));
     }
   }
   return sudoku;

@@ -8,7 +8,7 @@
 template<unsigned size>
 bool is_solved(const io::Sudoku<size>& sudoku) {
   for (const auto cell : SudokuConstants<size>::cells) {
-    if (!sudoku.get(cell)) {
+    if (!sudoku.cell_at(cell).get()) {
       return false;
     }
   }
@@ -16,7 +16,7 @@ bool is_solved(const io::Sudoku<size>& sudoku) {
   for (const auto region : SudokuConstants<size>::regions) {
     std::bitset<size> seen;
     for (const auto cell : region) {
-      const unsigned val = *sudoku.get(cell);
+      const unsigned val = *sudoku.cell_at(cell).get();
       assert(val < size);
       if (seen[val]) {
         return false;

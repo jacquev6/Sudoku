@@ -54,7 +54,19 @@ class SudokuBase {
   }
 
  public:
-  std::vector<Cell*> all_cells() const;
+  Cell& cell_at(const Coordinates& coords) {
+    const auto [row, col] = coords;
+    assert(row < size);
+    assert(col < size);
+    return cells[row][col];
+  }
+
+  const Cell& cell_at(const Coordinates& coords) const {
+    const auto [row, col] = coords;
+    assert(row < size);
+    assert(col < size);
+    return cells[row][col];
+  }
 
  protected:
   std::array<std::array<Cell, size>, size> cells;
@@ -96,10 +108,6 @@ class Sudoku<ValueCell, size> : public details::SudokuBase<ValueCell, size> {
 
   static Sudoku<ValueCell, size> from_string(const std::string&);
   std::string to_string() const;
-
- public:
-  void set(const Coordinates&, unsigned);
-  std::optional<unsigned> get(const Coordinates&) const;
 };
 
 }  // namespace experimental
