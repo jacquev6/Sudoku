@@ -17,22 +17,8 @@
 #include "sudoku-constants.hpp"
 
 
-template<typename CellBase, unsigned size>
+template<typename Cell, unsigned size>
 class SudokuBase {
- public:
-  class Cell : public CellBase {
-   public:
-    Cell(SudokuBase* sudoku_, const Coordinates& coordinates_) :
-      CellBase(),
-      sudoku(sudoku_),
-      coordinates(coordinates_)
-    {}
-
-   private:
-    SudokuBase* sudoku;
-    Coordinates coordinates;
-  };
-
  public:
   SudokuBase() : cells(make_cells(std::make_integer_sequence<unsigned, size>())) {}
 
@@ -49,7 +35,11 @@ class SudokuBase {
 
   template<unsigned... col>
   std::array<Cell, size> make_row(unsigned row, const std::integer_sequence<unsigned, col...>&) {
-    return {Cell(this, {row, col})...};
+    return {make_cell(row, col)...};
+  }
+
+  Cell make_cell(unsigned, unsigned) {
+    return Cell();
   }
 
  public:
