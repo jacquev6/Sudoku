@@ -8,7 +8,7 @@
 
 
 template<unsigned size>
-io::Sudoku<size> solve_using_sat(io::Sudoku<size> sudoku) {
+Sudoku<ValueCell, size> solve_using_sat(Sudoku<ValueCell, size> sudoku) {
   Minisat::SimpSolver solver;
 
   std::array<std::array<std::array<Minisat::Var, size>, size>, size> has_value;
@@ -86,5 +86,5 @@ io::Sudoku<size> solve_using_sat(io::Sudoku<size> sudoku) {
   return sudoku;
 }
 
-template io::Sudoku<4> solve_using_sat(io::Sudoku<4>);
-template io::Sudoku<9> solve_using_sat(io::Sudoku<9>);
+template Sudoku<ValueCell, 4> solve_using_sat(Sudoku<ValueCell, 4>);
+template Sudoku<ValueCell, 9> solve_using_sat(Sudoku<ValueCell, 9>);

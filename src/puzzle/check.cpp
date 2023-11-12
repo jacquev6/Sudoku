@@ -6,7 +6,7 @@
 #include <cassert>
 
 template<unsigned size>
-bool is_solved(const io::Sudoku<size>& sudoku) {
+bool is_solved(const Sudoku<ValueCell, size>& sudoku) {
   for (const auto cell : SudokuConstants<size>::cells) {
     if (!sudoku.cell_at(cell).get()) {
       return false;
@@ -28,5 +28,5 @@ bool is_solved(const io::Sudoku<size>& sudoku) {
   return true;
 }
 
-template bool is_solved(const io::Sudoku<4>&);
-template bool is_solved(const io::Sudoku<9>&);
+template bool is_solved(const Sudoku<ValueCell, 4>&);
+template bool is_solved(const Sudoku<ValueCell, 9>&);

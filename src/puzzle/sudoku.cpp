@@ -5,8 +5,6 @@
 #include <cassert>
 
 
-namespace experimental {
-
 template<unsigned size>
 Sudoku<ValueCell, size> Sudoku<ValueCell, size>::load(std::istream& is) {
   Sudoku<ValueCell, size> sudoku;
@@ -44,5 +42,3 @@ void Sudoku<ValueCell, size>::dump(std::ostream& os) const {
 
 template class Sudoku<ValueCell, 4>;
 template class Sudoku<ValueCell, 9>;
-
-}  // namespace experimental

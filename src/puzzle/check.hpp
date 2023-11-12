@@ -6,6 +6,6 @@
 #include "sudoku.hpp"
 
 template<unsigned size>
-bool is_solved(const io::Sudoku<size>&);
+bool is_solved(const Sudoku<ValueCell, size>&);
 
 #endif  // PUZZLE_CHECK_HPP_

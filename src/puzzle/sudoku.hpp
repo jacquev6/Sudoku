@@ -17,10 +17,6 @@
 #include "sudoku-constants.hpp"
 
 
-namespace experimental {
-
-namespace details {
-
 template<typename CellBase, unsigned size>
 class SudokuBase {
  public:
@@ -86,10 +82,8 @@ class SudokuBase {
   std::array<std::array<Cell, size>, size> cells;
 };
 
-}  // namespace details
-
 template<typename Cell, unsigned size>
-class Sudoku : public details::SudokuBase<Cell, size> {};
+class Sudoku : public SudokuBase<Cell, size> {};
 
 class ValueCell {
  public:
@@ -115,7 +109,7 @@ class ValueCell {
 };
 
 template<unsigned size>
-class Sudoku<ValueCell, size> : public details::SudokuBase<ValueCell, size> {
+class Sudoku<ValueCell, size> : public SudokuBase<ValueCell, size> {
  public:
   static Sudoku<ValueCell, size> load(std::istream&);
   void dump(std::ostream&) const;
@@ -123,15 +117,5 @@ class Sudoku<ValueCell, size> : public details::SudokuBase<ValueCell, size> {
   static Sudoku<ValueCell, size> from_string(const std::string&);
   std::string to_string() const;
 };
-
-}  // namespace experimental
-
-
-namespace io {
-
-template<unsigned size>
-using Sudoku = experimental::Sudoku<experimental::ValueCell, size>;
-
-}  // namespace io
 
 #endif  // PUZZLE_SUDOKU_HPP_

@@ -255,8 +255,8 @@ void propagate_and_explore(
 
 
 template<unsigned size>
-io::Sudoku<size> solve_using_exploration(
-  io::Sudoku<size> sudoku,
+Sudoku<ValueCell, size> solve_using_exploration(
+  Sudoku<ValueCell, size> sudoku,
   const std::function<void(std::unique_ptr<exploration::Event<size>>)>& add_event_
 ) {
   Stack<size> stack;
@@ -286,10 +286,10 @@ io::Sudoku<size> solve_using_exploration(
   return sudoku;
 }
 
-template io::Sudoku<4> solve_using_exploration(
-  io::Sudoku<4>,
+template Sudoku<ValueCell, 4> solve_using_exploration(
+  Sudoku<ValueCell, 4>,
   const std::function<void(std::unique_ptr<exploration::Event<4>>)>&);
 
-template io::Sudoku<9> solve_using_exploration(
-  io::Sudoku<9>,
+template Sudoku<ValueCell, 9> solve_using_exploration(
+  Sudoku<ValueCell, 9>,
   const std::function<void(std::unique_ptr<exploration::Event<9>>)>&);

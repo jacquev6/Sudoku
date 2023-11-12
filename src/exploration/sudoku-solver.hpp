@@ -11,8 +11,8 @@
 
 
 template<unsigned size>
-io::Sudoku<size> solve_using_exploration(
-  io::Sudoku<size>,
+Sudoku<ValueCell, size> solve_using_exploration(
+  Sudoku<ValueCell, size>,
   const std::function<void(std::unique_ptr<exploration::Event<size>>)>& =
     [](std::unique_ptr<exploration::Event<size>>) {});
 

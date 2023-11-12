@@ -35,20 +35,20 @@ struct Options {
 
 template<unsigned size>
 int main_(const Options& options) {
-  const io::Sudoku<size> sudoku = ([&options](){
+  const auto sudoku = ([&options](){
     if (options.input_path == "-") {
-      return io::Sudoku<size>::load(std::cin);
+      return Sudoku<ValueCell, size>::load(std::cin);
     } else {
       // Race condition: the input file could have been deleted since 'CLI11_PARSE' checked. Risk accepted.
       std::ifstream input(options.input_path);
       assert(input.is_open());
-      return io::Sudoku<size>::load(input);
+      return Sudoku<ValueCell, size>::load(input);
     }
   })();
 
   if (options.solve) {
     if (options.use_sat) {
-      const io::Sudoku solved = solve_using_sat(sudoku);
+      const auto solved = solve_using_sat(sudoku);
 
       if (is_solved(solved)) {
         solved.dump(std::cout);
@@ -58,7 +58,7 @@ int main_(const Options& options) {
         return 1;
       }
     } else {
-      const io::Sudoku solved = solve_using_exploration(sudoku);
+      const auto solved = solve_using_exploration(sudoku);
 
       if (is_solved(solved)) {
         solved.dump(std::cout);
@@ -135,7 +135,7 @@ int main_(const Options& options) {
       std::cerr << "WARNING: several explanations are interleaved on stdout." << std::endl;
     }
 
-    const io::Sudoku<size> solved = solve_using_exploration<size>(
+    const auto solved = solve_using_exploration<size>(
       sudoku,
       [&event_visitors](std::unique_ptr<exploration::Event<size>> event) {
         for (const auto& event_visitor : event_visitors) {

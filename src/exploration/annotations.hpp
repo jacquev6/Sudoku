@@ -139,10 +139,8 @@ class AnnotatedCell {
   bool propagated;
 };
 
-namespace experimental {
-
 template<unsigned size>
-class Sudoku<AnnotatedCell<size>, size> : public details::SudokuBase<AnnotatedCell<size>, size> {
+class Sudoku<AnnotatedCell<size>, size> : public SudokuBase<AnnotatedCell<size>, size> {
  public:
   bool is_solved() const {
     for (const auto& cell : this->all_cells()) {
@@ -154,10 +152,8 @@ class Sudoku<AnnotatedCell<size>, size> : public details::SudokuBase<AnnotatedCe
   }
 };
 
-}  // namespace experimental
-
 template<unsigned size>
-using AnnotatedSudoku = experimental::Sudoku<AnnotatedCell<size>, size>;
+using AnnotatedSudoku = Sudoku<AnnotatedCell<size>, size>;
 
 
 template<unsigned size>

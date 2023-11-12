@@ -7,6 +7,6 @@
 
 
 template<unsigned size>
-io::Sudoku<size> solve_using_sat(io::Sudoku<size>);
+Sudoku<ValueCell, size> solve_using_sat(Sudoku<ValueCell, size>);
 
 #endif  // SAT_SUDOKU_SOLVER_HPP_
