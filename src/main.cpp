@@ -102,7 +102,10 @@ int main_(const Options& options) {
         assert(video_text_output->is_open());
         video_text_explainer = std::make_unique<TextExplainer<size>>(*video_text_output);
       }
-      event_visitors.push_back(std::make_unique<Reorder<size>>(video_text_explainer.get()));
+      event_visitors.push_back(std::make_unique<Reorder<size>>(
+        [&video_text_explainer](const exploration::Event<size>& event) {
+          event.accept(*video_text_explainer);
+        }));
     }
 
     std::vector<std::unique_ptr<VideoSerializer>> video_serializers;
@@ -122,8 +125,10 @@ int main_(const Options& options) {
     if (!video_serializers.empty()) {
       video_explainer = std::make_unique<VideoExplainer<size>>(
         video_serializers.back().get(), options.quick_video, options.width, options.height);
-      event_visitors.push_back(
-        std::make_unique<Reorder<size>>(video_explainer.get()));
+      event_visitors.push_back(std::make_unique<Reorder<size>>(
+        [&video_explainer](const exploration::Event<size>& event) {
+          event.accept(*video_explainer);
+        }));
     }
 
     if (stdout_users > 1) {

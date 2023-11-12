@@ -11,7 +11,9 @@
 template<unsigned size>
 class Reorder : public exploration::EventVisitor<size> {
  public:
-  explicit Reorder(exploration::EventVisitor<size>* visitor_) : visitor(*visitor_) {}
+  explicit Reorder(const std::function<void(const exploration::Event<size>&)>& process_event_) :
+    process_event(process_event_)
+  {}
 
  private:
   void visit(const exploration::CellIsSetInInput<size>&) override;
@@ -32,7 +34,7 @@ class Reorder : public exploration::EventVisitor<size> {
   void flush_pending_events();
 
  private:
-  exploration::EventVisitor<size>& visitor;
+  std::function<void(const exploration::Event<size>&)> process_event;
   std::vector<exploration::CellIsDeducedFromSingleAllowedValue<size>>
     pending_cell_is_deduced_from_single_allowed_value_events;
   std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>>
