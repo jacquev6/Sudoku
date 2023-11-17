@@ -120,7 +120,7 @@ build/tests/unit/%.ok: build/obj/%.o build/obj/test-main.o
 
 # Using 'filter' to get an error if a source file is removed but the object file is still in 'build'
 build/tests/unit/explanation/html-explainer.ok: $(filter build/obj/explanation/art.o,${object_files})
-build/tests/unit/explanation/video/video-explainer.ok: $(filter build/obj/explanation/art.o build/obj/exploration/events.o,${object_files})
+build/tests/unit/explanation/video-explainer.ok: $(filter build/obj/explanation/art.o build/obj/exploration/events.o,${object_files})
 build/tests/unit/exploration/sudoku-solver.ok: $(filter build/obj/exploration/events.o,${object_files})
 build/tests/unit/explanation/reorder.ok: $(filter build/obj/exploration/events.o,${object_files})
 

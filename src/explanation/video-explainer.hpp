@@ -1,7 +1,7 @@
 // Copyright 2023 Vincent Jacques
 
-#ifndef EXPLANATION_VIDEO_VIDEO_EXPLAINER_HPP_
-#define EXPLANATION_VIDEO_VIDEO_EXPLAINER_HPP_
+#ifndef EXPLANATION_VIDEO_EXPLAINER_HPP_
+#define EXPLANATION_VIDEO_EXPLAINER_HPP_
 
 #include <cairomm/cairomm.h>
 
@@ -12,8 +12,8 @@
 #include <tuple>
 #include <vector>
 
-#include "../../exploration/events.hpp"
-#include "video-serializer.hpp"
+#include "../exploration/events.hpp"
+#include "video/serializer.hpp"
 
 
 // Like Cairo::SaveGuard
@@ -34,7 +34,7 @@ class VideoExplainer : public exploration::EventVisitor<size> {
 
  public:
   VideoExplainer(
-    VideoSerializer* video_serializer_,
+    video::Serializer* video_serializer_,
     const bool quick_,
     unsigned frame_width_,
     unsigned frame_height_
@@ -304,7 +304,7 @@ class VideoExplainer : public exploration::EventVisitor<size> {
   Cairo::RefPtr<Cairo::ImageSurface> surface;
   Cairo::RefPtr<Cairo::Context> context;
   Cairo::Context& cr;
-  VideoSerializer* video_serializer;
+  video::Serializer* video_serializer;
   const bool quick;
 
  private:
@@ -318,4 +318,4 @@ class VideoExplainer : public exploration::EventVisitor<size> {
     pending_cell_is_deduced_as_single_place_for_value_in_region_events;
 };
 
-#endif  // EXPLANATION_VIDEO_VIDEO_EXPLAINER_HPP_
+#endif  // EXPLANATION_VIDEO_EXPLAINER_HPP_

@@ -5,7 +5,7 @@
 #include <tuple>
 #include <vector>
 
-#include "../art.hpp"
+#include "art.hpp"
 
 
 template<unsigned size>

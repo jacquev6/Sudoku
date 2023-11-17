@@ -1,17 +1,19 @@
 // Copyright 2023 Vincent Jacques
 
-#ifndef EXPLANATION_VIDEO_FRAMES_VIDEO_SERIALIZER_HPP_
-#define EXPLANATION_VIDEO_FRAMES_VIDEO_SERIALIZER_HPP_
+#ifndef EXPLANATION_VIDEO_FRAMES_SERIALIZER_HPP_
+#define EXPLANATION_VIDEO_FRAMES_SERIALIZER_HPP_
 
 #include <filesystem>
 #include <iomanip>
 #include <string>
 
-#include "video-serializer.hpp"
+#include "serializer.hpp"
 
 
-struct FramesVideoSerializer : VideoSerializer {
-  explicit FramesVideoSerializer(const std::filesystem::path& directory_path_) :
+namespace video {
+
+struct FramesSerializer : Serializer {
+  explicit FramesSerializer(const std::filesystem::path& directory_path_) :
     frame_index(0),
     directory_path(directory_path_)
   {  // NOLINT(whitespace/braces)
@@ -34,4 +36,6 @@ struct FramesVideoSerializer : VideoSerializer {
   std::filesystem::path directory_path;
 };
 
-#endif  // EXPLANATION_VIDEO_FRAMES_VIDEO_SERIALIZER_HPP_
+}  // namespace video
+
+#endif  // EXPLANATION_VIDEO_FRAMES_SERIALIZER_HPP_

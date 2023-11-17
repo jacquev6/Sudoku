@@ -5,9 +5,9 @@
 #include "explanation/html-explainer.hpp"
 #include "explanation/reorder.hpp"
 #include "explanation/text-explainer.hpp"
-#include "explanation/video/frames-video-serializer.hpp"
-#include "explanation/video/video-explainer.hpp"
-#include "explanation/video/video-video-serializer.hpp"
+#include "explanation/video/frames-serializer.hpp"
+#include "explanation/video-explainer.hpp"
+#include "explanation/video/video-serializer.hpp"
 #include "exploration/sudoku-solver.hpp"
 #include "puzzle/check.hpp"
 #include "sat/sudoku-solver.hpp"
@@ -108,19 +108,19 @@ int main_(const Options& options) {
         }));
     }
 
-    std::vector<std::unique_ptr<VideoSerializer>> video_serializers;
+    std::vector<std::unique_ptr<video::Serializer>> video_serializers;
     std::unique_ptr<VideoExplainer<size>> video_explainer;
     if (options.video_frames_path) {
-      video_serializers.push_back(std::make_unique<FramesVideoSerializer>(*options.video_frames_path));
+      video_serializers.push_back(std::make_unique<video::FramesSerializer>(*options.video_frames_path));
     }
     if (options.video_path) {
-      video_serializers.push_back(std::make_unique<VideoVideoSerializer>(
+      video_serializers.push_back(std::make_unique<video::VideoSerializer>(
         *options.video_path, options.width, options.height));
     }
     if (video_serializers.size() > 1) {
       assert(video_serializers.size() == 2);
-      video_serializers.push_back(std::make_unique<MultipleVideoSerializer>(
-        std::vector<VideoSerializer*>{video_serializers[0].get(), video_serializers[1].get()}));
+      video_serializers.push_back(std::make_unique<video::MultipleSerializer>(
+        std::vector<video::Serializer*>{video_serializers[0].get(), video_serializers[1].get()}));
     }
     if (!video_serializers.empty()) {
       video_explainer = std::make_unique<VideoExplainer<size>>(
