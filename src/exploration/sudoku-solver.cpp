@@ -51,8 +51,8 @@ struct NeedsBacktracking {};
 // stack that happened during the exploration, because the stack actually evolved only through said events.
 // (I think this is brilliant, but I *may* biased as I'm the author of this code).
 template<unsigned size>
-struct AddEvent {
-  AddEvent(Stack<size>* stack_, const std::function<void(std::unique_ptr<exploration::Event<size>>)>& add_event_)
+struct EventAdder {
+  EventAdder(Stack<size>* stack_, const std::function<void(std::unique_ptr<exploration::Event<size>>)>& add_event_)
     : stack(stack_), add_event(add_event_) {}
 
   void operator()(std::unique_ptr<exploration::Event<size>> event) const {
@@ -70,7 +70,7 @@ struct AddEvent {
 template<unsigned size>
 struct EventsPairGuard {
   EventsPairGuard(
-    const AddEvent<size>& add_event_,
+    const EventAdder<size>& add_event_,
     std::unique_ptr<exploration::Event<size>> in,
     std::unique_ptr<exploration::Event<size>> out_
   ) :  // NOLINT(whitespace/parens)
@@ -84,7 +84,7 @@ struct EventsPairGuard {
     add_event(std::move(out));
   }
 
-  const AddEvent<size>& add_event;
+  const EventAdder<size>& add_event;
   std::unique_ptr<exploration::Event<size>> out;
 };
 
@@ -93,7 +93,7 @@ template<unsigned size>
 void propagate(
   const Stack<size>& stack,
   const std::set<Coordinates>& todo_,
-  const AddEvent<size>& add_event
+  const EventAdder<size>& add_event
 ) {
   UniqueQueue<Coordinates> todo;
   for (const auto cell : todo_) {
@@ -203,12 +203,12 @@ template<unsigned size>
 void propagate_and_explore(
   const Stack<size>&,
   const std::set<Coordinates>& todo,
-  const AddEvent<size>&
+  const EventAdder<size>&
 );
 
 
 template<unsigned size>
-void explore(const Stack<size>& stack, const AddEvent<size>& add_event) {
+void explore(const Stack<size>& stack, const EventAdder<size>& add_event) {
   assert(!stack.current().is_solved());
 
   const auto& cell = stack.current().cell(get_most_constrained_cell(stack.current()));
@@ -249,7 +249,7 @@ template<unsigned size>
 void propagate_and_explore(
   const Stack<size>& stack,
   const std::set<Coordinates>& todo,
-  const AddEvent<size>& add_event
+  const EventAdder<size>& add_event
 ) {
   propagate(stack, todo, add_event);
   if (!stack.current().is_solved()) {
@@ -264,7 +264,7 @@ Sudoku<ValueCell, size> solve_using_exploration(
   const std::function<void(std::unique_ptr<exploration::Event<size>>)>& add_event_
 ) {
   Stack<size> stack;
-  AddEvent<size> add_event(&stack, add_event_);
+  EventAdder<size> add_event(&stack, add_event_);
   std::set<Coordinates> todo;
   for (const auto& cell : sudoku.cells()) {
     const auto val = cell.get();
