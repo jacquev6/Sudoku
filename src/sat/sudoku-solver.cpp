@@ -44,7 +44,7 @@ Sudoku<ValueCell, size> solve_using_sat(Sudoku<ValueCell, size> sudoku) {
   }
 
   // Structural constraints: in each region...
-  for (const auto region : SudokuConstants<size>::regions) {
+  for (const auto& region : SudokuConstants<size>::regions) {
     // ... each value...
     for (const unsigned val : SudokuConstants<size>::values) {
       // ... appears at most once
