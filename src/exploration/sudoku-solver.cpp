@@ -43,9 +43,6 @@ class UniqueQueue {
 };
 
 
-struct NeedsBacktracking {};
-
-
 // This is the only way to modify the Stack (everywhere else, it's manipulated through const references).
 // This design ensures that the events returned to the client can replicate exactly the evolution of the
 // stack that happened during the exploration, because the stack actually evolved only through said events.
@@ -90,7 +87,7 @@ struct EventsPairGuard {
 
 
 template<unsigned size>
-void propagate(
+bool propagate(
   const Stack<size>& stack,
   const std::set<Coordinates>& todo_,
   const EventAdder<size>& add_event
@@ -123,7 +120,7 @@ void propagate(
         if (target_cell != source_cell) {
           if (target_cell.is_set()) {
             if (target_cell.get() == value) {
-              throw NeedsBacktracking();
+              return false;
             }
           } else {
             assert(target_cell.allowed_count() > 1);
@@ -173,6 +170,8 @@ void propagate(
       }
     }
   }
+
+  return true;
 }
 
 
@@ -200,7 +199,7 @@ Coordinates get_most_constrained_cell(const AnnotatedSudoku<size>& sudoku) {
 
 
 template<unsigned size>
-void propagate_and_explore(
+bool propagate_and_explore(
   const Stack<size>&,
   const std::set<Coordinates>& todo,
   const EventAdder<size>&
@@ -208,7 +207,7 @@ void propagate_and_explore(
 
 
 template<unsigned size>
-void explore(const Stack<size>& stack, const EventAdder<size>& add_event) {
+bool explore(const Stack<size>& stack, const EventAdder<size>& add_event) {
   assert(!stack.current().is_solved());
 
   const auto& cell = stack.current().cell(get_most_constrained_cell(stack.current()));
@@ -230,30 +229,32 @@ void explore(const Stack<size>& stack, const EventAdder<size>& add_event) {
     auto hypothesis_ = std::make_unique<exploration::HypothesisIsMade<size>>(coords, val);
     exploration::HypothesisIsMade<size>* hypothesis = hypothesis_.get();
     add_event(std::move(hypothesis_));
-    try {
-      propagate_and_explore(stack, {coords}, add_event);
-      if (stack.current().is_solved()) {
-        add_event(std::make_unique<exploration::HypothesisIsAccepted<size>>(coords, val));
-        break;
-      } else {
-        throw NeedsBacktracking();
-      }
-    } catch (NeedsBacktracking&) {
+    if (propagate_and_explore(stack, {coords}, add_event)) {
+      add_event(std::make_unique<exploration::HypothesisIsAccepted<size>>(coords, val));
+      return true;
+    } else {
       add_event(std::make_unique<exploration::HypothesisIsRejected<size>>(coords, val));
     }
   }
+
+  return false;
 }
 
 
 template<unsigned size>
-void propagate_and_explore(
+bool propagate_and_explore(
   const Stack<size>& stack,
   const std::set<Coordinates>& todo,
   const EventAdder<size>& add_event
 ) {
-  propagate(stack, todo, add_event);
-  if (!stack.current().is_solved()) {
-    explore(stack, add_event);
+  if (propagate(stack, todo, add_event)) {
+    if (stack.current().is_solved()) {
+      return true;
+    } else {
+      return explore(stack, add_event);
+    }
+  } else {
+    return false;
   }
 }
 
@@ -277,11 +278,7 @@ Sudoku<ValueCell, size> solve_using_exploration(
 
   add_event(std::make_unique<exploration::InputsAreDone<size>>());
 
-  try {
-    propagate_and_explore(stack, std::move(todo), add_event);
-  } catch (NeedsBacktracking&) {
-    // Nothing to do, just return the unsolved Sudoku
-  }
+  propagate_and_explore(stack, std::move(todo), add_event);
 
   for (const auto& cell : stack.current().cells()) {
     if (cell.is_set()) {
