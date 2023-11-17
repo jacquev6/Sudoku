@@ -143,7 +143,7 @@ template<unsigned size>
 class Sudoku<AnnotatedCell<size>, size> : public SudokuBase<AnnotatedCell<size>, size> {
  public:
   bool is_solved() const {
-    for (const auto& cell : this->all_cells()) {
+    for (const auto& cell : this->cells()) {
       if (!cell.is_set()) {
         return false;
       }

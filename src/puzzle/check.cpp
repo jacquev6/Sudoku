@@ -5,18 +5,19 @@
 #include <bitset>
 #include <cassert>
 
+
 template<unsigned size>
 bool is_solved(const Sudoku<ValueCell, size>& sudoku) {
-  for (const auto cell : SudokuConstants<size>::cells) {
-    if (!sudoku.cell_at(cell).get()) {
+  for (const auto& cell : sudoku.cells()) {
+    if (!cell.get()) {
       return false;
     }
   }
 
-  for (const auto region : SudokuConstants<size>::regions) {
+  for (const auto& region : sudoku.regions()) {
     std::bitset<size> seen;
-    for (const auto cell : region) {
-      const unsigned val = *sudoku.cell_at(cell).get();
+    for (const auto& cell : region.cells()) {
+      const unsigned val = *cell.get();
       assert(val < size);
       if (seen[val]) {
         return false;

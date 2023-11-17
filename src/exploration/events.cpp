@@ -6,7 +6,7 @@ namespace exploration {
 
 template<unsigned size>
 void CellIsSetInInput<size>::apply(Stack<size>* stack) const {
-  stack->current().cell_at(cell).set_input(value);
+  stack->current().cell(cell).set_input(value);
 }
 
 template<unsigned size>
@@ -19,45 +19,45 @@ void PropagationStartsForSudoku<size>::apply(Stack<size>* stack) const {
 
 template<unsigned size>
 void PropagationStartsForCell<size>::apply(Stack<size>* stack) const {
-  assert(stack->current().cell_at(cell).is_set());
-  assert(stack->current().cell_at(cell).get() == value);
-  assert(!stack->current().cell_at(cell).is_propagated());
+  assert(stack->current().cell(cell).is_set());
+  assert(stack->current().cell(cell).get() == value);
+  assert(!stack->current().cell(cell).is_propagated());
 }
 
 template<unsigned size>
 void CellPropagates<size>::apply(Stack<size>* stack) const {
-  assert(stack->current().cell_at(source_cell).is_set());
-  assert(stack->current().cell_at(source_cell).get() == value);
-  assert(!stack->current().cell_at(target_cell).is_set());
-  assert(stack->current().cell_at(target_cell).is_allowed(value));
-  assert(!stack->current().cell_at(source_cell).is_propagated());
+  assert(stack->current().cell(source_cell).is_set());
+  assert(stack->current().cell(source_cell).get() == value);
+  assert(!stack->current().cell(target_cell).is_set());
+  assert(stack->current().cell(target_cell).is_allowed(value));
+  assert(!stack->current().cell(source_cell).is_propagated());
 
-  stack->current().cell_at(target_cell).forbid(value);
+  stack->current().cell(target_cell).forbid(value);
 }
 
 template<unsigned size>
 void CellIsDeducedFromSingleAllowedValue<size>::apply(Stack<size>* stack) const {
-  assert(!stack->current().cell_at(cell).is_set());
-  assert(!stack->current().cell_at(cell).is_propagated());
+  assert(!stack->current().cell(cell).is_set());
+  assert(!stack->current().cell(cell).is_propagated());
 
-  stack->current().cell_at(cell).set_deduced(value);
+  stack->current().cell(cell).set_deduced(value);
 }
 
 template<unsigned size>
 void CellIsDeducedAsSinglePlaceForValueInRegion<size>::apply(Stack<size>* stack) const {
-  assert(!stack->current().cell_at(cell).is_set());
-  assert(!stack->current().cell_at(cell).is_propagated());
+  assert(!stack->current().cell(cell).is_set());
+  assert(!stack->current().cell(cell).is_propagated());
 
-  stack->current().cell_at(cell).set_deduced(value);
+  stack->current().cell(cell).set_deduced(value);
 }
 
 template<unsigned size>
 void PropagationIsDoneForCell<size>::apply(Stack<size>* stack) const {
-  assert(stack->current().cell_at(cell).is_set());
-  assert(stack->current().cell_at(cell).get() == value);
-  assert(!stack->current().cell_at(cell).is_propagated());
+  assert(stack->current().cell(cell).is_set());
+  assert(stack->current().cell(cell).get() == value);
+  assert(!stack->current().cell(cell).is_propagated());
 
-  stack->current().cell_at(cell).set_propagated();
+  stack->current().cell(cell).set_propagated();
 }
 
 template<unsigned size>
@@ -70,12 +70,12 @@ void ExplorationStarts<size>::apply(Stack<size>* stack) const {
 
 template<unsigned size>
 void HypothesisIsMade<size>::apply(Stack<size>* stack) const {
-  assert(!stack->current().cell_at(cell).is_set());
-  assert(stack->current().cell_at(cell).is_allowed(value));
-  assert(!stack->current().cell_at(cell).is_propagated());
+  assert(!stack->current().cell(cell).is_set());
+  assert(stack->current().cell(cell).is_allowed(value));
+  assert(!stack->current().cell(cell).is_propagated());
 
   stack->push();
-  stack->current().cell_at(cell).set_deduced(value);
+  stack->current().cell(cell).set_deduced(value);
 }
 
 template<unsigned size>

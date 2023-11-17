@@ -47,20 +47,20 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku<size>& sudoku,
   // Known values
   cr->set_font_size(3 * cell_interior_size / 4);
   cr->set_source_rgb(0.0, 0.0, 0.0);
-  for (const auto cell : SudokuConstants<size>::cells) {
-    if (sudoku.cell_at(cell).is_set()) {
-      const std::string text = std::to_string(sudoku.cell_at(cell).get() + 1);
+  for (const auto& cell : sudoku.cells()) {
+    if (cell.is_set()) {
+      const std::string text = std::to_string(cell.get() + 1);
 
-      if (options.bold_todo && !sudoku.cell_at(cell).is_propagated()) {
+      if (options.bold_todo && !cell.is_propagated()) {
         cr->select_font_face("sans-serif", Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::BOLD);
       } else {
         cr->select_font_face("sans-serif", Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::NORMAL);
       }
 
-      if (sudoku.cell_at(cell).is_input()) {
+      if (cell.is_input()) {
         Cairo::SaveGuard saver(cr);
 
-        const auto [x, y] = cell_center(cell);
+        const auto [x, y] = cell_center(cell.coordinates());
         cr->rectangle(x - cell_size / 2, y - cell_size / 2, cell_size, cell_size);
         cr->set_source_rgb(0.85, 0.85, 0.85);
         cr->fill();
@@ -69,7 +69,7 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku<size>& sudoku,
       Cairo::TextExtents extents;
       cr->get_text_extents(text, extents);
       {
-        const auto [x, y] = cell_center(cell);
+        const auto [x, y] = cell_center(cell.coordinates());
         cr->move_to(x - extents.width / 2 - extents.x_bearing, y - extents.height / 2 - extents.y_bearing);
       }
       cr->show_text(text);
@@ -81,9 +81,9 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku<size>& sudoku,
     cr->set_font_size(cell_interior_size / 4);
     cr->select_font_face("sans-serif", Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::NORMAL);
 
-    for (const auto cell : SudokuConstants<size>::cells) {
-      if (!sudoku.cell_at(cell).is_set()) {
-        assert(!sudoku.cell_at(cell).is_propagated());
+    for (const auto& cell : sudoku.cells()) {
+      if (!cell.is_set()) {
+        assert(!cell.is_propagated());
 
         for (unsigned value : SudokuConstants<size>::values) {
           Cairo::SaveGuard saver(cr);
@@ -92,10 +92,10 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku<size>& sudoku,
           Cairo::TextExtents extents;
           cr->get_text_extents(text, extents);
           {
-            const auto [x, y] = value_center(cell, value);
+            const auto [x, y] = value_center(cell.coordinates(), value);
             cr->move_to(x - extents.width / 2 - extents.x_bearing, y - extents.height / 2 - extents.y_bearing);
           }
-          if (sudoku.cell_at(cell).is_allowed(value)) {
+          if (cell.is_allowed(value)) {
             cr->set_source_rgb(0.0, 0.0, 0.0);
           } else {
             cr->set_source_rgb(0.8, 0.8, 0.8);
@@ -296,9 +296,9 @@ TEST_CASE("draw - known-values circled") {
     const double grid_size = round_grid_size<4>(image.viewport_height);
     image.crs[0][0]->translate((image.viewport_width - grid_size) / 2, (image.viewport_height - grid_size) / 2);
     AnnotatedSudoku<4> sudoku;
-    for (const auto cell : SudokuConstants<4>::cells) {
-      const auto [row, col] = cell;
-      sudoku.cell_at(cell).set_deduced((row + 2 * col) % 4);
+    for (auto& cell : sudoku.cells()) {
+      const auto [row, col] = cell.coordinates();
+      cell.set_deduced((row + 2 * col) % 4);
     }
     draw(
       image.crs[0][0],
@@ -313,9 +313,9 @@ TEST_CASE("draw - known-values circled") {
     const double grid_size = round_grid_size<9>(image.viewport_height);
     image.crs[1][0]->translate((image.viewport_width - grid_size) / 2, (image.viewport_height - grid_size) / 2);
     AnnotatedSudoku<9> sudoku;
-    for (const auto cell : SudokuConstants<9>::cells) {
-      const auto [row, col] = cell;
-      sudoku.cell_at(cell).set_deduced((row + 2 * col) % 9);
+    for (auto& cell : sudoku.cells()) {
+      const auto [row, col] = cell.coordinates();
+      cell.set_deduced((row + 2 * col) % 9);
     }
     draw(
       image.crs[1][0],
@@ -333,9 +333,9 @@ TEST_CASE("draw - all inputs") {
   const double grid_size = round_grid_size<9>(image.viewport_height);
   image.crs[1][0]->translate((image.viewport_width - grid_size) / 2, (image.viewport_height - grid_size) / 2);
   AnnotatedSudoku<9> sudoku;
-  for (const auto cell : SudokuConstants<9>::cells) {
-    const auto [row, col] = cell;
-    sudoku.cell_at(cell).set_input((row + 2 * col) % 9);
+  for (auto& cell : sudoku.cells()) {
+    const auto [row, col] = cell.coordinates();
+    cell.set_input((row + 2 * col) % 9);
   }
   draw(
     image.crs[1][0],
@@ -351,9 +351,9 @@ TEST_CASE("draw - all todo") {
   const double grid_size = round_grid_size<9>(image.viewport_height);
   image.crs[1][0]->translate((image.viewport_width - grid_size) / 2, (image.viewport_height - grid_size) / 2);
   AnnotatedSudoku<9> sudoku;
-  for (const auto cell : SudokuConstants<9>::cells) {
-    const auto [row, col] = cell;
-    sudoku.cell_at(cell).set_deduced((row + 2 * col) % 9);
+  for (auto& cell : sudoku.cells()) {
+    const auto [row, col] = cell.coordinates();
+    cell.set_deduced((row + 2 * col) % 9);
   }
   draw(
     image.crs[1][0],
@@ -370,10 +370,10 @@ TEST_CASE("draw - all processed") {
   const double grid_size = round_grid_size<9>(image.viewport_height);
   image.crs[1][0]->translate((image.viewport_width - grid_size) / 2, (image.viewport_height - grid_size) / 2);
   AnnotatedSudoku<9> sudoku;
-  for (const auto cell : SudokuConstants<9>::cells) {
-    const auto [row, col] = cell;
-    sudoku.cell_at(cell).set_deduced((row + 2 * col) % 9);
-    sudoku.cell_at(cell).set_propagated();
+  for (auto& cell : sudoku.cells()) {
+    const auto [row, col] = cell.coordinates();
+    cell.set_deduced((row + 2 * col) % 9);
+    cell.set_propagated();
   }
   draw(
     image.crs[1][0],
@@ -390,9 +390,9 @@ TEST_CASE("draw - known-values boxed") {
   const double grid_size = round_grid_size<9>(image.viewport_height);
   image.crs[1][0]->translate((image.viewport_width - grid_size) / 2, (image.viewport_height - grid_size) / 2);
   AnnotatedSudoku<9> sudoku;
-  for (const auto cell : SudokuConstants<9>::cells) {
-    const auto [row, col] = cell;
-    sudoku.cell_at(cell).set_deduced((row + 2 * col) % 9);
+  for (auto& cell : sudoku.cells()) {
+    const auto [row, col] = cell.coordinates();
+    cell.set_deduced((row + 2 * col) % 9);
   }
   draw(
     image.crs[1][0],
@@ -410,11 +410,11 @@ TEST_CASE("draw - all forbidden") {
   const double grid_size = round_grid_size<9>(image.viewport_height);
   image.crs[1][0]->translate((image.viewport_width - grid_size) / 2, (image.viewport_height - grid_size) / 2);
   AnnotatedSudoku<9> sudoku;
-  for (const auto cell : SudokuConstants<9>::cells) {
-    const auto [row, col] = cell;
+  for (auto& cell : sudoku.cells()) {
+    const auto [row, col] = cell.coordinates();
     for (const unsigned value : SudokuConstants<9>::values) {
       if (value != (row + 2 * col) % 9) {
-        sudoku.cell_at(cell).forbid(value);
+        cell.forbid(value);
       }
     }
   }
@@ -453,9 +453,9 @@ TEST_CASE("draw - possible-values circled") {
     image.crs[1][0]->translate((image.viewport_width - grid_size) / 2, (image.viewport_height - grid_size) / 2);
     AnnotatedSudoku<9> sudoku;
     std::vector<std::tuple<Coordinates, unsigned>> circled_values;
-    for (const auto cell : SudokuConstants<9>::cells) {
+    for (const auto& cell : sudoku.cells()) {
       for (const unsigned value : SudokuConstants<9>::values) {
-        circled_values.push_back({cell, value});
+        circled_values.push_back({cell.coordinates(), value});
       }
     }
     draw(
@@ -509,13 +509,14 @@ TEST_CASE("draw - possible-values linked") {
       links_from_cell_to_value;
     std::vector<std::tuple<Coordinates, unsigned>> circled_values;
     Coordinates source_cell = {2, 3};
-    for (const auto cell : SudokuConstants<9>::cells) {
-      if (cell != source_cell) {
-        const auto [row, col] = cell;
+    for (auto& cell : sudoku.cells()) {
+      const auto coords = cell.coordinates();
+      if (coords != source_cell) {
+        const auto [row, col] = coords;
         for (const unsigned value : SudokuConstants<9>::values) {
           if (value == (row + 2 * col) % 9) {
-            links_from_cell_to_value.push_back({source_cell, cell, value});
-            circled_values.push_back({cell, value});
+            links_from_cell_to_value.push_back({source_cell, coords, value});
+            circled_values.push_back({coords, value});
           }
         }
       }

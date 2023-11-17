@@ -50,7 +50,7 @@ lint-cpplint: $(patsubst src/%,build/lint/%.cpplint.ok,${source_files} ${header_
 build/lint/%.cpplint.ok: src/%
 	@${echo} "Lint: cpplint $<"
 	@mkdir -p ${@D}
-	@cpplint --quiet --linelength=120 --root=src --filter=-build/include_subdir $<
+	@cpplint --quiet --linelength=120 --root=src --filter=-build/include_subdir,-readability/check $<
 	@touch $@
 
 
@@ -121,9 +121,7 @@ build/tests/unit/%.ok: build/obj/%.o build/obj/test-main.o
 # Using 'filter' to get an error if a source file is removed but the object file is still in 'build'
 build/tests/unit/explanation/html-explainer.ok: $(filter build/obj/explanation/art.o,${object_files})
 build/tests/unit/explanation/video/video-explainer.ok: $(filter build/obj/explanation/art.o build/obj/exploration/events.o,${object_files})
-build/tests/unit/exploration/sudoku-solver.ok: $(filter build/obj/exploration/events.o build/obj/puzzle/sudoku.o,${object_files})
-build/tests/unit/puzzle/check.ok: $(filter build/obj/puzzle/sudoku.o,${object_files})
-build/tests/unit/sat/sudoku-solver.ok: $(filter build/obj/puzzle/sudoku.o,${object_files})
+build/tests/unit/exploration/sudoku-solver.ok: $(filter build/obj/exploration/events.o,${object_files})
 build/tests/unit/explanation/reorder.ok: $(filter build/obj/exploration/events.o,${object_files})
 
 

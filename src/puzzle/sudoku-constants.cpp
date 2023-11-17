@@ -14,6 +14,10 @@ static_assert(SudokuConstants<4>::cells == decltype(SudokuConstants<4>::cells){{
   {3, 0}, {3, 1}, {3, 2}, {3, 3},
 }});
 
+static_assert(SudokuConstants<4>::region_indexes == decltype(SudokuConstants<4>::region_indexes){{
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+}});
+
 static_assert(SudokuConstants<4>::regions == decltype(SudokuConstants<4>::regions){{
   // Rows
   {{{0, 0}, {0, 1}, {0, 2}, {0, 3}}},

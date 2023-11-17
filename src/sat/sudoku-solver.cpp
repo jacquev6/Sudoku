@@ -63,9 +63,9 @@ Sudoku<ValueCell, size> solve_using_sat(Sudoku<ValueCell, size> sudoku) {
   }
 
   // Circumstantial constraints: inputs are honored
-  for (const auto& cell : SudokuConstants<size>::cells) {
-    const auto [row, col] = cell;
-    const auto value = sudoku.cell_at(cell).get();
+  for (const auto& cell : sudoku.cells()) {
+    const auto [row, col] = cell.coordinates();
+    const auto value = cell.get();
     if (value) {
       solver.addClause(Minisat::mkLit(has_value[row][col][*value]));
     }
@@ -73,11 +73,11 @@ Sudoku<ValueCell, size> solve_using_sat(Sudoku<ValueCell, size> sudoku) {
 
   Minisat::vec<Minisat::Lit> dummy;
   if (solver.solveLimited(dummy) == Minisat::l_True) {
-    for (const auto& cell : SudokuConstants<size>::cells) {
-      const auto [row, col] = cell;
+    for (auto& cell : sudoku.cells()) {
+      const auto [row, col] = cell.coordinates();
       for (const unsigned val : SudokuConstants<size>::values) {
         if (solver.model[has_value[row][col][val]] == Minisat::l_True) {
-          sudoku.cell_at(cell).set(val);
+          cell.set(val);
         }
       }
     }

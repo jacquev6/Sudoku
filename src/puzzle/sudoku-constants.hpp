@@ -53,6 +53,14 @@ class SudokuConstants {
     return cells;
   }
 
+  static constexpr auto make_region_indexes() {
+    std::array<unsigned, 3 * size> region_indexes;
+    for (unsigned i = 0; i != 3 * size; ++i) {
+      region_indexes[i] = i;
+    }
+    return region_indexes;
+  }
+
   static constexpr auto make_regions() {
     std::array<std::array<std::pair<unsigned, unsigned>, size>, 3 * size> regions;
     for (unsigned row : make_values()) {
@@ -97,6 +105,7 @@ class SudokuConstants {
   static constexpr unsigned sqrt_size = sqrt(size);
   static constexpr auto values = make_values();
   static constexpr auto cells = make_cells();
+  static constexpr auto region_indexes = make_region_indexes();
   static constexpr auto regions = make_regions();
   static constexpr auto regions_of = make_regions_of();
 

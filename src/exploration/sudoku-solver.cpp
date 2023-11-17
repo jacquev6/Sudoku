@@ -106,52 +106,55 @@ void propagate(
     std::make_unique<exploration::PropagationIsDoneForSudoku<size>>());
 
   while (!todo.empty()) {
-    const auto source_cell = todo.get();
-    assert(stack.current().cell_at(source_cell).is_set());
-    const unsigned value = stack.current().cell_at(source_cell).get();
+    const auto source_coords = todo.get();
+    const auto& source_cell = stack.current().cell(source_coords);
+    assert(source_cell.is_set());
+    const unsigned value = source_cell.get();
 
     EventsPairGuard<size> guard(
       add_event,
-      std::make_unique<exploration::PropagationStartsForCell<size>>(source_cell, value),
-      std::make_unique<exploration::PropagationIsDoneForCell<size>>(source_cell, value));
+      std::make_unique<exploration::PropagationStartsForCell<size>>(source_coords, value),
+      std::make_unique<exploration::PropagationIsDoneForCell<size>>(source_coords, value));
 
-    const auto [row, col] = source_cell;
-    for (const auto region : SudokuConstants<size>::regions_of[row][col]) {
-      for (const auto target_cell : SudokuConstants<size>::regions[region]) {
+    const auto [row, col] = source_coords;
+    for (const auto& source_region : source_cell.regions()) {
+      for (const auto& target_cell : source_region.cells()) {
+        const auto target_coords = target_cell.coordinates();
         if (target_cell != source_cell) {
-          if (stack.current().cell_at(target_cell).is_set()) {
-            if (stack.current().cell_at(target_cell).get() == value) {
+          if (target_cell.is_set()) {
+            if (target_cell.get() == value) {
               throw NeedsBacktracking();
             }
           } else {
-            assert(stack.current().cell_at(target_cell).allowed_count() > 1);
-            if (stack.current().cell_at(target_cell).is_allowed(value)) {
-              add_event(std::make_unique<exploration::CellPropagates<size>>(source_cell, target_cell, value));
+            assert(target_cell.allowed_count() > 1);
+            if (target_cell.is_allowed(value)) {
+              add_event(std::make_unique<exploration::CellPropagates<size>>(source_coords, target_coords, value));
 
-              if (stack.current().cell_at(target_cell).allowed_count() == 1) {
+              if (target_cell.allowed_count() == 1) {
                 for (unsigned value : SudokuConstants<size>::values) {
-                  if (stack.current().cell_at(target_cell).is_allowed(value)) {
+                  if (target_cell.is_allowed(value)) {
                     add_event(std::make_unique<exploration::CellIsDeducedFromSingleAllowedValue<size>>(
-                      target_cell, value));
-                    todo.add(target_cell);
+                      target_coords, value));
+                    todo.add(target_coords);
                     break;
                   }
                 }
               }
 
-              for (unsigned region : SudokuConstants<size>::regions_of[target_cell.first][target_cell.second]) {
+              for (const auto& target_region : target_cell.regions()) {
                 unsigned count = 0;
-                Coordinates single_cell;
-                for (auto cell : SudokuConstants<size>::regions[region]) {
-                  if (stack.current().cell_at(cell).is_allowed(value)) {
+                const typename AnnotatedSudoku<size>::Cell* single_cell;
+                for (const auto& cell : target_region.cells()) {
+                  if (cell.is_allowed(value)) {
                     ++count;
-                    single_cell = cell;
+                    single_cell = &cell;
                   }
                 }
-                if (count == 1 && !stack.current().cell_at(single_cell).is_set()) {
+                if (count == 1 && !single_cell->is_set()) {
+                  const Coordinates single_coords = single_cell->coordinates();
                   add_event(std::make_unique<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>>(
-                    single_cell, value, region));
-                  todo.add(single_cell);
+                    single_coords, value, target_region.index()));
+                  todo.add(single_coords);
                 }
               }
 
@@ -175,16 +178,16 @@ void propagate(
 
 template<unsigned size>
 Coordinates get_most_constrained_cell(const AnnotatedSudoku<size>& sudoku) {
-  Coordinates best_cell;
+  Coordinates best_coords;
   unsigned best_count = size + 1;
 
-  for (const auto cell : SudokuConstants<size>::cells) {
-    if (sudoku.cell_at(cell).is_set()) {
+  for (const auto& cell : sudoku.cells()) {
+    if (cell.is_set()) {
       continue;
     }
-    unsigned count = sudoku.cell_at(cell).allowed_count();
+    unsigned count = cell.allowed_count();
     if (count < best_count) {
-      best_cell = cell;
+      best_coords = cell.coordinates();
       best_count = count;
     }
     if (best_count == 2) {
@@ -192,7 +195,7 @@ Coordinates get_most_constrained_cell(const AnnotatedSudoku<size>& sudoku) {
     }
   }
 
-  return best_cell;
+  return best_coords;
 }
 
 
@@ -208,34 +211,35 @@ template<unsigned size>
 void explore(const Stack<size>& stack, const AddEvent<size>& add_event) {
   assert(!stack.current().is_solved());
 
-  const auto cell = get_most_constrained_cell(stack.current());
+  const auto& cell = stack.current().cell(get_most_constrained_cell(stack.current()));
+  const Coordinates coords = cell.coordinates();
   std::vector<unsigned> allowed_values;
   for (unsigned val : SudokuConstants<size>::values) {
-    if (stack.current().cell_at(cell).is_allowed(val)) {
+    if (cell.is_allowed(val)) {
       allowed_values.push_back(val);
     }
   }
 
   EventsPairGuard<size> guard(
     add_event,
-    std::make_unique<exploration::ExplorationStarts<size>>(cell, allowed_values),
-    std::make_unique<exploration::ExplorationIsDone<size>>(cell));
+    std::make_unique<exploration::ExplorationStarts<size>>(coords, allowed_values),
+    std::make_unique<exploration::ExplorationIsDone<size>>(coords));
 
   // @todo Artificially favor values without solution to demonstrate and visualize backtracking
   for (unsigned val : allowed_values) {
-    auto hypothesis_ = std::make_unique<exploration::HypothesisIsMade<size>>(cell, val);
+    auto hypothesis_ = std::make_unique<exploration::HypothesisIsMade<size>>(coords, val);
     exploration::HypothesisIsMade<size>* hypothesis = hypothesis_.get();
     add_event(std::move(hypothesis_));
     try {
-      propagate_and_explore(stack, {cell}, add_event);
+      propagate_and_explore(stack, {coords}, add_event);
       if (stack.current().is_solved()) {
-        add_event(std::make_unique<exploration::HypothesisIsAccepted<size>>(cell, val));
+        add_event(std::make_unique<exploration::HypothesisIsAccepted<size>>(coords, val));
         break;
       } else {
         throw NeedsBacktracking();
       }
     } catch (NeedsBacktracking&) {
-      add_event(std::make_unique<exploration::HypothesisIsRejected<size>>(cell, val));
+      add_event(std::make_unique<exploration::HypothesisIsRejected<size>>(coords, val));
     }
   }
 }
@@ -262,11 +266,12 @@ Sudoku<ValueCell, size> solve_using_exploration(
   Stack<size> stack;
   AddEvent<size> add_event(&stack, add_event_);
   std::set<Coordinates> todo;
-  for (auto cell : SudokuConstants<size>::cells) {
-    const auto val = sudoku.cell_at(cell).get();
+  for (const auto& cell : sudoku.cells()) {
+    const auto val = cell.get();
     if (val) {
-      add_event(std::make_unique<exploration::CellIsSetInInput<size>>(cell, *val));
-      todo.insert(cell);
+      const Coordinates coords = cell.coordinates();
+      add_event(std::make_unique<exploration::CellIsSetInInput<size>>(coords, *val));
+      todo.insert(coords);
     }
   }
 
@@ -278,9 +283,9 @@ Sudoku<ValueCell, size> solve_using_exploration(
     // Nothing to do, just return the unsolved Sudoku
   }
 
-  for (auto cell : SudokuConstants<size>::cells) {
-    if (stack.current().cell_at(cell).is_set()) {
-      sudoku.cell_at(cell).set(stack.current().cell_at(cell).get());
+  for (const auto& cell : stack.current().cells()) {
+    if (cell.is_set()) {
+      sudoku.cell(cell.coordinates()).set(cell.get());
     }
   }
   return sudoku;
