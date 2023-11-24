@@ -93,7 +93,7 @@ int main_(const Options& options) {
 
     std::optional<std::ofstream> video_text_output;
     std::optional<TextExplainer<size>> video_text_explainer_;
-    std::optional<Reorder<size>> video_text_explainer;
+    std::optional<Reorder<size, TextExplainer<size>>> video_text_explainer;
     if (options.video_text_path) {
       if (options.video_text_path == "-") {
         ++stdout_users;
@@ -103,14 +103,12 @@ int main_(const Options& options) {
         assert(video_text_output->is_open());
         video_text_explainer_.emplace(*video_text_output);
       }
-      video_text_explainer.emplace([&video_text_explainer_](const exploration::Event<size>& event) {
-        std::visit(*video_text_explainer_, event);
-      });
+      video_text_explainer.emplace(*video_text_explainer_);
     }
 
     std::vector<std::unique_ptr<video::Serializer>> video_serializers;
     std::optional<VideoExplainer<size>> video_explainer_;
-    std::optional<Reorder<size>> video_explainer;
+    std::optional<Reorder<size, VideoExplainer<size>>> video_explainer;
     if (options.video_frames_path) {
       video_serializers.push_back(std::make_unique<video::FramesSerializer>(*options.video_frames_path));
     }
@@ -125,9 +123,7 @@ int main_(const Options& options) {
     }
     if (!video_serializers.empty()) {
       video_explainer_.emplace(video_serializers.back().get(), options.quick_video, options.width, options.height);
-      video_explainer.emplace([&video_explainer_](const exploration::Event<size>& event) {
-        std::visit(*video_explainer_, event);
-      });
+      video_explainer.emplace(*video_explainer_);
     }
 
     if (stdout_users > 1) {

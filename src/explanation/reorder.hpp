@@ -9,10 +9,10 @@
 #include "../exploration/events.hpp"
 
 
-template<unsigned size>
+template<unsigned size, typename ProcessEvent>
 class Reorder {
  public:
-  explicit Reorder(const std::function<void(const exploration::Event<size>&)>& process_event_) :
+  explicit Reorder(ProcessEvent& process_event_) :
     process_event(process_event_)
   {}
 
@@ -92,7 +92,7 @@ class Reorder {
   }
 
  private:
-  std::function<void(const exploration::Event<size>&)> process_event;
+  ProcessEvent& process_event;
   std::vector<exploration::CellIsDeducedFromSingleAllowedValue<size>>
     pending_cell_is_deduced_from_single_allowed_value_events;
   std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>>

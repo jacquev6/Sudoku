@@ -1529,7 +1529,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<4>
@@ -1538,11 +1538,10 @@ namespace exploration
     
     std::pair<unsigned int, unsigned int> cell;
     unsigned int value;
-    // inline constexpr CellIsSetInInput(const CellIsSetInInput<4> &) noexcept = default;
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<9>
@@ -1551,7 +1550,6 @@ namespace exploration
     
     std::pair<unsigned int, unsigned int> cell;
     unsigned int value;
-    // inline constexpr CellIsSetInInput(const CellIsSetInInput<9> &) noexcept = default;
   };
   
   #endif
@@ -1562,25 +1560,23 @@ namespace exploration
     
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct InputsAreDone<4>
   {
     void apply(Stack<4> *) const;
     
-    // inline constexpr InputsAreDone(const InputsAreDone<4> &) noexcept = default;
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct InputsAreDone<9>
   {
     void apply(Stack<9> *) const;
     
-    // inline constexpr InputsAreDone(const InputsAreDone<9> &) noexcept = default;
   };
   
   #endif
@@ -1591,25 +1587,23 @@ namespace exploration
     
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForSudoku<4>
   {
     void apply(Stack<4> *) const;
     
-    // inline constexpr PropagationStartsForSudoku(const PropagationStartsForSudoku<4> &) noexcept = default;
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForSudoku<9>
   {
     void apply(Stack<9> *) const;
     
-    // inline constexpr PropagationStartsForSudoku(const PropagationStartsForSudoku<9> &) noexcept = default;
   };
   
   #endif
@@ -1622,7 +1616,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForCell<4>
@@ -1631,11 +1625,10 @@ namespace exploration
     
     std::pair<unsigned int, unsigned int> cell;
     unsigned int value;
-    // inline constexpr PropagationStartsForCell(const PropagationStartsForCell<4> &) noexcept = default;
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForCell<9>
@@ -1644,7 +1637,6 @@ namespace exploration
     
     std::pair<unsigned int, unsigned int> cell;
     unsigned int value;
-    // inline constexpr PropagationStartsForCell(const PropagationStartsForCell<9> &) noexcept = default;
   };
   
   #endif
@@ -1658,7 +1650,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: alloc_traits.h:850 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellPropagates<4>
@@ -1668,11 +1660,10 @@ namespace exploration
     std::pair<unsigned int, unsigned int> source_cell;
     std::pair<unsigned int, unsigned int> target_cell;
     unsigned int value;
-    // inline constexpr CellPropagates(const CellPropagates<4> &) noexcept = default;
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: alloc_traits.h:850 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellPropagates<9>
@@ -1682,7 +1673,6 @@ namespace exploration
     std::pair<unsigned int, unsigned int> source_cell;
     std::pair<unsigned int, unsigned int> target_cell;
     unsigned int value;
-    // inline constexpr CellPropagates(const CellPropagates<9> &) noexcept = default;
   };
   
   #endif
@@ -1695,7 +1685,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: alloc_traits.h:850 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedFromSingleAllowedValue<4>
@@ -1709,7 +1699,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: alloc_traits.h:850 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedFromSingleAllowedValue<9>
@@ -1733,7 +1723,7 @@ namespace exploration
     unsigned int region;
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: alloc_traits.h:850 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedAsSinglePlaceForValueInRegion<4>
@@ -1748,7 +1738,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: alloc_traits.h:850 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedAsSinglePlaceForValueInRegion<9>
@@ -1772,7 +1762,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForCell<4>
@@ -1781,11 +1771,10 @@ namespace exploration
     
     std::pair<unsigned int, unsigned int> cell;
     unsigned int value;
-    // inline constexpr PropagationIsDoneForCell(const PropagationIsDoneForCell<4> &) noexcept = default;
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForCell<9>
@@ -1794,7 +1783,6 @@ namespace exploration
     
     std::pair<unsigned int, unsigned int> cell;
     unsigned int value;
-    // inline constexpr PropagationIsDoneForCell(const PropagationIsDoneForCell<9> &) noexcept = default;
   };
   
   #endif
@@ -1805,25 +1793,23 @@ namespace exploration
     
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForSudoku<4>
   {
     void apply(Stack<4> *) const;
     
-    // inline constexpr PropagationIsDoneForSudoku(const PropagationIsDoneForSudoku<4> &) noexcept = default;
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForSudoku<9>
   {
     void apply(Stack<9> *) const;
     
-    // inline constexpr PropagationIsDoneForSudoku(const PropagationIsDoneForSudoku<9> &) noexcept = default;
   };
   
   #endif
@@ -1836,7 +1822,7 @@ namespace exploration
     std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<4>
@@ -1845,12 +1831,10 @@ namespace exploration
     
     std::pair<unsigned int, unsigned int> cell;
     std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
-    // inline constexpr ExplorationStarts(const ExplorationStarts<4> &) noexcept(false) = default;
-    // inline constexpr ~ExplorationStarts() noexcept = default;
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<9>
@@ -1859,8 +1843,6 @@ namespace exploration
     
     std::pair<unsigned int, unsigned int> cell;
     std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
-    // inline constexpr ExplorationStarts(const ExplorationStarts<9> &) noexcept(false) = default;
-    // inline constexpr ~ExplorationStarts() noexcept = default;
   };
   
   #endif
@@ -1873,7 +1855,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<4>
@@ -1882,11 +1864,10 @@ namespace exploration
     
     std::pair<unsigned int, unsigned int> cell;
     unsigned int value;
-    // inline constexpr HypothesisIsMade(const HypothesisIsMade<4> &) noexcept = default;
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<9>
@@ -1895,7 +1876,6 @@ namespace exploration
     
     std::pair<unsigned int, unsigned int> cell;
     unsigned int value;
-    // inline constexpr HypothesisIsMade(const HypothesisIsMade<9> &) noexcept = default;
   };
   
   #endif
@@ -1908,7 +1888,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<4>
@@ -1917,11 +1897,10 @@ namespace exploration
     
     std::pair<unsigned int, unsigned int> cell;
     unsigned int value;
-    // inline constexpr HypothesisIsRejected(const HypothesisIsRejected<4> &) noexcept = default;
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<9>
@@ -1930,7 +1909,6 @@ namespace exploration
     
     std::pair<unsigned int, unsigned int> cell;
     unsigned int value;
-    // inline constexpr HypothesisIsRejected(const HypothesisIsRejected<9> &) noexcept = default;
   };
   
   #endif
@@ -1941,25 +1919,23 @@ namespace exploration
     
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct SudokuIsSolved<4>
   {
     void apply(Stack<4> *) const;
     
-    // inline constexpr SudokuIsSolved(const SudokuIsSolved<4> &) noexcept = default;
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct SudokuIsSolved<9>
   {
     void apply(Stack<9> *) const;
     
-    // inline constexpr SudokuIsSolved(const SudokuIsSolved<9> &) noexcept = default;
   };
   
   #endif
@@ -1972,7 +1948,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsAccepted<4>
@@ -1981,11 +1957,10 @@ namespace exploration
     
     std::pair<unsigned int, unsigned int> cell;
     unsigned int value;
-    // inline constexpr HypothesisIsAccepted(const HypothesisIsAccepted<4> &) noexcept = default;
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsAccepted<9>
@@ -1994,7 +1969,6 @@ namespace exploration
     
     std::pair<unsigned int, unsigned int> cell;
     unsigned int value;
-    // inline constexpr HypothesisIsAccepted(const HypothesisIsAccepted<9> &) noexcept = default;
   };
   
   #endif
@@ -2006,7 +1980,7 @@ namespace exploration
     std::pair<unsigned int, unsigned int> cell;
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationIsDone<4>
@@ -2014,11 +1988,10 @@ namespace exploration
     void apply(Stack<4> *) const;
     
     std::pair<unsigned int, unsigned int> cell;
-    // inline constexpr ExplorationIsDone(const ExplorationIsDone<4> &) noexcept = default;
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: type_traits:2559 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationIsDone<9>
@@ -2026,7 +1999,6 @@ namespace exploration
     void apply(Stack<9> *) const;
     
     std::pair<unsigned int, unsigned int> cell;
-    // inline constexpr ExplorationIsDone(const ExplorationIsDone<9> &) noexcept = default;
   };
   
   #endif
@@ -2260,12 +2232,12 @@ class HtmlExplainer<9>
 
 
 
-template<unsigned int size>
+template<unsigned int size, typename ProcessEvent>
 class Reorder
 {
   
   public: 
-  inline explicit Reorder(const std::function<void (const exploration::Event<size> &)> & process_event_)
+  inline explicit Reorder(ProcessEvent & process_event_)
   : process_event{process_event_}
   {
   }
@@ -2375,7 +2347,7 @@ class Reorder
   
   
   private: 
-  std::function<void (const exploration::Event<size> &)> process_event;
+  ProcessEvent & process_event;
   std::vector<exploration::CellIsDeducedFromSingleAllowedValue<size> > pending_cell_is_deduced_from_single_allowed_value_events;
   std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size> > pending_cell_is_deduced_as_single_place_for_value_in_region_events;
 };
@@ -2383,12 +2355,12 @@ class Reorder
 /* First instantiated from: type_traits:1274 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
-class Reorder<4>
+class Reorder<4, TextExplainer<4> >
 {
   
   public: 
-  inline explicit Reorder(const std::function<void (const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &)> & process_event_)
-  : process_event{std::function<void (const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &)>(process_event_)}
+  inline explicit Reorder(TextExplainer<4> & process_event_)
+  : process_event{process_event_}
   , pending_cell_is_deduced_from_single_allowed_value_events{std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > >()}
   , pending_cell_is_deduced_as_single_place_for_value_in_region_events{std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > >()}
   {
@@ -2398,27 +2370,27 @@ class Reorder<4>
   public: 
   inline void operator()(const exploration::CellIsSetInInput<4> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::InputsAreDone<4> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::PropagationStartsForSudoku<4> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::PropagationStartsForCell<4> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::CellPropagates<4> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<4> & event)
@@ -2433,44 +2405,44 @@ class Reorder<4>
   
   inline void operator()(const exploration::PropagationIsDoneForCell<4> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    this->process_event.operator()(event);
     this->flush_pending_events();
   }
   
   inline void operator()(const exploration::PropagationIsDoneForSudoku<4> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::ExplorationStarts<4> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::HypothesisIsMade<4> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::HypothesisIsRejected<4> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::SudokuIsSolved<4> & event)
   {
     this->flush_pending_events();
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::HypothesisIsAccepted<4> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::ExplorationIsDone<4> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    this->process_event.operator()(event);
   }
   
   
@@ -2483,7 +2455,7 @@ class Reorder<4>
       __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __end0 = __range2.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__end0)); __begin0.operator++()) {
         const exploration::CellIsDeducedFromSingleAllowedValue<4> & event = static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin0).operator*());
-        static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+        this->process_event.operator()(event);
       }
       
     }
@@ -2493,7 +2465,7 @@ class Reorder<4>
       __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __end0 = __range2.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__end0)); __begin0.operator++()) {
         const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event = static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin0).operator*());
-        static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+        this->process_event.operator()(event);
       }
       
     }
@@ -2503,23 +2475,158 @@ class Reorder<4>
   
   
   private: 
-  std::function<void (const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &)> process_event;
+  TextExplainer<4> & process_event;
   std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > pending_cell_is_deduced_from_single_allowed_value_events;
   std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > pending_cell_is_deduced_as_single_place_for_value_in_region_events;
   public: 
-  // inline ~Reorder() noexcept = default;
+  // inline Reorder<4, TextExplainer<4> > & operator=(const Reorder<4, TextExplainer<4> > &) /* noexcept */ = delete;
+  // inline Reorder<4, TextExplainer<4> > & operator=(Reorder<4, TextExplainer<4> > &&) /* noexcept */ = delete;
+  // inline constexpr ~Reorder() noexcept = default;
 };
 
 #endif
 /* First instantiated from: type_traits:1274 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
-class Reorder<9>
+class Reorder<4, VideoExplainer<4> >
 {
   
   public: 
-  inline explicit Reorder(const std::function<void (const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &)> & process_event_)
-  : process_event{std::function<void (const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &)>(process_event_)}
+  inline explicit Reorder(VideoExplainer<4> & process_event_)
+  : process_event{process_event_}
+  , pending_cell_is_deduced_from_single_allowed_value_events{std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > >()}
+  , pending_cell_is_deduced_as_single_place_for_value_in_region_events{std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > >()}
+  {
+  }
+  
+  
+  public: 
+  inline void operator()(const exploration::CellIsSetInInput<4> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::InputsAreDone<4> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::PropagationStartsForSudoku<4> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::PropagationStartsForCell<4> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::CellPropagates<4> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<4> & event)
+  {
+    this->pending_cell_is_deduced_from_single_allowed_value_events.push_back(event);
+  }
+  
+  inline void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event)
+  {
+    this->pending_cell_is_deduced_as_single_place_for_value_in_region_events.push_back(event);
+  }
+  
+  inline void operator()(const exploration::PropagationIsDoneForCell<4> & event)
+  {
+    this->process_event.operator()(event);
+    this->flush_pending_events();
+  }
+  
+  inline void operator()(const exploration::PropagationIsDoneForSudoku<4> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::ExplorationStarts<4> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::HypothesisIsMade<4> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::HypothesisIsRejected<4> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::SudokuIsSolved<4> & event)
+  {
+    this->flush_pending_events();
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::HypothesisIsAccepted<4> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::ExplorationIsDone<4> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  
+  private: 
+  inline void flush_pending_events()
+  {
+    {
+      std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > & __range2 = this->pending_cell_is_deduced_from_single_allowed_value_events;
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __begin0 = __range2.begin();
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __end0 = __range2.end();
+      for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__end0)); __begin0.operator++()) {
+        const exploration::CellIsDeducedFromSingleAllowedValue<4> & event = static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin0).operator*());
+        this->process_event.operator()(event);
+      }
+      
+    }
+    {
+      std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > & __range2 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __begin0 = __range2.begin();
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __end0 = __range2.end();
+      for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__end0)); __begin0.operator++()) {
+        const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event = static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin0).operator*());
+        this->process_event.operator()(event);
+      }
+      
+    }
+    this->pending_cell_is_deduced_from_single_allowed_value_events.clear();
+    this->pending_cell_is_deduced_as_single_place_for_value_in_region_events.clear();
+  }
+  
+  
+  private: 
+  VideoExplainer<4> & process_event;
+  std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > pending_cell_is_deduced_from_single_allowed_value_events;
+  std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > pending_cell_is_deduced_as_single_place_for_value_in_region_events;
+  public: 
+  // inline Reorder<4, VideoExplainer<4> > & operator=(const Reorder<4, VideoExplainer<4> > &) /* noexcept */ = delete;
+  // inline Reorder<4, VideoExplainer<4> > & operator=(Reorder<4, VideoExplainer<4> > &&) /* noexcept */ = delete;
+  // inline constexpr ~Reorder() noexcept = default;
+};
+
+#endif
+/* First instantiated from: type_traits:1274 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class Reorder<9, TextExplainer<9> >
+{
+  
+  public: 
+  inline explicit Reorder(TextExplainer<9> & process_event_)
+  : process_event{process_event_}
   , pending_cell_is_deduced_from_single_allowed_value_events{std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > >()}
   , pending_cell_is_deduced_as_single_place_for_value_in_region_events{std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > >()}
   {
@@ -2529,27 +2636,27 @@ class Reorder<9>
   public: 
   inline void operator()(const exploration::CellIsSetInInput<9> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::InputsAreDone<9> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::PropagationStartsForSudoku<9> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::PropagationStartsForCell<9> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::CellPropagates<9> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<9> & event)
@@ -2564,44 +2671,44 @@ class Reorder<9>
   
   inline void operator()(const exploration::PropagationIsDoneForCell<9> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    this->process_event.operator()(event);
     this->flush_pending_events();
   }
   
   inline void operator()(const exploration::PropagationIsDoneForSudoku<9> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::ExplorationStarts<9> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::HypothesisIsMade<9> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::HypothesisIsRejected<9> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::SudokuIsSolved<9> & event)
   {
     this->flush_pending_events();
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::HypothesisIsAccepted<9> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    this->process_event.operator()(event);
   }
   
   inline void operator()(const exploration::ExplorationIsDone<9> & event)
   {
-    static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    this->process_event.operator()(event);
   }
   
   
@@ -2614,7 +2721,7 @@ class Reorder<9>
       __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __end0 = __range2.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__end0)); __begin0.operator++()) {
         const exploration::CellIsDeducedFromSingleAllowedValue<9> & event = static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin0).operator*());
-        static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+        this->process_event.operator()(event);
       }
       
     }
@@ -2624,7 +2731,7 @@ class Reorder<9>
       __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __end0 = __range2.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__end0)); __begin0.operator++()) {
         const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> & event = static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin0).operator*());
-        static_cast<const std::function<void (const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &)>>(this->process_event).operator()(static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+        this->process_event.operator()(event);
       }
       
     }
@@ -2634,11 +2741,146 @@ class Reorder<9>
   
   
   private: 
-  std::function<void (const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &)> process_event;
+  TextExplainer<9> & process_event;
   std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > pending_cell_is_deduced_from_single_allowed_value_events;
   std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > pending_cell_is_deduced_as_single_place_for_value_in_region_events;
   public: 
-  // inline ~Reorder() noexcept = default;
+  // inline Reorder<9, TextExplainer<9> > & operator=(const Reorder<9, TextExplainer<9> > &) /* noexcept */ = delete;
+  // inline Reorder<9, TextExplainer<9> > & operator=(Reorder<9, TextExplainer<9> > &&) /* noexcept */ = delete;
+  // inline constexpr ~Reorder() noexcept = default;
+};
+
+#endif
+/* First instantiated from: type_traits:1274 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class Reorder<9, VideoExplainer<9> >
+{
+  
+  public: 
+  inline explicit Reorder(VideoExplainer<9> & process_event_)
+  : process_event{process_event_}
+  , pending_cell_is_deduced_from_single_allowed_value_events{std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > >()}
+  , pending_cell_is_deduced_as_single_place_for_value_in_region_events{std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > >()}
+  {
+  }
+  
+  
+  public: 
+  inline void operator()(const exploration::CellIsSetInInput<9> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::InputsAreDone<9> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::PropagationStartsForSudoku<9> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::PropagationStartsForCell<9> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::CellPropagates<9> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<9> & event)
+  {
+    this->pending_cell_is_deduced_from_single_allowed_value_events.push_back(event);
+  }
+  
+  inline void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> & event)
+  {
+    this->pending_cell_is_deduced_as_single_place_for_value_in_region_events.push_back(event);
+  }
+  
+  inline void operator()(const exploration::PropagationIsDoneForCell<9> & event)
+  {
+    this->process_event.operator()(event);
+    this->flush_pending_events();
+  }
+  
+  inline void operator()(const exploration::PropagationIsDoneForSudoku<9> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::ExplorationStarts<9> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::HypothesisIsMade<9> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::HypothesisIsRejected<9> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::SudokuIsSolved<9> & event)
+  {
+    this->flush_pending_events();
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::HypothesisIsAccepted<9> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  inline void operator()(const exploration::ExplorationIsDone<9> & event)
+  {
+    this->process_event.operator()(event);
+  }
+  
+  
+  private: 
+  inline void flush_pending_events()
+  {
+    {
+      std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > & __range2 = this->pending_cell_is_deduced_from_single_allowed_value_events;
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __begin0 = __range2.begin();
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __end0 = __range2.end();
+      for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__end0)); __begin0.operator++()) {
+        const exploration::CellIsDeducedFromSingleAllowedValue<9> & event = static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin0).operator*());
+        this->process_event.operator()(event);
+      }
+      
+    }
+    {
+      std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > & __range2 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __begin0 = __range2.begin();
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __end0 = __range2.end();
+      for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__end0)); __begin0.operator++()) {
+        const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> & event = static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin0).operator*());
+        this->process_event.operator()(event);
+      }
+      
+    }
+    this->pending_cell_is_deduced_from_single_allowed_value_events.clear();
+    this->pending_cell_is_deduced_as_single_place_for_value_in_region_events.clear();
+  }
+  
+  
+  private: 
+  VideoExplainer<9> & process_event;
+  std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > pending_cell_is_deduced_from_single_allowed_value_events;
+  std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > pending_cell_is_deduced_as_single_place_for_value_in_region_events;
+  public: 
+  // inline Reorder<9, VideoExplainer<9> > & operator=(const Reorder<9, VideoExplainer<9> > &) /* noexcept */ = delete;
+  // inline Reorder<9, VideoExplainer<9> > & operator=(Reorder<9, VideoExplainer<9> > &&) /* noexcept */ = delete;
+  // inline constexpr ~Reorder() noexcept = default;
 };
 
 #endif
@@ -4067,7 +4309,7 @@ int main_(const Options & options)
       
       std::optional<std::basic_ofstream<char> > video_text_output = std::optional<std::basic_ofstream<char> >();
       std::optional<TextExplainer<size> > video_text_explainer_;
-      std::optional<Reorder<size> > video_text_explainer;
+      std::optional<Reorder<size, TextExplainer<size> > > video_text_explainer;
       if(static_cast<bool>(options.video_text_path.operator bool())) {
         if(std::operator==(options.video_text_path, "-")) {
           ++stdout_users;
@@ -4078,31 +4320,12 @@ int main_(const Options & options)
           video_text_explainer_.emplace(video_text_output.operator*());
         } 
         
-                
-        class __lambda_1675_36
-        {
-          public: 
-          inline auto operator()(const exploration::Event<size> & event) const
-          {
-            std::visit(*video_text_explainer_, event);
-          }
-          
-          private: 
-          std::optional<TextExplainer<size> > & video_text_explainer_;
-          
-          public:
-          __lambda_1675_36(optional<TextExplainer<size> > & _video_text_explainer_)
-          : video_text_explainer_{_video_text_explainer_}
-          {}
-          
-        };
-        
-        video_text_explainer.emplace(__lambda_1675_36{video_text_explainer_});
+        video_text_explainer.emplace(*video_text_explainer_);
       } 
       
       std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > > video_serializers = std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >();
       std::optional<VideoExplainer<size> > video_explainer_;
-      std::optional<Reorder<size> > video_explainer;
+      std::optional<Reorder<size, VideoExplainer<size> > > video_explainer;
       if(static_cast<bool>(options.video_frames_path.operator bool())) {
         video_serializers.push_back(std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >(std::make_unique<video::FramesSerializer>(options.video_frames_path.operator*())));
       } 
@@ -4112,32 +4335,13 @@ int main_(const Options & options)
       } 
       
       if(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() > static_cast<unsigned long>(1)) {
-        (static_cast<bool>(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() == static_cast<unsigned long>(2)) ? void(0) : __assert_fail("video_serializers.size() == 2", "/wd/src/main.cpp", 1691, __extension____PRETTY_FUNCTION__));
+        (static_cast<bool>(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() == static_cast<unsigned long>(2)) ? void(0) : __assert_fail("video_serializers.size() == 2", "/wd/src/main.cpp", 1689, __extension____PRETTY_FUNCTION__));
         video_serializers.push_back(std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >(std::make_unique<video::MultipleSerializer>(std::vector<video::Serializer *, std::allocator<video::Serializer *> >{std::initializer_list<video::Serializer *>{static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.operator[](static_cast<unsigned long>(0))).get(), static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.operator[](static_cast<unsigned long>(1))).get()}, static_cast<const std::allocator<video::Serializer *>>(std::allocator<video::Serializer *>())})));
       } 
       
       if(!static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).empty()) {
         video_explainer_.emplace(static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.back()).get(), options.quick_video, options.width, options.height);
-                
-        class __lambda_1697_31
-        {
-          public: 
-          inline auto operator()(const exploration::Event<size> & event) const
-          {
-            std::visit(*video_explainer_, event);
-          }
-          
-          private: 
-          std::optional<VideoExplainer<size> > & video_explainer_;
-          
-          public:
-          __lambda_1697_31(optional<VideoExplainer<size> > & _video_explainer_)
-          : video_explainer_{_video_explainer_}
-          {}
-          
-        };
-        
-        video_explainer.emplace(__lambda_1697_31{video_explainer_});
+        video_explainer.emplace(*video_explainer_);
       } 
       
       if(stdout_users > static_cast<unsigned int>(1)) {
@@ -4145,7 +4349,7 @@ int main_(const Options & options)
       } 
       
                   
-      class __lambda_1708_7
+      class __lambda_1704_7
       {
         public: 
         inline auto operator()(exploration::Event<size> && event) const
@@ -4171,7 +4375,7 @@ int main_(const Options & options)
         
       };
       
-      const auto solved = solve_using_exploration<size>(sudoku, __lambda_1708_7{});
+      const auto solved = solve_using_exploration<size>(sudoku, __lambda_1704_7{});
       if(is_solved(solved)) {
         return 0;
       } else {
@@ -4188,7 +4392,7 @@ int main_(const Options & options)
 }
 
 
-/* First instantiated from: main.cpp:1847 */
+/* First instantiated from: main.cpp:1843 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 int main_<4>(const Options & options)
@@ -4298,7 +4502,7 @@ int main_<4>(const Options & options)
       
       std::optional<std::basic_ofstream<char> > video_text_output = std::optional<std::basic_ofstream<char> >();
       std::optional<TextExplainer<4> > video_text_explainer_ = std::optional<TextExplainer<4> >();
-      std::optional<Reorder<4> > video_text_explainer = std::optional<Reorder<4> >();
+      std::optional<Reorder<4, TextExplainer<4> > > video_text_explainer = std::optional<Reorder<4, TextExplainer<4> > >();
       if(static_cast<bool>(options.video_text_path.operator bool())) {
         if(std::operator==(options.video_text_path, "-")) {
           ++stdout_users;
@@ -4309,32 +4513,12 @@ int main_<4>(const Options & options)
           video_text_explainer_.emplace<std::basic_ofstream<char> &>(video_text_output.operator*());
         } 
         
-                
-        class __lambda_1675_36
-        {
-          public: 
-          inline /*constexpr */ void operator()(const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > & event) const
-          {
-            std::visit<TextExplainer<4> &, const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &>(video_text_explainer_.operator*(), event);
-          }
-          
-          private: 
-          std::optional<TextExplainer<4> > & video_text_explainer_;
-          public: 
-          // inline /*constexpr */ __lambda_1675_36(const __lambda_1675_36 &) noexcept = default;
-          // inline /*constexpr */ __lambda_1675_36(__lambda_1675_36 &&) noexcept = default;
-          __lambda_1675_36(std::optional<TextExplainer<4> > & _video_text_explainer_)
-          : video_text_explainer_{_video_text_explainer_}
-          {}
-          
-        };
-        
-        video_text_explainer.emplace<__lambda_1675_36>(__lambda_1675_36{video_text_explainer_});
+        video_text_explainer.emplace<TextExplainer<4> &>(video_text_explainer_.operator*());
       } 
       
       std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > > video_serializers = std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >();
       std::optional<VideoExplainer<4> > video_explainer_ = std::optional<VideoExplainer<4> >();
-      std::optional<Reorder<4> > video_explainer = std::optional<Reorder<4> >();
+      std::optional<Reorder<4, VideoExplainer<4> > > video_explainer = std::optional<Reorder<4, VideoExplainer<4> > >();
       if(static_cast<bool>(options.video_frames_path.operator bool())) {
         video_serializers.push_back(std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >(std::make_unique<video::FramesSerializer>(options.video_frames_path.operator*())));
       } 
@@ -4344,33 +4528,13 @@ int main_<4>(const Options & options)
       } 
       
       if(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() > static_cast<unsigned long>(1)) {
-        (static_cast<bool>(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() == static_cast<unsigned long>(2)) ? void(0) : __assert_fail(static_cast<const char *>("video_serializers.size() == 2"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1691), static_cast<const char *>(__extension__"int main_(const Options &) [size = 4U]")));
+        (static_cast<bool>(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() == static_cast<unsigned long>(2)) ? void(0) : __assert_fail(static_cast<const char *>("video_serializers.size() == 2"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1689), static_cast<const char *>(__extension__"int main_(const Options &) [size = 4U]")));
         video_serializers.push_back(std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >(std::make_unique<video::MultipleSerializer>(std::vector<video::Serializer *, std::allocator<video::Serializer *> >(std::vector<video::Serializer *, std::allocator<video::Serializer *> >(std::initializer_list<video::Serializer *>{static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.operator[](static_cast<unsigned long>(0))).get(), static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.operator[](static_cast<unsigned long>(1))).get()}, static_cast<const std::allocator<video::Serializer *>>(std::allocator<video::Serializer *>()))))));
       } 
       
       if(!static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).empty()) {
         video_explainer_.emplace<video::Serializer *, const bool &, const unsigned int &, const unsigned int &>(static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.back()).get(), options.quick_video, options.width, options.height);
-                
-        class __lambda_1697_31
-        {
-          public: 
-          inline /*constexpr */ void operator()(const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > & event) const
-          {
-            std::visit<VideoExplainer<4> &, const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &>(video_explainer_.operator*(), event);
-          }
-          
-          private: 
-          std::optional<VideoExplainer<4> > & video_explainer_;
-          public: 
-          // inline /*constexpr */ __lambda_1697_31(const __lambda_1697_31 &) noexcept = default;
-          // inline /*constexpr */ __lambda_1697_31(__lambda_1697_31 &&) noexcept = default;
-          __lambda_1697_31(std::optional<VideoExplainer<4> > & _video_explainer_)
-          : video_explainer_{_video_explainer_}
-          {}
-          
-        };
-        
-        video_explainer.emplace<__lambda_1697_31>(__lambda_1697_31{video_explainer_});
+        video_explainer.emplace<VideoExplainer<4> &>(video_explainer_.operator*());
       } 
       
       if(stdout_users > static_cast<unsigned int>(1)) {
@@ -4378,7 +4542,7 @@ int main_<4>(const Options & options)
       } 
       
                   
-      class __lambda_1708_7
+      class __lambda_1704_7
       {
         public: 
         inline /*constexpr */ void operator()(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > && event) const
@@ -4391,12 +4555,12 @@ int main_<4>(const Options & options)
             std::visit<HtmlExplainer<4> &, std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &>(html_explainer.operator*(), event);
           } 
           
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4> >>(video_text_explainer).operator bool())) {
-            std::visit<Reorder<4> &, std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &>(video_text_explainer.operator*(), event);
+          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, TextExplainer<4> > >>(video_text_explainer).operator bool())) {
+            std::visit<Reorder<4, TextExplainer<4> > &, std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &>(video_text_explainer.operator*(), event);
           } 
           
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4> >>(video_explainer).operator bool())) {
-            std::visit<Reorder<4> &, std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &>(video_explainer.operator*(), event);
+          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, VideoExplainer<4> > >>(video_explainer).operator bool())) {
+            std::visit<Reorder<4, VideoExplainer<4> > &, std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &>(video_explainer.operator*(), event);
           } 
           
         }
@@ -4404,12 +4568,12 @@ int main_<4>(const Options & options)
         private: 
         std::optional<TextExplainer<4> > & text_explainer;
         std::optional<HtmlExplainer<4> > & html_explainer;
-        std::optional<Reorder<4> > & video_text_explainer;
-        std::optional<Reorder<4> > & video_explainer;
+        std::optional<Reorder<4, TextExplainer<4> > > & video_text_explainer;
+        std::optional<Reorder<4, VideoExplainer<4> > > & video_explainer;
         public: 
-        // inline /*constexpr */ __lambda_1708_7(const __lambda_1708_7 &) noexcept = default;
-        // inline /*constexpr */ __lambda_1708_7(__lambda_1708_7 &&) noexcept = default;
-        __lambda_1708_7(std::optional<TextExplainer<4> > & _text_explainer, std::optional<HtmlExplainer<4> > & _html_explainer, std::optional<Reorder<4> > & _video_text_explainer, std::optional<Reorder<4> > & _video_explainer)
+        // inline /*constexpr */ __lambda_1704_7(const __lambda_1704_7 &) noexcept = default;
+        // inline /*constexpr */ __lambda_1704_7(__lambda_1704_7 &&) noexcept = default;
+        __lambda_1704_7(std::optional<TextExplainer<4> > & _text_explainer, std::optional<HtmlExplainer<4> > & _html_explainer, std::optional<Reorder<4, TextExplainer<4> > > & _video_text_explainer, std::optional<Reorder<4, VideoExplainer<4> > > & _video_explainer)
         : text_explainer{_text_explainer}
         , html_explainer{_html_explainer}
         , video_text_explainer{_video_text_explainer}
@@ -4418,7 +4582,7 @@ int main_<4>(const Options & options)
         
       };
       
-      const Sudoku<ValueCell, 4> solved = static_cast<const Sudoku<ValueCell, 4>>(solve_using_exploration<4U>(Sudoku<ValueCell, 4>(sudoku), static_cast<const std::function<void (std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&)>>(std::function<void (std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&)>(__lambda_1708_7{text_explainer, html_explainer, video_text_explainer, video_explainer}))));
+      const Sudoku<ValueCell, 4> solved = static_cast<const Sudoku<ValueCell, 4>>(solve_using_exploration<4U>(Sudoku<ValueCell, 4>(sudoku), static_cast<const std::function<void (std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&)>>(std::function<void (std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&)>(__lambda_1704_7{text_explainer, html_explainer, video_text_explainer, video_explainer}))));
       if(is_solved<4>(solved)) {
         return 0;
       } else {
@@ -4436,7 +4600,7 @@ int main_<4>(const Options & options)
 #endif
 
 
-/* First instantiated from: main.cpp:1849 */
+/* First instantiated from: main.cpp:1845 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 int main_<9>(const Options & options)
@@ -4546,7 +4710,7 @@ int main_<9>(const Options & options)
       
       std::optional<std::basic_ofstream<char> > video_text_output = std::optional<std::basic_ofstream<char> >();
       std::optional<TextExplainer<9> > video_text_explainer_ = std::optional<TextExplainer<9> >();
-      std::optional<Reorder<9> > video_text_explainer = std::optional<Reorder<9> >();
+      std::optional<Reorder<9, TextExplainer<9> > > video_text_explainer = std::optional<Reorder<9, TextExplainer<9> > >();
       if(static_cast<bool>(options.video_text_path.operator bool())) {
         if(std::operator==(options.video_text_path, "-")) {
           ++stdout_users;
@@ -4557,32 +4721,12 @@ int main_<9>(const Options & options)
           video_text_explainer_.emplace<std::basic_ofstream<char> &>(video_text_output.operator*());
         } 
         
-                
-        class __lambda_1675_36
-        {
-          public: 
-          inline /*constexpr */ void operator()(const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > & event) const
-          {
-            std::visit<TextExplainer<9> &, const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &>(video_text_explainer_.operator*(), event);
-          }
-          
-          private: 
-          std::optional<TextExplainer<9> > & video_text_explainer_;
-          public: 
-          // inline /*constexpr */ __lambda_1675_36(const __lambda_1675_36 &) noexcept = default;
-          // inline /*constexpr */ __lambda_1675_36(__lambda_1675_36 &&) noexcept = default;
-          __lambda_1675_36(std::optional<TextExplainer<9> > & _video_text_explainer_)
-          : video_text_explainer_{_video_text_explainer_}
-          {}
-          
-        };
-        
-        video_text_explainer.emplace<__lambda_1675_36>(__lambda_1675_36{video_text_explainer_});
+        video_text_explainer.emplace<TextExplainer<9> &>(video_text_explainer_.operator*());
       } 
       
       std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > > video_serializers = std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >();
       std::optional<VideoExplainer<9> > video_explainer_ = std::optional<VideoExplainer<9> >();
-      std::optional<Reorder<9> > video_explainer = std::optional<Reorder<9> >();
+      std::optional<Reorder<9, VideoExplainer<9> > > video_explainer = std::optional<Reorder<9, VideoExplainer<9> > >();
       if(static_cast<bool>(options.video_frames_path.operator bool())) {
         video_serializers.push_back(std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >(std::make_unique<video::FramesSerializer>(options.video_frames_path.operator*())));
       } 
@@ -4592,33 +4736,13 @@ int main_<9>(const Options & options)
       } 
       
       if(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() > static_cast<unsigned long>(1)) {
-        (static_cast<bool>(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() == static_cast<unsigned long>(2)) ? void(0) : __assert_fail(static_cast<const char *>("video_serializers.size() == 2"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1691), static_cast<const char *>(__extension__"int main_(const Options &) [size = 9U]")));
+        (static_cast<bool>(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() == static_cast<unsigned long>(2)) ? void(0) : __assert_fail(static_cast<const char *>("video_serializers.size() == 2"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1689), static_cast<const char *>(__extension__"int main_(const Options &) [size = 9U]")));
         video_serializers.push_back(std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >(std::make_unique<video::MultipleSerializer>(std::vector<video::Serializer *, std::allocator<video::Serializer *> >(std::vector<video::Serializer *, std::allocator<video::Serializer *> >(std::initializer_list<video::Serializer *>{static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.operator[](static_cast<unsigned long>(0))).get(), static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.operator[](static_cast<unsigned long>(1))).get()}, static_cast<const std::allocator<video::Serializer *>>(std::allocator<video::Serializer *>()))))));
       } 
       
       if(!static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).empty()) {
         video_explainer_.emplace<video::Serializer *, const bool &, const unsigned int &, const unsigned int &>(static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.back()).get(), options.quick_video, options.width, options.height);
-                
-        class __lambda_1697_31
-        {
-          public: 
-          inline /*constexpr */ void operator()(const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > & event) const
-          {
-            std::visit<VideoExplainer<9> &, const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &>(video_explainer_.operator*(), event);
-          }
-          
-          private: 
-          std::optional<VideoExplainer<9> > & video_explainer_;
-          public: 
-          // inline /*constexpr */ __lambda_1697_31(const __lambda_1697_31 &) noexcept = default;
-          // inline /*constexpr */ __lambda_1697_31(__lambda_1697_31 &&) noexcept = default;
-          __lambda_1697_31(std::optional<VideoExplainer<9> > & _video_explainer_)
-          : video_explainer_{_video_explainer_}
-          {}
-          
-        };
-        
-        video_explainer.emplace<__lambda_1697_31>(__lambda_1697_31{video_explainer_});
+        video_explainer.emplace<VideoExplainer<9> &>(video_explainer_.operator*());
       } 
       
       if(stdout_users > static_cast<unsigned int>(1)) {
@@ -4626,7 +4750,7 @@ int main_<9>(const Options & options)
       } 
       
                   
-      class __lambda_1708_7
+      class __lambda_1704_7
       {
         public: 
         inline /*constexpr */ void operator()(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > && event) const
@@ -4639,12 +4763,12 @@ int main_<9>(const Options & options)
             std::visit<HtmlExplainer<9> &, std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &>(html_explainer.operator*(), event);
           } 
           
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<9> >>(video_text_explainer).operator bool())) {
-            std::visit<Reorder<9> &, std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &>(video_text_explainer.operator*(), event);
+          if(static_cast<bool>(static_cast<const std::optional<Reorder<9, TextExplainer<9> > >>(video_text_explainer).operator bool())) {
+            std::visit<Reorder<9, TextExplainer<9> > &, std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &>(video_text_explainer.operator*(), event);
           } 
           
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<9> >>(video_explainer).operator bool())) {
-            std::visit<Reorder<9> &, std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &>(video_explainer.operator*(), event);
+          if(static_cast<bool>(static_cast<const std::optional<Reorder<9, VideoExplainer<9> > >>(video_explainer).operator bool())) {
+            std::visit<Reorder<9, VideoExplainer<9> > &, std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &>(video_explainer.operator*(), event);
           } 
           
         }
@@ -4652,12 +4776,12 @@ int main_<9>(const Options & options)
         private: 
         std::optional<TextExplainer<9> > & text_explainer;
         std::optional<HtmlExplainer<9> > & html_explainer;
-        std::optional<Reorder<9> > & video_text_explainer;
-        std::optional<Reorder<9> > & video_explainer;
+        std::optional<Reorder<9, TextExplainer<9> > > & video_text_explainer;
+        std::optional<Reorder<9, VideoExplainer<9> > > & video_explainer;
         public: 
-        // inline /*constexpr */ __lambda_1708_7(const __lambda_1708_7 &) noexcept = default;
-        // inline /*constexpr */ __lambda_1708_7(__lambda_1708_7 &&) noexcept = default;
-        __lambda_1708_7(std::optional<TextExplainer<9> > & _text_explainer, std::optional<HtmlExplainer<9> > & _html_explainer, std::optional<Reorder<9> > & _video_text_explainer, std::optional<Reorder<9> > & _video_explainer)
+        // inline /*constexpr */ __lambda_1704_7(const __lambda_1704_7 &) noexcept = default;
+        // inline /*constexpr */ __lambda_1704_7(__lambda_1704_7 &&) noexcept = default;
+        __lambda_1704_7(std::optional<TextExplainer<9> > & _text_explainer, std::optional<HtmlExplainer<9> > & _html_explainer, std::optional<Reorder<9, TextExplainer<9> > > & _video_text_explainer, std::optional<Reorder<9, VideoExplainer<9> > > & _video_explainer)
         : text_explainer{_text_explainer}
         , html_explainer{_html_explainer}
         , video_text_explainer{_video_text_explainer}
@@ -4666,7 +4790,7 @@ int main_<9>(const Options & options)
         
       };
       
-      const Sudoku<ValueCell, 9> solved = static_cast<const Sudoku<ValueCell, 9>>(solve_using_exploration<9U>(Sudoku<ValueCell, 9>(sudoku), static_cast<const std::function<void (std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&)>>(std::function<void (std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&)>(__lambda_1708_7{text_explainer, html_explainer, video_text_explainer, video_explainer}))));
+      const Sudoku<ValueCell, 9> solved = static_cast<const Sudoku<ValueCell, 9>>(solve_using_exploration<9U>(Sudoku<ValueCell, 9>(sudoku), static_cast<const std::function<void (std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&)>>(std::function<void (std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&)>(__lambda_1704_7{text_explainer, html_explainer, video_text_explainer, video_explainer}))));
       if(is_solved<9>(solved)) {
         return 0;
       } else {
@@ -4690,7 +4814,7 @@ struct ExistingFileOrStdinValidator : public CLI::Validator
   : CLI::Validator{CLI::Validator(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("FILE(or - for stdin)"), static_cast<const std::allocator<char>>(std::allocator<char>())))}
   {
         
-    class __lambda_1728_13
+    class __lambda_1724_13
     {
       public: 
       inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > operator()(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str) const
@@ -4703,8 +4827,8 @@ struct ExistingFileOrStdinValidator : public CLI::Validator
         
       }
       
-      using retType_1728_13 = std::string (*)(const std::string &);
-      inline constexpr operator retType_1728_13 () const noexcept
+      using retType_1724_13 = std::string (*)(const std::string &);
+      inline constexpr operator retType_1724_13 () const noexcept
       {
         return __invoke;
       };
@@ -4712,17 +4836,17 @@ struct ExistingFileOrStdinValidator : public CLI::Validator
       private: 
       static inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > __invoke(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str)
       {
-        return __lambda_1728_13{}.operator()(str);
+        return __lambda_1724_13{}.operator()(str);
       }
       
       public: 
-      // inline /*constexpr */ __lambda_1728_13(const __lambda_1728_13 &) noexcept = default;
-      // inline /*constexpr */ __lambda_1728_13(__lambda_1728_13 &&) noexcept = default;
-      // /*constexpr */ __lambda_1728_13() = default;
+      // inline /*constexpr */ __lambda_1724_13(const __lambda_1724_13 &) noexcept = default;
+      // inline /*constexpr */ __lambda_1724_13(__lambda_1724_13 &&) noexcept = default;
+      // /*constexpr */ __lambda_1724_13() = default;
       
-    } __lambda_1728_13{};
+    } __lambda_1724_13{};
     
-    /* static_cast<CLI::Validator *>(this)-> */ func_.operator=(__lambda_1728_13);
+    /* static_cast<CLI::Validator *>(this)-> */ func_.operator=(__lambda_1724_13);
   }
   
   // inline ~ExistingFileOrStdinValidator() noexcept = default;
@@ -4739,7 +4863,7 @@ struct FileOrStdoutValidator : public CLI::Validator
   : CLI::Validator{CLI::Validator(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("FILE(or - for stdout)"), static_cast<const std::allocator<char>>(std::allocator<char>())))}
   {
         
-    class __lambda_1742_13
+    class __lambda_1738_13
     {
       public: 
       inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > operator()(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str) const
@@ -4747,8 +4871,8 @@ struct FileOrStdoutValidator : public CLI::Validator
         return std::basic_string<char, std::char_traits<char>, std::allocator<char> >();
       }
       
-      using retType_1742_13 = std::string (*)(const std::string &);
-      inline constexpr operator retType_1742_13 () const noexcept
+      using retType_1738_13 = std::string (*)(const std::string &);
+      inline constexpr operator retType_1738_13 () const noexcept
       {
         return __invoke;
       };
@@ -4756,17 +4880,17 @@ struct FileOrStdoutValidator : public CLI::Validator
       private: 
       static inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > __invoke(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str)
       {
-        return __lambda_1742_13{}.operator()(str);
+        return __lambda_1738_13{}.operator()(str);
       }
       
       public: 
-      // inline /*constexpr */ __lambda_1742_13(const __lambda_1742_13 &) noexcept = default;
-      // inline /*constexpr */ __lambda_1742_13(__lambda_1742_13 &&) noexcept = default;
-      // /*constexpr */ __lambda_1742_13() = default;
+      // inline /*constexpr */ __lambda_1738_13(const __lambda_1738_13 &) noexcept = default;
+      // inline /*constexpr */ __lambda_1738_13(__lambda_1738_13 &&) noexcept = default;
+      // /*constexpr */ __lambda_1738_13() = default;
       
-    } __lambda_1742_13{};
+    } __lambda_1738_13{};
     
-    /* static_cast<CLI::Validator *>(this)-> */ func_.operator=(__lambda_1742_13);
+    /* static_cast<CLI::Validator *>(this)-> */ func_.operator=(__lambda_1738_13);
   }
   
   // inline ~FileOrStdoutValidator() noexcept = default;
@@ -4783,7 +4907,7 @@ struct FileValidator : public CLI::Validator
   : CLI::Validator{CLI::Validator(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("FILE"), static_cast<const std::allocator<char>>(std::allocator<char>())))}
   {
         
-    class __lambda_1750_13
+    class __lambda_1746_13
     {
       public: 
       inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > operator()(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str) const
@@ -4791,8 +4915,8 @@ struct FileValidator : public CLI::Validator
         return std::basic_string<char, std::char_traits<char>, std::allocator<char> >();
       }
       
-      using retType_1750_13 = std::string (*)(const std::string &);
-      inline constexpr operator retType_1750_13 () const noexcept
+      using retType_1746_13 = std::string (*)(const std::string &);
+      inline constexpr operator retType_1746_13 () const noexcept
       {
         return __invoke;
       };
@@ -4800,17 +4924,17 @@ struct FileValidator : public CLI::Validator
       private: 
       static inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > __invoke(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str)
       {
-        return __lambda_1750_13{}.operator()(str);
+        return __lambda_1746_13{}.operator()(str);
       }
       
       public: 
-      // inline /*constexpr */ __lambda_1750_13(const __lambda_1750_13 &) noexcept = default;
-      // inline /*constexpr */ __lambda_1750_13(__lambda_1750_13 &&) noexcept = default;
-      // /*constexpr */ __lambda_1750_13() = default;
+      // inline /*constexpr */ __lambda_1746_13(const __lambda_1746_13 &) noexcept = default;
+      // inline /*constexpr */ __lambda_1746_13(__lambda_1746_13 &&) noexcept = default;
+      // /*constexpr */ __lambda_1746_13() = default;
       
-    } __lambda_1750_13{};
+    } __lambda_1746_13{};
     
-    /* static_cast<CLI::Validator *>(this)-> */ func_.operator=(__lambda_1750_13);
+    /* static_cast<CLI::Validator *>(this)-> */ func_.operator=(__lambda_1746_13);
   }
   
   // inline ~FileValidator() noexcept = default;
