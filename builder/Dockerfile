@@ -28,6 +28,14 @@ FROM download AS download-cli11
 RUN wget https://github.com/CLIUtils/CLI11/releases/download/v2.3.2/CLI11.hpp
 
 
+FROM download AS download-cppinsights
+
+RUN set -x \
+ && mkdir cppinsights \
+ && cd cppinsights \
+ && wget https://github.com/andreasfertig/cppinsights/archive/refs/tags/v_16.0.tar.gz -O - | tar -xz --strip-components=1
+
+
 FROM download AS download-doctest
 
 RUN wget https://github.com/doctest/doctest/releases/download/v2.4.11/doctest.h
@@ -64,19 +72,28 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
  && DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends \
       cairomm-1.16-dev \
       ccache \
+      clang-16 \
+      cmake \
       g++ \
       gdb \
       libavcodec-dev \
       libboost-dev \
+      libclang-16-dev \
+      llvm-16 \
+      llvm-16-dev \
       make \
+      ninja-build \
       perl \
       pkg-config \
       python3-pip \
  && true
 
+ENV PATH=/usr/lib/llvm-16/bin:$PATH
+
 RUN cd /usr/local/bin \
  && ln -s /usr/bin/ccache g++ \
  && ln -s /usr/bin/ccache gcc \
+ && ln -s /usr/bin/ccache clang \
  && mkdir /ccache \
  && chmod 777 /ccache
 
@@ -112,3 +129,13 @@ RUN --mount=type=cache,target=/ccache \
  && make config prefix=/usr/local \
  && make install \
  && ldconfig
+
+RUN --mount=type=cache,target=/ccache \
+    --mount=type=bind,from=download-cppinsights,source=/download,target=/download \
+    set -x \
+ && mkdir -p /build/cppinsights \
+ && cd /build/cppinsights \
+ && cmake -G"Ninja" /download/cppinsights \
+ && ninja install \
+ && cd / \
+ && rm -rf build-insights

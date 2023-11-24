@@ -3,6 +3,7 @@
 #ifndef EXPLANATION_REORDER_HPP_
 #define EXPLANATION_REORDER_HPP_
 
+#include <functional>
 #include <vector>
 
 #include "../exploration/events.hpp"
