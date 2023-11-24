@@ -11,7 +11,7 @@
 
 
 template<unsigned size>
-class HtmlExplainer : public exploration::EventVisitor<size> {
+class HtmlExplainer {
  public:
   explicit HtmlExplainer(const std::filesystem::path& directory_path_, unsigned frame_width_, unsigned frame_height_) :
     directory_path(directory_path_),
@@ -24,22 +24,22 @@ class HtmlExplainer : public exploration::EventVisitor<size> {
     index_file.open(directory_path / "index.html");
   }
 
- private:
-  void visit(const exploration::CellIsSetInInput<size>&) override;
-  void visit(const exploration::InputsAreDone<size>&) override;
-  void visit(const exploration::PropagationStartsForSudoku<size>&) override;
-  void visit(const exploration::PropagationStartsForCell<size>&) override;
-  void visit(const exploration::CellPropagates<size>&) override;
-  void visit(const exploration::CellIsDeducedFromSingleAllowedValue<size>&) override;
-  void visit(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>&) override;
-  void visit(const exploration::PropagationIsDoneForCell<size>&) override;
-  void visit(const exploration::PropagationIsDoneForSudoku<size>&) override;
-  void visit(const exploration::ExplorationStarts<size>&) override;
-  void visit(const exploration::HypothesisIsMade<size>&) override;
-  void visit(const exploration::HypothesisIsRejected<size>&) override;
-  void visit(const exploration::SudokuIsSolved<size>&) override;
-  void visit(const exploration::HypothesisIsAccepted<size>&) override;
-  void visit(const exploration::ExplorationIsDone<size>&) override;
+ public:
+  void operator()(const exploration::CellIsSetInInput<size>&);
+  void operator()(const exploration::InputsAreDone<size>&);
+  void operator()(const exploration::PropagationStartsForSudoku<size>&);
+  void operator()(const exploration::PropagationStartsForCell<size>&);
+  void operator()(const exploration::CellPropagates<size>&);
+  void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<size>&);
+  void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>&);
+  void operator()(const exploration::PropagationIsDoneForCell<size>&);
+  void operator()(const exploration::PropagationIsDoneForSudoku<size>&);
+  void operator()(const exploration::ExplorationStarts<size>&);
+  void operator()(const exploration::HypothesisIsMade<size>&);
+  void operator()(const exploration::HypothesisIsRejected<size>&);
+  void operator()(const exploration::SudokuIsSolved<size>&);
+  void operator()(const exploration::HypothesisIsAccepted<size>&);
+  void operator()(const exploration::ExplorationIsDone<size>&);
 
  private:
   const AnnotatedSudoku<size>& current() const { return stack.current(); }

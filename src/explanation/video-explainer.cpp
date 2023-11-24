@@ -9,12 +9,12 @@
 
 
 template<unsigned size>
-void VideoExplainer<size>::visit(const exploration::CellIsSetInInput<size>& event) {
+void VideoExplainer<size>::operator()(const exploration::CellIsSetInInput<size>& event) {
   VisitEventsGuard visit(this, event);
 }
 
 template<unsigned size>
-void VideoExplainer<size>::visit(const exploration::InputsAreDone<size>& event) {
+void VideoExplainer<size>::operator()(const exploration::InputsAreDone<size>& event) {
   VisitEventsGuard visit(this, event);
 
   Layout title{.above = {
@@ -80,12 +80,12 @@ void VideoExplainer<size>::visit(const exploration::InputsAreDone<size>& event) 
 }
 
 template<unsigned size>
-void VideoExplainer<size>::visit(const exploration::PropagationStartsForSudoku<size>& event) {
+void VideoExplainer<size>::operator()(const exploration::PropagationStartsForSudoku<size>& event) {
   VisitEventsGuard visit(this, event);
 }
 
 template<unsigned size>
-void VideoExplainer<size>::visit(const exploration::PropagationStartsForCell<size>& event) {
+void VideoExplainer<size>::operator()(const exploration::PropagationStartsForCell<size>& event) {
   flush_pending_cell_is_deduced_from_single_allowed_value_events();
   flush_pending_cell_is_deduced_as_single_place_for_value_in_region_events();
   VisitEventsGuard visit(this, event);
@@ -114,7 +114,7 @@ void VideoExplainer<size>::visit(const exploration::PropagationStartsForCell<siz
 }
 
 template<unsigned size>
-void VideoExplainer<size>::visit(const exploration::CellPropagates<size>& event) {
+void VideoExplainer<size>::operator()(const exploration::CellPropagates<size>& event) {
   Layout propagate{.below = {{"Propagate constraints", 20}}};
 
   const double widths[] = {2, 4, 5, 3, 2};
@@ -201,17 +201,17 @@ void VideoExplainer<size>::visit(const exploration::CellPropagates<size>& event)
 }
 
 template<unsigned size>
-void VideoExplainer<size>::visit(const exploration::CellIsDeducedFromSingleAllowedValue<size>& event) {
+void VideoExplainer<size>::operator()(const exploration::CellIsDeducedFromSingleAllowedValue<size>& event) {
   pending_cell_is_deduced_from_single_allowed_value_events.push_back(event);
 }
 
 template<unsigned size>
-void VideoExplainer<size>::visit(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>& event) {
+void VideoExplainer<size>::operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>& event) {
   pending_cell_is_deduced_as_single_place_for_value_in_region_events.push_back(event);
 }
 
 template<unsigned size>
-void VideoExplainer<size>::visit(const exploration::PropagationIsDoneForCell<size>& event) {
+void VideoExplainer<size>::operator()(const exploration::PropagationIsDoneForCell<size>& event) {
   flush_pending_cell_propagates_events();
 
   VisitEventsGuard visit(this, event);
@@ -429,35 +429,35 @@ void VideoExplainer<size>::flush_pending_cell_is_deduced_as_single_place_for_val
 }
 
 template<unsigned size>
-void VideoExplainer<size>::visit(const exploration::PropagationIsDoneForSudoku<size>& event) {
+void VideoExplainer<size>::operator()(const exploration::PropagationIsDoneForSudoku<size>& event) {
   flush_pending_events();
 
   VisitEventsGuard visit(this, event);
 }
 
 template<unsigned size>
-void VideoExplainer<size>::visit(const exploration::ExplorationStarts<size>& event) {
+void VideoExplainer<size>::operator()(const exploration::ExplorationStarts<size>& event) {
   flush_pending_events();
 
   VisitEventsGuard visit(this, event);
 }
 
 template<unsigned size>
-void VideoExplainer<size>::visit(const exploration::HypothesisIsMade<size>& event) {
+void VideoExplainer<size>::operator()(const exploration::HypothesisIsMade<size>& event) {
   flush_pending_events();
 
   VisitEventsGuard visit(this, event);
 }
 
 template<unsigned size>
-void VideoExplainer<size>::visit(const exploration::HypothesisIsRejected<size>& event) {
+void VideoExplainer<size>::operator()(const exploration::HypothesisIsRejected<size>& event) {
   flush_pending_events();
 
   VisitEventsGuard visit(this, event);
 }
 
 template<unsigned size>
-void VideoExplainer<size>::visit(const exploration::SudokuIsSolved<size>& event) {
+void VideoExplainer<size>::operator()(const exploration::SudokuIsSolved<size>& event) {
   flush_pending_events();
 
   VisitEventsGuard visit(this, event);
@@ -478,14 +478,14 @@ void VideoExplainer<size>::visit(const exploration::SudokuIsSolved<size>& event)
 }
 
 template<unsigned size>
-void VideoExplainer<size>::visit(const exploration::HypothesisIsAccepted<size>& event) {
+void VideoExplainer<size>::operator()(const exploration::HypothesisIsAccepted<size>& event) {
   flush_pending_events();
 
   VisitEventsGuard visit(this, event);
 }
 
 template<unsigned size>
-void VideoExplainer<size>::visit(const exploration::ExplorationIsDone<size>& event) {
+void VideoExplainer<size>::operator()(const exploration::ExplorationIsDone<size>& event) {
   flush_pending_events();
 
   VisitEventsGuard visit(this, event);

@@ -11,7 +11,7 @@
 
 
 template<unsigned size>
-class TextExplainer : public exploration::EventVisitor<size> {
+class TextExplainer {
  public:
   explicit TextExplainer(std::ostream& os_) : os(os_), hypotheses_count(0) {}
 
@@ -19,73 +19,73 @@ class TextExplainer : public exploration::EventVisitor<size> {
     assert(hypotheses_count == 0);
   }
 
- private:
-  void visit(const exploration::CellIsSetInInput<size>& event) override {
+ public:
+  void operator()(const exploration::CellIsSetInInput<size>& event) {
     print_prefix();
     os << boost::format("(%2%, %3%) is set to %1% in the input\n")
       % (event.value + 1) % (event.cell.first + 1) % (event.cell.second + 1);
   }
 
-  void visit(const exploration::InputsAreDone<size>&) override {
+  void operator()(const exploration::InputsAreDone<size>&) {
     print_prefix();
     os << "All inputs have been set\n";
   }
 
-  void visit(const exploration::PropagationStartsForSudoku<size>&) override {
+  void operator()(const exploration::PropagationStartsForSudoku<size>&) {
     print_prefix();
     os << "Propagation starts\n";
   }
 
-  void visit(const exploration::PropagationStartsForCell<size>& event) override {
+  void operator()(const exploration::PropagationStartsForCell<size>& event) {
     print_prefix();
     os << boost::format("Propagation starts for %1% in (%2%, %3%)\n")
       % (event.value + 1) % (event.cell.first + 1) % (event.cell.second + 1);
   }
 
-  void visit(const exploration::CellPropagates<size>& event) override {
+  void operator()(const exploration::CellPropagates<size>& event) {
     print_prefix();
     os << boost::format("%1% in (%2%, %3%) forbids %1% in (%4%, %5%)\n")
       % (event.value + 1) % (event.source_cell.first + 1) % (event.source_cell.second + 1)
       % (event.target_cell.first + 1) % (event.target_cell.second + 1);
   }
 
-  void visit(const exploration::CellIsDeducedFromSingleAllowedValue<size>& event) override {
+  void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<size>& event) {
     print_prefix();
     os << boost::format("(%1%, %2%) can only be %3%\n")
       % (event.cell.first + 1) % (event.cell.second + 1) % (event.value + 1);
   }
 
-  void visit(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>& event) override {
+  void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>& event) {
     print_prefix();
     os << boost::format("In region %4%, only (%1%, %2%) can be %3%\n")
       % (event.cell.first + 1) % (event.cell.second + 1) % (event.value + 1) % (event.region + 1);
   }
 
-  void visit(const exploration::PropagationIsDoneForCell<size>& event) override {
+  void operator()(const exploration::PropagationIsDoneForCell<size>& event) {
     print_prefix();
     os << boost::format("%1% in (%2%, %3%) has been fully propagated\n")
       % (event.value + 1) % (event.cell.first + 1) % (event.cell.second + 1);
   }
 
-  void visit(const exploration::PropagationIsDoneForSudoku<size>& event) override {
+  void operator()(const exploration::PropagationIsDoneForSudoku<size>& event) {
     print_prefix();
     os << "All cells have been fully propagated\n";
   }
 
-  void visit(const exploration::ExplorationStarts<size>& event) override {
+  void operator()(const exploration::ExplorationStarts<size>& event) {
     print_prefix();
     os << boost::format("Exploration starts for (%1%, %2%) with %3% possible values\n")
       % (event.cell.first + 1) % (event.cell.second + 1) % event.allowed_values.size();
   }
 
-  void visit(const exploration::HypothesisIsMade<size>& event) override {
+  void operator()(const exploration::HypothesisIsMade<size>& event) {
     print_prefix();
     ++hypotheses_count;
     os << boost::format("(%1%, %2%) may be %3%\n")
       % (event.cell.first + 1) % (event.cell.second + 1) % (event.value + 1);
   }
 
-  void visit(const exploration::HypothesisIsRejected<size>& event) override {
+  void operator()(const exploration::HypothesisIsRejected<size>& event) {
     assert(hypotheses_count > 0);
     print_prefix();
     --hypotheses_count;
@@ -93,12 +93,12 @@ class TextExplainer : public exploration::EventVisitor<size> {
       % (event.cell.first + 1) % (event.cell.second + 1) % (event.value + 1);
   }
 
-  void visit(const exploration::SudokuIsSolved<size>& event) override {
+  void operator()(const exploration::SudokuIsSolved<size>& event) {
     print_prefix();
     os << "Sudoku is solved\n";
   }
 
-  void visit(const exploration::HypothesisIsAccepted<size>& event) override {
+  void operator()(const exploration::HypothesisIsAccepted<size>& event) {
     assert(hypotheses_count > 0);
     print_prefix();
     --hypotheses_count;
@@ -106,7 +106,7 @@ class TextExplainer : public exploration::EventVisitor<size> {
       % (event.cell.first + 1) % (event.cell.second + 1) % (event.value + 1);
   }
 
-  void visit(const exploration::ExplorationIsDone<size>& event) override {
+  void operator()(const exploration::ExplorationIsDone<size>& event) {
     print_prefix();
     os << boost::format("Exploration is done for (%1%, %2%)\n")
       % (event.cell.first + 1) % (event.cell.second + 1);

@@ -69,47 +69,48 @@ int main_(const Options& options) {
       }
     }
   } else if (options.explain) {
-    std::vector<std::unique_ptr<exploration::EventVisitor<size>>> event_visitors;
-
     unsigned stdout_users = 0;
-    std::unique_ptr<std::ofstream> text_output;
+
+    std::optional<std::ofstream> text_output;
+    std::optional<TextExplainer<size>> text_explainer;
     if (options.text_path == "-") {
       ++stdout_users;
-      event_visitors.push_back(std::make_unique<TextExplainer<size>>(std::cout));
+      text_explainer.emplace(std::cout);
     } else if (options.text_path) {
-      text_output = std::make_unique<std::ofstream>(*options.text_path);
+      text_output.emplace(*options.text_path);
       assert(text_output->is_open());
-      event_visitors.push_back(std::make_unique<TextExplainer<size>>(*text_output));
+      text_explainer.emplace(*text_output);
     }
 
+    std::optional<HtmlExplainer<size>> html_explainer;
     if (options.html_path) {
-      event_visitors.push_back(std::make_unique<HtmlExplainer<size>>(
-        *options.html_path, options.width, options.height));
+      html_explainer.emplace(*options.html_path, options.width, options.height);
     }
 
     if (options.html_text_path == "-") {
       ++stdout_users;
     }
 
-    std::unique_ptr<std::ofstream> video_text_output;
-    std::unique_ptr<TextExplainer<size>> video_text_explainer;
+    std::optional<std::ofstream> video_text_output;
+    std::optional<TextExplainer<size>> video_text_explainer_;
+    std::optional<Reorder<size>> video_text_explainer;
     if (options.video_text_path) {
       if (options.video_text_path == "-") {
         ++stdout_users;
-        video_text_explainer = std::make_unique<TextExplainer<size>>(std::cout);
+        video_text_explainer_.emplace(std::cout);
       } else {
-        video_text_output = std::make_unique<std::ofstream>(*options.video_text_path);
+        video_text_output.emplace(*options.video_text_path);
         assert(video_text_output->is_open());
-        video_text_explainer = std::make_unique<TextExplainer<size>>(*video_text_output);
+        video_text_explainer_.emplace(*video_text_output);
       }
-      event_visitors.push_back(std::make_unique<Reorder<size>>(
-        [&video_text_explainer](const exploration::Event<size>& event) {
-          event.accept(*video_text_explainer);
-        }));
+      video_text_explainer.emplace([&video_text_explainer_](const exploration::Event<size>& event) {
+        std::visit(*video_text_explainer_, event);
+      });
     }
 
     std::vector<std::unique_ptr<video::Serializer>> video_serializers;
-    std::unique_ptr<VideoExplainer<size>> video_explainer;
+    std::optional<VideoExplainer<size>> video_explainer_;
+    std::optional<Reorder<size>> video_explainer;
     if (options.video_frames_path) {
       video_serializers.push_back(std::make_unique<video::FramesSerializer>(*options.video_frames_path));
     }
@@ -123,12 +124,10 @@ int main_(const Options& options) {
         std::vector<video::Serializer*>{video_serializers[0].get(), video_serializers[1].get()}));
     }
     if (!video_serializers.empty()) {
-      video_explainer = std::make_unique<VideoExplainer<size>>(
-        video_serializers.back().get(), options.quick_video, options.width, options.height);
-      event_visitors.push_back(std::make_unique<Reorder<size>>(
-        [&video_explainer](const exploration::Event<size>& event) {
-          event.accept(*video_explainer);
-        }));
+      video_explainer_.emplace(video_serializers.back().get(), options.quick_video, options.width, options.height);
+      video_explainer.emplace([&video_explainer_](const exploration::Event<size>& event) {
+        std::visit(*video_explainer_, event);
+      });
     }
 
     if (stdout_users > 1) {
@@ -137,10 +136,11 @@ int main_(const Options& options) {
 
     const auto solved = solve_using_exploration<size>(
       sudoku,
-      [&event_visitors](std::unique_ptr<exploration::Event<size>> event) {
-        for (const auto& event_visitor : event_visitors) {
-          event->accept(*event_visitor);
-        }
+      [&](exploration::Event<size>&& event) {
+        if (text_explainer) std::visit(*text_explainer, event);
+        if (html_explainer) std::visit(*html_explainer, event);
+        if (video_text_explainer) std::visit(*video_text_explainer, event);
+        if (video_explainer) std::visit(*video_explainer, event);
       });
 
     if (is_solved(solved)) {

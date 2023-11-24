@@ -27,7 +27,7 @@ class CairoSaveGuard {
 };
 
 template<unsigned size>
-class VideoExplainer : public exploration::EventVisitor<size> {
+class VideoExplainer {
   static constexpr unsigned margin_pixels = 10;
   static constexpr unsigned thick_line_width = 4;
   static constexpr unsigned thin_line_width = 2;
@@ -61,8 +61,8 @@ class VideoExplainer : public exploration::EventVisitor<size> {
       before(explainer.before),
       after(explainer.after)
     {  // NOLINT(whitespace/braces)
-      event.apply(&explainer.after);
-      events.push_back(&event);
+      std::visit([this](const auto& e){ e.apply(&explainer.after); }, event);
+      events.push_back(event);
     }
 
     template<typename T>
@@ -74,7 +74,7 @@ class VideoExplainer : public exploration::EventVisitor<size> {
     {  // NOLINT(whitespace/braces)
       for (const T& event : events_) {
         event.apply(&explainer.after);
-        events.push_back(static_cast<const exploration::Event<size>*>(&event));
+        events.push_back(event);
       }
     }
 
@@ -84,14 +84,14 @@ class VideoExplainer : public exploration::EventVisitor<size> {
     VisitEventsGuard& operator=(VisitEventsGuard&&) = delete;
 
     ~VisitEventsGuard() {
-      for (const exploration::Event<size>* const event : events) {
-        event->apply(&explainer.before);
+      for (const auto& event : events) {
+        std::visit([this](const auto& e){ e.apply(&explainer.before); }, event);
       }
     }
 
    private:
     VideoExplainer& explainer;
-    std::vector<const exploration::Event<size>*> events;
+    std::vector<exploration::Event<size>> events;
 
    public:
     const Stack<size>& before;
@@ -162,22 +162,22 @@ class VideoExplainer : public exploration::EventVisitor<size> {
     }
   }
 
- private:
-  void visit(const exploration::CellIsSetInInput<size>&) override;
-  void visit(const exploration::InputsAreDone<size>&) override;
-  void visit(const exploration::PropagationStartsForSudoku<size>&) override;
-  void visit(const exploration::PropagationStartsForCell<size>&) override;
-  void visit(const exploration::CellPropagates<size>&) override;
-  void visit(const exploration::CellIsDeducedFromSingleAllowedValue<size>&) override;
-  void visit(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>&) override;
-  void visit(const exploration::PropagationIsDoneForCell<size>&) override;
-  void visit(const exploration::PropagationIsDoneForSudoku<size>&) override;
-  void visit(const exploration::ExplorationStarts<size>&) override;
-  void visit(const exploration::HypothesisIsMade<size>&) override;
-  void visit(const exploration::HypothesisIsRejected<size>&) override;
-  void visit(const exploration::SudokuIsSolved<size>&) override;
-  void visit(const exploration::HypothesisIsAccepted<size>&) override;
-  void visit(const exploration::ExplorationIsDone<size>&) override;
+ public:
+  void operator()(const exploration::CellIsSetInInput<size>&);
+  void operator()(const exploration::InputsAreDone<size>&);
+  void operator()(const exploration::PropagationStartsForSudoku<size>&);
+  void operator()(const exploration::PropagationStartsForCell<size>&);
+  void operator()(const exploration::CellPropagates<size>&);
+  void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<size>&);
+  void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>&);
+  void operator()(const exploration::PropagationIsDoneForCell<size>&);
+  void operator()(const exploration::PropagationIsDoneForSudoku<size>&);
+  void operator()(const exploration::ExplorationStarts<size>&);
+  void operator()(const exploration::HypothesisIsMade<size>&);
+  void operator()(const exploration::HypothesisIsRejected<size>&);
+  void operator()(const exploration::SudokuIsSolved<size>&);
+  void operator()(const exploration::HypothesisIsAccepted<size>&);
+  void operator()(const exploration::ExplorationIsDone<size>&);
 
   void flush_pending_cell_propagates_events();
   void flush_pending_cell_is_deduced_from_single_allowed_value_events();

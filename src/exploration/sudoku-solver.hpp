@@ -13,7 +13,7 @@
 template<unsigned size>
 Sudoku<ValueCell, size> solve_using_exploration(
   Sudoku<ValueCell, size>,
-  const std::function<void(std::unique_ptr<exploration::Event<size>>)>& =
-    [](std::unique_ptr<exploration::Event<size>>) {});
+  const std::function<void(exploration::Event<size>&&)>& = [](exploration::Event<size>&&) {}
+);
 
 #endif  // EXPLORATION_SUDOKU_SOLVER_HPP_

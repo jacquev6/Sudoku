@@ -9,28 +9,28 @@
 
 
 template<unsigned size>
-class Reorder : public exploration::EventVisitor<size> {
+class Reorder {
  public:
   explicit Reorder(const std::function<void(const exploration::Event<size>&)>& process_event_) :
     process_event(process_event_)
   {}
 
- private:
-  void visit(const exploration::CellIsSetInInput<size>&) override;
-  void visit(const exploration::InputsAreDone<size>&) override;
-  void visit(const exploration::PropagationStartsForSudoku<size>&) override;
-  void visit(const exploration::PropagationStartsForCell<size>&) override;
-  void visit(const exploration::CellPropagates<size>&) override;
-  void visit(const exploration::CellIsDeducedFromSingleAllowedValue<size>&) override;
-  void visit(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>&) override;
-  void visit(const exploration::PropagationIsDoneForCell<size>&) override;
-  void visit(const exploration::PropagationIsDoneForSudoku<size>&) override;
-  void visit(const exploration::ExplorationStarts<size>&) override;
-  void visit(const exploration::HypothesisIsMade<size>&) override;
-  void visit(const exploration::HypothesisIsRejected<size>&) override;
-  void visit(const exploration::SudokuIsSolved<size>&) override;
-  void visit(const exploration::HypothesisIsAccepted<size>&) override;
-  void visit(const exploration::ExplorationIsDone<size>&) override;
+ public:
+  void operator()(const exploration::CellIsSetInInput<size>&);
+  void operator()(const exploration::InputsAreDone<size>&);
+  void operator()(const exploration::PropagationStartsForSudoku<size>&);
+  void operator()(const exploration::PropagationStartsForCell<size>&);
+  void operator()(const exploration::CellPropagates<size>&);
+  void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<size>&);
+  void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>&);
+  void operator()(const exploration::PropagationIsDoneForCell<size>&);
+  void operator()(const exploration::PropagationIsDoneForSudoku<size>&);
+  void operator()(const exploration::ExplorationStarts<size>&);
+  void operator()(const exploration::HypothesisIsMade<size>&);
+  void operator()(const exploration::HypothesisIsRejected<size>&);
+  void operator()(const exploration::SudokuIsSolved<size>&);
+  void operator()(const exploration::HypothesisIsAccepted<size>&);
+  void operator()(const exploration::ExplorationIsDone<size>&);
   void flush_pending_events();
 
  private:

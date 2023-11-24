@@ -57,12 +57,12 @@ HtmlExplainer<size>::Image HtmlExplainer<size>::image(const std::string& name) c
 }
 
 template<unsigned size>
-void HtmlExplainer<size>::visit(const exploration::CellIsSetInInput<size>& event) {
+void HtmlExplainer<size>::operator()(const exploration::CellIsSetInInput<size>& event) {
   event.apply(&stack);
 }
 
 template<unsigned size>
-void HtmlExplainer<size>::visit(const exploration::InputsAreDone<size>& event) {
+void HtmlExplainer<size>::operator()(const exploration::InputsAreDone<size>& event) {
   event.apply(&stack);
 
   index_file << "<html><head><title>jacquev6/Sudoku - Solving explanation</title></head><body>\n";
@@ -81,14 +81,14 @@ void HtmlExplainer<size>::visit(const exploration::InputsAreDone<size>& event) {
 }
 
 template<unsigned size>
-void HtmlExplainer<size>::visit(const exploration::PropagationStartsForSudoku<size>& event) {
+void HtmlExplainer<size>::operator()(const exploration::PropagationStartsForSudoku<size>& event) {
   index_file << "<h1>Propagation</h1>\n";
 
   event.apply(&stack);
 }
 
 template<unsigned size>
-void HtmlExplainer<size>::visit(const exploration::PropagationStartsForCell<size>& event) {
+void HtmlExplainer<size>::operator()(const exploration::PropagationStartsForCell<size>& event) {
   const auto [row, col] = event.cell;
   index_file << "<h2>Propagation from (" << row << ", " << col << ")</h2>\n";
 
@@ -96,7 +96,7 @@ void HtmlExplainer<size>::visit(const exploration::PropagationStartsForCell<size
 }
 
 template<unsigned size>
-void HtmlExplainer<size>::visit(const exploration::CellPropagates<size>& event) {
+void HtmlExplainer<size>::operator()(const exploration::CellPropagates<size>& event) {
   event.apply(&stack);
 
   const auto [src_row, src_col] = event.source_cell;
@@ -123,42 +123,42 @@ void HtmlExplainer<size>::visit(const exploration::CellPropagates<size>& event) 
 }
 
 template<unsigned size>
-void HtmlExplainer<size>::visit(const exploration::CellIsDeducedFromSingleAllowedValue<size>& event) {
+void HtmlExplainer<size>::operator()(const exploration::CellIsDeducedFromSingleAllowedValue<size>& event) {
   event.apply(&stack);
 }
 
 template<unsigned size>
-void HtmlExplainer<size>::visit(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>& event) {
+void HtmlExplainer<size>::operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>& event) {
   event.apply(&stack);
 }
 
 template<unsigned size>
-void HtmlExplainer<size>::visit(const exploration::PropagationIsDoneForCell<size>& event) {
+void HtmlExplainer<size>::operator()(const exploration::PropagationIsDoneForCell<size>& event) {
   event.apply(&stack);
 }
 
 template<unsigned size>
-void HtmlExplainer<size>::visit(const exploration::PropagationIsDoneForSudoku<size>& event) {
+void HtmlExplainer<size>::operator()(const exploration::PropagationIsDoneForSudoku<size>& event) {
   event.apply(&stack);
 }
 
 template<unsigned size>
-void HtmlExplainer<size>::visit(const exploration::ExplorationStarts<size>& event) {
+void HtmlExplainer<size>::operator()(const exploration::ExplorationStarts<size>& event) {
   event.apply(&stack);
 }
 
 template<unsigned size>
-void HtmlExplainer<size>::visit(const exploration::HypothesisIsMade<size>& event) {
+void HtmlExplainer<size>::operator()(const exploration::HypothesisIsMade<size>& event) {
   event.apply(&stack);
 }
 
 template<unsigned size>
-void HtmlExplainer<size>::visit(const exploration::HypothesisIsRejected<size>& event) {
+void HtmlExplainer<size>::operator()(const exploration::HypothesisIsRejected<size>& event) {
   event.apply(&stack);
 }
 
 template<unsigned size>
-void HtmlExplainer<size>::visit(const exploration::SudokuIsSolved<size>& event) {
+void HtmlExplainer<size>::operator()(const exploration::SudokuIsSolved<size>& event) {
   event.apply(&stack);
 
   index_file << "<h1>Solved grid</h1>\n";
@@ -176,10 +176,10 @@ void HtmlExplainer<size>::visit(const exploration::SudokuIsSolved<size>& event) 
 }
 
 template<unsigned size>
-void HtmlExplainer<size>::visit(const exploration::HypothesisIsAccepted<size>& event) {}
+void HtmlExplainer<size>::operator()(const exploration::HypothesisIsAccepted<size>& event) {}
 
 template<unsigned size>
-void HtmlExplainer<size>::visit(const exploration::ExplorationIsDone<size>& event) {}
+void HtmlExplainer<size>::operator()(const exploration::ExplorationIsDone<size>& event) {}
 
 template class HtmlExplainer<4>;
 template class HtmlExplainer<9>;
