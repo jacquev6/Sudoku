@@ -3,17 +3,17 @@
 #ifndef EXPLANATION_VIDEO_VIDEO_SERIALIZER_HPP_
 #define EXPLANATION_VIDEO_VIDEO_SERIALIZER_HPP_
 
+extern "C" {
+
+#include <libavcodec/avcodec.h>
+#include <libavutil/frame.h>
+#include <libavutil/imgutils.h>
+
+}  // extern "C"
+
 #include <cassert>
 #include <filesystem>
 #include <memory>
-
-extern "C" {
-
-#include "libavcodec/avcodec.h"
-#include "libavutil/frame.h"
-#include "libavutil/imgutils.h"
-
-}  // extern "C"
 
 #include "serializer.hpp"
 
