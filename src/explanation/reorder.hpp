@@ -16,22 +16,79 @@ class Reorder {
   {}
 
  public:
-  void operator()(const exploration::CellIsSetInInput<size>&);
-  void operator()(const exploration::InputsAreDone<size>&);
-  void operator()(const exploration::PropagationStartsForSudoku<size>&);
-  void operator()(const exploration::PropagationStartsForCell<size>&);
-  void operator()(const exploration::CellPropagates<size>&);
-  void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<size>&);
-  void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>&);
-  void operator()(const exploration::PropagationIsDoneForCell<size>&);
-  void operator()(const exploration::PropagationIsDoneForSudoku<size>&);
-  void operator()(const exploration::ExplorationStarts<size>&);
-  void operator()(const exploration::HypothesisIsMade<size>&);
-  void operator()(const exploration::HypothesisIsRejected<size>&);
-  void operator()(const exploration::SudokuIsSolved<size>&);
-  void operator()(const exploration::HypothesisIsAccepted<size>&);
-  void operator()(const exploration::ExplorationIsDone<size>&);
-  void flush_pending_events();
+  void operator()(const exploration::CellIsSetInInput<size>& event) {
+    process_event(event);
+  }
+
+  void operator()(const exploration::InputsAreDone<size>& event) {
+    process_event(event);
+  }
+
+  void operator()(const exploration::PropagationStartsForSudoku<size>& event) {
+    process_event(event);
+  }
+
+  void operator()(const exploration::PropagationStartsForCell<size>& event) {
+    process_event(event);
+  }
+
+  void operator()(const exploration::CellPropagates<size>& event) {
+    process_event(event);
+  }
+
+  void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<size>& event) {
+    pending_cell_is_deduced_from_single_allowed_value_events.push_back(event);
+  }
+
+  void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>& event) {
+    pending_cell_is_deduced_as_single_place_for_value_in_region_events.push_back(event);
+  }
+
+  void operator()(const exploration::PropagationIsDoneForCell<size>& event) {
+    process_event(event);
+    flush_pending_events();
+  }
+
+  void operator()(const exploration::PropagationIsDoneForSudoku<size>& event) {
+    process_event(event);
+  }
+
+  void operator()(const exploration::ExplorationStarts<size>& event) {
+    process_event(event);
+  }
+
+  void operator()(const exploration::HypothesisIsMade<size>& event) {
+    process_event(event);
+  }
+
+  void operator()(const exploration::HypothesisIsRejected<size>& event) {
+    process_event(event);
+  }
+
+  void operator()(const exploration::SudokuIsSolved<size>& event) {
+    flush_pending_events();
+    process_event(event);
+  }
+
+  void operator()(const exploration::HypothesisIsAccepted<size>& event) {
+    process_event(event);
+  }
+
+  void operator()(const exploration::ExplorationIsDone<size>& event) {
+    process_event(event);
+  }
+
+ private:
+  void flush_pending_events() {
+    for (const auto& event : pending_cell_is_deduced_from_single_allowed_value_events) {
+      process_event(event);
+    }
+    for (const auto& event : pending_cell_is_deduced_as_single_place_for_value_in_region_events) {
+      process_event(event);
+    }
+    pending_cell_is_deduced_from_single_allowed_value_events.clear();
+    pending_cell_is_deduced_as_single_place_for_value_in_region_events.clear();
+  }
 
  private:
   std::function<void(const exploration::Event<size>&)> process_event;
