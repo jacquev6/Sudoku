@@ -103,7 +103,7 @@ int main_(const Options& options) {
         assert(video_text_output->is_open());
         video_text_explainer_.emplace(*video_text_output);
       }
-      video_text_explainer.emplace(*video_text_explainer_);
+      video_text_explainer.emplace(&*video_text_explainer_);
     }
 
     std::vector<std::unique_ptr<video::Serializer>> video_serializers;
@@ -123,7 +123,7 @@ int main_(const Options& options) {
     }
     if (!video_serializers.empty()) {
       video_explainer_.emplace(video_serializers.back().get(), options.quick_video, options.width, options.height);
-      video_explainer.emplace(*video_explainer_);
+      video_explainer.emplace(&*video_explainer_);
     }
 
     if (stdout_users > 1) {

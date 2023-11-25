@@ -2237,8 +2237,8 @@ class Reorder
 {
   
   public: 
-  inline explicit Reorder(ProcessEvent & process_event_)
-  : process_event{process_event_}
+  inline explicit Reorder(ProcessEvent * process_event_)
+  : process_event{*process_event_}
   {
   }
   
@@ -2359,8 +2359,8 @@ class Reorder<4, TextExplainer<4> >
 {
   
   public: 
-  inline explicit Reorder(TextExplainer<4> & process_event_)
-  : process_event{process_event_}
+  inline explicit Reorder(TextExplainer<4> * process_event_)
+  : process_event{*process_event_}
   , pending_cell_is_deduced_from_single_allowed_value_events{std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > >()}
   , pending_cell_is_deduced_as_single_place_for_value_in_region_events{std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > >()}
   {
@@ -2492,8 +2492,8 @@ class Reorder<4, VideoExplainer<4> >
 {
   
   public: 
-  inline explicit Reorder(VideoExplainer<4> & process_event_)
-  : process_event{process_event_}
+  inline explicit Reorder(VideoExplainer<4> * process_event_)
+  : process_event{*process_event_}
   , pending_cell_is_deduced_from_single_allowed_value_events{std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > >()}
   , pending_cell_is_deduced_as_single_place_for_value_in_region_events{std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > >()}
   {
@@ -2625,8 +2625,8 @@ class Reorder<9, TextExplainer<9> >
 {
   
   public: 
-  inline explicit Reorder(TextExplainer<9> & process_event_)
-  : process_event{process_event_}
+  inline explicit Reorder(TextExplainer<9> * process_event_)
+  : process_event{*process_event_}
   , pending_cell_is_deduced_from_single_allowed_value_events{std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > >()}
   , pending_cell_is_deduced_as_single_place_for_value_in_region_events{std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > >()}
   {
@@ -2758,8 +2758,8 @@ class Reorder<9, VideoExplainer<9> >
 {
   
   public: 
-  inline explicit Reorder(VideoExplainer<9> & process_event_)
-  : process_event{process_event_}
+  inline explicit Reorder(VideoExplainer<9> * process_event_)
+  : process_event{*process_event_}
   , pending_cell_is_deduced_from_single_allowed_value_events{std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > >()}
   , pending_cell_is_deduced_as_single_place_for_value_in_region_events{std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > >()}
   {
@@ -4320,7 +4320,7 @@ int main_(const Options & options)
           video_text_explainer_.emplace(video_text_output.operator*());
         } 
         
-        video_text_explainer.emplace(*video_text_explainer_);
+        video_text_explainer.emplace(&*video_text_explainer_);
       } 
       
       std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > > video_serializers = std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >();
@@ -4341,7 +4341,7 @@ int main_(const Options & options)
       
       if(!static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).empty()) {
         video_explainer_.emplace(static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.back()).get(), options.quick_video, options.width, options.height);
-        video_explainer.emplace(*video_explainer_);
+        video_explainer.emplace(&*video_explainer_);
       } 
       
       if(stdout_users > static_cast<unsigned int>(1)) {
@@ -4513,7 +4513,7 @@ int main_<4>(const Options & options)
           video_text_explainer_.emplace<std::basic_ofstream<char> &>(video_text_output.operator*());
         } 
         
-        video_text_explainer.emplace<TextExplainer<4> &>(video_text_explainer_.operator*());
+        video_text_explainer.emplace<TextExplainer<4> *>(&video_text_explainer_.operator*());
       } 
       
       std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > > video_serializers = std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >();
@@ -4534,7 +4534,7 @@ int main_<4>(const Options & options)
       
       if(!static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).empty()) {
         video_explainer_.emplace<video::Serializer *, const bool &, const unsigned int &, const unsigned int &>(static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.back()).get(), options.quick_video, options.width, options.height);
-        video_explainer.emplace<VideoExplainer<4> &>(video_explainer_.operator*());
+        video_explainer.emplace<VideoExplainer<4> *>(&video_explainer_.operator*());
       } 
       
       if(stdout_users > static_cast<unsigned int>(1)) {
@@ -4721,7 +4721,7 @@ int main_<9>(const Options & options)
           video_text_explainer_.emplace<std::basic_ofstream<char> &>(video_text_output.operator*());
         } 
         
-        video_text_explainer.emplace<TextExplainer<9> &>(video_text_explainer_.operator*());
+        video_text_explainer.emplace<TextExplainer<9> *>(&video_text_explainer_.operator*());
       } 
       
       std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > > video_serializers = std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >();
@@ -4742,7 +4742,7 @@ int main_<9>(const Options & options)
       
       if(!static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).empty()) {
         video_explainer_.emplace<video::Serializer *, const bool &, const unsigned int &, const unsigned int &>(static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.back()).get(), options.quick_video, options.width, options.height);
-        video_explainer.emplace<VideoExplainer<9> &>(video_explainer_.operator*());
+        video_explainer.emplace<VideoExplainer<9> *>(&video_explainer_.operator*());
       } 
       
       if(stdout_users > static_cast<unsigned int>(1)) {

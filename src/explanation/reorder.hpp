@@ -12,8 +12,8 @@
 template<unsigned size, typename ProcessEvent>
 class Reorder {
  public:
-  explicit Reorder(ProcessEvent& process_event_) :
-    process_event(process_event_)
+  explicit Reorder(ProcessEvent* process_event_) :
+    process_event(*process_event_)
   {}
 
  public:
