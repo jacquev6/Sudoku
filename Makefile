@@ -56,10 +56,14 @@ build/lint/%.cpplint.ok: src/%
 .PHONY: insight
 insight: $(patsubst src/%,build/insight/%,${source_files})
 
-build/insight/%: src/% builder/crudest-preprocessor.py
+build/insight/%: src/% builder/crudest-preprocessor.py builder/stabilize-lambda-names.py builder/stabilize-numbered-names.py
 	@${echo} "Insight: insights $<"
 	@mkdir -p ${@D}
-	@builder/crudest-preprocessor.py $< | insights --stdin --show-all-callexpr-template-parameters --show-all-implicit-casts $< -- $$(pkg-config cairomm-1.16 libavutil libavcodec --cflags) -std=c++20 >$@.tmp
+	@builder/crudest-preprocessor.py $< \
+	| insights --stdin --show-all-callexpr-template-parameters --show-all-implicit-casts $< -- $$(pkg-config cairomm-1.16 libavutil libavcodec --cflags) -std=c++20 \
+	| builder/stabilize-lambda-names.py \
+	| builder/stabilize-numbered-names.py \
+	>$@.tmp
 	@mv $@.tmp $@
 
 

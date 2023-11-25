@@ -111,11 +111,11 @@ class SudokuConstants
   {
     std::array<std::pair<unsigned int, unsigned int>, size * size> cells;
     {
-      auto && __range2 = make_values();
+      auto && __range0 = make_values();
       for(; ; ) {
         unsigned int row;
         {
-          auto && __range3 = make_values();
+          auto && __range1 = make_values();
           for(; ; ) {
             unsigned int col;
             cells[(row * size) + col] = {row, col};
@@ -142,11 +142,11 @@ class SudokuConstants
   {
     std::array<std::array<std::pair<unsigned int, unsigned int>, size>, 3 * size> regions;
     {
-      auto && __range2 = make_values();
+      auto && __range0 = make_values();
       for(; ; ) {
         unsigned int row;
         {
-          auto && __range3 = make_values();
+          auto && __range1 = make_values();
           for(; ; ) {
             unsigned int col;
             regions[row][col] = {row, col};
@@ -157,11 +157,11 @@ class SudokuConstants
       
     }
     {
-      auto && __range2 = make_values();
+      auto && __range0 = make_values();
       for(; ; ) {
         unsigned int col;
         {
-          auto && __range3 = make_values();
+          auto && __range1 = make_values();
           for(; ; ) {
             unsigned int row;
             regions[size + col][row] = {row, col};
@@ -172,13 +172,13 @@ class SudokuConstants
       
     }
     {
-      auto && __range2 = make_values();
+      auto && __range0 = make_values();
       for(; ; ) {
         unsigned int square;
         const unsigned int top_row = (square / sqrt_size) * sqrt_size;
         const unsigned int left_col = (square % sqrt_size) * sqrt_size;
         {
-          auto && __range3 = make_values();
+          auto && __range1 = make_values();
           for(; ; ) {
             unsigned int cell;
             const unsigned int delta_row = cell / sqrt_size;
@@ -199,11 +199,11 @@ class SudokuConstants
   {
     std::array<std::array<std::array<unsigned int, 3>, size>, size> regions_of;
     {
-      auto && __range2 = make_values();
+      auto && __range0 = make_values();
       for(; ; ) {
         unsigned int row;
         {
-          auto && __range3 = make_values();
+          auto && __range1 = make_values();
           for(; ; ) {
             unsigned int col;
             regions_of[row][col] = {row, size + col, ((static_cast<unsigned int>(2) * size) + ((row / sqrt_size) * sqrt_size)) + (col / sqrt_size)};
@@ -308,26 +308,26 @@ class SudokuBase
     inline auto cells() const
     {
             
-      class __lambda_230_28
+      class __lambda_0
       {
         public: 
         template<class type_parameter_1_0>
         inline const SudokuBase::Cell & operator()(const type_parameter_1_0 & coords) const
         {
-          const auto __coords231 = coords;
+          const auto __coords0 = coords;
           return __this->sudoku->_cells[row][col];
         }
         private: 
         const SudokuBase::Region * __this;
         
         public:
-        __lambda_230_28(const SudokuBase::Region * _this)
+        __lambda_0(const SudokuBase::Region * _this)
         : __this{_this}
         {}
         
       };
       
-      const auto convert = __lambda_230_28{this};
+      const auto convert = __lambda_0{this};
       return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::regions[this->_index].begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::regions[this->_index].end(), convert));
     }
     
@@ -402,9 +402,9 @@ class SudokuBase
   public: 
   inline Cell & cell(const std::pair<unsigned int, unsigned int> & coords)
   {
-    const std::pair<unsigned int, unsigned int> __coords304 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords304));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords304));
+    const std::pair<unsigned int, unsigned int> __coords1 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords1));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords1));
     (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "src/puzzle/sudoku.hpp", 149, __extension____PRETTY_FUNCTION__));
     (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "src/puzzle/sudoku.hpp", 150, __extension____PRETTY_FUNCTION__));
     return this->_cells[row][col];
@@ -412,9 +412,9 @@ class SudokuBase
   
   inline const Cell & cell(const std::pair<unsigned int, unsigned int> & coords) const
   {
-    const std::pair<unsigned int, unsigned int> __coords311 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords311));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords311));
+    const std::pair<unsigned int, unsigned int> __coords2 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords2));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords2));
     (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "src/puzzle/sudoku.hpp", 156, __extension____PRETTY_FUNCTION__));
     (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "src/puzzle/sudoku.hpp", 157, __extension____PRETTY_FUNCTION__));
     return this->_cells[row][col];
@@ -423,59 +423,59 @@ class SudokuBase
   inline auto cells() const
   {
         
-    class __lambda_318_26
+    class __lambda_1
     {
       public: 
       template<class type_parameter_1_0>
       inline const Cell & operator()(const type_parameter_1_0 & cell) const
       {
-        const auto __cell319 = cell;
+        const auto __cell0 = cell;
         return __this->_cells[row][col];
       }
       private: 
       const SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_318_26(const SudokuBase<CellBase, size> * _this)
+      __lambda_1(const SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_318_26{this};
+    const auto convert = __lambda_1{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::cells.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::cells.end(), convert));
   }
   
   inline auto cells()
   {
         
-    class __lambda_329_26
+    class __lambda_2
     {
       public: 
       template<class type_parameter_1_0>
       inline Cell & operator()(const type_parameter_1_0 & cell) const
       {
-        const auto __cell330 = cell;
+        const auto __cell1 = cell;
         return __this->_cells[row][col];
       }
       private: 
       SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_329_26(SudokuBase<CellBase, size> * _this)
+      __lambda_2(SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_329_26{this};
+    const auto convert = __lambda_2{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::cells.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::cells.end(), convert));
   }
   
   inline auto regions() const
   {
         
-    class __lambda_340_26
+    class __lambda_3
     {
       public: 
       inline const Region operator()(const unsigned int index) const
@@ -487,13 +487,13 @@ class SudokuBase
       const SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_340_26(const SudokuBase<CellBase, size> * _this)
+      __lambda_3(const SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_340_26{this};
+    const auto convert = __lambda_3{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::region_indexes.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::region_indexes.end(), convert));
   }
   
@@ -1394,7 +1394,7 @@ class Sudoku<AnnotatedCell<size>, size> : public SudokuBase<AnnotatedCell<size>,
   inline bool is_solved() const
   {
     {
-      auto && __range2 = this->cells();
+      auto && __range0 = this->cells();
       for(; ; ) {
         const auto & cell;
         if(!cell.is_set()) {
@@ -2339,7 +2339,7 @@ class Reorder
   inline void flush_pending_events()
   {
     {
-      auto && __range2 = this->pending_cell_is_deduced_from_single_allowed_value_events;
+      auto && __range0 = this->pending_cell_is_deduced_from_single_allowed_value_events;
       for(; ; ) {
         const auto & event;
         this->process_event(event);
@@ -2347,7 +2347,7 @@ class Reorder
       
     }
     {
-      auto && __range2 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
+      auto && __range0 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
       for(; ; ) {
         const auto & event;
         this->process_event(event);
@@ -2463,9 +2463,9 @@ class Reorder<4, TextExplainer<4> >
   inline void flush_pending_events()
   {
     {
-      std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > & __range2 = this->pending_cell_is_deduced_from_single_allowed_value_events;
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __begin0 = __range2.begin();
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __end0 = __range2.end();
+      std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > & __range0 = this->pending_cell_is_deduced_from_single_allowed_value_events;
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __begin0 = __range0.begin();
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __end0 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__end0)); __begin0.operator++()) {
         const exploration::CellIsDeducedFromSingleAllowedValue<4> & event = static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin0).operator*());
         this->process_event.operator()(event);
@@ -2473,9 +2473,9 @@ class Reorder<4, TextExplainer<4> >
       
     }
     {
-      std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > & __range2 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __begin0 = __range2.begin();
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __end0 = __range2.end();
+      std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > & __range0 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __begin0 = __range0.begin();
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __end0 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__end0)); __begin0.operator++()) {
         const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event = static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin0).operator*());
         this->process_event.operator()(event);
@@ -2596,9 +2596,9 @@ class Reorder<4, VideoExplainer<4> >
   inline void flush_pending_events()
   {
     {
-      std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > & __range2 = this->pending_cell_is_deduced_from_single_allowed_value_events;
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __begin0 = __range2.begin();
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __end0 = __range2.end();
+      std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > & __range0 = this->pending_cell_is_deduced_from_single_allowed_value_events;
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __begin0 = __range0.begin();
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __end0 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__end0)); __begin0.operator++()) {
         const exploration::CellIsDeducedFromSingleAllowedValue<4> & event = static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin0).operator*());
         this->process_event.operator()(event);
@@ -2606,9 +2606,9 @@ class Reorder<4, VideoExplainer<4> >
       
     }
     {
-      std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > & __range2 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __begin0 = __range2.begin();
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __end0 = __range2.end();
+      std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > & __range0 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __begin0 = __range0.begin();
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __end0 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__end0)); __begin0.operator++()) {
         const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event = static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin0).operator*());
         this->process_event.operator()(event);
@@ -2729,9 +2729,9 @@ class Reorder<9, TextExplainer<9> >
   inline void flush_pending_events()
   {
     {
-      std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > & __range2 = this->pending_cell_is_deduced_from_single_allowed_value_events;
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __begin0 = __range2.begin();
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __end0 = __range2.end();
+      std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > & __range0 = this->pending_cell_is_deduced_from_single_allowed_value_events;
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __begin0 = __range0.begin();
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __end0 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__end0)); __begin0.operator++()) {
         const exploration::CellIsDeducedFromSingleAllowedValue<9> & event = static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin0).operator*());
         this->process_event.operator()(event);
@@ -2739,9 +2739,9 @@ class Reorder<9, TextExplainer<9> >
       
     }
     {
-      std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > & __range2 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __begin0 = __range2.begin();
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __end0 = __range2.end();
+      std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > & __range0 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __begin0 = __range0.begin();
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __end0 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__end0)); __begin0.operator++()) {
         const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> & event = static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin0).operator*());
         this->process_event.operator()(event);
@@ -2862,9 +2862,9 @@ class Reorder<9, VideoExplainer<9> >
   inline void flush_pending_events()
   {
     {
-      std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > & __range2 = this->pending_cell_is_deduced_from_single_allowed_value_events;
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __begin0 = __range2.begin();
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __end0 = __range2.end();
+      std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > & __range0 = this->pending_cell_is_deduced_from_single_allowed_value_events;
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __begin0 = __range0.begin();
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __end0 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__end0)); __begin0.operator++()) {
         const exploration::CellIsDeducedFromSingleAllowedValue<9> & event = static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin0).operator*());
         this->process_event.operator()(event);
@@ -2872,9 +2872,9 @@ class Reorder<9, VideoExplainer<9> >
       
     }
     {
-      std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > & __range2 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __begin0 = __range2.begin();
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __end0 = __range2.end();
+      std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > & __range0 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __begin0 = __range0.begin();
+      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __end0 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__end0)); __begin0.operator++()) {
         const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> & event = static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin0).operator*());
         this->process_event.operator()(event);
@@ -3358,11 +3358,11 @@ namespace video
     inline virtual void serialize(std::shared_ptr<Cairo::ImageSurface> surface)
     {
       {
-        std::vector<Serializer *, std::allocator<Serializer *> > & __range2 = this->serializers;
-        __gnu_cxx::__normal_iterator<Serializer **, std::vector<Serializer *, std::allocator<Serializer *> > > __begin2 = __range2.begin();
-        __gnu_cxx::__normal_iterator<Serializer **, std::vector<Serializer *, std::allocator<Serializer *> > > __end2 = __range2.end();
-        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<Serializer **, std::vector<Serializer *, std::allocator<Serializer *> > >>(__begin2), static_cast<const __gnu_cxx::__normal_iterator<Serializer **, std::vector<Serializer *, std::allocator<Serializer *> > >>(__end2)); __begin2.operator++()) {
-          Serializer *& serializer = static_cast<const __gnu_cxx::__normal_iterator<Serializer **, std::vector<Serializer *, std::allocator<Serializer *> > >>(__begin2).operator*();
+        std::vector<Serializer *, std::allocator<Serializer *> > & __range0 = this->serializers;
+        __gnu_cxx::__normal_iterator<Serializer **, std::vector<Serializer *, std::allocator<Serializer *> > > __begin1 = __range0.begin();
+        __gnu_cxx::__normal_iterator<Serializer **, std::vector<Serializer *, std::allocator<Serializer *> > > __end1 = __range0.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<Serializer **, std::vector<Serializer *, std::allocator<Serializer *> > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<Serializer **, std::vector<Serializer *, std::allocator<Serializer *> > >>(__end1)); __begin1.operator++()) {
+          Serializer *& serializer = static_cast<const __gnu_cxx::__normal_iterator<Serializer **, std::vector<Serializer *, std::allocator<Serializer *> > >>(__begin1).operator*();
           serializer->serialize(std::shared_ptr<Cairo::ImageSurface>(static_cast<const std::shared_ptr<Cairo::ImageSurface>>(surface)));
         }
         
@@ -3500,7 +3500,7 @@ class VideoExplainer
     , after{this->explainer.after}
     {
             
-      class __lambda_1153_18
+      class __lambda_4
       {
         public: 
         template<class type_parameter_1_0>
@@ -3512,13 +3512,13 @@ class VideoExplainer
         VideoExplainer::VisitEventsGuard * __this;
         
         public:
-        __lambda_1153_18(VideoExplainer::VisitEventsGuard * _this)
+        __lambda_4(VideoExplainer::VisitEventsGuard * _this)
         : __this{_this}
         {}
         
       };
       
-      std::visit(__lambda_1153_18{this}, event);
+      std::visit(__lambda_4{this}, event);
       this->events.push_back(event);
     }
     
@@ -3530,7 +3530,7 @@ class VideoExplainer
     , after{this->explainer.after}
     {
       {
-        auto && __range3 = events_;
+        auto && __range1 = events_;
         for(; ; ) {
           const T & event;
           event.apply(&this->explainer.after);
@@ -3547,11 +3547,11 @@ class VideoExplainer
     inline ~VisitEventsGuard()
     {
       {
-        auto && __range2 = this->events;
+        auto && __range0 = this->events;
         for(; ; ) {
           const auto & event;
                     
-          class __lambda_1177_20
+          class __lambda_5
           {
             public: 
             template<class type_parameter_1_0>
@@ -3563,13 +3563,13 @@ class VideoExplainer
             VideoExplainer::VisitEventsGuard * __this;
             
             public:
-            __lambda_1177_20(VideoExplainer::VisitEventsGuard * _this)
+            __lambda_5(VideoExplainer::VisitEventsGuard * _this)
             : __this{_this}
             {}
             
           };
           
-          std::visit(__lambda_1177_20{this}, event);
+          std::visit(__lambda_5{this}, event);
         }
         
       }
@@ -3705,7 +3705,7 @@ class VideoExplainer
     CairoSaveGuard saver = CairoSaveGuard(this->cr);
     double above_height = static_cast<double>(0);
     {
-      auto && __range2 = layout.above;
+      auto && __range0 = layout.above;
       for(; ; ) {
         const auto & text;
         this->cr.set_font_size(text.font_size);
@@ -3725,7 +3725,7 @@ class VideoExplainer
     }
     double below_height = static_cast<double>(0);
     {
-      auto && __range2 = layout.below | std::ranges::views::reverse;
+      auto && __range0 = layout.below | std::ranges::views::reverse;
       for(; ; ) {
         const auto & text;
         this->cr.set_font_size(text.font_size);
@@ -3776,7 +3776,7 @@ class VideoExplainer
     CairoSaveGuard saver = CairoSaveGuard(this->cr);
     double height = static_cast<double>(0);
     {
-      auto && __range2 = texts;
+      auto && __range0 = texts;
       for(; ; ) {
         const auto & text;
         this->cr.set_font_size(text.font_size);
@@ -4270,7 +4270,7 @@ template<unsigned int size>
 int main_(const Options & options)
 {
       
-  class __lambda_1645_24
+  class __lambda_6
   {
     public: 
     inline auto operator()() const
@@ -4289,13 +4289,13 @@ int main_(const Options & options)
     const Options & options;
     
     public:
-    __lambda_1645_24(const Options & _options)
+    __lambda_6(const Options & _options)
     : options{_options}
     {}
     
   };
   
-  const auto sudoku = (__lambda_1645_24{options})();
+  const auto sudoku = (__lambda_6{options})();
   if(options.solve) {
     if(options.use_sat) {
       const auto solved = solve_using_sat(sudoku);
@@ -4387,7 +4387,7 @@ int main_(const Options & options)
       } 
       
                   
-      class __lambda_1742_7
+      class __lambda_7
       {
         public: 
         inline auto operator()(exploration::Event<size> && event) const
@@ -4413,7 +4413,7 @@ int main_(const Options & options)
         
       };
       
-      const auto solved = solve_using_exploration<size>(sudoku, __lambda_1742_7{});
+      const auto solved = solve_using_exploration<size>(sudoku, __lambda_7{});
       if(is_solved(solved)) {
         return 0;
       } else {
@@ -4436,7 +4436,7 @@ template<>
 int main_<4>(const Options & options)
 {
       
-  class __lambda_1645_24
+  class __lambda_6
   {
     public: 
     inline Sudoku<ValueCell, 4> operator()() const
@@ -4455,13 +4455,13 @@ int main_<4>(const Options & options)
     const Options & options;
     
     public:
-    __lambda_1645_24(const Options & _options)
+    __lambda_6(const Options & _options)
     : options{_options}
     {}
     
-  } __lambda_1645_24{options};
+  } __lambda_6{options};
   
-  const Sudoku<ValueCell, 4> sudoku = static_cast<const Sudoku<ValueCell, 4>>(static_cast<const __lambda_1645_24>((__lambda_1645_24)).operator()());
+  const Sudoku<ValueCell, 4> sudoku = static_cast<const Sudoku<ValueCell, 4>>(static_cast<const __lambda_6>((__lambda_6)).operator()());
   if(options.solve) {
     if(options.use_sat) {
       const Sudoku<ValueCell, 4> solved = static_cast<const Sudoku<ValueCell, 4>>(solve_using_sat<4>(Sudoku<ValueCell, 4>(sudoku)));
@@ -4475,7 +4475,7 @@ int main_<4>(const Options & options)
       
     } else {
                   
-      class __lambda_1589_60
+      class __lambda_8
       {
         public: 
         inline /*constexpr */ void operator()(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&) const
@@ -4491,17 +4491,17 @@ int main_<4>(const Options & options)
         private: 
         static inline /*constexpr */ void __invoke(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > && __param0)
         {
-          __lambda_1589_60{}.operator()(__param0);
+          __lambda_8{}.operator()(__param0);
         }
         
         public: 
-        // inline /*constexpr */ __lambda_1589_60(const __lambda_1589_60 &) noexcept = default;
-        // inline /*constexpr */ __lambda_1589_60(__lambda_1589_60 &&) noexcept = default;
-        // /*constexpr */ __lambda_1589_60() = default;
+        // inline /*constexpr */ __lambda_8(const __lambda_8 &) noexcept = default;
+        // inline /*constexpr */ __lambda_8(__lambda_8 &&) noexcept = default;
+        // /*constexpr */ __lambda_8() = default;
         
       };
       
-      const Sudoku<ValueCell, 4> solved = static_cast<const Sudoku<ValueCell, 4>>(solve_using_exploration<4>(Sudoku<ValueCell, 4>(sudoku), static_cast<const std::function<void (std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&)>>(std::function<void (std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&)>(__lambda_1589_60{}))));
+      const Sudoku<ValueCell, 4> solved = static_cast<const Sudoku<ValueCell, 4>>(solve_using_exploration<4>(Sudoku<ValueCell, 4>(sudoku), static_cast<const std::function<void (std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&)>>(std::function<void (std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&)>(__lambda_8{}))));
       if(is_solved<4>(solved)) {
         solved.dump(std::cout);
         return 0;
@@ -4580,7 +4580,7 @@ int main_<4>(const Options & options)
       } 
       
                   
-      class __lambda_1742_7
+      class __lambda_7
       {
         public: 
         inline /*constexpr */ void operator()(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > && event) const
@@ -4609,9 +4609,9 @@ int main_<4>(const Options & options)
         std::optional<Reorder<4, TextExplainer<4> > > & video_text_explainer;
         std::optional<Reorder<4, VideoExplainer<4> > > & video_explainer;
         public: 
-        // inline /*constexpr */ __lambda_1742_7(const __lambda_1742_7 &) noexcept = default;
-        // inline /*constexpr */ __lambda_1742_7(__lambda_1742_7 &&) noexcept = default;
-        __lambda_1742_7(std::optional<TextExplainer<4> > & _text_explainer, std::optional<HtmlExplainer<4> > & _html_explainer, std::optional<Reorder<4, TextExplainer<4> > > & _video_text_explainer, std::optional<Reorder<4, VideoExplainer<4> > > & _video_explainer)
+        // inline /*constexpr */ __lambda_7(const __lambda_7 &) noexcept = default;
+        // inline /*constexpr */ __lambda_7(__lambda_7 &&) noexcept = default;
+        __lambda_7(std::optional<TextExplainer<4> > & _text_explainer, std::optional<HtmlExplainer<4> > & _html_explainer, std::optional<Reorder<4, TextExplainer<4> > > & _video_text_explainer, std::optional<Reorder<4, VideoExplainer<4> > > & _video_explainer)
         : text_explainer{_text_explainer}
         , html_explainer{_html_explainer}
         , video_text_explainer{_video_text_explainer}
@@ -4620,7 +4620,7 @@ int main_<4>(const Options & options)
         
       };
       
-      const Sudoku<ValueCell, 4> solved = static_cast<const Sudoku<ValueCell, 4>>(solve_using_exploration<4U>(Sudoku<ValueCell, 4>(sudoku), static_cast<const std::function<void (std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&)>>(std::function<void (std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&)>(__lambda_1742_7{text_explainer, html_explainer, video_text_explainer, video_explainer}))));
+      const Sudoku<ValueCell, 4> solved = static_cast<const Sudoku<ValueCell, 4>>(solve_using_exploration<4U>(Sudoku<ValueCell, 4>(sudoku), static_cast<const std::function<void (std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&)>>(std::function<void (std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&)>(__lambda_7{text_explainer, html_explainer, video_text_explainer, video_explainer}))));
       if(is_solved<4>(solved)) {
         return 0;
       } else {
@@ -4644,7 +4644,7 @@ template<>
 int main_<9>(const Options & options)
 {
       
-  class __lambda_1645_24
+  class __lambda_6
   {
     public: 
     inline Sudoku<ValueCell, 9> operator()() const
@@ -4663,13 +4663,13 @@ int main_<9>(const Options & options)
     const Options & options;
     
     public:
-    __lambda_1645_24(const Options & _options)
+    __lambda_6(const Options & _options)
     : options{_options}
     {}
     
-  } __lambda_1645_24{options};
+  } __lambda_6{options};
   
-  const Sudoku<ValueCell, 9> sudoku = static_cast<const Sudoku<ValueCell, 9>>(static_cast<const __lambda_1645_24>((__lambda_1645_24)).operator()());
+  const Sudoku<ValueCell, 9> sudoku = static_cast<const Sudoku<ValueCell, 9>>(static_cast<const __lambda_6>((__lambda_6)).operator()());
   if(options.solve) {
     if(options.use_sat) {
       const Sudoku<ValueCell, 9> solved = static_cast<const Sudoku<ValueCell, 9>>(solve_using_sat<9>(Sudoku<ValueCell, 9>(sudoku)));
@@ -4683,7 +4683,7 @@ int main_<9>(const Options & options)
       
     } else {
                   
-      class __lambda_1589_60
+      class __lambda_8
       {
         public: 
         inline /*constexpr */ void operator()(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&) const
@@ -4699,17 +4699,17 @@ int main_<9>(const Options & options)
         private: 
         static inline /*constexpr */ void __invoke(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > && __param0)
         {
-          __lambda_1589_60{}.operator()(__param0);
+          __lambda_8{}.operator()(__param0);
         }
         
         public: 
-        // inline /*constexpr */ __lambda_1589_60(const __lambda_1589_60 &) noexcept = default;
-        // inline /*constexpr */ __lambda_1589_60(__lambda_1589_60 &&) noexcept = default;
-        // /*constexpr */ __lambda_1589_60() = default;
+        // inline /*constexpr */ __lambda_8(const __lambda_8 &) noexcept = default;
+        // inline /*constexpr */ __lambda_8(__lambda_8 &&) noexcept = default;
+        // /*constexpr */ __lambda_8() = default;
         
       };
       
-      const Sudoku<ValueCell, 9> solved = static_cast<const Sudoku<ValueCell, 9>>(solve_using_exploration<9>(Sudoku<ValueCell, 9>(sudoku), static_cast<const std::function<void (std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&)>>(std::function<void (std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&)>(__lambda_1589_60{}))));
+      const Sudoku<ValueCell, 9> solved = static_cast<const Sudoku<ValueCell, 9>>(solve_using_exploration<9>(Sudoku<ValueCell, 9>(sudoku), static_cast<const std::function<void (std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&)>>(std::function<void (std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&)>(__lambda_8{}))));
       if(is_solved<9>(solved)) {
         solved.dump(std::cout);
         return 0;
@@ -4788,7 +4788,7 @@ int main_<9>(const Options & options)
       } 
       
                   
-      class __lambda_1742_7
+      class __lambda_7
       {
         public: 
         inline /*constexpr */ void operator()(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > && event) const
@@ -4817,9 +4817,9 @@ int main_<9>(const Options & options)
         std::optional<Reorder<9, TextExplainer<9> > > & video_text_explainer;
         std::optional<Reorder<9, VideoExplainer<9> > > & video_explainer;
         public: 
-        // inline /*constexpr */ __lambda_1742_7(const __lambda_1742_7 &) noexcept = default;
-        // inline /*constexpr */ __lambda_1742_7(__lambda_1742_7 &&) noexcept = default;
-        __lambda_1742_7(std::optional<TextExplainer<9> > & _text_explainer, std::optional<HtmlExplainer<9> > & _html_explainer, std::optional<Reorder<9, TextExplainer<9> > > & _video_text_explainer, std::optional<Reorder<9, VideoExplainer<9> > > & _video_explainer)
+        // inline /*constexpr */ __lambda_7(const __lambda_7 &) noexcept = default;
+        // inline /*constexpr */ __lambda_7(__lambda_7 &&) noexcept = default;
+        __lambda_7(std::optional<TextExplainer<9> > & _text_explainer, std::optional<HtmlExplainer<9> > & _html_explainer, std::optional<Reorder<9, TextExplainer<9> > > & _video_text_explainer, std::optional<Reorder<9, VideoExplainer<9> > > & _video_explainer)
         : text_explainer{_text_explainer}
         , html_explainer{_html_explainer}
         , video_text_explainer{_video_text_explainer}
@@ -4828,7 +4828,7 @@ int main_<9>(const Options & options)
         
       };
       
-      const Sudoku<ValueCell, 9> solved = static_cast<const Sudoku<ValueCell, 9>>(solve_using_exploration<9U>(Sudoku<ValueCell, 9>(sudoku), static_cast<const std::function<void (std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&)>>(std::function<void (std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&)>(__lambda_1742_7{text_explainer, html_explainer, video_text_explainer, video_explainer}))));
+      const Sudoku<ValueCell, 9> solved = static_cast<const Sudoku<ValueCell, 9>>(solve_using_exploration<9U>(Sudoku<ValueCell, 9>(sudoku), static_cast<const std::function<void (std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&)>>(std::function<void (std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&)>(__lambda_7{text_explainer, html_explainer, video_text_explainer, video_explainer}))));
       if(is_solved<9>(solved)) {
         return 0;
       } else {
@@ -4852,7 +4852,7 @@ struct ExistingFileOrStdinValidator : public CLI::Validator
   : CLI::Validator{CLI::Validator(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("FILE(or - for stdin)"), static_cast<const std::allocator<char>>(std::allocator<char>())))}
   {
         
-    class __lambda_1762_13
+    class __lambda_9
     {
       public: 
       inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > operator()(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str) const
@@ -4874,17 +4874,17 @@ struct ExistingFileOrStdinValidator : public CLI::Validator
       private: 
       static inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > __invoke(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str)
       {
-        return __lambda_1762_13{}.operator()(str);
+        return __lambda_9{}.operator()(str);
       }
       
       public: 
-      // inline /*constexpr */ __lambda_1762_13(const __lambda_1762_13 &) noexcept = default;
-      // inline /*constexpr */ __lambda_1762_13(__lambda_1762_13 &&) noexcept = default;
-      // /*constexpr */ __lambda_1762_13() = default;
+      // inline /*constexpr */ __lambda_9(const __lambda_9 &) noexcept = default;
+      // inline /*constexpr */ __lambda_9(__lambda_9 &&) noexcept = default;
+      // /*constexpr */ __lambda_9() = default;
       
-    } __lambda_1762_13{};
+    } __lambda_9{};
     
-    /* static_cast<CLI::Validator *>(this)-> */ func_.operator=(__lambda_1762_13);
+    /* static_cast<CLI::Validator *>(this)-> */ func_.operator=(__lambda_9);
   }
   
   // inline ~ExistingFileOrStdinValidator() noexcept = default;
@@ -4901,7 +4901,7 @@ struct FileOrStdoutValidator : public CLI::Validator
   : CLI::Validator{CLI::Validator(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("FILE(or - for stdout)"), static_cast<const std::allocator<char>>(std::allocator<char>())))}
   {
         
-    class __lambda_1776_13
+    class __lambda_10
     {
       public: 
       inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > operator()(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str) const
@@ -4918,17 +4918,17 @@ struct FileOrStdoutValidator : public CLI::Validator
       private: 
       static inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > __invoke(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str)
       {
-        return __lambda_1776_13{}.operator()(str);
+        return __lambda_10{}.operator()(str);
       }
       
       public: 
-      // inline /*constexpr */ __lambda_1776_13(const __lambda_1776_13 &) noexcept = default;
-      // inline /*constexpr */ __lambda_1776_13(__lambda_1776_13 &&) noexcept = default;
-      // /*constexpr */ __lambda_1776_13() = default;
+      // inline /*constexpr */ __lambda_10(const __lambda_10 &) noexcept = default;
+      // inline /*constexpr */ __lambda_10(__lambda_10 &&) noexcept = default;
+      // /*constexpr */ __lambda_10() = default;
       
-    } __lambda_1776_13{};
+    } __lambda_10{};
     
-    /* static_cast<CLI::Validator *>(this)-> */ func_.operator=(__lambda_1776_13);
+    /* static_cast<CLI::Validator *>(this)-> */ func_.operator=(__lambda_10);
   }
   
   // inline ~FileOrStdoutValidator() noexcept = default;
@@ -4945,7 +4945,7 @@ struct FileValidator : public CLI::Validator
   : CLI::Validator{CLI::Validator(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("FILE"), static_cast<const std::allocator<char>>(std::allocator<char>())))}
   {
         
-    class __lambda_1784_13
+    class __lambda_11
     {
       public: 
       inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > operator()(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str) const
@@ -4962,17 +4962,17 @@ struct FileValidator : public CLI::Validator
       private: 
       static inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > __invoke(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str)
       {
-        return __lambda_1784_13{}.operator()(str);
+        return __lambda_11{}.operator()(str);
       }
       
       public: 
-      // inline /*constexpr */ __lambda_1784_13(const __lambda_1784_13 &) noexcept = default;
-      // inline /*constexpr */ __lambda_1784_13(__lambda_1784_13 &&) noexcept = default;
-      // /*constexpr */ __lambda_1784_13() = default;
+      // inline /*constexpr */ __lambda_11(const __lambda_11 &) noexcept = default;
+      // inline /*constexpr */ __lambda_11(__lambda_11 &&) noexcept = default;
+      // /*constexpr */ __lambda_11() = default;
       
-    } __lambda_1784_13{};
+    } __lambda_11{};
     
-    /* static_cast<CLI::Validator *>(this)-> */ func_.operator=(__lambda_1784_13);
+    /* static_cast<CLI::Validator *>(this)-> */ func_.operator=(__lambda_11);
   }
   
   // inline ~FileValidator() noexcept = default;
@@ -5013,11 +5013,11 @@ int main(int argc, char ** argv)
   explain->add_option<unsigned int, unsigned int, 0>(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("--height"), static_cast<const std::allocator<char>>(std::allocator<char>())), height, std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Height of the images in the HTML and video explanations"), static_cast<const std::allocator<char>>(std::allocator<char>())))->default_val<char[4]>("480");
   std::filesystem::path input_path = std::filesystem::path();
   {
-    std::initializer_list<CLI::App *> && __range1 = std::initializer_list<CLI::App *>{solve, explain};
-    CLI::App *const * __begin1 = static_cast<const std::initializer_list<CLI::App *>>(__range1).begin();
-    CLI::App *const * __end1 = static_cast<const std::initializer_list<CLI::App *>>(__range1).end();
-    for(; __begin1 != __end1; ++__begin1) {
-      CLI::App * subcommand = *__begin1;
+    std::initializer_list<CLI::App *> && __range2 = std::initializer_list<CLI::App *>{solve, explain};
+    CLI::App *const * __begin2 = static_cast<const std::initializer_list<CLI::App *>>(__range2).begin();
+    CLI::App *const * __end2 = static_cast<const std::initializer_list<CLI::App *>>(__range2).end();
+    for(; __begin2 != __end2; ++__begin2) {
+      CLI::App * subcommand = *__begin2;
       static_cast<CLI::OptionBase<CLI::Option> *>(subcommand->add_option<std::filesystem::path, std::filesystem::path, 0>(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("INPUT"), static_cast<const std::allocator<char>>(std::allocator<char>())), input_path, std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Input file"), static_cast<const std::allocator<char>>(std::allocator<char>())))->check(CLI::Validator(static_cast<const CLI::Validator&>(ExistingFileOrStdin)), std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>(""), static_cast<const std::allocator<char>>(std::allocator<char>()))))->required(true);
     }
     

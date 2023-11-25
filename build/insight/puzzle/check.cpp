@@ -82,11 +82,11 @@ class SudokuConstants
   {
     std::array<std::pair<unsigned int, unsigned int>, size * size> cells;
     {
-      auto && __range2 = make_values();
+      auto && __range0 = make_values();
       for(; ; ) {
         unsigned int row;
         {
-          auto && __range3 = make_values();
+          auto && __range1 = make_values();
           for(; ; ) {
             unsigned int col;
             cells[(row * size) + col] = {row, col};
@@ -113,11 +113,11 @@ class SudokuConstants
   {
     std::array<std::array<std::pair<unsigned int, unsigned int>, size>, 3 * size> regions;
     {
-      auto && __range2 = make_values();
+      auto && __range0 = make_values();
       for(; ; ) {
         unsigned int row;
         {
-          auto && __range3 = make_values();
+          auto && __range1 = make_values();
           for(; ; ) {
             unsigned int col;
             regions[row][col] = {row, col};
@@ -128,11 +128,11 @@ class SudokuConstants
       
     }
     {
-      auto && __range2 = make_values();
+      auto && __range0 = make_values();
       for(; ; ) {
         unsigned int col;
         {
-          auto && __range3 = make_values();
+          auto && __range1 = make_values();
           for(; ; ) {
             unsigned int row;
             regions[size + col][row] = {row, col};
@@ -143,13 +143,13 @@ class SudokuConstants
       
     }
     {
-      auto && __range2 = make_values();
+      auto && __range0 = make_values();
       for(; ; ) {
         unsigned int square;
         const unsigned int top_row = (square / sqrt_size) * sqrt_size;
         const unsigned int left_col = (square % sqrt_size) * sqrt_size;
         {
-          auto && __range3 = make_values();
+          auto && __range1 = make_values();
           for(; ; ) {
             unsigned int cell;
             const unsigned int delta_row = cell / sqrt_size;
@@ -170,11 +170,11 @@ class SudokuConstants
   {
     std::array<std::array<std::array<unsigned int, 3>, size>, size> regions_of;
     {
-      auto && __range2 = make_values();
+      auto && __range0 = make_values();
       for(; ; ) {
         unsigned int row;
         {
-          auto && __range3 = make_values();
+          auto && __range1 = make_values();
           for(; ; ) {
             unsigned int col;
             regions_of[row][col] = {row, size + col, ((static_cast<unsigned int>(2) * size) + ((row / sqrt_size) * sqrt_size)) + (col / sqrt_size)};
@@ -245,15 +245,15 @@ class SudokuConstants<4>
   {
     std::array<std::pair<unsigned int, unsigned int>, 16> cells = std::array<std::pair<unsigned int, unsigned int>, 16>();
     {
-      std::array<unsigned int, 4> && __range2 = make_values();
-      unsigned int * __begin0 = __range2.begin();
-      unsigned int * __end0 = __range2.end();
+      std::array<unsigned int, 4> && __range0 = make_values();
+      unsigned int * __begin0 = __range0.begin();
+      unsigned int * __end0 = __range0.end();
       for(; __begin0 != __end0; ++__begin0) {
         unsigned int row = *__begin0;
         {
-          std::array<unsigned int, 4> && __range3 = make_values();
-          unsigned int * __begin0 = __range3.begin();
-          unsigned int * __end0 = __range3.end();
+          std::array<unsigned int, 4> && __range1 = make_values();
+          unsigned int * __begin0 = __range1.begin();
+          unsigned int * __end0 = __range1.end();
           for(; __begin0 != __end0; ++__begin0) {
             unsigned int col = *__begin0;
             cells.operator[](static_cast<unsigned long>((row * 4U) + col)).operator=(std::pair<unsigned int, unsigned int>{row, col});
@@ -280,15 +280,15 @@ class SudokuConstants<4>
   {
     std::array<std::array<std::pair<unsigned int, unsigned int>, 4>, 12> regions = std::array<std::array<std::pair<unsigned int, unsigned int>, 4>, 12>();
     {
-      std::array<unsigned int, 4> && __range2 = make_values();
-      unsigned int * __begin0 = __range2.begin();
-      unsigned int * __end0 = __range2.end();
+      std::array<unsigned int, 4> && __range0 = make_values();
+      unsigned int * __begin0 = __range0.begin();
+      unsigned int * __end0 = __range0.end();
       for(; __begin0 != __end0; ++__begin0) {
         unsigned int row = *__begin0;
         {
-          std::array<unsigned int, 4> && __range3 = make_values();
-          unsigned int * __begin0 = __range3.begin();
-          unsigned int * __end0 = __range3.end();
+          std::array<unsigned int, 4> && __range1 = make_values();
+          unsigned int * __begin0 = __range1.begin();
+          unsigned int * __end0 = __range1.end();
           for(; __begin0 != __end0; ++__begin0) {
             unsigned int col = *__begin0;
             regions.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col)).operator=(std::pair<unsigned int, unsigned int>{row, col});
@@ -299,15 +299,15 @@ class SudokuConstants<4>
       
     }
     {
-      std::array<unsigned int, 4> && __range2 = make_values();
-      unsigned int * __begin0 = __range2.begin();
-      unsigned int * __end0 = __range2.end();
+      std::array<unsigned int, 4> && __range0 = make_values();
+      unsigned int * __begin0 = __range0.begin();
+      unsigned int * __end0 = __range0.end();
       for(; __begin0 != __end0; ++__begin0) {
         unsigned int col = *__begin0;
         {
-          std::array<unsigned int, 4> && __range3 = make_values();
-          unsigned int * __begin0 = __range3.begin();
-          unsigned int * __end0 = __range3.end();
+          std::array<unsigned int, 4> && __range1 = make_values();
+          unsigned int * __begin0 = __range1.begin();
+          unsigned int * __end0 = __range1.end();
           for(; __begin0 != __end0; ++__begin0) {
             unsigned int row = *__begin0;
             regions.operator[](static_cast<unsigned long>(4U + col)).operator[](static_cast<unsigned long>(row)).operator=(std::pair<unsigned int, unsigned int>{row, col});
@@ -318,17 +318,17 @@ class SudokuConstants<4>
       
     }
     {
-      std::array<unsigned int, 4> && __range2 = make_values();
-      unsigned int * __begin0 = __range2.begin();
-      unsigned int * __end0 = __range2.end();
+      std::array<unsigned int, 4> && __range0 = make_values();
+      unsigned int * __begin0 = __range0.begin();
+      unsigned int * __end0 = __range0.end();
       for(; __begin0 != __end0; ++__begin0) {
         unsigned int square = *__begin0;
         const unsigned int top_row = (square / sqrt_size) * sqrt_size;
         const unsigned int left_col = (square % sqrt_size) * sqrt_size;
         {
-          std::array<unsigned int, 4> && __range3 = make_values();
-          unsigned int * __begin0 = __range3.begin();
-          unsigned int * __end0 = __range3.end();
+          std::array<unsigned int, 4> && __range1 = make_values();
+          unsigned int * __begin0 = __range1.begin();
+          unsigned int * __end0 = __range1.end();
           for(; __begin0 != __end0; ++__begin0) {
             unsigned int cell = *__begin0;
             const unsigned int delta_row = cell / sqrt_size;
@@ -349,15 +349,15 @@ class SudokuConstants<4>
   {
     std::array<std::array<std::array<unsigned int, 3>, 4>, 4> regions_of;
     {
-      std::array<unsigned int, 4> && __range2 = make_values();
-      unsigned int * __begin0 = __range2.begin();
-      unsigned int * __end0 = __range2.end();
+      std::array<unsigned int, 4> && __range0 = make_values();
+      unsigned int * __begin0 = __range0.begin();
+      unsigned int * __end0 = __range0.end();
       for(; __begin0 != __end0; ++__begin0) {
         unsigned int row = *__begin0;
         {
-          std::array<unsigned int, 4> && __range3 = make_values();
-          unsigned int * __begin0 = __range3.begin();
-          unsigned int * __end0 = __range3.end();
+          std::array<unsigned int, 4> && __range1 = make_values();
+          unsigned int * __begin0 = __range1.begin();
+          unsigned int * __end0 = __range1.end();
           for(; __begin0 != __end0; ++__begin0) {
             unsigned int col = *__begin0;
             regions_of.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col)).operator=({{row, 4U + col, ((static_cast<unsigned int>(2) * 4U) + ((row / sqrt_size) * sqrt_size)) + (col / sqrt_size)}});
@@ -429,15 +429,15 @@ class SudokuConstants<9>
   {
     std::array<std::pair<unsigned int, unsigned int>, 81> cells = std::array<std::pair<unsigned int, unsigned int>, 81>();
     {
-      std::array<unsigned int, 9> && __range2 = make_values();
-      unsigned int * __begin0 = __range2.begin();
-      unsigned int * __end0 = __range2.end();
+      std::array<unsigned int, 9> && __range0 = make_values();
+      unsigned int * __begin0 = __range0.begin();
+      unsigned int * __end0 = __range0.end();
       for(; __begin0 != __end0; ++__begin0) {
         unsigned int row = *__begin0;
         {
-          std::array<unsigned int, 9> && __range3 = make_values();
-          unsigned int * __begin0 = __range3.begin();
-          unsigned int * __end0 = __range3.end();
+          std::array<unsigned int, 9> && __range1 = make_values();
+          unsigned int * __begin0 = __range1.begin();
+          unsigned int * __end0 = __range1.end();
           for(; __begin0 != __end0; ++__begin0) {
             unsigned int col = *__begin0;
             cells.operator[](static_cast<unsigned long>((row * 9U) + col)).operator=(std::pair<unsigned int, unsigned int>{row, col});
@@ -464,15 +464,15 @@ class SudokuConstants<9>
   {
     std::array<std::array<std::pair<unsigned int, unsigned int>, 9>, 27> regions = std::array<std::array<std::pair<unsigned int, unsigned int>, 9>, 27>();
     {
-      std::array<unsigned int, 9> && __range2 = make_values();
-      unsigned int * __begin0 = __range2.begin();
-      unsigned int * __end0 = __range2.end();
+      std::array<unsigned int, 9> && __range0 = make_values();
+      unsigned int * __begin0 = __range0.begin();
+      unsigned int * __end0 = __range0.end();
       for(; __begin0 != __end0; ++__begin0) {
         unsigned int row = *__begin0;
         {
-          std::array<unsigned int, 9> && __range3 = make_values();
-          unsigned int * __begin0 = __range3.begin();
-          unsigned int * __end0 = __range3.end();
+          std::array<unsigned int, 9> && __range1 = make_values();
+          unsigned int * __begin0 = __range1.begin();
+          unsigned int * __end0 = __range1.end();
           for(; __begin0 != __end0; ++__begin0) {
             unsigned int col = *__begin0;
             regions.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col)).operator=(std::pair<unsigned int, unsigned int>{row, col});
@@ -483,15 +483,15 @@ class SudokuConstants<9>
       
     }
     {
-      std::array<unsigned int, 9> && __range2 = make_values();
-      unsigned int * __begin0 = __range2.begin();
-      unsigned int * __end0 = __range2.end();
+      std::array<unsigned int, 9> && __range0 = make_values();
+      unsigned int * __begin0 = __range0.begin();
+      unsigned int * __end0 = __range0.end();
       for(; __begin0 != __end0; ++__begin0) {
         unsigned int col = *__begin0;
         {
-          std::array<unsigned int, 9> && __range3 = make_values();
-          unsigned int * __begin0 = __range3.begin();
-          unsigned int * __end0 = __range3.end();
+          std::array<unsigned int, 9> && __range1 = make_values();
+          unsigned int * __begin0 = __range1.begin();
+          unsigned int * __end0 = __range1.end();
           for(; __begin0 != __end0; ++__begin0) {
             unsigned int row = *__begin0;
             regions.operator[](static_cast<unsigned long>(9U + col)).operator[](static_cast<unsigned long>(row)).operator=(std::pair<unsigned int, unsigned int>{row, col});
@@ -502,17 +502,17 @@ class SudokuConstants<9>
       
     }
     {
-      std::array<unsigned int, 9> && __range2 = make_values();
-      unsigned int * __begin0 = __range2.begin();
-      unsigned int * __end0 = __range2.end();
+      std::array<unsigned int, 9> && __range0 = make_values();
+      unsigned int * __begin0 = __range0.begin();
+      unsigned int * __end0 = __range0.end();
       for(; __begin0 != __end0; ++__begin0) {
         unsigned int square = *__begin0;
         const unsigned int top_row = (square / sqrt_size) * sqrt_size;
         const unsigned int left_col = (square % sqrt_size) * sqrt_size;
         {
-          std::array<unsigned int, 9> && __range3 = make_values();
-          unsigned int * __begin0 = __range3.begin();
-          unsigned int * __end0 = __range3.end();
+          std::array<unsigned int, 9> && __range1 = make_values();
+          unsigned int * __begin0 = __range1.begin();
+          unsigned int * __end0 = __range1.end();
           for(; __begin0 != __end0; ++__begin0) {
             unsigned int cell = *__begin0;
             const unsigned int delta_row = cell / sqrt_size;
@@ -533,15 +533,15 @@ class SudokuConstants<9>
   {
     std::array<std::array<std::array<unsigned int, 3>, 9>, 9> regions_of;
     {
-      std::array<unsigned int, 9> && __range2 = make_values();
-      unsigned int * __begin0 = __range2.begin();
-      unsigned int * __end0 = __range2.end();
+      std::array<unsigned int, 9> && __range0 = make_values();
+      unsigned int * __begin0 = __range0.begin();
+      unsigned int * __end0 = __range0.end();
       for(; __begin0 != __end0; ++__begin0) {
         unsigned int row = *__begin0;
         {
-          std::array<unsigned int, 9> && __range3 = make_values();
-          unsigned int * __begin0 = __range3.begin();
-          unsigned int * __end0 = __range3.end();
+          std::array<unsigned int, 9> && __range1 = make_values();
+          unsigned int * __begin0 = __range1.begin();
+          unsigned int * __end0 = __range1.end();
           for(; __begin0 != __end0; ++__begin0) {
             unsigned int col = *__begin0;
             regions_of.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col)).operator=({{row, 9U + col, ((static_cast<unsigned int>(2) * 9U) + ((row / sqrt_size) * sqrt_size)) + (col / sqrt_size)}});
@@ -647,26 +647,26 @@ class SudokuBase
     inline auto cells() const
     {
             
-      class __lambda_201_28
+      class __lambda_0
       {
         public: 
         template<class type_parameter_1_0>
         inline const SudokuBase::Cell & operator()(const type_parameter_1_0 & coords) const
         {
-          const auto __coords202 = coords;
+          const auto __coords0 = coords;
           return __this->sudoku->_cells[row][col];
         }
         private: 
         const SudokuBase::Region * __this;
         
         public:
-        __lambda_201_28(const SudokuBase::Region * _this)
+        __lambda_0(const SudokuBase::Region * _this)
         : __this{_this}
         {}
         
       };
       
-      const auto convert = __lambda_201_28{this};
+      const auto convert = __lambda_0{this};
       return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::regions[this->_index].begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::regions[this->_index].end(), convert));
     }
     
@@ -741,9 +741,9 @@ class SudokuBase
   public: 
   inline Cell & cell(const std::pair<unsigned int, unsigned int> & coords)
   {
-    const std::pair<unsigned int, unsigned int> __coords275 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords275));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords275));
+    const std::pair<unsigned int, unsigned int> __coords1 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords1));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords1));
     (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "src/puzzle/sudoku.hpp", 149, __extension____PRETTY_FUNCTION__));
     (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "src/puzzle/sudoku.hpp", 150, __extension____PRETTY_FUNCTION__));
     return this->_cells[row][col];
@@ -751,9 +751,9 @@ class SudokuBase
   
   inline const Cell & cell(const std::pair<unsigned int, unsigned int> & coords) const
   {
-    const std::pair<unsigned int, unsigned int> __coords282 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords282));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords282));
+    const std::pair<unsigned int, unsigned int> __coords2 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords2));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords2));
     (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "src/puzzle/sudoku.hpp", 156, __extension____PRETTY_FUNCTION__));
     (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "src/puzzle/sudoku.hpp", 157, __extension____PRETTY_FUNCTION__));
     return this->_cells[row][col];
@@ -762,59 +762,59 @@ class SudokuBase
   inline auto cells() const
   {
         
-    class __lambda_289_26
+    class __lambda_1
     {
       public: 
       template<class type_parameter_1_0>
       inline const Cell & operator()(const type_parameter_1_0 & cell) const
       {
-        const auto __cell290 = cell;
+        const auto __cell0 = cell;
         return __this->_cells[row][col];
       }
       private: 
       const SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_289_26(const SudokuBase<CellBase, size> * _this)
+      __lambda_1(const SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_289_26{this};
+    const auto convert = __lambda_1{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::cells.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::cells.end(), convert));
   }
   
   inline auto cells()
   {
         
-    class __lambda_300_26
+    class __lambda_2
     {
       public: 
       template<class type_parameter_1_0>
       inline Cell & operator()(const type_parameter_1_0 & cell) const
       {
-        const auto __cell301 = cell;
+        const auto __cell1 = cell;
         return __this->_cells[row][col];
       }
       private: 
       SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_300_26(SudokuBase<CellBase, size> * _this)
+      __lambda_2(SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_300_26{this};
+    const auto convert = __lambda_2{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::cells.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::cells.end(), convert));
   }
   
   inline auto regions() const
   {
         
-    class __lambda_311_26
+    class __lambda_3
     {
       public: 
       inline const Region operator()(const unsigned int index) const
@@ -826,13 +826,13 @@ class SudokuBase
       const SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_311_26(const SudokuBase<CellBase, size> * _this)
+      __lambda_3(const SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_311_26{this};
+    const auto convert = __lambda_3{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::region_indexes.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::region_indexes.end(), convert));
   }
   
@@ -893,16 +893,16 @@ class SudokuBase<ValueCell, 4>
     public: 
     inline unsigned int index() const;
     
-    inline boost::iterator_range<boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > cells() const
+    inline boost::iterator_range<boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > cells() const
     {
             
-      class __lambda_201_28
+      class __lambda_0
       {
         public: 
         template<class type_parameter_0_0>
         inline /*constexpr */ const Cell & operator()(const type_parameter_0_0 & coords) const
         {
-          const auto __coords202 = coords;
+          const auto __coords0 = coords;
           return __this->sudoku->_cells[row][col];
         }
         
@@ -911,9 +911,9 @@ class SudokuBase<ValueCell, 4>
         template<>
         inline /*constexpr */ const Cell & operator()<std::pair<unsigned int, unsigned int> >(const std::pair<unsigned int, unsigned int> & coords) const
         {
-          const std::pair<unsigned int, unsigned int> __coords202 = std::pair<unsigned int, unsigned int>(coords);
-          const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords202));
-          const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords202));
+          const std::pair<unsigned int, unsigned int> __coords0 = std::pair<unsigned int, unsigned int>(coords);
+          const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords0));
+          const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords0));
           return __this->sudoku->_cells.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col));
         }
         #endif
@@ -921,16 +921,16 @@ class SudokuBase<ValueCell, 4>
         private: 
         const SudokuBase<ValueCell, 4>::Region * __this;
         public: 
-        // inline /*constexpr */ __lambda_201_28 & operator=(const __lambda_201_28 &) /* noexcept */ = delete;
-        // inline /*constexpr */ __lambda_201_28(const __lambda_201_28 &) noexcept = default;
-        __lambda_201_28(const SudokuBase<ValueCell, 4>::Region * _this)
+        // inline /*constexpr */ __lambda_0 & operator=(const __lambda_0 &) /* noexcept */ = delete;
+        // inline /*constexpr */ __lambda_0(const __lambda_0 &) noexcept = default;
+        __lambda_0(const SudokuBase<ValueCell, 4>::Region * _this)
         : __this{_this}
         {}
         
       };
       
-      const __lambda_201_28 convert = static_cast<const __lambda_201_28>(__lambda_201_28{this});
-      return boost::make_iterator_range<boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> >(boost::iterators::make_transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<4>::regions.operator[](static_cast<unsigned long>(this->_index)).begin(), __lambda_201_28(convert)), boost::iterators::make_transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<4>::regions.operator[](static_cast<unsigned long>(this->_index)).end(), __lambda_201_28(convert)));
+      const __lambda_0 convert = static_cast<const __lambda_0>(__lambda_0{this});
+      return boost::make_iterator_range<boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> >(boost::iterators::make_transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<4>::regions.operator[](static_cast<unsigned long>(this->_index)).begin(), __lambda_0(convert)), boost::iterators::make_transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<4>::regions.operator[](static_cast<unsigned long>(this->_index)).end(), __lambda_0(convert)));
     }
     
     
@@ -977,16 +977,16 @@ class SudokuBase<ValueCell, 4>
   
   inline const Cell & cell(const std::pair<unsigned int, unsigned int> & coords) const;
   
-  inline boost::iterator_range<boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > cells() const
+  inline boost::iterator_range<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > cells() const
   {
         
-    class __lambda_289_26
+    class __lambda_1
     {
       public: 
       template<class type_parameter_0_0>
       inline /*constexpr */ const Cell & operator()(const type_parameter_0_0 & cell) const
       {
-        const auto __cell290 = cell;
+        const auto __cell0 = cell;
         return __this->_cells[row][col];
       }
       
@@ -995,9 +995,9 @@ class SudokuBase<ValueCell, 4>
       template<>
       inline /*constexpr */ const Cell & operator()<std::pair<unsigned int, unsigned int> >(const std::pair<unsigned int, unsigned int> & cell) const
       {
-        const std::pair<unsigned int, unsigned int> __cell290 = std::pair<unsigned int, unsigned int>(cell);
-        const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell290));
-        const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell290));
+        const std::pair<unsigned int, unsigned int> __cell0 = std::pair<unsigned int, unsigned int>(cell);
+        const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell0));
+        const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell0));
         return __this->_cells.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col));
       }
       #endif
@@ -1005,24 +1005,24 @@ class SudokuBase<ValueCell, 4>
       private: 
       const SudokuBase<ValueCell, 4> * __this;
       public: 
-      // inline /*constexpr */ __lambda_289_26 & operator=(const __lambda_289_26 &) /* noexcept */ = delete;
-      // inline /*constexpr */ __lambda_289_26(const __lambda_289_26 &) noexcept = default;
-      __lambda_289_26(const SudokuBase<ValueCell, 4> * _this)
+      // inline /*constexpr */ __lambda_1 & operator=(const __lambda_1 &) /* noexcept */ = delete;
+      // inline /*constexpr */ __lambda_1(const __lambda_1 &) noexcept = default;
+      __lambda_1(const SudokuBase<ValueCell, 4> * _this)
       : __this{_this}
       {}
       
     };
     
-    const __lambda_289_26 convert = static_cast<const __lambda_289_26>(__lambda_289_26{this});
-    return boost::make_iterator_range<boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> >(boost::iterators::make_transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<4>::cells.begin(), __lambda_289_26(convert)), boost::iterators::make_transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<4>::cells.end(), __lambda_289_26(convert)));
+    const __lambda_1 convert = static_cast<const __lambda_1>(__lambda_1{this});
+    return boost::make_iterator_range<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> >(boost::iterators::make_transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<4>::cells.begin(), __lambda_1(convert)), boost::iterators::make_transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<4>::cells.end(), __lambda_1(convert)));
   }
   
   inline auto cells();
   
-  inline boost::iterator_range<boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default> > regions() const
+  inline boost::iterator_range<boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default> > regions() const
   {
         
-    class __lambda_311_26
+    class __lambda_3
     {
       public: 
       inline const Region operator()(const unsigned int index) const
@@ -1033,16 +1033,16 @@ class SudokuBase<ValueCell, 4>
       private: 
       const SudokuBase<ValueCell, 4> * __this;
       public: 
-      // inline /*constexpr */ __lambda_311_26 & operator=(const __lambda_311_26 &) /* noexcept */ = delete;
-      // inline /*constexpr */ __lambda_311_26(const __lambda_311_26 &) noexcept = default;
-      __lambda_311_26(const SudokuBase<ValueCell, 4> * _this)
+      // inline /*constexpr */ __lambda_3 & operator=(const __lambda_3 &) /* noexcept */ = delete;
+      // inline /*constexpr */ __lambda_3(const __lambda_3 &) noexcept = default;
+      __lambda_3(const SudokuBase<ValueCell, 4> * _this)
       : __this{_this}
       {}
       
     };
     
-    const __lambda_311_26 convert = static_cast<const __lambda_311_26>(__lambda_311_26{this});
-    return boost::make_iterator_range<boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default> >(boost::iterators::make_transform_iterator<__lambda_311_26, const unsigned int *>(SudokuConstants<4>::region_indexes.begin(), __lambda_311_26(convert)), boost::iterators::make_transform_iterator<__lambda_311_26, const unsigned int *>(SudokuConstants<4>::region_indexes.end(), __lambda_311_26(convert)));
+    const __lambda_3 convert = static_cast<const __lambda_3>(__lambda_3{this});
+    return boost::make_iterator_range<boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default> >(boost::iterators::make_transform_iterator<__lambda_3, const unsigned int *>(SudokuConstants<4>::region_indexes.begin(), __lambda_3(convert)), boost::iterators::make_transform_iterator<__lambda_3, const unsigned int *>(SudokuConstants<4>::region_indexes.end(), __lambda_3(convert)));
   }
   
   
@@ -1104,16 +1104,16 @@ class SudokuBase<ValueCell, 9>
     public: 
     inline unsigned int index() const;
     
-    inline boost::iterator_range<boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > cells() const
+    inline boost::iterator_range<boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > cells() const
     {
             
-      class __lambda_201_28
+      class __lambda_0
       {
         public: 
         template<class type_parameter_0_0>
         inline /*constexpr */ const Cell & operator()(const type_parameter_0_0 & coords) const
         {
-          const auto __coords202 = coords;
+          const auto __coords0 = coords;
           return __this->sudoku->_cells[row][col];
         }
         
@@ -1122,9 +1122,9 @@ class SudokuBase<ValueCell, 9>
         template<>
         inline /*constexpr */ const Cell & operator()<std::pair<unsigned int, unsigned int> >(const std::pair<unsigned int, unsigned int> & coords) const
         {
-          const std::pair<unsigned int, unsigned int> __coords202 = std::pair<unsigned int, unsigned int>(coords);
-          const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords202));
-          const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords202));
+          const std::pair<unsigned int, unsigned int> __coords0 = std::pair<unsigned int, unsigned int>(coords);
+          const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords0));
+          const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords0));
           return __this->sudoku->_cells.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col));
         }
         #endif
@@ -1132,16 +1132,16 @@ class SudokuBase<ValueCell, 9>
         private: 
         const SudokuBase<ValueCell, 9>::Region * __this;
         public: 
-        // inline /*constexpr */ __lambda_201_28 & operator=(const __lambda_201_28 &) /* noexcept */ = delete;
-        // inline /*constexpr */ __lambda_201_28(const __lambda_201_28 &) noexcept = default;
-        __lambda_201_28(const SudokuBase<ValueCell, 9>::Region * _this)
+        // inline /*constexpr */ __lambda_0 & operator=(const __lambda_0 &) /* noexcept */ = delete;
+        // inline /*constexpr */ __lambda_0(const __lambda_0 &) noexcept = default;
+        __lambda_0(const SudokuBase<ValueCell, 9>::Region * _this)
         : __this{_this}
         {}
         
       };
       
-      const __lambda_201_28 convert = static_cast<const __lambda_201_28>(__lambda_201_28{this});
-      return boost::make_iterator_range<boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> >(boost::iterators::make_transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<9>::regions.operator[](static_cast<unsigned long>(this->_index)).begin(), __lambda_201_28(convert)), boost::iterators::make_transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<9>::regions.operator[](static_cast<unsigned long>(this->_index)).end(), __lambda_201_28(convert)));
+      const __lambda_0 convert = static_cast<const __lambda_0>(__lambda_0{this});
+      return boost::make_iterator_range<boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> >(boost::iterators::make_transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<9>::regions.operator[](static_cast<unsigned long>(this->_index)).begin(), __lambda_0(convert)), boost::iterators::make_transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<9>::regions.operator[](static_cast<unsigned long>(this->_index)).end(), __lambda_0(convert)));
     }
     
     
@@ -1188,16 +1188,16 @@ class SudokuBase<ValueCell, 9>
   
   inline const Cell & cell(const std::pair<unsigned int, unsigned int> & coords) const;
   
-  inline boost::iterator_range<boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > cells() const
+  inline boost::iterator_range<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > cells() const
   {
         
-    class __lambda_289_26
+    class __lambda_1
     {
       public: 
       template<class type_parameter_0_0>
       inline /*constexpr */ const Cell & operator()(const type_parameter_0_0 & cell) const
       {
-        const auto __cell290 = cell;
+        const auto __cell0 = cell;
         return __this->_cells[row][col];
       }
       
@@ -1206,9 +1206,9 @@ class SudokuBase<ValueCell, 9>
       template<>
       inline /*constexpr */ const Cell & operator()<std::pair<unsigned int, unsigned int> >(const std::pair<unsigned int, unsigned int> & cell) const
       {
-        const std::pair<unsigned int, unsigned int> __cell290 = std::pair<unsigned int, unsigned int>(cell);
-        const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell290));
-        const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell290));
+        const std::pair<unsigned int, unsigned int> __cell0 = std::pair<unsigned int, unsigned int>(cell);
+        const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell0));
+        const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell0));
         return __this->_cells.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col));
       }
       #endif
@@ -1216,24 +1216,24 @@ class SudokuBase<ValueCell, 9>
       private: 
       const SudokuBase<ValueCell, 9> * __this;
       public: 
-      // inline /*constexpr */ __lambda_289_26 & operator=(const __lambda_289_26 &) /* noexcept */ = delete;
-      // inline /*constexpr */ __lambda_289_26(const __lambda_289_26 &) noexcept = default;
-      __lambda_289_26(const SudokuBase<ValueCell, 9> * _this)
+      // inline /*constexpr */ __lambda_1 & operator=(const __lambda_1 &) /* noexcept */ = delete;
+      // inline /*constexpr */ __lambda_1(const __lambda_1 &) noexcept = default;
+      __lambda_1(const SudokuBase<ValueCell, 9> * _this)
       : __this{_this}
       {}
       
     };
     
-    const __lambda_289_26 convert = static_cast<const __lambda_289_26>(__lambda_289_26{this});
-    return boost::make_iterator_range<boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> >(boost::iterators::make_transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<9>::cells.begin(), __lambda_289_26(convert)), boost::iterators::make_transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<9>::cells.end(), __lambda_289_26(convert)));
+    const __lambda_1 convert = static_cast<const __lambda_1>(__lambda_1{this});
+    return boost::make_iterator_range<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> >(boost::iterators::make_transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<9>::cells.begin(), __lambda_1(convert)), boost::iterators::make_transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<9>::cells.end(), __lambda_1(convert)));
   }
   
   inline auto cells();
   
-  inline boost::iterator_range<boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default> > regions() const
+  inline boost::iterator_range<boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default> > regions() const
   {
         
-    class __lambda_311_26
+    class __lambda_3
     {
       public: 
       inline const Region operator()(const unsigned int index) const
@@ -1244,16 +1244,16 @@ class SudokuBase<ValueCell, 9>
       private: 
       const SudokuBase<ValueCell, 9> * __this;
       public: 
-      // inline /*constexpr */ __lambda_311_26 & operator=(const __lambda_311_26 &) /* noexcept */ = delete;
-      // inline /*constexpr */ __lambda_311_26(const __lambda_311_26 &) noexcept = default;
-      __lambda_311_26(const SudokuBase<ValueCell, 9> * _this)
+      // inline /*constexpr */ __lambda_3 & operator=(const __lambda_3 &) /* noexcept */ = delete;
+      // inline /*constexpr */ __lambda_3(const __lambda_3 &) noexcept = default;
+      __lambda_3(const SudokuBase<ValueCell, 9> * _this)
       : __this{_this}
       {}
       
     };
     
-    const __lambda_311_26 convert = static_cast<const __lambda_311_26>(__lambda_311_26{this});
-    return boost::make_iterator_range<boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default> >(boost::iterators::make_transform_iterator<__lambda_311_26, const unsigned int *>(SudokuConstants<9>::region_indexes.begin(), __lambda_311_26(convert)), boost::iterators::make_transform_iterator<__lambda_311_26, const unsigned int *>(SudokuConstants<9>::region_indexes.end(), __lambda_311_26(convert)));
+    const __lambda_3 convert = static_cast<const __lambda_3>(__lambda_3{this});
+    return boost::make_iterator_range<boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default> >(boost::iterators::make_transform_iterator<__lambda_3, const unsigned int *>(SudokuConstants<9>::region_indexes.begin(), __lambda_3(convert)), boost::iterators::make_transform_iterator<__lambda_3, const unsigned int *>(SudokuConstants<9>::region_indexes.end(), __lambda_3(convert)));
   }
   
   
@@ -1388,7 +1388,7 @@ template<unsigned int size>
 bool is_solved(const Sudoku<ValueCell, size> & sudoku)
 {
   {
-    auto && __range1 = sudoku.cells();
+    auto && __range2 = sudoku.cells();
     for(; ; ) {
       const auto & cell;
       if(!cell.get()) {
@@ -1399,12 +1399,12 @@ bool is_solved(const Sudoku<ValueCell, size> & sudoku)
     
   }
   {
-    auto && __range1 = sudoku.regions();
+    auto && __range2 = sudoku.regions();
     for(; ; ) {
       const auto & region;
       std::bitset<size> seen;
       {
-        auto && __range2 = region.cells();
+        auto && __range0 = region.cells();
         for(; ; ) {
           const auto & cell;
           const unsigned int val = *cell.get();
@@ -1430,11 +1430,11 @@ template<>
 bool is_solved<4>(const Sudoku<ValueCell, 4> & sudoku)
 {
   {
-    boost::iterator_range<boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > && __range1 = static_cast<const SudokuBase<ValueCell, 4>&>(sudoku).cells();
-    boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __begin0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range1).begin();
-    boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __end0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range1).end();
-    for(; boost::iterators::operator!=(static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__begin0)), static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__end0))); static_cast<boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Cell &, long, false, false>&>(__begin0).operator++()) {
-      const SudokuBase<ValueCell, 4>::Cell & cell = static_cast<const boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Cell &, long, false, false>&>(__begin0).operator*();
+    boost::iterator_range<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > && __range2 = static_cast<const SudokuBase<ValueCell, 4>&>(sudoku).cells();
+    boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __begin0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range2).begin();
+    boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __end0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range2).end();
+    for(; boost::iterators::operator!=(static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__begin0)), static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__end0))); static_cast<boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Cell &, long, false, false>&>(__begin0).operator++()) {
+      const SudokuBase<ValueCell, 4>::Cell & cell = static_cast<const boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Cell &, long, false, false>&>(__begin0).operator*();
       if(!static_cast<bool>(static_cast<const std::optional<unsigned int>>(static_cast<const ValueCell&>(cell).get()).operator bool())) {
         return false;
       } 
@@ -1443,18 +1443,18 @@ bool is_solved<4>(const Sudoku<ValueCell, 4> & sudoku)
     
   }
   {
-    boost::iterator_range<boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default> > && __range1 = static_cast<const SudokuBase<ValueCell, 4>&>(sudoku).regions();
-    boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default> __begin0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range1).begin();
-    boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default> __end0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range1).end();
-    for(; boost::iterators::operator!=(static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Region, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Region, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default>>(__begin0)), static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Region, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Region, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default>>(__end0))); static_cast<boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Region, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Region, long, false, false>&>(__begin0).operator++()) {
-      const SudokuBase<ValueCell, 4>::Region & region = static_cast<const boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Region, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Region, long, false, false>&>(__begin0).operator*();
+    boost::iterator_range<boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default> > && __range2 = static_cast<const SudokuBase<ValueCell, 4>&>(sudoku).regions();
+    boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default> __begin0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range2).begin();
+    boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default> __end0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range2).end();
+    for(; boost::iterators::operator!=(static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Region, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Region, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default>>(__begin0)), static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Region, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Region, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default>>(__end0))); static_cast<boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Region, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Region, long, false, false>&>(__begin0).operator++()) {
+      const SudokuBase<ValueCell, 4>::Region & region = static_cast<const boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Region, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Region, long, false, false>&>(__begin0).operator*();
       std::bitset<4> seen = std::bitset<4>();
       {
-        boost::iterator_range<boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > && __range2 = region.cells();
-        boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __begin0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range2).begin();
-        boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __end0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range2).end();
-        for(; boost::iterators::operator!=(static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__begin0)), static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__end0))); static_cast<boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Cell &, long, false, false>&>(__begin0).operator++()) {
-          const SudokuBase<ValueCell, 4>::Cell & cell = static_cast<const boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Cell &, long, false, false>&>(__begin0).operator*();
+        boost::iterator_range<boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > && __range0 = region.cells();
+        boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __begin0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range0).begin();
+        boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __end0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range0).end();
+        for(; boost::iterators::operator!=(static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__begin0)), static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__end0))); static_cast<boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Cell &, long, false, false>&>(__begin0).operator++()) {
+          const SudokuBase<ValueCell, 4>::Cell & cell = static_cast<const boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Cell &, long, false, false>&>(__begin0).operator*();
           const unsigned int val = static_cast<const ValueCell&>(cell).get().operator*();
           (static_cast<bool>(val < 4U) ? void(0) : __assert_fail(static_cast<const char *>("val < size"), static_cast<const char *>("src/puzzle/check.cpp"), static_cast<unsigned int>(21), static_cast<const char *>(__extension__"bool is_solved(const Sudoku<ValueCell, size> &) [size = 4U]")));
           if(static_cast<bool>(static_cast<const std::bitset<4>::reference>(seen.operator[](static_cast<unsigned long>(val))).operator bool())) {
@@ -1479,11 +1479,11 @@ template<>
 bool is_solved<9>(const Sudoku<ValueCell, 9> & sudoku)
 {
   {
-    boost::iterator_range<boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > && __range1 = static_cast<const SudokuBase<ValueCell, 9>&>(sudoku).cells();
-    boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __begin0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range1).begin();
-    boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __end0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range1).end();
-    for(; boost::iterators::operator!=(static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__begin0)), static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__end0))); static_cast<boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Cell &, long, false, false>&>(__begin0).operator++()) {
-      const SudokuBase<ValueCell, 9>::Cell & cell = static_cast<const boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_289_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Cell &, long, false, false>&>(__begin0).operator*();
+    boost::iterator_range<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > && __range2 = static_cast<const SudokuBase<ValueCell, 9>&>(sudoku).cells();
+    boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __begin0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range2).begin();
+    boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __end0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range2).end();
+    for(; boost::iterators::operator!=(static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__begin0)), static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__end0))); static_cast<boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Cell &, long, false, false>&>(__begin0).operator++()) {
+      const SudokuBase<ValueCell, 9>::Cell & cell = static_cast<const boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Cell &, long, false, false>&>(__begin0).operator*();
       if(!static_cast<bool>(static_cast<const std::optional<unsigned int>>(static_cast<const ValueCell&>(cell).get()).operator bool())) {
         return false;
       } 
@@ -1492,18 +1492,18 @@ bool is_solved<9>(const Sudoku<ValueCell, 9> & sudoku)
     
   }
   {
-    boost::iterator_range<boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default> > && __range1 = static_cast<const SudokuBase<ValueCell, 9>&>(sudoku).regions();
-    boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default> __begin0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range1).begin();
-    boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default> __end0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range1).end();
-    for(; boost::iterators::operator!=(static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Region, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Region, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default>>(__begin0)), static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Region, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Region, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default>>(__end0))); static_cast<boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Region, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Region, long, false, false>&>(__begin0).operator++()) {
-      const SudokuBase<ValueCell, 9>::Region & region = static_cast<const boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_311_26, const unsigned int *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Region, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Region, long, false, false>&>(__begin0).operator*();
+    boost::iterator_range<boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default> > && __range2 = static_cast<const SudokuBase<ValueCell, 9>&>(sudoku).regions();
+    boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default> __begin0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range2).begin();
+    boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default> __end0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range2).end();
+    for(; boost::iterators::operator!=(static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Region, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Region, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default>>(__begin0)), static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Region, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Region, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default>>(__end0))); static_cast<boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Region, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Region, long, false, false>&>(__begin0).operator++()) {
+      const SudokuBase<ValueCell, 9>::Region & region = static_cast<const boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_3, const unsigned int *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Region, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Region, long, false, false>&>(__begin0).operator*();
       std::bitset<9> seen = std::bitset<9>();
       {
-        boost::iterator_range<boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > && __range2 = region.cells();
-        boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __begin0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range2).begin();
-        boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __end0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range2).end();
-        for(; boost::iterators::operator!=(static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__begin0)), static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__end0))); static_cast<boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Cell &, long, false, false>&>(__begin0).operator++()) {
-          const SudokuBase<ValueCell, 9>::Cell & cell = static_cast<const boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_201_28, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Cell &, long, false, false>&>(__begin0).operator*();
+        boost::iterator_range<boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > && __range0 = region.cells();
+        boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __begin0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range0).begin();
+        boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __end0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range0).end();
+        for(; boost::iterators::operator!=(static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__begin0)), static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__end0))); static_cast<boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Cell &, long, false, false>&>(__begin0).operator++()) {
+          const SudokuBase<ValueCell, 9>::Cell & cell = static_cast<const boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_0, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Cell &, long, false, false>&>(__begin0).operator*();
           const unsigned int val = static_cast<const ValueCell&>(cell).get().operator*();
           (static_cast<bool>(val < 9U) ? void(0) : __assert_fail(static_cast<const char *>("val < size"), static_cast<const char *>("src/puzzle/check.cpp"), static_cast<unsigned int>(21), static_cast<const char *>(__extension__"bool is_solved(const Sudoku<ValueCell, size> &) [size = 9U]")));
           if(static_cast<bool>(static_cast<const std::bitset<9>::reference>(seen.operator[](static_cast<unsigned long>(val))).operator bool())) {

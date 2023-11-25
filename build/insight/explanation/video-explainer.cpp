@@ -114,11 +114,11 @@ class SudokuConstants
   {
     std::array<std::pair<unsigned int, unsigned int>, size * size> cells;
     {
-      auto && __range2 = make_values();
+      auto && __range0 = make_values();
       for(; ; ) {
         unsigned int row;
         {
-          auto && __range3 = make_values();
+          auto && __range1 = make_values();
           for(; ; ) {
             unsigned int col;
             cells[(row * size) + col] = {row, col};
@@ -145,11 +145,11 @@ class SudokuConstants
   {
     std::array<std::array<std::pair<unsigned int, unsigned int>, size>, 3 * size> regions;
     {
-      auto && __range2 = make_values();
+      auto && __range0 = make_values();
       for(; ; ) {
         unsigned int row;
         {
-          auto && __range3 = make_values();
+          auto && __range1 = make_values();
           for(; ; ) {
             unsigned int col;
             regions[row][col] = {row, col};
@@ -160,11 +160,11 @@ class SudokuConstants
       
     }
     {
-      auto && __range2 = make_values();
+      auto && __range0 = make_values();
       for(; ; ) {
         unsigned int col;
         {
-          auto && __range3 = make_values();
+          auto && __range1 = make_values();
           for(; ; ) {
             unsigned int row;
             regions[size + col][row] = {row, col};
@@ -175,13 +175,13 @@ class SudokuConstants
       
     }
     {
-      auto && __range2 = make_values();
+      auto && __range0 = make_values();
       for(; ; ) {
         unsigned int square;
         const unsigned int top_row = (square / sqrt_size) * sqrt_size;
         const unsigned int left_col = (square % sqrt_size) * sqrt_size;
         {
-          auto && __range3 = make_values();
+          auto && __range1 = make_values();
           for(; ; ) {
             unsigned int cell;
             const unsigned int delta_row = cell / sqrt_size;
@@ -202,11 +202,11 @@ class SudokuConstants
   {
     std::array<std::array<std::array<unsigned int, 3>, size>, size> regions_of;
     {
-      auto && __range2 = make_values();
+      auto && __range0 = make_values();
       for(; ; ) {
         unsigned int row;
         {
-          auto && __range3 = make_values();
+          auto && __range1 = make_values();
           for(; ; ) {
             unsigned int col;
             regions_of[row][col] = {row, size + col, ((static_cast<unsigned int>(2) * size) + ((row / sqrt_size) * sqrt_size)) + (col / sqrt_size)};
@@ -311,26 +311,26 @@ class SudokuBase
     inline auto cells() const
     {
             
-      class __lambda_233_28
+      class __lambda_0
       {
         public: 
         template<class type_parameter_1_0>
         inline const SudokuBase::Cell & operator()(const type_parameter_1_0 & coords) const
         {
-          const auto __coords234 = coords;
+          const auto __coords0 = coords;
           return __this->sudoku->_cells[row][col];
         }
         private: 
         const SudokuBase::Region * __this;
         
         public:
-        __lambda_233_28(const SudokuBase::Region * _this)
+        __lambda_0(const SudokuBase::Region * _this)
         : __this{_this}
         {}
         
       };
       
-      const auto convert = __lambda_233_28{this};
+      const auto convert = __lambda_0{this};
       return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::regions[this->_index].begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::regions[this->_index].end(), convert));
     }
     
@@ -405,9 +405,9 @@ class SudokuBase
   public: 
   inline Cell & cell(const std::pair<unsigned int, unsigned int> & coords)
   {
-    const std::pair<unsigned int, unsigned int> __coords307 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords307));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords307));
+    const std::pair<unsigned int, unsigned int> __coords1 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords1));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords1));
     (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "src/puzzle/sudoku.hpp", 149, __extension____PRETTY_FUNCTION__));
     (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "src/puzzle/sudoku.hpp", 150, __extension____PRETTY_FUNCTION__));
     return this->_cells[row][col];
@@ -415,9 +415,9 @@ class SudokuBase
   
   inline const Cell & cell(const std::pair<unsigned int, unsigned int> & coords) const
   {
-    const std::pair<unsigned int, unsigned int> __coords314 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords314));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords314));
+    const std::pair<unsigned int, unsigned int> __coords2 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords2));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords2));
     (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "src/puzzle/sudoku.hpp", 156, __extension____PRETTY_FUNCTION__));
     (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "src/puzzle/sudoku.hpp", 157, __extension____PRETTY_FUNCTION__));
     return this->_cells[row][col];
@@ -426,59 +426,59 @@ class SudokuBase
   inline auto cells() const
   {
         
-    class __lambda_321_26
+    class __lambda_1
     {
       public: 
       template<class type_parameter_1_0>
       inline const Cell & operator()(const type_parameter_1_0 & cell) const
       {
-        const auto __cell322 = cell;
+        const auto __cell0 = cell;
         return __this->_cells[row][col];
       }
       private: 
       const SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_321_26(const SudokuBase<CellBase, size> * _this)
+      __lambda_1(const SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_321_26{this};
+    const auto convert = __lambda_1{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::cells.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::cells.end(), convert));
   }
   
   inline auto cells()
   {
         
-    class __lambda_332_26
+    class __lambda_2
     {
       public: 
       template<class type_parameter_1_0>
       inline Cell & operator()(const type_parameter_1_0 & cell) const
       {
-        const auto __cell333 = cell;
+        const auto __cell1 = cell;
         return __this->_cells[row][col];
       }
       private: 
       SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_332_26(SudokuBase<CellBase, size> * _this)
+      __lambda_2(SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_332_26{this};
+    const auto convert = __lambda_2{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::cells.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::cells.end(), convert));
   }
   
   inline auto regions() const
   {
         
-    class __lambda_343_26
+    class __lambda_3
     {
       public: 
       inline const Region operator()(const unsigned int index) const
@@ -490,13 +490,13 @@ class SudokuBase
       const SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_343_26(const SudokuBase<CellBase, size> * _this)
+      __lambda_3(const SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_343_26{this};
+    const auto convert = __lambda_3{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::region_indexes.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::region_indexes.end(), convert));
   }
   
@@ -1116,7 +1116,7 @@ class Sudoku<AnnotatedCell<size>, size> : public SudokuBase<AnnotatedCell<size>,
   inline bool is_solved() const
   {
     {
-      auto && __range2 = this->cells();
+      auto && __range0 = this->cells();
       for(; ; ) {
         const auto & cell;
         if(!cell.is_set()) {
@@ -1835,11 +1835,11 @@ namespace video
     inline virtual void serialize(std::shared_ptr<Cairo::ImageSurface> surface)
     {
       {
-        std::vector<Serializer *, std::allocator<Serializer *> > & __range2 = this->serializers;
-        __gnu_cxx::__normal_iterator<Serializer **, std::vector<Serializer *, std::allocator<Serializer *> > > __begin2 = __range2.begin();
-        __gnu_cxx::__normal_iterator<Serializer **, std::vector<Serializer *, std::allocator<Serializer *> > > __end2 = __range2.end();
-        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<Serializer **, std::vector<Serializer *, std::allocator<Serializer *> > >>(__begin2), static_cast<const __gnu_cxx::__normal_iterator<Serializer **, std::vector<Serializer *, std::allocator<Serializer *> > >>(__end2)); __begin2.operator++()) {
-          Serializer *& serializer = static_cast<const __gnu_cxx::__normal_iterator<Serializer **, std::vector<Serializer *, std::allocator<Serializer *> > >>(__begin2).operator*();
+        std::vector<Serializer *, std::allocator<Serializer *> > & __range0 = this->serializers;
+        __gnu_cxx::__normal_iterator<Serializer **, std::vector<Serializer *, std::allocator<Serializer *> > > __begin0 = __range0.begin();
+        __gnu_cxx::__normal_iterator<Serializer **, std::vector<Serializer *, std::allocator<Serializer *> > > __end0 = __range0.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<Serializer **, std::vector<Serializer *, std::allocator<Serializer *> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<Serializer **, std::vector<Serializer *, std::allocator<Serializer *> > >>(__end0)); __begin0.operator++()) {
+          Serializer *& serializer = static_cast<const __gnu_cxx::__normal_iterator<Serializer **, std::vector<Serializer *, std::allocator<Serializer *> > >>(__begin0).operator*();
           serializer->serialize(std::shared_ptr<Cairo::ImageSurface>(static_cast<const std::shared_ptr<Cairo::ImageSurface>>(surface)));
         }
         
@@ -1920,7 +1920,7 @@ class VideoExplainer
     , after{this->explainer.after}
     {
             
-      class __lambda_816_18
+      class __lambda_4
       {
         public: 
         template<class type_parameter_1_0>
@@ -1932,13 +1932,13 @@ class VideoExplainer
         VideoExplainer::VisitEventsGuard * __this;
         
         public:
-        __lambda_816_18(VideoExplainer::VisitEventsGuard * _this)
+        __lambda_4(VideoExplainer::VisitEventsGuard * _this)
         : __this{_this}
         {}
         
       };
       
-      std::visit(__lambda_816_18{this}, event);
+      std::visit(__lambda_4{this}, event);
       this->events.push_back(event);
     }
     
@@ -1950,7 +1950,7 @@ class VideoExplainer
     , after{this->explainer.after}
     {
       {
-        auto && __range3 = events_;
+        auto && __range1 = events_;
         for(; ; ) {
           const T & event;
           event.apply(&this->explainer.after);
@@ -1967,11 +1967,11 @@ class VideoExplainer
     inline ~VisitEventsGuard()
     {
       {
-        auto && __range2 = this->events;
+        auto && __range0 = this->events;
         for(; ; ) {
           const auto & event;
                     
-          class __lambda_840_20
+          class __lambda_5
           {
             public: 
             template<class type_parameter_1_0>
@@ -1983,13 +1983,13 @@ class VideoExplainer
             VideoExplainer::VisitEventsGuard * __this;
             
             public:
-            __lambda_840_20(VideoExplainer::VisitEventsGuard * _this)
+            __lambda_5(VideoExplainer::VisitEventsGuard * _this)
             : __this{_this}
             {}
             
           };
           
-          std::visit(__lambda_840_20{this}, event);
+          std::visit(__lambda_5{this}, event);
         }
         
       }
@@ -2125,7 +2125,7 @@ class VideoExplainer
     CairoSaveGuard saver = CairoSaveGuard(this->cr);
     double above_height = static_cast<double>(0);
     {
-      auto && __range2 = layout.above;
+      auto && __range0 = layout.above;
       for(; ; ) {
         const auto & text;
         this->cr.set_font_size(text.font_size);
@@ -2145,7 +2145,7 @@ class VideoExplainer
     }
     double below_height = static_cast<double>(0);
     {
-      auto && __range2 = layout.below | std::ranges::views::reverse;
+      auto && __range0 = layout.below | std::ranges::views::reverse;
       for(; ; ) {
         const auto & text;
         this->cr.set_font_size(text.font_size);
@@ -2196,7 +2196,7 @@ class VideoExplainer
     CairoSaveGuard saver = CairoSaveGuard(this->cr);
     double height = static_cast<double>(0);
     {
-      auto && __range2 = texts;
+      auto && __range0 = texts;
       for(; ; ) {
         const auto & text;
         this->cr.set_font_size(text.font_size);
@@ -2868,7 +2868,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
     , after{static_cast<const Stack<4>>(this->explainer.after)}
     {
             
-      class __lambda_816_18
+      class __lambda_4
       {
         public: 
         template<class type_parameter_0_0>
@@ -3015,13 +3015,13 @@ class VideoExplainer<static_cast<unsigned int>(4)>
         VideoExplainer<4>::VisitEventsGuard * __this;
         
         public:
-        __lambda_816_18(VideoExplainer<4>::VisitEventsGuard * _this)
+        __lambda_4(VideoExplainer<4>::VisitEventsGuard * _this)
         : __this{_this}
         {}
         
       };
       
-      std::visit<__lambda_816_18, const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &>(__lambda_816_18{this}, event);
+      std::visit<__lambda_4, const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &>(__lambda_4{this}, event);
       this->events.push_back(event);
     }
     
@@ -3039,11 +3039,11 @@ class VideoExplainer<static_cast<unsigned int>(4)>
     , after{static_cast<const Stack<4>>(this->explainer.after)}
     {
       {
-        const std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > & __range3 = events_;
-        __gnu_cxx::__normal_iterator<const exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > > __begin0 = __range3.begin();
-        __gnu_cxx::__normal_iterator<const exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > > __end0 = __range3.end();
-        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__end0)); __begin0.operator++()) {
-          const exploration::CellPropagates<4> & event = static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__begin0).operator*();
+        const std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > & __range1 = events_;
+        __gnu_cxx::__normal_iterator<const exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<const exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::CellPropagates<4> & event = static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__begin1).operator*();
           event.apply(&this->explainer.after);
           this->events.push_back(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event));
         }
@@ -3064,11 +3064,11 @@ class VideoExplainer<static_cast<unsigned int>(4)>
     , after{static_cast<const Stack<4>>(this->explainer.after)}
     {
       {
-        const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > & __range3 = events_;
-        __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __begin0 = __range3.begin();
-        __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __end0 = __range3.end();
-        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__end0)); __begin0.operator++()) {
-          const exploration::CellIsDeducedFromSingleAllowedValue<4> & event = static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin0).operator*();
+        const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > & __range1 = events_;
+        __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::CellIsDeducedFromSingleAllowedValue<4> & event = static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin1).operator*();
           event.apply(&this->explainer.after);
           this->events.push_back(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event));
         }
@@ -3089,11 +3089,11 @@ class VideoExplainer<static_cast<unsigned int>(4)>
     , after{static_cast<const Stack<4>>(this->explainer.after)}
     {
       {
-        const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > & __range3 = events_;
-        __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __begin0 = __range3.begin();
-        __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __end0 = __range3.end();
-        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__end0)); __begin0.operator++()) {
-          const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event = static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin0).operator*();
+        const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > & __range1 = events_;
+        __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event = static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin1).operator*();
           event.apply(&this->explainer.after);
           this->events.push_back(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event));
         }
@@ -3110,13 +3110,13 @@ class VideoExplainer<static_cast<unsigned int>(4)>
     inline ~VisitEventsGuard() noexcept
     {
       {
-        std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > > & __range2 = this->events;
-        __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > *, std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > > > __begin0 = __range2.begin();
-        __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > *, std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > > > __end0 = __range2.end();
-        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > *, std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > *, std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > > >>(__end0)); __begin0.operator++()) {
-          const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > & event = static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(static_cast<const __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > *, std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > > >>(__begin0).operator*());
+        std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > > & __range0 = this->events;
+        __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > *, std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > > > __begin1 = __range0.begin();
+        __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > *, std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > > > __end1 = __range0.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > *, std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > *, std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > > >>(__end1)); __begin1.operator++()) {
+          const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > & event = static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(static_cast<const __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > *, std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > > >>(__begin1).operator*());
                     
-          class __lambda_840_20
+          class __lambda_5
           {
             public: 
             template<class type_parameter_0_0>
@@ -3263,13 +3263,13 @@ class VideoExplainer<static_cast<unsigned int>(4)>
             VideoExplainer<4>::VisitEventsGuard * __this;
             
             public:
-            __lambda_840_20(VideoExplainer<4>::VisitEventsGuard * _this)
+            __lambda_5(VideoExplainer<4>::VisitEventsGuard * _this)
             : __this{_this}
             {}
             
           };
           
-          std::visit<__lambda_840_20, const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &>(__lambda_840_20{this}, event);
+          std::visit<__lambda_5, const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &>(__lambda_5{this}, event);
         }
         
       }
@@ -3374,10 +3374,10 @@ class VideoExplainer<static_cast<unsigned int>(4)>
     VideoExplainer<4>::Layout title = {std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> >{std::initializer_list<VideoExplainer<4>::Text>{{std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("How to solve this Sudoku?"), static_cast<const std::allocator<char>>(std::allocator<char>())), static_cast<double>(40), Text::Bold}, {std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("An automated explanation by @jacquev6"), static_cast<const std::allocator<char>>(std::allocator<char>())), static_cast<double>(20), 0}, {std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("https://github.com/jacquev6/Sudoku"), static_cast<const std::allocator<char>>(std::allocator<char>())), static_cast<double>(20), 0}}, static_cast<const std::allocator<VideoExplainer<4>::Text>>(std::allocator<VideoExplainer<4>::Text>())}, {std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> >{}}};
     for(unsigned int index = static_cast<unsigned int>(0); index != this->quicken(static_cast<unsigned int>(75)); ++index) {
       VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
-      const std::tuple<double, double, double> __title1161 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(title)));
-      const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__title1161));
-      const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__title1161));
-      const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__title1161));
+      const std::tuple<double, double, double> __title0 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(title)));
+      const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__title0));
+      const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__title0));
+      const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__title0));
       this->cr.translate(grid_x, grid_y);
       art::draw<4>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.before.current(), {grid_size, {false}, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
     }
@@ -3387,30 +3387,30 @@ class VideoExplainer<static_cast<unsigned int>(4)>
     for(unsigned int index = static_cast<unsigned int>(0); index != transition_duration; ++index) {
       const double ratio = (static_cast<double>(index) + 1.0) / static_cast<double>((transition_duration + static_cast<unsigned int>(1)));
       VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
-      const std::tuple<double, double, double> __title1178 = static_cast<const std::tuple<double, double, double>>(this->draw_layout_transition(static_cast<const VideoExplainer<4>::Layout>(title), static_cast<const VideoExplainer<4>::Layout>(propagate), ratio));
-      const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__title1178));
-      const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__title1178));
-      const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__title1178));
+      const std::tuple<double, double, double> __title1 = static_cast<const std::tuple<double, double, double>>(this->draw_layout_transition(static_cast<const VideoExplainer<4>::Layout>(title), static_cast<const VideoExplainer<4>::Layout>(propagate), ratio));
+      const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__title1));
+      const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__title1));
+      const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__title1));
       this->cr.translate(grid_x, grid_y);
       art::draw<4>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.before.current(), {grid_size, {false}, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
     }
     
     for(unsigned int index = static_cast<unsigned int>(0); index != this->quicken(static_cast<unsigned int>(12)); ++index) {
       VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
-      const std::tuple<double, double, double> __propagate1190 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
-      const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1190));
-      const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1190));
-      const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1190));
+      const std::tuple<double, double, double> __propagate0 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
+      const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate0));
+      const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate0));
+      const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate0));
       this->cr.translate(grid_x, grid_y);
       art::draw<4>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.before.current(), {grid_size, {false}, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
     }
     
     for(unsigned int index = static_cast<unsigned int>(0); index != this->quicken(static_cast<unsigned int>(12)); ++index) {
       VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
-      const std::tuple<double, double, double> __propagate1202 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
-      const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1202));
-      const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1202));
-      const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1202));
+      const std::tuple<double, double, double> __propagate1 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
+      const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1));
+      const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1));
+      const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1));
       this->cr.translate(grid_x, grid_y);
       art::draw<4>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.before.current(), {grid_size, true, true, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
     }
@@ -3433,10 +3433,10 @@ class VideoExplainer<static_cast<unsigned int>(4)>
       const unsigned int widths_count = static_cast<const unsigned int>(sizeof(widths) / sizeof(static_cast<const double *>(widths)[0]));
       for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(3)) * widths_count); ++index) {
         VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
-        const std::tuple<double, double, double> __propagate1233 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
-        const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1233));
-        const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1233));
-        const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1233));
+        const std::tuple<double, double, double> __propagate2 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
+        const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate2));
+        const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate2));
+        const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate2));
         this->cr.translate(grid_x, grid_y);
         art::draw<4>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.before.current(), {grid_size, true, true, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(event.cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, static_cast<const double *>(widths)[index % widths_count], {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
       }
@@ -3455,20 +3455,20 @@ class VideoExplainer<static_cast<unsigned int>(4)>
       if(this->single_propagations_handled < this->quicken(static_cast<unsigned int>(6))) {
         for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(3)) * widths_count); ++index) {
           VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
-          const std::tuple<double, double, double> __propagate1262 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
-          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1262));
-          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1262));
-          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1262));
+          const std::tuple<double, double, double> __propagate3 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
+          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate3));
+          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate3));
+          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate3));
           this->cr.translate(grid_x, grid_y);
           art::draw<4>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.before.current(), {grid_size, true, true, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(event.source_cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{std::initializer_list<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >{std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>{event.target_cell, event.value}}, static_cast<const std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >>(std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >())}, static_cast<const double *>(widths)[index % widths_count], {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{std::initializer_list<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >{std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>{event.source_cell, event.target_cell, event.value}}, static_cast<const std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >>(std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >())}, static_cast<const double *>(widths)[index % widths_count], {std::tuple<double, double, double>{1, 0, 0}}});
         }
         
         for(unsigned int index = static_cast<unsigned int>(0); index != this->quicken(static_cast<unsigned int>(6)); ++index) {
           VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
-          const std::tuple<double, double, double> __propagate1281 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
-          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1281));
-          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1281));
-          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1281));
+          const std::tuple<double, double, double> __propagate4 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
+          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate4));
+          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate4));
+          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate4));
           this->cr.translate(grid_x, grid_y);
           art::draw<4>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.after.current(), {grid_size, true, true, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(event.source_cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
         }
@@ -3476,20 +3476,20 @@ class VideoExplainer<static_cast<unsigned int>(4)>
       } else {
         for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(1)) * widths_count); ++index) {
           VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
-          const std::tuple<double, double, double> __propagate1296 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
-          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1296));
-          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1296));
-          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1296));
+          const std::tuple<double, double, double> __propagate5 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
+          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate5));
+          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate5));
+          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate5));
           this->cr.translate(grid_x, grid_y);
           art::draw<4>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.before.current(), {grid_size, true, true, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(event.source_cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{std::initializer_list<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >{std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>{event.target_cell, event.value}}, static_cast<const std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >>(std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >())}, static_cast<const double *>(widths)[index % widths_count], {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{std::initializer_list<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >{std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>{event.source_cell, event.target_cell, event.value}}, static_cast<const std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >>(std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >())}, static_cast<const double *>(widths)[index % widths_count], {std::tuple<double, double, double>{1, 0, 0}}});
         }
         
         for(unsigned int index = static_cast<unsigned int>(0); index != this->quicken(static_cast<unsigned int>(4)); ++index) {
           VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
-          const std::tuple<double, double, double> __propagate1315 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
-          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1315));
-          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1315));
-          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1315));
+          const std::tuple<double, double, double> __propagate6 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
+          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate6));
+          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate6));
+          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate6));
           this->cr.translate(grid_x, grid_y);
           art::draw<4>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.after.current(), {grid_size, true, true, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(event.source_cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{std::initializer_list<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >{std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>{event.target_cell, event.value}}, static_cast<const std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >>(std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{std::initializer_list<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >{std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>{event.source_cell, event.target_cell, event.value}}, static_cast<const std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >>(std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
         }
@@ -3551,10 +3551,10 @@ class VideoExplainer<static_cast<unsigned int>(4)>
     VideoExplainer<4>::Layout done = {{std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> >{}}, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> >{std::initializer_list<VideoExplainer<4>::Text>{{std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Solved!"), static_cast<const std::allocator<char>>(std::allocator<char>())), static_cast<double>(20), 0}}, static_cast<const std::allocator<VideoExplainer<4>::Text>>(std::allocator<VideoExplainer<4>::Text>())}};
     for(unsigned int index = static_cast<unsigned int>(0); index != this->quicken(static_cast<unsigned int>(75)); ++index) {
       VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
-      const std::tuple<double, double, double> __done1602 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(done)));
-      const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__done1602));
-      const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__done1602));
-      const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__done1602));
+      const std::tuple<double, double, double> __done0 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(done)));
+      const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__done0));
+      const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__done0));
+      const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__done0));
       this->cr.translate(grid_x, grid_y);
       art::draw<4>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.after.current(), {grid_size, {false}, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
     }
@@ -3582,20 +3582,20 @@ class VideoExplainer<static_cast<unsigned int>(4)>
       VideoExplainer<4>::VisitEventsGuard visit = VideoExplainer<4>::VisitEventsGuard(this, static_cast<const std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > >>(this->pending_cell_propagates_events));
       for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(1)) * widths_count); ++index) {
         VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
-        const std::tuple<double, double, double> __propagate1367 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
-        const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1367));
-        const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1367));
-        const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1367));
+        const std::tuple<double, double, double> __propagate7 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
+        const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate7));
+        const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate7));
+        const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate7));
         this->cr.translate(grid_x, grid_y);
         const std::pair<unsigned int, unsigned int> source_cell = std::pair<unsigned int, unsigned int>(static_cast<const std::pair<unsigned int, unsigned int>>(this->pending_cell_propagates_events.front().source_cell));
         std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > circled_values = std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >();
         std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > links_from_cell_to_value = std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >();
         {
-          std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > & __range3 = this->pending_cell_propagates_events;
-          __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > > __begin0 = __range3.begin();
-          __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > > __end0 = __range3.end();
-          for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__end0)); __begin0.operator++()) {
-            const exploration::CellPropagates<4> & event = static_cast<const exploration::CellPropagates<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__begin0).operator*());
+          std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > & __range1 = this->pending_cell_propagates_events;
+          __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > > __begin1 = __range1.begin();
+          __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > > __end1 = __range1.end();
+          for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__end1)); __begin1.operator++()) {
+            const exploration::CellPropagates<4> & event = static_cast<const exploration::CellPropagates<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__begin1).operator*());
             (static_cast<bool>(std::operator==(event.source_cell, source_cell)) ? void(0) : __assert_fail(static_cast<const char *>("event.source_cell == source_cell"), static_cast<const char *>("src/explanation/video-explainer.cpp"), static_cast<unsigned int>(241), static_cast<const char *>(__extension__"void VideoExplainer<4>::flush_pending_cell_propagates_events() [size = 4]")));
             circled_values.push_back(std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>{event.target_cell, event.value});
             links_from_cell_to_value.push_back(std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>{event.source_cell, event.target_cell, event.value});
@@ -3607,20 +3607,20 @@ class VideoExplainer<static_cast<unsigned int>(4)>
       
       for(unsigned int index = static_cast<unsigned int>(0); index != this->quicken(static_cast<unsigned int>(4)); ++index) {
         VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
-        const std::tuple<double, double, double> __propagate1397 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
-        const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1397));
-        const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1397));
-        const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1397));
+        const std::tuple<double, double, double> __propagate8 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
+        const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate8));
+        const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate8));
+        const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate8));
         this->cr.translate(grid_x, grid_y);
         const std::pair<unsigned int, unsigned int> source_cell = std::pair<unsigned int, unsigned int>(static_cast<const std::pair<unsigned int, unsigned int>>(this->pending_cell_propagates_events.front().source_cell));
         std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > circled_values = std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >();
         std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > links_from_cell_to_value = std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >();
         {
-          std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > & __range3 = this->pending_cell_propagates_events;
-          __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > > __begin0 = __range3.begin();
-          __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > > __end0 = __range3.end();
-          for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__end0)); __begin0.operator++()) {
-            const exploration::CellPropagates<4> & event = static_cast<const exploration::CellPropagates<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__begin0).operator*());
+          std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > & __range1 = this->pending_cell_propagates_events;
+          __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > > __begin1 = __range1.begin();
+          __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > > __end1 = __range1.end();
+          for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__end1)); __begin1.operator++()) {
+            const exploration::CellPropagates<4> & event = static_cast<const exploration::CellPropagates<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__begin1).operator*());
             (static_cast<bool>(std::operator==(event.source_cell, source_cell)) ? void(0) : __assert_fail(static_cast<const char *>("event.source_cell == source_cell"), static_cast<const char *>("src/explanation/video-explainer.cpp"), static_cast<unsigned int>(271), static_cast<const char *>(__extension__"void VideoExplainer<4>::flush_pending_cell_propagates_events() [size = 4]")));
             circled_values.push_back(std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>{event.target_cell, event.value});
             links_from_cell_to_value.push_back(std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>{event.source_cell, event.target_cell, event.value});
@@ -3632,10 +3632,10 @@ class VideoExplainer<static_cast<unsigned int>(4)>
       
       for(unsigned int index = static_cast<unsigned int>(0); index != this->quicken(static_cast<unsigned int>(4)); ++index) {
         VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
-        const std::tuple<double, double, double> __propagate1424 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
-        const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1424));
-        const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1424));
-        const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1424));
+        const std::tuple<double, double, double> __propagate9 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
+        const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate9));
+        const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate9));
+        const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate9));
         this->cr.translate(grid_x, grid_y);
         art::draw<4>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.after.current(), {grid_size, true, true, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(static_cast<const std::pair<unsigned int, unsigned int>>(this->pending_cell_propagates_events.front().source_cell))}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
       }
@@ -3655,18 +3655,18 @@ class VideoExplainer<static_cast<unsigned int>(4)>
       if(this->deductions_handled < this->quicken(static_cast<unsigned int>(4))) {
         for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(6)) * widths_count); ++index) {
           VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
-          const std::tuple<double, double, double> __propagate1453 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
-          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1453));
-          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1453));
-          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1453));
+          const std::tuple<double, double, double> __propagate10 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
+          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate10));
+          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate10));
+          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate10));
           this->cr.translate(grid_x, grid_y);
           std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > circled_cells = std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >();
           {
-            std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > & __range4 = this->pending_cell_is_deduced_from_single_allowed_value_events;
-            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __begin0 = __range4.begin();
-            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __end0 = __range4.end();
-            for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__end0)); __begin0.operator++()) {
-              const exploration::CellIsDeducedFromSingleAllowedValue<4> & event = static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin0).operator*());
+            std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > & __range2 = this->pending_cell_is_deduced_from_single_allowed_value_events;
+            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __begin1 = __range2.begin();
+            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __end1 = __range2.end();
+            for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__end1)); __begin1.operator++()) {
+              const exploration::CellIsDeducedFromSingleAllowedValue<4> & event = static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin1).operator*());
               circled_cells.push_back(event.cell);
             }
             
@@ -3677,18 +3677,18 @@ class VideoExplainer<static_cast<unsigned int>(4)>
       } else {
         for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(2)) * widths_count); ++index) {
           VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
-          const std::tuple<double, double, double> __propagate1476 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
-          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1476));
-          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1476));
-          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1476));
+          const std::tuple<double, double, double> __propagate11 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
+          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate11));
+          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate11));
+          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate11));
           this->cr.translate(grid_x, grid_y);
           std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > circled_cells = std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >();
           {
-            std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > & __range4 = this->pending_cell_is_deduced_from_single_allowed_value_events;
-            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __begin0 = __range4.begin();
-            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __end0 = __range4.end();
-            for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__end0)); __begin0.operator++()) {
-              const exploration::CellIsDeducedFromSingleAllowedValue<4> & event = static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin0).operator*());
+            std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > & __range2 = this->pending_cell_is_deduced_from_single_allowed_value_events;
+            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __begin1 = __range2.begin();
+            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __end1 = __range2.end();
+            for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__end1)); __begin1.operator++()) {
+              const exploration::CellIsDeducedFromSingleAllowedValue<4> & event = static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin1).operator*());
               circled_cells.push_back(event.cell);
             }
             
@@ -3714,18 +3714,18 @@ class VideoExplainer<static_cast<unsigned int>(4)>
       if(this->deductions_handled < this->quicken(static_cast<unsigned int>(4))) {
         for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(6)) * widths_count); ++index) {
           VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
-          const std::tuple<double, double, double> __propagate1515 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
-          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1515));
-          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1515));
-          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1515));
+          const std::tuple<double, double, double> __propagate12 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
+          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate12));
+          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate12));
+          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate12));
           this->cr.translate(grid_x, grid_y);
           std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > boxed_cells = std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >();
           {
-            std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > & __range4 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
-            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __begin0 = __range4.begin();
-            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __end0 = __range4.end();
-            for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__end0)); __begin0.operator++()) {
-              const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event = static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin0).operator*());
+            std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > & __range2 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
+            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __begin1 = __range2.begin();
+            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __end1 = __range2.end();
+            for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__end1)); __begin1.operator++()) {
+              const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event = static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin1).operator*());
               boxed_cells.push_back(event.cell);
             }
             
@@ -3736,18 +3736,18 @@ class VideoExplainer<static_cast<unsigned int>(4)>
       } else {
         for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(2)) * widths_count); ++index) {
           VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
-          const std::tuple<double, double, double> __propagate1538 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
-          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1538));
-          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1538));
-          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1538));
+          const std::tuple<double, double, double> __propagate13 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
+          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate13));
+          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate13));
+          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate13));
           this->cr.translate(grid_x, grid_y);
           std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > boxed_cells = std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >();
           {
-            std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > & __range4 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
-            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __begin0 = __range4.begin();
-            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __end0 = __range4.end();
-            for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__end0)); __begin0.operator++()) {
-              const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event = static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin0).operator*());
+            std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > & __range2 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
+            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __begin1 = __range2.begin();
+            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __end1 = __range2.end();
+            for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__end1)); __begin1.operator++()) {
+              const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event = static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin1).operator*());
               boxed_cells.push_back(event.cell);
             }
             
@@ -3777,11 +3777,11 @@ class VideoExplainer<static_cast<unsigned int>(4)>
     CairoSaveGuard saver = CairoSaveGuard(this->cr);
     double above_height = static_cast<double>(0);
     {
-      const std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > & __range2 = layout.above;
-      __gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > > __begin0 = __range2.begin();
-      __gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > > __end0 = __range2.end();
-      for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > >>(__end0)); __begin0.operator++()) {
-        const VideoExplainer<4>::Text & text = static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > >>(__begin0).operator*();
+      const std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > & __range0 = layout.above;
+      __gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > > __begin1 = __range0.begin();
+      __gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > > __end1 = __range0.end();
+      for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > >>(__end1)); __begin1.operator++()) {
+        const VideoExplainer<4>::Text & text = static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > >>(__begin1).operator*();
         this->cr.set_font_size(text.font_size);
         switch(static_cast<int>(text.weight)) {
           case static_cast<int>(Text::Normal): this->cr.select_font_face(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("sans"), static_cast<const std::allocator<char>>(std::allocator<char>())), Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::NORMAL);
@@ -3799,11 +3799,11 @@ class VideoExplainer<static_cast<unsigned int>(4)>
     }
     double below_height = static_cast<double>(0);
     {
-      std::ranges::reverse_view<std::ranges::ref_view<const std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > > > && __range2 = operator|(layout.below, std::ranges::views::reverse);
-      std::reverse_iterator<__gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > > > __begin0 = __range2.begin();
-      std::reverse_iterator<__gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > > > __end0 = __range2.end();
-      for(; !std::operator==(static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > > >>(__begin0), static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > > >>(__end0)); __begin0.operator++()) {
-        const VideoExplainer<4>::Text & text = static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > > >>(__begin0).operator*();
+      std::ranges::reverse_view<std::ranges::ref_view<const std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > > > && __range0 = operator|(layout.below, std::ranges::views::reverse);
+      std::reverse_iterator<__gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > > > __begin1 = __range0.begin();
+      std::reverse_iterator<__gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > > > __end1 = __range0.end();
+      for(; !std::operator==(static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > > >>(__begin1), static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > > >>(__end1)); __begin1.operator++()) {
+        const VideoExplainer<4>::Text & text = static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > > >>(__begin1).operator*();
         this->cr.set_font_size(text.font_size);
         switch(static_cast<int>(text.weight)) {
           case static_cast<int>(Text::Normal): this->cr.select_font_face(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("sans"), static_cast<const std::allocator<char>>(std::allocator<char>())), Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::NORMAL);
@@ -3852,11 +3852,11 @@ class VideoExplainer<static_cast<unsigned int>(4)>
     CairoSaveGuard saver = CairoSaveGuard(this->cr);
     double height = static_cast<double>(0);
     {
-      const std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > & __range2 = texts;
-      __gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > > __begin0 = __range2.begin();
-      __gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > > __end0 = __range2.end();
-      for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > >>(__end0)); __begin0.operator++()) {
-        const VideoExplainer<4>::Text & text = static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > >>(__begin0).operator*();
+      const std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > & __range0 = texts;
+      __gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > > __begin1 = __range0.begin();
+      __gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > > __end1 = __range0.end();
+      for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > >>(__end1)); __begin1.operator++()) {
+        const VideoExplainer<4>::Text & text = static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<4>::Text *, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> > >>(__begin1).operator*();
         this->cr.set_font_size(text.font_size);
         switch(static_cast<int>(text.weight)) {
           case static_cast<int>(Text::Normal): this->cr.select_font_face(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("sans"), static_cast<const std::allocator<char>>(std::allocator<char>())), Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::NORMAL);
@@ -3945,7 +3945,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
     , after{static_cast<const Stack<9>>(this->explainer.after)}
     {
             
-      class __lambda_816_18
+      class __lambda_4
       {
         public: 
         template<class type_parameter_0_0>
@@ -4092,13 +4092,13 @@ class VideoExplainer<static_cast<unsigned int>(9)>
         VideoExplainer<9>::VisitEventsGuard * __this;
         
         public:
-        __lambda_816_18(VideoExplainer<9>::VisitEventsGuard * _this)
+        __lambda_4(VideoExplainer<9>::VisitEventsGuard * _this)
         : __this{_this}
         {}
         
       };
       
-      std::visit<__lambda_816_18, const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &>(__lambda_816_18{this}, event);
+      std::visit<__lambda_4, const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &>(__lambda_4{this}, event);
       this->events.push_back(event);
     }
     
@@ -4116,11 +4116,11 @@ class VideoExplainer<static_cast<unsigned int>(9)>
     , after{static_cast<const Stack<9>>(this->explainer.after)}
     {
       {
-        const std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > & __range3 = events_;
-        __gnu_cxx::__normal_iterator<const exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > > __begin0 = __range3.begin();
-        __gnu_cxx::__normal_iterator<const exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > > __end0 = __range3.end();
-        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__end0)); __begin0.operator++()) {
-          const exploration::CellPropagates<9> & event = static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__begin0).operator*();
+        const std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > & __range1 = events_;
+        __gnu_cxx::__normal_iterator<const exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<const exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::CellPropagates<9> & event = static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__begin1).operator*();
           event.apply(&this->explainer.after);
           this->events.push_back(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event));
         }
@@ -4141,11 +4141,11 @@ class VideoExplainer<static_cast<unsigned int>(9)>
     , after{static_cast<const Stack<9>>(this->explainer.after)}
     {
       {
-        const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > & __range3 = events_;
-        __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __begin0 = __range3.begin();
-        __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __end0 = __range3.end();
-        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__end0)); __begin0.operator++()) {
-          const exploration::CellIsDeducedFromSingleAllowedValue<9> & event = static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin0).operator*();
+        const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > & __range1 = events_;
+        __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::CellIsDeducedFromSingleAllowedValue<9> & event = static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin1).operator*();
           event.apply(&this->explainer.after);
           this->events.push_back(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event));
         }
@@ -4166,11 +4166,11 @@ class VideoExplainer<static_cast<unsigned int>(9)>
     , after{static_cast<const Stack<9>>(this->explainer.after)}
     {
       {
-        const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > & __range3 = events_;
-        __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __begin0 = __range3.begin();
-        __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __end0 = __range3.end();
-        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__end0)); __begin0.operator++()) {
-          const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> & event = static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin0).operator*();
+        const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > & __range1 = events_;
+        __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> & event = static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin1).operator*();
           event.apply(&this->explainer.after);
           this->events.push_back(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event));
         }
@@ -4187,13 +4187,13 @@ class VideoExplainer<static_cast<unsigned int>(9)>
     inline ~VisitEventsGuard() noexcept
     {
       {
-        std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > > & __range2 = this->events;
-        __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > *, std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > > > __begin0 = __range2.begin();
-        __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > *, std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > > > __end0 = __range2.end();
-        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > *, std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > *, std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > > >>(__end0)); __begin0.operator++()) {
-          const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > & event = static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(static_cast<const __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > *, std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > > >>(__begin0).operator*());
+        std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > > & __range0 = this->events;
+        __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > *, std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > > > __begin1 = __range0.begin();
+        __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > *, std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > > > __end1 = __range0.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > *, std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > *, std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > > >>(__end1)); __begin1.operator++()) {
+          const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > & event = static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(static_cast<const __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > *, std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > > >>(__begin1).operator*());
                     
-          class __lambda_840_20
+          class __lambda_5
           {
             public: 
             template<class type_parameter_0_0>
@@ -4340,13 +4340,13 @@ class VideoExplainer<static_cast<unsigned int>(9)>
             VideoExplainer<9>::VisitEventsGuard * __this;
             
             public:
-            __lambda_840_20(VideoExplainer<9>::VisitEventsGuard * _this)
+            __lambda_5(VideoExplainer<9>::VisitEventsGuard * _this)
             : __this{_this}
             {}
             
           };
           
-          std::visit<__lambda_840_20, const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &>(__lambda_840_20{this}, event);
+          std::visit<__lambda_5, const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &>(__lambda_5{this}, event);
         }
         
       }
@@ -4451,10 +4451,10 @@ class VideoExplainer<static_cast<unsigned int>(9)>
     VideoExplainer<9>::Layout title = {std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> >{std::initializer_list<VideoExplainer<9>::Text>{{std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("How to solve this Sudoku?"), static_cast<const std::allocator<char>>(std::allocator<char>())), static_cast<double>(40), Text::Bold}, {std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("An automated explanation by @jacquev6"), static_cast<const std::allocator<char>>(std::allocator<char>())), static_cast<double>(20), 0}, {std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("https://github.com/jacquev6/Sudoku"), static_cast<const std::allocator<char>>(std::allocator<char>())), static_cast<double>(20), 0}}, static_cast<const std::allocator<VideoExplainer<9>::Text>>(std::allocator<VideoExplainer<9>::Text>())}, {std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> >{}}};
     for(unsigned int index = static_cast<unsigned int>(0); index != this->quicken(static_cast<unsigned int>(75)); ++index) {
       VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
-      const std::tuple<double, double, double> __title1161 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(title)));
-      const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__title1161));
-      const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__title1161));
-      const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__title1161));
+      const std::tuple<double, double, double> __title0 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(title)));
+      const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__title0));
+      const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__title0));
+      const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__title0));
       this->cr.translate(grid_x, grid_y);
       art::draw<9>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.before.current(), {grid_size, {false}, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
     }
@@ -4464,30 +4464,30 @@ class VideoExplainer<static_cast<unsigned int>(9)>
     for(unsigned int index = static_cast<unsigned int>(0); index != transition_duration; ++index) {
       const double ratio = (static_cast<double>(index) + 1.0) / static_cast<double>((transition_duration + static_cast<unsigned int>(1)));
       VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
-      const std::tuple<double, double, double> __title1178 = static_cast<const std::tuple<double, double, double>>(this->draw_layout_transition(static_cast<const VideoExplainer<9>::Layout>(title), static_cast<const VideoExplainer<9>::Layout>(propagate), ratio));
-      const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__title1178));
-      const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__title1178));
-      const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__title1178));
+      const std::tuple<double, double, double> __title1 = static_cast<const std::tuple<double, double, double>>(this->draw_layout_transition(static_cast<const VideoExplainer<9>::Layout>(title), static_cast<const VideoExplainer<9>::Layout>(propagate), ratio));
+      const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__title1));
+      const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__title1));
+      const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__title1));
       this->cr.translate(grid_x, grid_y);
       art::draw<9>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.before.current(), {grid_size, {false}, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
     }
     
     for(unsigned int index = static_cast<unsigned int>(0); index != this->quicken(static_cast<unsigned int>(12)); ++index) {
       VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
-      const std::tuple<double, double, double> __propagate1190 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
-      const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1190));
-      const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1190));
-      const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1190));
+      const std::tuple<double, double, double> __propagate0 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
+      const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate0));
+      const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate0));
+      const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate0));
       this->cr.translate(grid_x, grid_y);
       art::draw<9>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.before.current(), {grid_size, {false}, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
     }
     
     for(unsigned int index = static_cast<unsigned int>(0); index != this->quicken(static_cast<unsigned int>(12)); ++index) {
       VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
-      const std::tuple<double, double, double> __propagate1202 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
-      const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1202));
-      const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1202));
-      const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1202));
+      const std::tuple<double, double, double> __propagate1 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
+      const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1));
+      const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1));
+      const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1));
       this->cr.translate(grid_x, grid_y);
       art::draw<9>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.before.current(), {grid_size, true, true, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
     }
@@ -4510,10 +4510,10 @@ class VideoExplainer<static_cast<unsigned int>(9)>
       const unsigned int widths_count = static_cast<const unsigned int>(sizeof(widths) / sizeof(static_cast<const double *>(widths)[0]));
       for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(3)) * widths_count); ++index) {
         VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
-        const std::tuple<double, double, double> __propagate1233 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
-        const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1233));
-        const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1233));
-        const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1233));
+        const std::tuple<double, double, double> __propagate2 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
+        const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate2));
+        const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate2));
+        const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate2));
         this->cr.translate(grid_x, grid_y);
         art::draw<9>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.before.current(), {grid_size, true, true, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(event.cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, static_cast<const double *>(widths)[index % widths_count], {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
       }
@@ -4532,20 +4532,20 @@ class VideoExplainer<static_cast<unsigned int>(9)>
       if(this->single_propagations_handled < this->quicken(static_cast<unsigned int>(6))) {
         for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(3)) * widths_count); ++index) {
           VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
-          const std::tuple<double, double, double> __propagate1262 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
-          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1262));
-          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1262));
-          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1262));
+          const std::tuple<double, double, double> __propagate3 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
+          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate3));
+          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate3));
+          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate3));
           this->cr.translate(grid_x, grid_y);
           art::draw<9>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.before.current(), {grid_size, true, true, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(event.source_cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{std::initializer_list<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >{std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>{event.target_cell, event.value}}, static_cast<const std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >>(std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >())}, static_cast<const double *>(widths)[index % widths_count], {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{std::initializer_list<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >{std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>{event.source_cell, event.target_cell, event.value}}, static_cast<const std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >>(std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >())}, static_cast<const double *>(widths)[index % widths_count], {std::tuple<double, double, double>{1, 0, 0}}});
         }
         
         for(unsigned int index = static_cast<unsigned int>(0); index != this->quicken(static_cast<unsigned int>(6)); ++index) {
           VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
-          const std::tuple<double, double, double> __propagate1281 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
-          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1281));
-          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1281));
-          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1281));
+          const std::tuple<double, double, double> __propagate4 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
+          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate4));
+          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate4));
+          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate4));
           this->cr.translate(grid_x, grid_y);
           art::draw<9>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.after.current(), {grid_size, true, true, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(event.source_cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
         }
@@ -4553,20 +4553,20 @@ class VideoExplainer<static_cast<unsigned int>(9)>
       } else {
         for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(1)) * widths_count); ++index) {
           VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
-          const std::tuple<double, double, double> __propagate1296 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
-          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1296));
-          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1296));
-          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1296));
+          const std::tuple<double, double, double> __propagate5 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
+          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate5));
+          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate5));
+          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate5));
           this->cr.translate(grid_x, grid_y);
           art::draw<9>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.before.current(), {grid_size, true, true, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(event.source_cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{std::initializer_list<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >{std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>{event.target_cell, event.value}}, static_cast<const std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >>(std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >())}, static_cast<const double *>(widths)[index % widths_count], {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{std::initializer_list<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >{std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>{event.source_cell, event.target_cell, event.value}}, static_cast<const std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >>(std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >())}, static_cast<const double *>(widths)[index % widths_count], {std::tuple<double, double, double>{1, 0, 0}}});
         }
         
         for(unsigned int index = static_cast<unsigned int>(0); index != this->quicken(static_cast<unsigned int>(4)); ++index) {
           VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
-          const std::tuple<double, double, double> __propagate1315 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
-          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1315));
-          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1315));
-          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1315));
+          const std::tuple<double, double, double> __propagate6 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
+          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate6));
+          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate6));
+          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate6));
           this->cr.translate(grid_x, grid_y);
           art::draw<9>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.after.current(), {grid_size, true, true, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(event.source_cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{std::initializer_list<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >{std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>{event.target_cell, event.value}}, static_cast<const std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >>(std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{std::initializer_list<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >{std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>{event.source_cell, event.target_cell, event.value}}, static_cast<const std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >>(std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
         }
@@ -4628,10 +4628,10 @@ class VideoExplainer<static_cast<unsigned int>(9)>
     VideoExplainer<9>::Layout done = {{std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> >{}}, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> >{std::initializer_list<VideoExplainer<9>::Text>{{std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Solved!"), static_cast<const std::allocator<char>>(std::allocator<char>())), static_cast<double>(20), 0}}, static_cast<const std::allocator<VideoExplainer<9>::Text>>(std::allocator<VideoExplainer<9>::Text>())}};
     for(unsigned int index = static_cast<unsigned int>(0); index != this->quicken(static_cast<unsigned int>(75)); ++index) {
       VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
-      const std::tuple<double, double, double> __done1602 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(done)));
-      const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__done1602));
-      const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__done1602));
-      const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__done1602));
+      const std::tuple<double, double, double> __done0 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(done)));
+      const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__done0));
+      const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__done0));
+      const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__done0));
       this->cr.translate(grid_x, grid_y);
       art::draw<9>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.after.current(), {grid_size, {false}, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
     }
@@ -4659,20 +4659,20 @@ class VideoExplainer<static_cast<unsigned int>(9)>
       VideoExplainer<9>::VisitEventsGuard visit = VideoExplainer<9>::VisitEventsGuard(this, static_cast<const std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > >>(this->pending_cell_propagates_events));
       for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(1)) * widths_count); ++index) {
         VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
-        const std::tuple<double, double, double> __propagate1367 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
-        const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1367));
-        const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1367));
-        const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1367));
+        const std::tuple<double, double, double> __propagate7 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
+        const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate7));
+        const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate7));
+        const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate7));
         this->cr.translate(grid_x, grid_y);
         const std::pair<unsigned int, unsigned int> source_cell = std::pair<unsigned int, unsigned int>(static_cast<const std::pair<unsigned int, unsigned int>>(this->pending_cell_propagates_events.front().source_cell));
         std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > circled_values = std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >();
         std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > links_from_cell_to_value = std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >();
         {
-          std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > & __range3 = this->pending_cell_propagates_events;
-          __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > > __begin0 = __range3.begin();
-          __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > > __end0 = __range3.end();
-          for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__end0)); __begin0.operator++()) {
-            const exploration::CellPropagates<9> & event = static_cast<const exploration::CellPropagates<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__begin0).operator*());
+          std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > & __range1 = this->pending_cell_propagates_events;
+          __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > > __begin1 = __range1.begin();
+          __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > > __end1 = __range1.end();
+          for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__end1)); __begin1.operator++()) {
+            const exploration::CellPropagates<9> & event = static_cast<const exploration::CellPropagates<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__begin1).operator*());
             (static_cast<bool>(std::operator==(event.source_cell, source_cell)) ? void(0) : __assert_fail(static_cast<const char *>("event.source_cell == source_cell"), static_cast<const char *>("src/explanation/video-explainer.cpp"), static_cast<unsigned int>(241), static_cast<const char *>(__extension__"void VideoExplainer<9>::flush_pending_cell_propagates_events() [size = 9]")));
             circled_values.push_back(std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>{event.target_cell, event.value});
             links_from_cell_to_value.push_back(std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>{event.source_cell, event.target_cell, event.value});
@@ -4684,20 +4684,20 @@ class VideoExplainer<static_cast<unsigned int>(9)>
       
       for(unsigned int index = static_cast<unsigned int>(0); index != this->quicken(static_cast<unsigned int>(4)); ++index) {
         VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
-        const std::tuple<double, double, double> __propagate1397 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
-        const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1397));
-        const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1397));
-        const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1397));
+        const std::tuple<double, double, double> __propagate8 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
+        const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate8));
+        const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate8));
+        const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate8));
         this->cr.translate(grid_x, grid_y);
         const std::pair<unsigned int, unsigned int> source_cell = std::pair<unsigned int, unsigned int>(static_cast<const std::pair<unsigned int, unsigned int>>(this->pending_cell_propagates_events.front().source_cell));
         std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > circled_values = std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >();
         std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > links_from_cell_to_value = std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >();
         {
-          std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > & __range3 = this->pending_cell_propagates_events;
-          __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > > __begin0 = __range3.begin();
-          __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > > __end0 = __range3.end();
-          for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__end0)); __begin0.operator++()) {
-            const exploration::CellPropagates<9> & event = static_cast<const exploration::CellPropagates<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__begin0).operator*());
+          std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > & __range1 = this->pending_cell_propagates_events;
+          __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > > __begin1 = __range1.begin();
+          __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > > __end1 = __range1.end();
+          for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__end1)); __begin1.operator++()) {
+            const exploration::CellPropagates<9> & event = static_cast<const exploration::CellPropagates<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__begin1).operator*());
             (static_cast<bool>(std::operator==(event.source_cell, source_cell)) ? void(0) : __assert_fail(static_cast<const char *>("event.source_cell == source_cell"), static_cast<const char *>("src/explanation/video-explainer.cpp"), static_cast<unsigned int>(271), static_cast<const char *>(__extension__"void VideoExplainer<9>::flush_pending_cell_propagates_events() [size = 9]")));
             circled_values.push_back(std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>{event.target_cell, event.value});
             links_from_cell_to_value.push_back(std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>{event.source_cell, event.target_cell, event.value});
@@ -4709,10 +4709,10 @@ class VideoExplainer<static_cast<unsigned int>(9)>
       
       for(unsigned int index = static_cast<unsigned int>(0); index != this->quicken(static_cast<unsigned int>(4)); ++index) {
         VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
-        const std::tuple<double, double, double> __propagate1424 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
-        const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1424));
-        const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1424));
-        const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1424));
+        const std::tuple<double, double, double> __propagate9 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
+        const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate9));
+        const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate9));
+        const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate9));
         this->cr.translate(grid_x, grid_y);
         art::draw<9>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(this->context)), visit.after.current(), {grid_size, true, true, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(static_cast<const std::pair<unsigned int, unsigned int>>(this->pending_cell_propagates_events.front().source_cell))}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
       }
@@ -4732,18 +4732,18 @@ class VideoExplainer<static_cast<unsigned int>(9)>
       if(this->deductions_handled < this->quicken(static_cast<unsigned int>(4))) {
         for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(6)) * widths_count); ++index) {
           VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
-          const std::tuple<double, double, double> __propagate1453 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
-          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1453));
-          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1453));
-          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1453));
+          const std::tuple<double, double, double> __propagate10 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
+          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate10));
+          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate10));
+          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate10));
           this->cr.translate(grid_x, grid_y);
           std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > circled_cells = std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >();
           {
-            std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > & __range4 = this->pending_cell_is_deduced_from_single_allowed_value_events;
-            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __begin0 = __range4.begin();
-            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __end0 = __range4.end();
-            for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__end0)); __begin0.operator++()) {
-              const exploration::CellIsDeducedFromSingleAllowedValue<9> & event = static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin0).operator*());
+            std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > & __range2 = this->pending_cell_is_deduced_from_single_allowed_value_events;
+            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __begin1 = __range2.begin();
+            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __end1 = __range2.end();
+            for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__end1)); __begin1.operator++()) {
+              const exploration::CellIsDeducedFromSingleAllowedValue<9> & event = static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin1).operator*());
               circled_cells.push_back(event.cell);
             }
             
@@ -4754,18 +4754,18 @@ class VideoExplainer<static_cast<unsigned int>(9)>
       } else {
         for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(2)) * widths_count); ++index) {
           VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
-          const std::tuple<double, double, double> __propagate1476 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
-          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1476));
-          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1476));
-          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1476));
+          const std::tuple<double, double, double> __propagate11 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
+          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate11));
+          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate11));
+          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate11));
           this->cr.translate(grid_x, grid_y);
           std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > circled_cells = std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >();
           {
-            std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > & __range4 = this->pending_cell_is_deduced_from_single_allowed_value_events;
-            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __begin0 = __range4.begin();
-            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __end0 = __range4.end();
-            for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__end0)); __begin0.operator++()) {
-              const exploration::CellIsDeducedFromSingleAllowedValue<9> & event = static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin0).operator*());
+            std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > & __range2 = this->pending_cell_is_deduced_from_single_allowed_value_events;
+            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __begin1 = __range2.begin();
+            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __end1 = __range2.end();
+            for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__end1)); __begin1.operator++()) {
+              const exploration::CellIsDeducedFromSingleAllowedValue<9> & event = static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin1).operator*());
               circled_cells.push_back(event.cell);
             }
             
@@ -4791,18 +4791,18 @@ class VideoExplainer<static_cast<unsigned int>(9)>
       if(this->deductions_handled < this->quicken(static_cast<unsigned int>(4))) {
         for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(6)) * widths_count); ++index) {
           VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
-          const std::tuple<double, double, double> __propagate1515 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
-          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1515));
-          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1515));
-          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1515));
+          const std::tuple<double, double, double> __propagate12 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
+          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate12));
+          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate12));
+          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate12));
           this->cr.translate(grid_x, grid_y);
           std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > boxed_cells = std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >();
           {
-            std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > & __range4 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
-            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __begin0 = __range4.begin();
-            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __end0 = __range4.end();
-            for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__end0)); __begin0.operator++()) {
-              const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> & event = static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin0).operator*());
+            std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > & __range2 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
+            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __begin1 = __range2.begin();
+            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __end1 = __range2.end();
+            for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__end1)); __begin1.operator++()) {
+              const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> & event = static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin1).operator*());
               boxed_cells.push_back(event.cell);
             }
             
@@ -4813,18 +4813,18 @@ class VideoExplainer<static_cast<unsigned int>(9)>
       } else {
         for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(2)) * widths_count); ++index) {
           VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
-          const std::tuple<double, double, double> __propagate1538 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
-          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1538));
-          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1538));
-          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate1538));
+          const std::tuple<double, double, double> __propagate13 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
+          const double && grid_x = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate13));
+          const double && grid_y = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate13));
+          const double && grid_size = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__propagate13));
           this->cr.translate(grid_x, grid_y);
           std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > boxed_cells = std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >();
           {
-            std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > & __range4 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
-            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __begin0 = __range4.begin();
-            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __end0 = __range4.end();
-            for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__end0)); __begin0.operator++()) {
-              const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> & event = static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin0).operator*());
+            std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > & __range2 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
+            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __begin1 = __range2.begin();
+            __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __end1 = __range2.end();
+            for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__end1)); __begin1.operator++()) {
+              const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> & event = static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin1).operator*());
               boxed_cells.push_back(event.cell);
             }
             
@@ -4854,11 +4854,11 @@ class VideoExplainer<static_cast<unsigned int>(9)>
     CairoSaveGuard saver = CairoSaveGuard(this->cr);
     double above_height = static_cast<double>(0);
     {
-      const std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > & __range2 = layout.above;
-      __gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > > __begin0 = __range2.begin();
-      __gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > > __end0 = __range2.end();
-      for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > >>(__end0)); __begin0.operator++()) {
-        const VideoExplainer<9>::Text & text = static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > >>(__begin0).operator*();
+      const std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > & __range0 = layout.above;
+      __gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > > __begin1 = __range0.begin();
+      __gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > > __end1 = __range0.end();
+      for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > >>(__end1)); __begin1.operator++()) {
+        const VideoExplainer<9>::Text & text = static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > >>(__begin1).operator*();
         this->cr.set_font_size(text.font_size);
         switch(static_cast<int>(text.weight)) {
           case static_cast<int>(Text::Normal): this->cr.select_font_face(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("sans"), static_cast<const std::allocator<char>>(std::allocator<char>())), Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::NORMAL);
@@ -4876,11 +4876,11 @@ class VideoExplainer<static_cast<unsigned int>(9)>
     }
     double below_height = static_cast<double>(0);
     {
-      std::ranges::reverse_view<std::ranges::ref_view<const std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > > > && __range2 = operator|(layout.below, std::ranges::views::reverse);
-      std::reverse_iterator<__gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > > > __begin0 = __range2.begin();
-      std::reverse_iterator<__gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > > > __end0 = __range2.end();
-      for(; !std::operator==(static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > > >>(__begin0), static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > > >>(__end0)); __begin0.operator++()) {
-        const VideoExplainer<9>::Text & text = static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > > >>(__begin0).operator*();
+      std::ranges::reverse_view<std::ranges::ref_view<const std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > > > && __range0 = operator|(layout.below, std::ranges::views::reverse);
+      std::reverse_iterator<__gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > > > __begin1 = __range0.begin();
+      std::reverse_iterator<__gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > > > __end1 = __range0.end();
+      for(; !std::operator==(static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > > >>(__begin1), static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > > >>(__end1)); __begin1.operator++()) {
+        const VideoExplainer<9>::Text & text = static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > > >>(__begin1).operator*();
         this->cr.set_font_size(text.font_size);
         switch(static_cast<int>(text.weight)) {
           case static_cast<int>(Text::Normal): this->cr.select_font_face(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("sans"), static_cast<const std::allocator<char>>(std::allocator<char>())), Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::NORMAL);
@@ -4929,11 +4929,11 @@ class VideoExplainer<static_cast<unsigned int>(9)>
     CairoSaveGuard saver = CairoSaveGuard(this->cr);
     double height = static_cast<double>(0);
     {
-      const std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > & __range2 = texts;
-      __gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > > __begin0 = __range2.begin();
-      __gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > > __end0 = __range2.end();
-      for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > >>(__end0)); __begin0.operator++()) {
-        const VideoExplainer<9>::Text & text = static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > >>(__begin0).operator*();
+      const std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > & __range0 = texts;
+      __gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > > __begin1 = __range0.begin();
+      __gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > > __end1 = __range0.end();
+      for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > >>(__end1)); __begin1.operator++()) {
+        const VideoExplainer<9>::Text & text = static_cast<const __gnu_cxx::__normal_iterator<const VideoExplainer<9>::Text *, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> > >>(__begin1).operator*();
         this->cr.set_font_size(text.font_size);
         switch(static_cast<int>(text.weight)) {
           case static_cast<int>(Text::Normal): this->cr.select_font_face(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("sans"), static_cast<const std::allocator<char>>(std::allocator<char>())), Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::NORMAL);

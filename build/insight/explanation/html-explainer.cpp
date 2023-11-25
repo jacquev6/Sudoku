@@ -109,11 +109,11 @@ class SudokuConstants
   {
     std::array<std::pair<unsigned int, unsigned int>, size * size> cells;
     {
-      auto && __range2 = make_values();
+      auto && __range0 = make_values();
       for(; ; ) {
         unsigned int row;
         {
-          auto && __range3 = make_values();
+          auto && __range1 = make_values();
           for(; ; ) {
             unsigned int col;
             cells[(row * size) + col] = {row, col};
@@ -140,11 +140,11 @@ class SudokuConstants
   {
     std::array<std::array<std::pair<unsigned int, unsigned int>, size>, 3 * size> regions;
     {
-      auto && __range2 = make_values();
+      auto && __range0 = make_values();
       for(; ; ) {
         unsigned int row;
         {
-          auto && __range3 = make_values();
+          auto && __range1 = make_values();
           for(; ; ) {
             unsigned int col;
             regions[row][col] = {row, col};
@@ -155,11 +155,11 @@ class SudokuConstants
       
     }
     {
-      auto && __range2 = make_values();
+      auto && __range0 = make_values();
       for(; ; ) {
         unsigned int col;
         {
-          auto && __range3 = make_values();
+          auto && __range1 = make_values();
           for(; ; ) {
             unsigned int row;
             regions[size + col][row] = {row, col};
@@ -170,13 +170,13 @@ class SudokuConstants
       
     }
     {
-      auto && __range2 = make_values();
+      auto && __range0 = make_values();
       for(; ; ) {
         unsigned int square;
         const unsigned int top_row = (square / sqrt_size) * sqrt_size;
         const unsigned int left_col = (square % sqrt_size) * sqrt_size;
         {
-          auto && __range3 = make_values();
+          auto && __range1 = make_values();
           for(; ; ) {
             unsigned int cell;
             const unsigned int delta_row = cell / sqrt_size;
@@ -197,11 +197,11 @@ class SudokuConstants
   {
     std::array<std::array<std::array<unsigned int, 3>, size>, size> regions_of;
     {
-      auto && __range2 = make_values();
+      auto && __range0 = make_values();
       for(; ; ) {
         unsigned int row;
         {
-          auto && __range3 = make_values();
+          auto && __range1 = make_values();
           for(; ; ) {
             unsigned int col;
             regions_of[row][col] = {row, size + col, ((static_cast<unsigned int>(2) * size) + ((row / sqrt_size) * sqrt_size)) + (col / sqrt_size)};
@@ -306,26 +306,26 @@ class SudokuBase
     inline auto cells() const
     {
             
-      class __lambda_228_28
+      class __lambda_0
       {
         public: 
         template<class type_parameter_1_0>
         inline const SudokuBase::Cell & operator()(const type_parameter_1_0 & coords) const
         {
-          const auto __coords229 = coords;
+          const auto __coords0 = coords;
           return __this->sudoku->_cells[row][col];
         }
         private: 
         const SudokuBase::Region * __this;
         
         public:
-        __lambda_228_28(const SudokuBase::Region * _this)
+        __lambda_0(const SudokuBase::Region * _this)
         : __this{_this}
         {}
         
       };
       
-      const auto convert = __lambda_228_28{this};
+      const auto convert = __lambda_0{this};
       return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::regions[this->_index].begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::regions[this->_index].end(), convert));
     }
     
@@ -400,9 +400,9 @@ class SudokuBase
   public: 
   inline Cell & cell(const std::pair<unsigned int, unsigned int> & coords)
   {
-    const std::pair<unsigned int, unsigned int> __coords302 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords302));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords302));
+    const std::pair<unsigned int, unsigned int> __coords1 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords1));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords1));
     (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "src/puzzle/sudoku.hpp", 149, __extension____PRETTY_FUNCTION__));
     (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "src/puzzle/sudoku.hpp", 150, __extension____PRETTY_FUNCTION__));
     return this->_cells[row][col];
@@ -410,9 +410,9 @@ class SudokuBase
   
   inline const Cell & cell(const std::pair<unsigned int, unsigned int> & coords) const
   {
-    const std::pair<unsigned int, unsigned int> __coords309 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords309));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords309));
+    const std::pair<unsigned int, unsigned int> __coords2 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords2));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords2));
     (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "src/puzzle/sudoku.hpp", 156, __extension____PRETTY_FUNCTION__));
     (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "src/puzzle/sudoku.hpp", 157, __extension____PRETTY_FUNCTION__));
     return this->_cells[row][col];
@@ -421,59 +421,59 @@ class SudokuBase
   inline auto cells() const
   {
         
-    class __lambda_316_26
+    class __lambda_1
     {
       public: 
       template<class type_parameter_1_0>
       inline const Cell & operator()(const type_parameter_1_0 & cell) const
       {
-        const auto __cell317 = cell;
+        const auto __cell0 = cell;
         return __this->_cells[row][col];
       }
       private: 
       const SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_316_26(const SudokuBase<CellBase, size> * _this)
+      __lambda_1(const SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_316_26{this};
+    const auto convert = __lambda_1{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::cells.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::cells.end(), convert));
   }
   
   inline auto cells()
   {
         
-    class __lambda_327_26
+    class __lambda_2
     {
       public: 
       template<class type_parameter_1_0>
       inline Cell & operator()(const type_parameter_1_0 & cell) const
       {
-        const auto __cell328 = cell;
+        const auto __cell1 = cell;
         return __this->_cells[row][col];
       }
       private: 
       SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_327_26(SudokuBase<CellBase, size> * _this)
+      __lambda_2(SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_327_26{this};
+    const auto convert = __lambda_2{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::cells.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::cells.end(), convert));
   }
   
   inline auto regions() const
   {
         
-    class __lambda_338_26
+    class __lambda_3
     {
       public: 
       inline const Region operator()(const unsigned int index) const
@@ -485,13 +485,13 @@ class SudokuBase
       const SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_338_26(const SudokuBase<CellBase, size> * _this)
+      __lambda_3(const SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_338_26{this};
+    const auto convert = __lambda_3{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::region_indexes.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::region_indexes.end(), convert));
   }
   
@@ -1111,7 +1111,7 @@ class Sudoku<AnnotatedCell<size>, size> : public SudokuBase<AnnotatedCell<size>,
   inline bool is_solved() const
   {
     {
-      auto && __range2 = this->cells();
+      auto && __range0 = this->cells();
       for(; ; ) {
         const auto & cell;
         if(!cell.is_set()) {
@@ -2092,9 +2092,9 @@ class HtmlExplainer<static_cast<unsigned int>(4)>
   
   void operator()(const exploration::PropagationStartsForCell<4> & event)
   {
-    const std::pair<unsigned int, unsigned int> __event925 = std::pair<unsigned int, unsigned int>(event.cell);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event925));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event925));
+    const std::pair<unsigned int, unsigned int> __event0 = std::pair<unsigned int, unsigned int>(event.cell);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event0));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event0));
     std::operator<<(std::operator<<(std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h2>Propagation from (")).operator<<(row), static_cast<const char *>(", ")).operator<<(col), static_cast<const char *>(")</h2>\n"));
     event.apply(&this->stack);
   }
@@ -2102,12 +2102,12 @@ class HtmlExplainer<static_cast<unsigned int>(4)>
   void operator()(const exploration::CellPropagates<4> & event)
   {
     event.apply(&this->stack);
-    const std::pair<unsigned int, unsigned int> __event935 = std::pair<unsigned int, unsigned int>(event.source_cell);
-    const unsigned int && src_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event935));
-    const unsigned int && src_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event935));
-    const std::pair<unsigned int, unsigned int> __event936 = std::pair<unsigned int, unsigned int>(event.target_cell);
-    const unsigned int && tgt_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event936));
-    const unsigned int && tgt_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event936));
+    const std::pair<unsigned int, unsigned int> __event1 = std::pair<unsigned int, unsigned int>(event.source_cell);
+    const unsigned int && src_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event1));
+    const unsigned int && src_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event1));
+    const std::pair<unsigned int, unsigned int> __event2 = std::pair<unsigned int, unsigned int>(event.target_cell);
+    const unsigned int && tgt_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event2));
+    const unsigned int && tgt_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event2));
     const std::basic_string<char, std::char_traits<char>, std::allocator<char> > image_name = static_cast<const std::basic_string<char, std::char_traits<char>, std::allocator<char> >>(boost::str<char, std::char_traits<char>, std::allocator<char> >(static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("propagation-%1%-%2%--%3%-%4%.png"))).operator%(src_row).operator%(src_col).operator%(tgt_row).operator%(tgt_col))));
     HtmlExplainer<4>::Image propagation = static_cast<const HtmlExplainer<static_cast<unsigned int>(4)> *>(this)->image(image_name);
     const double grid_size = art::round_grid_size<4U>(propagation.viewport_height);
@@ -2285,9 +2285,9 @@ class HtmlExplainer<static_cast<unsigned int>(9)>
   
   void operator()(const exploration::PropagationStartsForCell<9> & event)
   {
-    const std::pair<unsigned int, unsigned int> __event925 = std::pair<unsigned int, unsigned int>(event.cell);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event925));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event925));
+    const std::pair<unsigned int, unsigned int> __event0 = std::pair<unsigned int, unsigned int>(event.cell);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event0));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event0));
     std::operator<<(std::operator<<(std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h2>Propagation from (")).operator<<(row), static_cast<const char *>(", ")).operator<<(col), static_cast<const char *>(")</h2>\n"));
     event.apply(&this->stack);
   }
@@ -2295,12 +2295,12 @@ class HtmlExplainer<static_cast<unsigned int>(9)>
   void operator()(const exploration::CellPropagates<9> & event)
   {
     event.apply(&this->stack);
-    const std::pair<unsigned int, unsigned int> __event935 = std::pair<unsigned int, unsigned int>(event.source_cell);
-    const unsigned int && src_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event935));
-    const unsigned int && src_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event935));
-    const std::pair<unsigned int, unsigned int> __event936 = std::pair<unsigned int, unsigned int>(event.target_cell);
-    const unsigned int && tgt_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event936));
-    const unsigned int && tgt_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event936));
+    const std::pair<unsigned int, unsigned int> __event1 = std::pair<unsigned int, unsigned int>(event.source_cell);
+    const unsigned int && src_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event1));
+    const unsigned int && src_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event1));
+    const std::pair<unsigned int, unsigned int> __event2 = std::pair<unsigned int, unsigned int>(event.target_cell);
+    const unsigned int && tgt_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event2));
+    const unsigned int && tgt_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event2));
     const std::basic_string<char, std::char_traits<char>, std::allocator<char> > image_name = static_cast<const std::basic_string<char, std::char_traits<char>, std::allocator<char> >>(boost::str<char, std::char_traits<char>, std::allocator<char> >(static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("propagation-%1%-%2%--%3%-%4%.png"))).operator%(src_row).operator%(src_col).operator%(tgt_row).operator%(tgt_col))));
     HtmlExplainer<9>::Image propagation = static_cast<const HtmlExplainer<static_cast<unsigned int>(9)> *>(this)->image(image_name);
     const double grid_size = art::round_grid_size<9U>(propagation.viewport_height);
