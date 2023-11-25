@@ -86,6 +86,9 @@ build/obj/test-main.o:
 	@mkdir -p ${@D}
 	@CCACHE_LOGFILE=$@.ccache-log g++ -g -c -x c++ -std=c++20 -include doctest.h -DDOCTEST_CONFIG_IMPLEMENT_WITH_MAIN /dev/null -o $@
 
+# @todo Robustify these includes: the following sequence leads to missing rebuilding a target:
+#   rm -rf build; ./make.sh insight; touch src/main.cpp; ./make.sh insight
+# because the '*.d' files are never produced.
 include $(shell find build -name '*.d' 2>/dev/null)
 
 
