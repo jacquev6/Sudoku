@@ -57,7 +57,7 @@ build/lint/%.cpplint.ok: src/%
 insight: $(patsubst src/%,build/insight/%,${source_files})
 
 build/insight/%: src/% builder/crudest-preprocessor.py
-	@${echo} "Insight: insight $<"
+	@${echo} "Insight: insights $<"
 	@mkdir -p ${@D}
 	@builder/crudest-preprocessor.py $< | insights --stdin --show-all-callexpr-template-parameters --show-all-implicit-casts $< -- $$(pkg-config cairomm-1.16 libavutil libavcodec --cflags) -std=c++20 >$@.tmp
 	@mv $@.tmp $@
