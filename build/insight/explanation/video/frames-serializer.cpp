@@ -1,5 +1,7 @@
+# 1 "src/explanation/video/frames-serializer.cpp"
 // Copyright 2023 Vincent Jacques
 
+# 1 "src/explanation/video/frames-serializer.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLANATION_VIDEO_FRAMES_SERIALIZER_HPP_
@@ -9,6 +11,7 @@
 #include <iomanip>
 #include <string>
 
+# 1 "src/explanation/video/serializer.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLANATION_VIDEO_SERIALIZER_HPP_
@@ -63,6 +66,7 @@ namespace video
 }  // namespace video
 
 #endif  // EXPLANATION_VIDEO_SERIALIZER_HPP_
+# 11 "src/explanation/video/frames-serializer.hpp"
 
 
 namespace video
@@ -102,3 +106,4 @@ namespace video
 }  // namespace video
 
 #endif  // EXPLANATION_VIDEO_FRAMES_SERIALIZER_HPP_
+# 4 "src/explanation/video/frames-serializer.cpp"

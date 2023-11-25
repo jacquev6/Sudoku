@@ -1,5 +1,7 @@
+# 1 "src/exploration/annotations.cpp"
 // Copyright 2023 Vincent Jacques
 
+# 1 "src/exploration/annotations.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLORATION_ANNOTATIONS_HPP_
@@ -13,6 +15,7 @@
 #include <utility>
 #include <vector>
 
+# 1 "src/puzzle/sudoku.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef PUZZLE_SUDOKU_HPP_
@@ -30,6 +33,7 @@
 #include <boost/range.hpp>
 #include <boost/range/adaptor/indexed.hpp>
 
+# 1 "src/puzzle/sudoku-constants.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef PUZZLE_SUDOKU_CONSTANTS_HPP_
@@ -208,6 +212,7 @@ class SudokuConstants
 
 
 #endif  // PUZZLE_SUDOKU_CONSTANTS_HPP_
+# 19 "src/puzzle/sudoku.hpp"
 
 
 template<typename CellBase, unsigned int size>
@@ -241,7 +246,7 @@ class SudokuBase
     public: 
     inline bool operator==(const Cell & other) const
     {
-      (static_cast<bool>(this->sudoku == other.sudoku) ? void(0) : __assert_fail("sudoku == other.sudoku", "/wd/src/exploration/annotations.cpp", 176, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->sudoku == other.sudoku) ? void(0) : __assert_fail("sudoku == other.sudoku", "src/puzzle/sudoku.hpp", 46, __extension____PRETTY_FUNCTION__));
       return this->coords == other.coords;
     }
     
@@ -282,26 +287,26 @@ class SudokuBase
     inline auto cells() const
     {
             
-      class __lambda_204_28
+      class __lambda_209_28
       {
         public: 
         template<class type_parameter_1_0>
         inline const SudokuBase::Cell & operator()(const type_parameter_1_0 & coords) const
         {
-          const auto __coords205 = coords;
+          const auto __coords210 = coords;
           return __this->sudoku->_cells[row][col];
         }
         private: 
         const SudokuBase::Region * __this;
         
         public:
-        __lambda_204_28(const SudokuBase::Region * _this)
+        __lambda_209_28(const SudokuBase::Region * _this)
         : __this{_this}
         {}
         
       };
       
-      const auto convert = __lambda_204_28{this};
+      const auto convert = __lambda_209_28{this};
       return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::regions[this->_index].begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::regions[this->_index].end(), convert));
     }
     
@@ -376,80 +381,80 @@ class SudokuBase
   public: 
   inline Cell & cell(const std::pair<unsigned int, unsigned int> & coords)
   {
-    const std::pair<unsigned int, unsigned int> __coords278 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords278));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords278));
-    (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "/wd/src/exploration/annotations.cpp", 279, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "/wd/src/exploration/annotations.cpp", 280, __extension____PRETTY_FUNCTION__));
+    const std::pair<unsigned int, unsigned int> __coords283 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords283));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords283));
+    (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "src/puzzle/sudoku.hpp", 149, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "src/puzzle/sudoku.hpp", 150, __extension____PRETTY_FUNCTION__));
     return this->_cells[row][col];
   }
   
   inline const Cell & cell(const std::pair<unsigned int, unsigned int> & coords) const
   {
-    const std::pair<unsigned int, unsigned int> __coords285 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords285));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords285));
-    (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "/wd/src/exploration/annotations.cpp", 286, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "/wd/src/exploration/annotations.cpp", 287, __extension____PRETTY_FUNCTION__));
+    const std::pair<unsigned int, unsigned int> __coords290 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords290));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords290));
+    (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "src/puzzle/sudoku.hpp", 156, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "src/puzzle/sudoku.hpp", 157, __extension____PRETTY_FUNCTION__));
     return this->_cells[row][col];
   }
   
   inline auto cells() const
   {
         
-    class __lambda_292_26
+    class __lambda_297_26
     {
       public: 
       template<class type_parameter_1_0>
       inline const Cell & operator()(const type_parameter_1_0 & cell) const
       {
-        const auto __cell293 = cell;
+        const auto __cell298 = cell;
         return __this->_cells[row][col];
       }
       private: 
       const SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_292_26(const SudokuBase<CellBase, size> * _this)
+      __lambda_297_26(const SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_292_26{this};
+    const auto convert = __lambda_297_26{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::cells.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::cells.end(), convert));
   }
   
   inline auto cells()
   {
         
-    class __lambda_303_26
+    class __lambda_308_26
     {
       public: 
       template<class type_parameter_1_0>
       inline Cell & operator()(const type_parameter_1_0 & cell) const
       {
-        const auto __cell304 = cell;
+        const auto __cell309 = cell;
         return __this->_cells[row][col];
       }
       private: 
       SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_303_26(SudokuBase<CellBase, size> * _this)
+      __lambda_308_26(SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_303_26{this};
+    const auto convert = __lambda_308_26{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::cells.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::cells.end(), convert));
   }
   
   inline auto regions() const
   {
         
-    class __lambda_314_26
+    class __lambda_319_26
     {
       public: 
       inline const Region operator()(const unsigned int index) const
@@ -461,13 +466,13 @@ class SudokuBase
       const SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_314_26(const SudokuBase<CellBase, size> * _this)
+      __lambda_319_26(const SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_314_26{this};
+    const auto convert = __lambda_319_26{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::region_indexes.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::region_indexes.end(), convert));
   }
   
@@ -509,7 +514,7 @@ class ValueCell
   public: 
   inline void set(unsigned int value_)
   {
-    (static_cast<bool>(!static_cast<bool>(static_cast<const std::optional<unsigned int>>(this->value).operator bool()) || (this->value.operator*() == value_)) ? void(0) : __assert_fail(static_cast<const char *>("!value || *value == value_"), static_cast<const char *>("/wd/src/exploration/annotations.cpp"), static_cast<unsigned int>(352), static_cast<const char *>(__extension__"void ValueCell::set(unsigned int)")));
+    (static_cast<bool>(!static_cast<bool>(static_cast<const std::optional<unsigned int>>(this->value).operator bool()) || (this->value.operator*() == value_)) ? void(0) : __assert_fail(static_cast<const char *>("!value || *value == value_"), static_cast<const char *>("src/puzzle/sudoku.hpp"), static_cast<unsigned int>(222), static_cast<const char *>(__extension__"void ValueCell::set(unsigned int)")));
     this->value.operator=(std::optional<unsigned int>(value_));
   }
   
@@ -543,6 +548,7 @@ class Sudoku<ValueCell, size> : public SudokuBase<ValueCell, size>
 
 
 #endif  // PUZZLE_SUDOKU_HPP_
+# 15 "src/exploration/annotations.hpp"
 
 
 template<unsigned int size>
@@ -577,23 +583,23 @@ class AnnotatedCell
   inline unsigned int get() const
   {
     this->assert_invariants();
-    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "/wd/src/exploration/annotations.cpp", 403, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "src/exploration/annotations.hpp", 43, __extension____PRETTY_FUNCTION__));
     return this->set_value.value();
   }
   
   inline bool is_allowed(const unsigned int value) const
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "/wd/src/exploration/annotations.cpp", 410, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 50, __extension____PRETTY_FUNCTION__));
     return this->allowed_values.test(value);
   }
   
   inline void set_input(const unsigned int value)
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "/wd/src/exploration/annotations.cpp", 417, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "/wd/src/exploration/annotations.cpp", 418, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "/wd/src/exploration/annotations.cpp", 419, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 57, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 58, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 59, __extension____PRETTY_FUNCTION__));
     this->allowed_values.reset();
     this->allowed_values.set(value);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -604,9 +610,9 @@ class AnnotatedCell
   inline void set_deduced(const unsigned int value)
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "/wd/src/exploration/annotations.cpp", 431, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "/wd/src/exploration/annotations.cpp", 432, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "/wd/src/exploration/annotations.cpp", 433, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 71, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 72, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 73, __extension____PRETTY_FUNCTION__));
     this->allowed_values.reset();
     this->allowed_values.set(value);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -616,7 +622,7 @@ class AnnotatedCell
   inline void set_propagated()
   {
     this->assert_invariants();
-    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "/wd/src/exploration/annotations.cpp", 444, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "src/exploration/annotations.hpp", 84, __extension____PRETTY_FUNCTION__));
     this->propagated = true;
     this->assert_invariants();
   }
@@ -630,8 +636,8 @@ class AnnotatedCell
   inline void forbid(const unsigned int value)
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "/wd/src/exploration/annotations.cpp", 459, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "/wd/src/exploration/annotations.cpp", 460, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 99, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 100, __extension____PRETTY_FUNCTION__));
     this->allowed_values.reset(value);
     this->assert_invariants();
   }
@@ -646,18 +652,18 @@ class AnnotatedCell
   private: 
   inline void assert_invariants() const
   {
-    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail("allowed_values.any()", "/wd/src/exploration/annotations.cpp", 476, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail("allowed_values.any()", "src/exploration/annotations.hpp", 116, __extension____PRETTY_FUNCTION__));
     if(this->input) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "/wd/src/exploration/annotations.cpp", 480, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "src/exploration/annotations.hpp", 120, __extension____PRETTY_FUNCTION__));
     } 
     
     if(this->propagated) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "/wd/src/exploration/annotations.cpp", 485, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "src/exploration/annotations.hpp", 125, __extension____PRETTY_FUNCTION__));
     } 
     
     if(this->set_value.has_value()) {
-      (static_cast<bool>(this->allowed_values.count() == 1) ? void(0) : __assert_fail("allowed_values.count() == 1", "/wd/src/exploration/annotations.cpp", 490, __extension____PRETTY_FUNCTION__));
-      (static_cast<bool>(this->allowed_values.test(this->set_value.value())) ? void(0) : __assert_fail("allowed_values.test(set_value.value())", "/wd/src/exploration/annotations.cpp", 491, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->allowed_values.count() == 1) ? void(0) : __assert_fail("allowed_values.count() == 1", "src/exploration/annotations.hpp", 130, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->allowed_values.test(this->set_value.value())) ? void(0) : __assert_fail("allowed_values.test(set_value.value())", "src/exploration/annotations.hpp", 131, __extension____PRETTY_FUNCTION__));
     } 
     
   }
@@ -715,13 +721,13 @@ class Stack
   public: 
   inline const AnnotatedSudoku<size> & current() const
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "/wd/src/exploration/annotations.cpp", 526, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 166, __extension____PRETTY_FUNCTION__));
     return this->stack.back();
   }
   
   inline AnnotatedSudoku<size> & current()
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "/wd/src/exploration/annotations.cpp", 531, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 171, __extension____PRETTY_FUNCTION__));
     return this->stack.back();
   }
   
@@ -734,7 +740,7 @@ class Stack
   
   inline void pop()
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "/wd/src/exploration/annotations.cpp", 555, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 195, __extension____PRETTY_FUNCTION__));
     this->stack.pop_back();
   }
   
@@ -746,3 +752,4 @@ class Stack
 
 
 #endif  // EXPLORATION_ANNOTATIONS_HPP_
+# 4 "src/exploration/annotations.cpp"

@@ -1,5 +1,7 @@
+# 1 "src/exploration/events.cpp"
 // Copyright 2023 Vincent Jacques
 
+# 1 "src/exploration/events.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLORATION_EVENTS_HPP_
@@ -8,6 +10,7 @@
 #include <variant>
 #include <vector>
 
+# 1 "src/exploration/annotations.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLORATION_ANNOTATIONS_HPP_
@@ -21,6 +24,7 @@
 #include <utility>
 #include <vector>
 
+# 1 "src/puzzle/sudoku.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef PUZZLE_SUDOKU_HPP_
@@ -38,6 +42,7 @@
 #include <boost/range.hpp>
 #include <boost/range/adaptor/indexed.hpp>
 
+# 1 "src/puzzle/sudoku-constants.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef PUZZLE_SUDOKU_CONSTANTS_HPP_
@@ -213,7 +218,7 @@ class SudokuConstants
   /* PASSED: static_assert((sqrt_size * sqrt_size) == size, "'size' must be a perfect square"); */
 };
 
-/* First instantiated from: events.cpp:306 */
+/* First instantiated from: events.cpp:312 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuConstants<4>
@@ -397,7 +402,7 @@ class SudokuConstants<4>
 };
 
 #endif
-/* First instantiated from: events.cpp:306 */
+/* First instantiated from: events.cpp:312 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuConstants<9>
@@ -584,6 +589,7 @@ class SudokuConstants<9>
 
 
 #endif  // PUZZLE_SUDOKU_CONSTANTS_HPP_
+# 19 "src/puzzle/sudoku.hpp"
 
 
 template<typename CellBase, unsigned int size>
@@ -617,7 +623,7 @@ class SudokuBase
     public: 
     inline bool operator==(const Cell & other) const
     {
-      (static_cast<bool>(this->sudoku == other.sudoku) ? void(0) : __assert_fail("sudoku == other.sudoku", "/wd/src/exploration/events.cpp", 184, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->sudoku == other.sudoku) ? void(0) : __assert_fail("sudoku == other.sudoku", "src/puzzle/sudoku.hpp", 46, __extension____PRETTY_FUNCTION__));
       return this->coords == other.coords;
     }
     
@@ -658,26 +664,26 @@ class SudokuBase
     inline auto cells() const
     {
             
-      class __lambda_212_28
+      class __lambda_218_28
       {
         public: 
         template<class type_parameter_1_0>
         inline const SudokuBase::Cell & operator()(const type_parameter_1_0 & coords) const
         {
-          const auto __coords213 = coords;
+          const auto __coords219 = coords;
           return __this->sudoku->_cells[row][col];
         }
         private: 
         const SudokuBase::Region * __this;
         
         public:
-        __lambda_212_28(const SudokuBase::Region * _this)
+        __lambda_218_28(const SudokuBase::Region * _this)
         : __this{_this}
         {}
         
       };
       
-      const auto convert = __lambda_212_28{this};
+      const auto convert = __lambda_218_28{this};
       return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::regions[this->_index].begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::regions[this->_index].end(), convert));
     }
     
@@ -752,80 +758,80 @@ class SudokuBase
   public: 
   inline Cell & cell(const std::pair<unsigned int, unsigned int> & coords)
   {
-    const std::pair<unsigned int, unsigned int> __coords286 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords286));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords286));
-    (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "/wd/src/exploration/events.cpp", 287, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "/wd/src/exploration/events.cpp", 288, __extension____PRETTY_FUNCTION__));
+    const std::pair<unsigned int, unsigned int> __coords292 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords292));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords292));
+    (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "src/puzzle/sudoku.hpp", 149, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "src/puzzle/sudoku.hpp", 150, __extension____PRETTY_FUNCTION__));
     return this->_cells[row][col];
   }
   
   inline const Cell & cell(const std::pair<unsigned int, unsigned int> & coords) const
   {
-    const std::pair<unsigned int, unsigned int> __coords293 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords293));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords293));
-    (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "/wd/src/exploration/events.cpp", 294, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "/wd/src/exploration/events.cpp", 295, __extension____PRETTY_FUNCTION__));
+    const std::pair<unsigned int, unsigned int> __coords299 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords299));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords299));
+    (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "src/puzzle/sudoku.hpp", 156, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "src/puzzle/sudoku.hpp", 157, __extension____PRETTY_FUNCTION__));
     return this->_cells[row][col];
   }
   
   inline auto cells() const
   {
         
-    class __lambda_300_26
+    class __lambda_306_26
     {
       public: 
       template<class type_parameter_1_0>
       inline const Cell & operator()(const type_parameter_1_0 & cell) const
       {
-        const auto __cell301 = cell;
+        const auto __cell307 = cell;
         return __this->_cells[row][col];
       }
       private: 
       const SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_300_26(const SudokuBase<CellBase, size> * _this)
+      __lambda_306_26(const SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_300_26{this};
+    const auto convert = __lambda_306_26{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::cells.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::cells.end(), convert));
   }
   
   inline auto cells()
   {
         
-    class __lambda_311_26
+    class __lambda_317_26
     {
       public: 
       template<class type_parameter_1_0>
       inline Cell & operator()(const type_parameter_1_0 & cell) const
       {
-        const auto __cell312 = cell;
+        const auto __cell318 = cell;
         return __this->_cells[row][col];
       }
       private: 
       SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_311_26(SudokuBase<CellBase, size> * _this)
+      __lambda_317_26(SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_311_26{this};
+    const auto convert = __lambda_317_26{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::cells.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::cells.end(), convert));
   }
   
   inline auto regions() const
   {
         
-    class __lambda_322_26
+    class __lambda_328_26
     {
       public: 
       inline const Region operator()(const unsigned int index) const
@@ -837,13 +843,13 @@ class SudokuBase
       const SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_322_26(const SudokuBase<CellBase, size> * _this)
+      __lambda_328_26(const SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_322_26{this};
+    const auto convert = __lambda_328_26{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::region_indexes.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::region_indexes.end(), convert));
   }
   
@@ -852,7 +858,7 @@ class SudokuBase
   CellsArray _cells;
 };
 
-/* First instantiated from: events.cpp:511 */
+/* First instantiated from: events.cpp:518 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<4>, 4>
@@ -926,7 +932,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 4>, 4> copy_cells(const std::integer_sequence<unsigned int, row...> &, const std::array<std::array<Cell, 4>, 4> & other_cells);
   
-  /* First instantiated from: events.cpp:263 */
+  /* First instantiated from: events.cpp:269 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 4>, 4> copy_cells<0, 1, 2, 3>(const std::integer_sequence<unsigned int, 0, 1, 2, 3> &, const std::array<std::array<Cell, 4>, 4> & other_cells)
@@ -938,7 +944,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...col>
   inline std::array<Cell, 4> copy_row(unsigned int row, const std::array<std::array<Cell, 4>, 4> & other_cells, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: events.cpp:268 */
+  /* First instantiated from: events.cpp:274 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 4> copy_row<0, 1, 2, 3>(unsigned int row, const std::array<std::array<Cell, 4>, 4> & other_cells, const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -956,26 +962,26 @@ class SudokuBase<AnnotatedCell<4>, 4>
   public: 
   inline Cell & cell(const std::pair<unsigned int, unsigned int> & coords)
   {
-    const std::pair<unsigned int, unsigned int> __coords286 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords286));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords286));
-    (static_cast<bool>(row < 4U) ? void(0) : __assert_fail(static_cast<const char *>("row < size"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(287), static_cast<const char *>(__extension__"Cell &SudokuBase<AnnotatedCell<4>, 4>::cell(const Coordinates &) [CellBase = AnnotatedCell<4>, size = 4]")));
-    (static_cast<bool>(col < 4U) ? void(0) : __assert_fail(static_cast<const char *>("col < size"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(288), static_cast<const char *>(__extension__"Cell &SudokuBase<AnnotatedCell<4>, 4>::cell(const Coordinates &) [CellBase = AnnotatedCell<4>, size = 4]")));
+    const std::pair<unsigned int, unsigned int> __coords292 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords292));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords292));
+    (static_cast<bool>(row < 4U) ? void(0) : __assert_fail(static_cast<const char *>("row < size"), static_cast<const char *>("src/puzzle/sudoku.hpp"), static_cast<unsigned int>(149), static_cast<const char *>(__extension__"Cell &SudokuBase<AnnotatedCell<4>, 4>::cell(const Coordinates &) [CellBase = AnnotatedCell<4>, size = 4]")));
+    (static_cast<bool>(col < 4U) ? void(0) : __assert_fail(static_cast<const char *>("col < size"), static_cast<const char *>("src/puzzle/sudoku.hpp"), static_cast<unsigned int>(150), static_cast<const char *>(__extension__"Cell &SudokuBase<AnnotatedCell<4>, 4>::cell(const Coordinates &) [CellBase = AnnotatedCell<4>, size = 4]")));
     return this->_cells.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col));
   }
   
   inline const Cell & cell(const std::pair<unsigned int, unsigned int> & coords) const;
   
-  inline boost::iterator_range<boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > cells() const
+  inline boost::iterator_range<boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > cells() const
   {
         
-    class __lambda_300_26
+    class __lambda_306_26
     {
       public: 
       template<class type_parameter_0_0>
       inline /*constexpr */ const Cell & operator()(const type_parameter_0_0 & cell) const
       {
-        const auto __cell301 = cell;
+        const auto __cell307 = cell;
         return __this->_cells[row][col];
       }
       
@@ -984,9 +990,9 @@ class SudokuBase<AnnotatedCell<4>, 4>
       template<>
       inline /*constexpr */ const Cell & operator()<std::pair<unsigned int, unsigned int> >(const std::pair<unsigned int, unsigned int> & cell) const
       {
-        const std::pair<unsigned int, unsigned int> __cell301 = std::pair<unsigned int, unsigned int>(cell);
-        const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell301));
-        const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell301));
+        const std::pair<unsigned int, unsigned int> __cell307 = std::pair<unsigned int, unsigned int>(cell);
+        const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell307));
+        const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell307));
         return __this->_cells.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col));
       }
       #endif
@@ -994,16 +1000,16 @@ class SudokuBase<AnnotatedCell<4>, 4>
       private: 
       const SudokuBase<AnnotatedCell<4>, 4> * __this;
       public: 
-      // inline /*constexpr */ __lambda_300_26 & operator=(const __lambda_300_26 &) /* noexcept */ = delete;
-      // inline /*constexpr */ __lambda_300_26(const __lambda_300_26 &) noexcept = default;
-      __lambda_300_26(const SudokuBase<AnnotatedCell<4>, 4> * _this)
+      // inline /*constexpr */ __lambda_306_26 & operator=(const __lambda_306_26 &) /* noexcept */ = delete;
+      // inline /*constexpr */ __lambda_306_26(const __lambda_306_26 &) noexcept = default;
+      __lambda_306_26(const SudokuBase<AnnotatedCell<4>, 4> * _this)
       : __this{_this}
       {}
       
     };
     
-    const __lambda_300_26 convert = static_cast<const __lambda_300_26>(__lambda_300_26{this});
-    return boost::make_iterator_range<boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> >(boost::iterators::make_transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<4>::cells.begin(), __lambda_300_26(convert)), boost::iterators::make_transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<4>::cells.end(), __lambda_300_26(convert)));
+    const __lambda_306_26 convert = static_cast<const __lambda_306_26>(__lambda_306_26{this});
+    return boost::make_iterator_range<boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> >(boost::iterators::make_transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<4>::cells.begin(), __lambda_306_26(convert)), boost::iterators::make_transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<4>::cells.end(), __lambda_306_26(convert)));
   }
   
   inline auto cells();
@@ -1017,7 +1023,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
 };
 
 #endif
-/* First instantiated from: events.cpp:511 */
+/* First instantiated from: events.cpp:518 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<9>, 9>
@@ -1091,7 +1097,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 9>, 9> copy_cells(const std::integer_sequence<unsigned int, row...> &, const std::array<std::array<Cell, 9>, 9> & other_cells);
   
-  /* First instantiated from: events.cpp:263 */
+  /* First instantiated from: events.cpp:269 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 9>, 9> copy_cells<0, 1, 2, 3, 4, 5, 6, 7, 8>(const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &, const std::array<std::array<Cell, 9>, 9> & other_cells)
@@ -1103,7 +1109,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...col>
   inline std::array<Cell, 9> copy_row(unsigned int row, const std::array<std::array<Cell, 9>, 9> & other_cells, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: events.cpp:268 */
+  /* First instantiated from: events.cpp:274 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 9> copy_row<0, 1, 2, 3, 4, 5, 6, 7, 8>(unsigned int row, const std::array<std::array<Cell, 9>, 9> & other_cells, const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -1121,26 +1127,26 @@ class SudokuBase<AnnotatedCell<9>, 9>
   public: 
   inline Cell & cell(const std::pair<unsigned int, unsigned int> & coords)
   {
-    const std::pair<unsigned int, unsigned int> __coords286 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords286));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords286));
-    (static_cast<bool>(row < 9U) ? void(0) : __assert_fail(static_cast<const char *>("row < size"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(287), static_cast<const char *>(__extension__"Cell &SudokuBase<AnnotatedCell<9>, 9>::cell(const Coordinates &) [CellBase = AnnotatedCell<9>, size = 9]")));
-    (static_cast<bool>(col < 9U) ? void(0) : __assert_fail(static_cast<const char *>("col < size"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(288), static_cast<const char *>(__extension__"Cell &SudokuBase<AnnotatedCell<9>, 9>::cell(const Coordinates &) [CellBase = AnnotatedCell<9>, size = 9]")));
+    const std::pair<unsigned int, unsigned int> __coords292 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords292));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords292));
+    (static_cast<bool>(row < 9U) ? void(0) : __assert_fail(static_cast<const char *>("row < size"), static_cast<const char *>("src/puzzle/sudoku.hpp"), static_cast<unsigned int>(149), static_cast<const char *>(__extension__"Cell &SudokuBase<AnnotatedCell<9>, 9>::cell(const Coordinates &) [CellBase = AnnotatedCell<9>, size = 9]")));
+    (static_cast<bool>(col < 9U) ? void(0) : __assert_fail(static_cast<const char *>("col < size"), static_cast<const char *>("src/puzzle/sudoku.hpp"), static_cast<unsigned int>(150), static_cast<const char *>(__extension__"Cell &SudokuBase<AnnotatedCell<9>, 9>::cell(const Coordinates &) [CellBase = AnnotatedCell<9>, size = 9]")));
     return this->_cells.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col));
   }
   
   inline const Cell & cell(const std::pair<unsigned int, unsigned int> & coords) const;
   
-  inline boost::iterator_range<boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > cells() const
+  inline boost::iterator_range<boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > cells() const
   {
         
-    class __lambda_300_26
+    class __lambda_306_26
     {
       public: 
       template<class type_parameter_0_0>
       inline /*constexpr */ const Cell & operator()(const type_parameter_0_0 & cell) const
       {
-        const auto __cell301 = cell;
+        const auto __cell307 = cell;
         return __this->_cells[row][col];
       }
       
@@ -1149,9 +1155,9 @@ class SudokuBase<AnnotatedCell<9>, 9>
       template<>
       inline /*constexpr */ const Cell & operator()<std::pair<unsigned int, unsigned int> >(const std::pair<unsigned int, unsigned int> & cell) const
       {
-        const std::pair<unsigned int, unsigned int> __cell301 = std::pair<unsigned int, unsigned int>(cell);
-        const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell301));
-        const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell301));
+        const std::pair<unsigned int, unsigned int> __cell307 = std::pair<unsigned int, unsigned int>(cell);
+        const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell307));
+        const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell307));
         return __this->_cells.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col));
       }
       #endif
@@ -1159,16 +1165,16 @@ class SudokuBase<AnnotatedCell<9>, 9>
       private: 
       const SudokuBase<AnnotatedCell<9>, 9> * __this;
       public: 
-      // inline /*constexpr */ __lambda_300_26 & operator=(const __lambda_300_26 &) /* noexcept */ = delete;
-      // inline /*constexpr */ __lambda_300_26(const __lambda_300_26 &) noexcept = default;
-      __lambda_300_26(const SudokuBase<AnnotatedCell<9>, 9> * _this)
+      // inline /*constexpr */ __lambda_306_26 & operator=(const __lambda_306_26 &) /* noexcept */ = delete;
+      // inline /*constexpr */ __lambda_306_26(const __lambda_306_26 &) noexcept = default;
+      __lambda_306_26(const SudokuBase<AnnotatedCell<9>, 9> * _this)
       : __this{_this}
       {}
       
     };
     
-    const __lambda_300_26 convert = static_cast<const __lambda_300_26>(__lambda_300_26{this});
-    return boost::make_iterator_range<boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> >(boost::iterators::make_transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<9>::cells.begin(), __lambda_300_26(convert)), boost::iterators::make_transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<9>::cells.end(), __lambda_300_26(convert)));
+    const __lambda_306_26 convert = static_cast<const __lambda_306_26>(__lambda_306_26{this});
+    return boost::make_iterator_range<boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> >(boost::iterators::make_transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<9>::cells.begin(), __lambda_306_26(convert)), boost::iterators::make_transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<9>::cells.end(), __lambda_306_26(convert)));
   }
   
   inline auto cells();
@@ -1200,7 +1206,7 @@ class Sudoku : public SudokuBase<Cell, size>
 {
 };
 
-/* First instantiated from: events.cpp:713 */
+/* First instantiated from: events.cpp:722 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<AnnotatedCell<4>, 4> : public SudokuBase<AnnotatedCell<4>, 4>
@@ -1210,11 +1216,11 @@ class Sudoku<AnnotatedCell<4>, 4> : public SudokuBase<AnnotatedCell<4>, 4>
   inline bool is_solved() const
   {
     {
-      boost::iterator_range<boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > && __range2 = /* static_cast<const SudokuBase<AnnotatedCell<4>, 4> *>(this)-> */ cells();
-      boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __begin0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range2).begin();
-      boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __end0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range2).end();
-      for(; boost::iterators::operator!=(static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<AnnotatedCell<4>, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<AnnotatedCell<4>, 4>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__begin0)), static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<AnnotatedCell<4>, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<AnnotatedCell<4>, 4>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__end0))); static_cast<boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<AnnotatedCell<4>, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<AnnotatedCell<4>, 4>::Cell &, long, false, false>&>(__begin0).operator++()) {
-        const SudokuBase<AnnotatedCell<4>, 4>::Cell & cell = static_cast<const boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<AnnotatedCell<4>, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<AnnotatedCell<4>, 4>::Cell &, long, false, false>&>(__begin0).operator*();
+      boost::iterator_range<boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > && __range2 = /* static_cast<const SudokuBase<AnnotatedCell<4>, 4> *>(this)-> */ cells();
+      boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __begin0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range2).begin();
+      boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __end0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range2).end();
+      for(; boost::iterators::operator!=(static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<AnnotatedCell<4>, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<AnnotatedCell<4>, 4>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__begin0)), static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<AnnotatedCell<4>, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<AnnotatedCell<4>, 4>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__end0))); static_cast<boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<AnnotatedCell<4>, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<AnnotatedCell<4>, 4>::Cell &, long, false, false>&>(__begin0).operator++()) {
+        const SudokuBase<AnnotatedCell<4>, 4>::Cell & cell = static_cast<const boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<AnnotatedCell<4>, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<AnnotatedCell<4>, 4>::Cell &, long, false, false>&>(__begin0).operator*();
         if(!static_cast<const AnnotatedCell<4>&>(cell).is_set()) {
           return false;
         } 
@@ -1231,7 +1237,7 @@ class Sudoku<AnnotatedCell<4>, 4> : public SudokuBase<AnnotatedCell<4>, 4>
 };
 
 #endif
-/* First instantiated from: events.cpp:713 */
+/* First instantiated from: events.cpp:722 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<AnnotatedCell<9>, 9> : public SudokuBase<AnnotatedCell<9>, 9>
@@ -1241,11 +1247,11 @@ class Sudoku<AnnotatedCell<9>, 9> : public SudokuBase<AnnotatedCell<9>, 9>
   inline bool is_solved() const
   {
     {
-      boost::iterator_range<boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > && __range2 = /* static_cast<const SudokuBase<AnnotatedCell<9>, 9> *>(this)-> */ cells();
-      boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __begin0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range2).begin();
-      boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __end0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range2).end();
-      for(; boost::iterators::operator!=(static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<AnnotatedCell<9>, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<AnnotatedCell<9>, 9>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__begin0)), static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<AnnotatedCell<9>, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<AnnotatedCell<9>, 9>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__end0))); static_cast<boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<AnnotatedCell<9>, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<AnnotatedCell<9>, 9>::Cell &, long, false, false>&>(__begin0).operator++()) {
-        const SudokuBase<AnnotatedCell<9>, 9>::Cell & cell = static_cast<const boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_300_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<AnnotatedCell<9>, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<AnnotatedCell<9>, 9>::Cell &, long, false, false>&>(__begin0).operator*();
+      boost::iterator_range<boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > && __range2 = /* static_cast<const SudokuBase<AnnotatedCell<9>, 9> *>(this)-> */ cells();
+      boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __begin0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range2).begin();
+      boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __end0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range2).end();
+      for(; boost::iterators::operator!=(static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<AnnotatedCell<9>, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<AnnotatedCell<9>, 9>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__begin0)), static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<AnnotatedCell<9>, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<AnnotatedCell<9>, 9>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__end0))); static_cast<boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<AnnotatedCell<9>, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<AnnotatedCell<9>, 9>::Cell &, long, false, false>&>(__begin0).operator++()) {
+        const SudokuBase<AnnotatedCell<9>, 9>::Cell & cell = static_cast<const boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_306_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<AnnotatedCell<9>, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<AnnotatedCell<9>, 9>::Cell &, long, false, false>&>(__begin0).operator*();
         if(!static_cast<const AnnotatedCell<9>&>(cell).is_set()) {
           return false;
         } 
@@ -1277,7 +1283,7 @@ class ValueCell
   public: 
   inline void set(unsigned int value_)
   {
-    (static_cast<bool>(!static_cast<bool>(static_cast<const std::optional<unsigned int>>(this->value).operator bool()) || (this->value.operator*() == value_)) ? void(0) : __assert_fail(static_cast<const char *>("!value || *value == value_"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(360), static_cast<const char *>(__extension__"void ValueCell::set(unsigned int)")));
+    (static_cast<bool>(!static_cast<bool>(static_cast<const std::optional<unsigned int>>(this->value).operator bool()) || (this->value.operator*() == value_)) ? void(0) : __assert_fail(static_cast<const char *>("!value || *value == value_"), static_cast<const char *>("src/puzzle/sudoku.hpp"), static_cast<unsigned int>(222), static_cast<const char *>(__extension__"void ValueCell::set(unsigned int)")));
     this->value.operator=(std::optional<unsigned int>(value_));
   }
   
@@ -1311,6 +1317,7 @@ class Sudoku<ValueCell, size> : public SudokuBase<ValueCell, size>
 
 
 #endif  // PUZZLE_SUDOKU_HPP_
+# 15 "src/exploration/annotations.hpp"
 
 
 template<unsigned int size>
@@ -1345,23 +1352,23 @@ class AnnotatedCell
   inline unsigned int get() const
   {
     this->assert_invariants();
-    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "/wd/src/exploration/events.cpp", 411, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "src/exploration/annotations.hpp", 43, __extension____PRETTY_FUNCTION__));
     return this->set_value.value();
   }
   
   inline bool is_allowed(const unsigned int value) const
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "/wd/src/exploration/events.cpp", 418, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 50, __extension____PRETTY_FUNCTION__));
     return this->allowed_values.test(value);
   }
   
   inline void set_input(const unsigned int value)
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "/wd/src/exploration/events.cpp", 425, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "/wd/src/exploration/events.cpp", 426, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "/wd/src/exploration/events.cpp", 427, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 57, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 58, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 59, __extension____PRETTY_FUNCTION__));
     this->allowed_values.reset();
     this->allowed_values.set(value);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -1372,9 +1379,9 @@ class AnnotatedCell
   inline void set_deduced(const unsigned int value)
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "/wd/src/exploration/events.cpp", 439, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "/wd/src/exploration/events.cpp", 440, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "/wd/src/exploration/events.cpp", 441, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 71, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 72, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 73, __extension____PRETTY_FUNCTION__));
     this->allowed_values.reset();
     this->allowed_values.set(value);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -1384,7 +1391,7 @@ class AnnotatedCell
   inline void set_propagated()
   {
     this->assert_invariants();
-    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "/wd/src/exploration/events.cpp", 452, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "src/exploration/annotations.hpp", 84, __extension____PRETTY_FUNCTION__));
     this->propagated = true;
     this->assert_invariants();
   }
@@ -1398,8 +1405,8 @@ class AnnotatedCell
   inline void forbid(const unsigned int value)
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "/wd/src/exploration/events.cpp", 467, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "/wd/src/exploration/events.cpp", 468, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 99, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 100, __extension____PRETTY_FUNCTION__));
     this->allowed_values.reset(value);
     this->assert_invariants();
   }
@@ -1414,18 +1421,18 @@ class AnnotatedCell
   private: 
   inline void assert_invariants() const
   {
-    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail("allowed_values.any()", "/wd/src/exploration/events.cpp", 484, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail("allowed_values.any()", "src/exploration/annotations.hpp", 116, __extension____PRETTY_FUNCTION__));
     if(this->input) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "/wd/src/exploration/events.cpp", 488, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "src/exploration/annotations.hpp", 120, __extension____PRETTY_FUNCTION__));
     } 
     
     if(this->propagated) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "/wd/src/exploration/events.cpp", 493, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "src/exploration/annotations.hpp", 125, __extension____PRETTY_FUNCTION__));
     } 
     
     if(this->set_value.has_value()) {
-      (static_cast<bool>(this->allowed_values.count() == 1) ? void(0) : __assert_fail("allowed_values.count() == 1", "/wd/src/exploration/events.cpp", 498, __extension____PRETTY_FUNCTION__));
-      (static_cast<bool>(this->allowed_values.test(this->set_value.value())) ? void(0) : __assert_fail("allowed_values.test(set_value.value())", "/wd/src/exploration/events.cpp", 499, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->allowed_values.count() == 1) ? void(0) : __assert_fail("allowed_values.count() == 1", "src/exploration/annotations.hpp", 130, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->allowed_values.test(this->set_value.value())) ? void(0) : __assert_fail("allowed_values.test(set_value.value())", "src/exploration/annotations.hpp", 131, __extension____PRETTY_FUNCTION__));
     } 
     
   }
@@ -1438,7 +1445,7 @@ class AnnotatedCell
   bool propagated;
 };
 
-/* First instantiated from: events.cpp:163 */
+/* First instantiated from: events.cpp:169 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class AnnotatedCell<4>
@@ -1460,23 +1467,23 @@ class AnnotatedCell<4>
   inline unsigned int get() const
   {
     this->assert_invariants();
-    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(411), static_cast<const char *>(__extension__"unsigned int AnnotatedCell<4>::get() const [size = 4]")));
+    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(43), static_cast<const char *>(__extension__"unsigned int AnnotatedCell<4>::get() const [size = 4]")));
     return this->set_value.value();
   }
   
   inline bool is_allowed(const unsigned int value) const
   {
     this->assert_invariants();
-    (static_cast<bool>(value < 4U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(418), static_cast<const char *>(__extension__"bool AnnotatedCell<4>::is_allowed(const unsigned int) const [size = 4]")));
+    (static_cast<bool>(value < 4U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(50), static_cast<const char *>(__extension__"bool AnnotatedCell<4>::is_allowed(const unsigned int) const [size = 4]")));
     return this->allowed_values.test(static_cast<unsigned long>(value));
   }
   
   inline void set_input(const unsigned int value)
   {
     static_cast<const AnnotatedCell<4> *>(this)->assert_invariants();
-    (static_cast<bool>(value < 4U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(425), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_input(const unsigned int) [size = 4]")));
-    (static_cast<bool>(static_cast<const AnnotatedCell<4> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(426), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_input(const unsigned int) [size = 4]")));
-    (static_cast<bool>(!static_cast<const AnnotatedCell<4> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(427), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_input(const unsigned int) [size = 4]")));
+    (static_cast<bool>(value < 4U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(57), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_input(const unsigned int) [size = 4]")));
+    (static_cast<bool>(static_cast<const AnnotatedCell<4> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(58), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_input(const unsigned int) [size = 4]")));
+    (static_cast<bool>(!static_cast<const AnnotatedCell<4> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(59), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_input(const unsigned int) [size = 4]")));
     this->allowed_values.reset();
     this->allowed_values.set(static_cast<unsigned long>(value), true);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -1487,9 +1494,9 @@ class AnnotatedCell<4>
   inline void set_deduced(const unsigned int value)
   {
     static_cast<const AnnotatedCell<4> *>(this)->assert_invariants();
-    (static_cast<bool>(value < 4U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(439), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_deduced(const unsigned int) [size = 4]")));
-    (static_cast<bool>(static_cast<const AnnotatedCell<4> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(440), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_deduced(const unsigned int) [size = 4]")));
-    (static_cast<bool>(!static_cast<const AnnotatedCell<4> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(441), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_deduced(const unsigned int) [size = 4]")));
+    (static_cast<bool>(value < 4U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(71), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_deduced(const unsigned int) [size = 4]")));
+    (static_cast<bool>(static_cast<const AnnotatedCell<4> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(72), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_deduced(const unsigned int) [size = 4]")));
+    (static_cast<bool>(!static_cast<const AnnotatedCell<4> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(73), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_deduced(const unsigned int) [size = 4]")));
     this->allowed_values.reset();
     this->allowed_values.set(static_cast<unsigned long>(value), true);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -1499,7 +1506,7 @@ class AnnotatedCell<4>
   inline void set_propagated()
   {
     static_cast<const AnnotatedCell<4> *>(this)->assert_invariants();
-    (static_cast<bool>(static_cast<const AnnotatedCell<4> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(452), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_propagated() [size = 4]")));
+    (static_cast<bool>(static_cast<const AnnotatedCell<4> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(84), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_propagated() [size = 4]")));
     this->propagated = true;
     static_cast<const AnnotatedCell<4> *>(this)->assert_invariants();
   }
@@ -1513,8 +1520,8 @@ class AnnotatedCell<4>
   inline void forbid(const unsigned int value)
   {
     static_cast<const AnnotatedCell<4> *>(this)->assert_invariants();
-    (static_cast<bool>(value < 4U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(467), static_cast<const char *>(__extension__"void AnnotatedCell<4>::forbid(const unsigned int) [size = 4]")));
-    (static_cast<bool>(static_cast<const AnnotatedCell<4> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(468), static_cast<const char *>(__extension__"void AnnotatedCell<4>::forbid(const unsigned int) [size = 4]")));
+    (static_cast<bool>(value < 4U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(99), static_cast<const char *>(__extension__"void AnnotatedCell<4>::forbid(const unsigned int) [size = 4]")));
+    (static_cast<bool>(static_cast<const AnnotatedCell<4> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(100), static_cast<const char *>(__extension__"void AnnotatedCell<4>::forbid(const unsigned int) [size = 4]")));
     this->allowed_values.reset(static_cast<unsigned long>(value));
     static_cast<const AnnotatedCell<4> *>(this)->assert_invariants();
   }
@@ -1525,18 +1532,18 @@ class AnnotatedCell<4>
   private: 
   inline void assert_invariants() const
   {
-    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(484), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(116), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
     if(this->input) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(488), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(120), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
     } 
     
     if(this->propagated) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(493), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(125), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
     } 
     
     if(this->set_value.has_value()) {
-      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(498), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
-      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(499), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(130), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(131), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
     } 
     
   }
@@ -1552,7 +1559,7 @@ class AnnotatedCell<4>
 };
 
 #endif
-/* First instantiated from: events.cpp:163 */
+/* First instantiated from: events.cpp:169 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class AnnotatedCell<9>
@@ -1574,23 +1581,23 @@ class AnnotatedCell<9>
   inline unsigned int get() const
   {
     this->assert_invariants();
-    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(411), static_cast<const char *>(__extension__"unsigned int AnnotatedCell<9>::get() const [size = 9]")));
+    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(43), static_cast<const char *>(__extension__"unsigned int AnnotatedCell<9>::get() const [size = 9]")));
     return this->set_value.value();
   }
   
   inline bool is_allowed(const unsigned int value) const
   {
     this->assert_invariants();
-    (static_cast<bool>(value < 9U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(418), static_cast<const char *>(__extension__"bool AnnotatedCell<9>::is_allowed(const unsigned int) const [size = 9]")));
+    (static_cast<bool>(value < 9U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(50), static_cast<const char *>(__extension__"bool AnnotatedCell<9>::is_allowed(const unsigned int) const [size = 9]")));
     return this->allowed_values.test(static_cast<unsigned long>(value));
   }
   
   inline void set_input(const unsigned int value)
   {
     static_cast<const AnnotatedCell<9> *>(this)->assert_invariants();
-    (static_cast<bool>(value < 9U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(425), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_input(const unsigned int) [size = 9]")));
-    (static_cast<bool>(static_cast<const AnnotatedCell<9> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(426), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_input(const unsigned int) [size = 9]")));
-    (static_cast<bool>(!static_cast<const AnnotatedCell<9> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(427), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_input(const unsigned int) [size = 9]")));
+    (static_cast<bool>(value < 9U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(57), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_input(const unsigned int) [size = 9]")));
+    (static_cast<bool>(static_cast<const AnnotatedCell<9> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(58), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_input(const unsigned int) [size = 9]")));
+    (static_cast<bool>(!static_cast<const AnnotatedCell<9> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(59), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_input(const unsigned int) [size = 9]")));
     this->allowed_values.reset();
     this->allowed_values.set(static_cast<unsigned long>(value), true);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -1601,9 +1608,9 @@ class AnnotatedCell<9>
   inline void set_deduced(const unsigned int value)
   {
     static_cast<const AnnotatedCell<9> *>(this)->assert_invariants();
-    (static_cast<bool>(value < 9U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(439), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_deduced(const unsigned int) [size = 9]")));
-    (static_cast<bool>(static_cast<const AnnotatedCell<9> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(440), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_deduced(const unsigned int) [size = 9]")));
-    (static_cast<bool>(!static_cast<const AnnotatedCell<9> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(441), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_deduced(const unsigned int) [size = 9]")));
+    (static_cast<bool>(value < 9U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(71), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_deduced(const unsigned int) [size = 9]")));
+    (static_cast<bool>(static_cast<const AnnotatedCell<9> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(72), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_deduced(const unsigned int) [size = 9]")));
+    (static_cast<bool>(!static_cast<const AnnotatedCell<9> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(73), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_deduced(const unsigned int) [size = 9]")));
     this->allowed_values.reset();
     this->allowed_values.set(static_cast<unsigned long>(value), true);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -1613,7 +1620,7 @@ class AnnotatedCell<9>
   inline void set_propagated()
   {
     static_cast<const AnnotatedCell<9> *>(this)->assert_invariants();
-    (static_cast<bool>(static_cast<const AnnotatedCell<9> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(452), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_propagated() [size = 9]")));
+    (static_cast<bool>(static_cast<const AnnotatedCell<9> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(84), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_propagated() [size = 9]")));
     this->propagated = true;
     static_cast<const AnnotatedCell<9> *>(this)->assert_invariants();
   }
@@ -1627,8 +1634,8 @@ class AnnotatedCell<9>
   inline void forbid(const unsigned int value)
   {
     static_cast<const AnnotatedCell<9> *>(this)->assert_invariants();
-    (static_cast<bool>(value < 9U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(467), static_cast<const char *>(__extension__"void AnnotatedCell<9>::forbid(const unsigned int) [size = 9]")));
-    (static_cast<bool>(static_cast<const AnnotatedCell<9> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(468), static_cast<const char *>(__extension__"void AnnotatedCell<9>::forbid(const unsigned int) [size = 9]")));
+    (static_cast<bool>(value < 9U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(99), static_cast<const char *>(__extension__"void AnnotatedCell<9>::forbid(const unsigned int) [size = 9]")));
+    (static_cast<bool>(static_cast<const AnnotatedCell<9> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(100), static_cast<const char *>(__extension__"void AnnotatedCell<9>::forbid(const unsigned int) [size = 9]")));
     this->allowed_values.reset(static_cast<unsigned long>(value));
     static_cast<const AnnotatedCell<9> *>(this)->assert_invariants();
   }
@@ -1639,18 +1646,18 @@ class AnnotatedCell<9>
   private: 
   inline void assert_invariants() const
   {
-    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(484), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(116), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     if(this->input) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(488), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(120), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     } 
     
     if(this->propagated) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(493), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(125), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     } 
     
     if(this->set_value.has_value()) {
-      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(498), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
-      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(499), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(130), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(131), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     } 
     
   }
@@ -1711,13 +1718,13 @@ class Stack
   public: 
   inline const AnnotatedSudoku<size> & current() const
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "/wd/src/exploration/events.cpp", 534, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 166, __extension____PRETTY_FUNCTION__));
     return this->stack.back();
   }
   
   inline AnnotatedSudoku<size> & current()
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "/wd/src/exploration/events.cpp", 539, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 171, __extension____PRETTY_FUNCTION__));
     return this->stack.back();
   }
   
@@ -1730,7 +1737,7 @@ class Stack
   
   inline void pop()
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "/wd/src/exploration/events.cpp", 563, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 195, __extension____PRETTY_FUNCTION__));
     this->stack.pop_back();
   }
   
@@ -1739,7 +1746,7 @@ class Stack
   std::vector<AnnotatedSudoku<size> > stack;
 };
 
-/* First instantiated from: events.cpp:713 */
+/* First instantiated from: events.cpp:722 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<4>
@@ -1754,7 +1761,7 @@ class Stack<4>
   
   inline Sudoku<AnnotatedCell<4>, 4> & current()
   {
-    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(539), static_cast<const char *>(__extension__"AnnotatedSudoku<size> &Stack<4>::current() [size = 4]")));
+    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(171), static_cast<const char *>(__extension__"AnnotatedSudoku<size> &Stack<4>::current() [size = 4]")));
     return this->stack.back();
   }
   
@@ -1767,7 +1774,7 @@ class Stack<4>
   
   inline void pop()
   {
-    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(563), static_cast<const char *>(__extension__"void Stack<4>::pop() [size = 4]")));
+    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(195), static_cast<const char *>(__extension__"void Stack<4>::pop() [size = 4]")));
     this->stack.pop_back();
   }
   
@@ -1778,7 +1785,7 @@ class Stack<4>
 };
 
 #endif
-/* First instantiated from: events.cpp:713 */
+/* First instantiated from: events.cpp:722 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<9>
@@ -1793,7 +1800,7 @@ class Stack<9>
   
   inline Sudoku<AnnotatedCell<9>, 9> & current()
   {
-    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(539), static_cast<const char *>(__extension__"AnnotatedSudoku<size> &Stack<9>::current() [size = 9]")));
+    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(171), static_cast<const char *>(__extension__"AnnotatedSudoku<size> &Stack<9>::current() [size = 9]")));
     return this->stack.back();
   }
   
@@ -1806,7 +1813,7 @@ class Stack<9>
   
   inline void pop()
   {
-    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(563), static_cast<const char *>(__extension__"void Stack<9>::pop() [size = 9]")));
+    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(195), static_cast<const char *>(__extension__"void Stack<9>::pop() [size = 9]")));
     this->stack.pop_back();
   }
   
@@ -1820,6 +1827,7 @@ class Stack<9>
 
 
 #endif  // EXPLORATION_ANNOTATIONS_HPP_
+# 10 "src/exploration/events.hpp"
 
 
 namespace exploration
@@ -1958,6 +1966,7 @@ namespace exploration
 }  // namespace exploration
 
 #endif  // EXPLORATION_EVENTS_HPP_
+# 4 "src/exploration/events.cpp"
 
 namespace exploration
 {
@@ -1976,40 +1985,40 @@ namespace exploration
   
   void PropagationStartsForCell::apply(Stack<size> * stack) const
   {
-    (static_cast<bool>(stack->current().cell(this->cell).is_set()) ? void(0) : __assert_fail("stack->current().cell(cell).is_set()", "/wd/src/exploration/events.cpp", 726, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(stack->current().cell(this->cell).get() == this->value) ? void(0) : __assert_fail("stack->current().cell(cell).get() == value", "/wd/src/exploration/events.cpp", 727, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(!stack->current().cell(this->cell).is_propagated()) ? void(0) : __assert_fail("!stack->current().cell(cell).is_propagated()", "/wd/src/exploration/events.cpp", 728, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(stack->current().cell(this->cell).is_set()) ? void(0) : __assert_fail("stack->current().cell(cell).is_set()", "src/exploration/events.cpp", 22, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(stack->current().cell(this->cell).get() == this->value) ? void(0) : __assert_fail("stack->current().cell(cell).get() == value", "src/exploration/events.cpp", 23, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!stack->current().cell(this->cell).is_propagated()) ? void(0) : __assert_fail("!stack->current().cell(cell).is_propagated()", "src/exploration/events.cpp", 24, __extension____PRETTY_FUNCTION__));
   }
   
   void CellPropagates::apply(Stack<size> * stack) const
   {
-    (static_cast<bool>(stack->current().cell(this->source_cell).is_set()) ? void(0) : __assert_fail("stack->current().cell(source_cell).is_set()", "/wd/src/exploration/events.cpp", 733, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(stack->current().cell(this->source_cell).get() == this->value) ? void(0) : __assert_fail("stack->current().cell(source_cell).get() == value", "/wd/src/exploration/events.cpp", 734, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(!stack->current().cell(this->target_cell).is_set()) ? void(0) : __assert_fail("!stack->current().cell(target_cell).is_set()", "/wd/src/exploration/events.cpp", 735, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(stack->current().cell(this->target_cell).is_allowed(this->value)) ? void(0) : __assert_fail("stack->current().cell(target_cell).is_allowed(value)", "/wd/src/exploration/events.cpp", 736, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(!stack->current().cell(this->source_cell).is_propagated()) ? void(0) : __assert_fail("!stack->current().cell(source_cell).is_propagated()", "/wd/src/exploration/events.cpp", 737, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(stack->current().cell(this->source_cell).is_set()) ? void(0) : __assert_fail("stack->current().cell(source_cell).is_set()", "src/exploration/events.cpp", 29, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(stack->current().cell(this->source_cell).get() == this->value) ? void(0) : __assert_fail("stack->current().cell(source_cell).get() == value", "src/exploration/events.cpp", 30, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!stack->current().cell(this->target_cell).is_set()) ? void(0) : __assert_fail("!stack->current().cell(target_cell).is_set()", "src/exploration/events.cpp", 31, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(stack->current().cell(this->target_cell).is_allowed(this->value)) ? void(0) : __assert_fail("stack->current().cell(target_cell).is_allowed(value)", "src/exploration/events.cpp", 32, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!stack->current().cell(this->source_cell).is_propagated()) ? void(0) : __assert_fail("!stack->current().cell(source_cell).is_propagated()", "src/exploration/events.cpp", 33, __extension____PRETTY_FUNCTION__));
     stack->current().cell(this->target_cell).forbid(this->value);
   }
   
   void CellIsDeducedFromSingleAllowedValue::apply(Stack<size> * stack) const
   {
-    (static_cast<bool>(!stack->current().cell(this->cell).is_set()) ? void(0) : __assert_fail("!stack->current().cell(cell).is_set()", "/wd/src/exploration/events.cpp", 744, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(!stack->current().cell(this->cell).is_propagated()) ? void(0) : __assert_fail("!stack->current().cell(cell).is_propagated()", "/wd/src/exploration/events.cpp", 745, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!stack->current().cell(this->cell).is_set()) ? void(0) : __assert_fail("!stack->current().cell(cell).is_set()", "src/exploration/events.cpp", 40, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!stack->current().cell(this->cell).is_propagated()) ? void(0) : __assert_fail("!stack->current().cell(cell).is_propagated()", "src/exploration/events.cpp", 41, __extension____PRETTY_FUNCTION__));
     stack->current().cell(this->cell).set_deduced(this->value);
   }
   
   void CellIsDeducedAsSinglePlaceForValueInRegion::apply(Stack<size> * stack) const
   {
-    (static_cast<bool>(!stack->current().cell(this->cell).is_set()) ? void(0) : __assert_fail("!stack->current().cell(cell).is_set()", "/wd/src/exploration/events.cpp", 752, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(!stack->current().cell(this->cell).is_propagated()) ? void(0) : __assert_fail("!stack->current().cell(cell).is_propagated()", "/wd/src/exploration/events.cpp", 753, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!stack->current().cell(this->cell).is_set()) ? void(0) : __assert_fail("!stack->current().cell(cell).is_set()", "src/exploration/events.cpp", 48, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!stack->current().cell(this->cell).is_propagated()) ? void(0) : __assert_fail("!stack->current().cell(cell).is_propagated()", "src/exploration/events.cpp", 49, __extension____PRETTY_FUNCTION__));
     stack->current().cell(this->cell).set_deduced(this->value);
   }
   
   void PropagationIsDoneForCell::apply(Stack<size> * stack) const
   {
-    (static_cast<bool>(stack->current().cell(this->cell).is_set()) ? void(0) : __assert_fail("stack->current().cell(cell).is_set()", "/wd/src/exploration/events.cpp", 760, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(stack->current().cell(this->cell).get() == this->value) ? void(0) : __assert_fail("stack->current().cell(cell).get() == value", "/wd/src/exploration/events.cpp", 761, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(!stack->current().cell(this->cell).is_propagated()) ? void(0) : __assert_fail("!stack->current().cell(cell).is_propagated()", "/wd/src/exploration/events.cpp", 762, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(stack->current().cell(this->cell).is_set()) ? void(0) : __assert_fail("stack->current().cell(cell).is_set()", "src/exploration/events.cpp", 56, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(stack->current().cell(this->cell).get() == this->value) ? void(0) : __assert_fail("stack->current().cell(cell).get() == value", "src/exploration/events.cpp", 57, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!stack->current().cell(this->cell).is_propagated()) ? void(0) : __assert_fail("!stack->current().cell(cell).is_propagated()", "src/exploration/events.cpp", 58, __extension____PRETTY_FUNCTION__));
     stack->current().cell(this->cell).set_propagated();
   }
   
@@ -2023,9 +2032,9 @@ namespace exploration
   
   void HypothesisIsMade::apply(Stack<size> * stack) const
   {
-    (static_cast<bool>(!stack->current().cell(this->cell).is_set()) ? void(0) : __assert_fail("!stack->current().cell(cell).is_set()", "/wd/src/exploration/events.cpp", 777, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(stack->current().cell(this->cell).is_allowed(this->value)) ? void(0) : __assert_fail("stack->current().cell(cell).is_allowed(value)", "/wd/src/exploration/events.cpp", 778, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(!stack->current().cell(this->cell).is_propagated()) ? void(0) : __assert_fail("!stack->current().cell(cell).is_propagated()", "/wd/src/exploration/events.cpp", 779, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!stack->current().cell(this->cell).is_set()) ? void(0) : __assert_fail("!stack->current().cell(cell).is_set()", "src/exploration/events.cpp", 73, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(stack->current().cell(this->cell).is_allowed(this->value)) ? void(0) : __assert_fail("stack->current().cell(cell).is_allowed(value)", "src/exploration/events.cpp", 74, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!stack->current().cell(this->cell).is_propagated()) ? void(0) : __assert_fail("!stack->current().cell(cell).is_propagated()", "src/exploration/events.cpp", 75, __extension____PRETTY_FUNCTION__));
     stack->push();
     stack->current().cell(this->cell).set_deduced(this->value);
   }
@@ -2037,7 +2046,7 @@ namespace exploration
   
   void SudokuIsSolved::apply(Stack<size> * stack) const
   {
-    (static_cast<bool>(stack->current().is_solved()) ? void(0) : __assert_fail("stack->current().is_solved()", "/wd/src/exploration/events.cpp", 792, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(stack->current().is_solved()) ? void(0) : __assert_fail("stack->current().is_solved()", "src/exploration/events.cpp", 88, __extension____PRETTY_FUNCTION__));
   }
   
   void HypothesisIsAccepted::apply(Stack<size> * stack) const
@@ -2113,9 +2122,9 @@ namespace exploration
   {
     void apply(Stack<4> * stack) const
     {
-      (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(726), static_cast<const char *>(__extension__"void exploration::PropagationStartsForCell<4>::apply(Stack<size> *) const [size = 4]")));
-      (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).get() == this->value) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).get() == value"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(727), static_cast<const char *>(__extension__"void exploration::PropagationStartsForCell<4>::apply(Stack<size> *) const [size = 4]")));
-      (static_cast<bool>(!static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(728), static_cast<const char *>(__extension__"void exploration::PropagationStartsForCell<4>::apply(Stack<size> *) const [size = 4]")));
+      (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).is_set()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(22), static_cast<const char *>(__extension__"void exploration::PropagationStartsForCell<4>::apply(Stack<size> *) const [size = 4]")));
+      (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).get() == this->value) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).get() == value"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(23), static_cast<const char *>(__extension__"void exploration::PropagationStartsForCell<4>::apply(Stack<size> *) const [size = 4]")));
+      (static_cast<bool>(!static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(24), static_cast<const char *>(__extension__"void exploration::PropagationStartsForCell<4>::apply(Stack<size> *) const [size = 4]")));
     }
     
     std::pair<unsigned int, unsigned int> cell;
@@ -2127,9 +2136,9 @@ namespace exploration
   {
     void apply(Stack<9> * stack) const
     {
-      (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(726), static_cast<const char *>(__extension__"void exploration::PropagationStartsForCell<9>::apply(Stack<size> *) const [size = 9]")));
-      (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).get() == this->value) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).get() == value"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(727), static_cast<const char *>(__extension__"void exploration::PropagationStartsForCell<9>::apply(Stack<size> *) const [size = 9]")));
-      (static_cast<bool>(!static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(728), static_cast<const char *>(__extension__"void exploration::PropagationStartsForCell<9>::apply(Stack<size> *) const [size = 9]")));
+      (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).is_set()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(22), static_cast<const char *>(__extension__"void exploration::PropagationStartsForCell<9>::apply(Stack<size> *) const [size = 9]")));
+      (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).get() == this->value) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).get() == value"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(23), static_cast<const char *>(__extension__"void exploration::PropagationStartsForCell<9>::apply(Stack<size> *) const [size = 9]")));
+      (static_cast<bool>(!static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(24), static_cast<const char *>(__extension__"void exploration::PropagationStartsForCell<9>::apply(Stack<size> *) const [size = 9]")));
     }
     
     std::pair<unsigned int, unsigned int> cell;
@@ -2141,11 +2150,11 @@ namespace exploration
   {
     void apply(Stack<4> * stack) const
     {
-      (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->source_cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(source_cell).is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(733), static_cast<const char *>(__extension__"void exploration::CellPropagates<4>::apply(Stack<size> *) const [size = 4]")));
-      (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->source_cell)).get() == this->value) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(source_cell).get() == value"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(734), static_cast<const char *>(__extension__"void exploration::CellPropagates<4>::apply(Stack<size> *) const [size = 4]")));
-      (static_cast<bool>(!static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->target_cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(target_cell).is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(735), static_cast<const char *>(__extension__"void exploration::CellPropagates<4>::apply(Stack<size> *) const [size = 4]")));
-      (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->target_cell)).is_allowed(this->value)) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(target_cell).is_allowed(value)"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(736), static_cast<const char *>(__extension__"void exploration::CellPropagates<4>::apply(Stack<size> *) const [size = 4]")));
-      (static_cast<bool>(!static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->source_cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(source_cell).is_propagated()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(737), static_cast<const char *>(__extension__"void exploration::CellPropagates<4>::apply(Stack<size> *) const [size = 4]")));
+      (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->source_cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(source_cell).is_set()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(29), static_cast<const char *>(__extension__"void exploration::CellPropagates<4>::apply(Stack<size> *) const [size = 4]")));
+      (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->source_cell)).get() == this->value) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(source_cell).get() == value"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(30), static_cast<const char *>(__extension__"void exploration::CellPropagates<4>::apply(Stack<size> *) const [size = 4]")));
+      (static_cast<bool>(!static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->target_cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(target_cell).is_set()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(31), static_cast<const char *>(__extension__"void exploration::CellPropagates<4>::apply(Stack<size> *) const [size = 4]")));
+      (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->target_cell)).is_allowed(this->value)) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(target_cell).is_allowed(value)"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(32), static_cast<const char *>(__extension__"void exploration::CellPropagates<4>::apply(Stack<size> *) const [size = 4]")));
+      (static_cast<bool>(!static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->source_cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(source_cell).is_propagated()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(33), static_cast<const char *>(__extension__"void exploration::CellPropagates<4>::apply(Stack<size> *) const [size = 4]")));
       static_cast<AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->target_cell)).forbid(this->value);
     }
     
@@ -2159,11 +2168,11 @@ namespace exploration
   {
     void apply(Stack<9> * stack) const
     {
-      (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->source_cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(source_cell).is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(733), static_cast<const char *>(__extension__"void exploration::CellPropagates<9>::apply(Stack<size> *) const [size = 9]")));
-      (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->source_cell)).get() == this->value) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(source_cell).get() == value"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(734), static_cast<const char *>(__extension__"void exploration::CellPropagates<9>::apply(Stack<size> *) const [size = 9]")));
-      (static_cast<bool>(!static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->target_cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(target_cell).is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(735), static_cast<const char *>(__extension__"void exploration::CellPropagates<9>::apply(Stack<size> *) const [size = 9]")));
-      (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->target_cell)).is_allowed(this->value)) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(target_cell).is_allowed(value)"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(736), static_cast<const char *>(__extension__"void exploration::CellPropagates<9>::apply(Stack<size> *) const [size = 9]")));
-      (static_cast<bool>(!static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->source_cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(source_cell).is_propagated()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(737), static_cast<const char *>(__extension__"void exploration::CellPropagates<9>::apply(Stack<size> *) const [size = 9]")));
+      (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->source_cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(source_cell).is_set()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(29), static_cast<const char *>(__extension__"void exploration::CellPropagates<9>::apply(Stack<size> *) const [size = 9]")));
+      (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->source_cell)).get() == this->value) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(source_cell).get() == value"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(30), static_cast<const char *>(__extension__"void exploration::CellPropagates<9>::apply(Stack<size> *) const [size = 9]")));
+      (static_cast<bool>(!static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->target_cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(target_cell).is_set()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(31), static_cast<const char *>(__extension__"void exploration::CellPropagates<9>::apply(Stack<size> *) const [size = 9]")));
+      (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->target_cell)).is_allowed(this->value)) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(target_cell).is_allowed(value)"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(32), static_cast<const char *>(__extension__"void exploration::CellPropagates<9>::apply(Stack<size> *) const [size = 9]")));
+      (static_cast<bool>(!static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->source_cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(source_cell).is_propagated()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(33), static_cast<const char *>(__extension__"void exploration::CellPropagates<9>::apply(Stack<size> *) const [size = 9]")));
       static_cast<AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->target_cell)).forbid(this->value);
     }
     
@@ -2177,8 +2186,8 @@ namespace exploration
   {
     void apply(Stack<4> * stack) const
     {
-      (static_cast<bool>(!static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(744), static_cast<const char *>(__extension__"void exploration::CellIsDeducedFromSingleAllowedValue<4>::apply(Stack<size> *) const [size = 4]")));
-      (static_cast<bool>(!static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(745), static_cast<const char *>(__extension__"void exploration::CellIsDeducedFromSingleAllowedValue<4>::apply(Stack<size> *) const [size = 4]")));
+      (static_cast<bool>(!static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_set()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(40), static_cast<const char *>(__extension__"void exploration::CellIsDeducedFromSingleAllowedValue<4>::apply(Stack<size> *) const [size = 4]")));
+      (static_cast<bool>(!static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(41), static_cast<const char *>(__extension__"void exploration::CellIsDeducedFromSingleAllowedValue<4>::apply(Stack<size> *) const [size = 4]")));
       static_cast<AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).set_deduced(this->value);
     }
     
@@ -2191,8 +2200,8 @@ namespace exploration
   {
     void apply(Stack<9> * stack) const
     {
-      (static_cast<bool>(!static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(744), static_cast<const char *>(__extension__"void exploration::CellIsDeducedFromSingleAllowedValue<9>::apply(Stack<size> *) const [size = 9]")));
-      (static_cast<bool>(!static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(745), static_cast<const char *>(__extension__"void exploration::CellIsDeducedFromSingleAllowedValue<9>::apply(Stack<size> *) const [size = 9]")));
+      (static_cast<bool>(!static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_set()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(40), static_cast<const char *>(__extension__"void exploration::CellIsDeducedFromSingleAllowedValue<9>::apply(Stack<size> *) const [size = 9]")));
+      (static_cast<bool>(!static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(41), static_cast<const char *>(__extension__"void exploration::CellIsDeducedFromSingleAllowedValue<9>::apply(Stack<size> *) const [size = 9]")));
       static_cast<AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).set_deduced(this->value);
     }
     
@@ -2205,8 +2214,8 @@ namespace exploration
   {
     void apply(Stack<4> * stack) const
     {
-      (static_cast<bool>(!static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(752), static_cast<const char *>(__extension__"void exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>::apply(Stack<size> *) const [size = 4]")));
-      (static_cast<bool>(!static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(753), static_cast<const char *>(__extension__"void exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>::apply(Stack<size> *) const [size = 4]")));
+      (static_cast<bool>(!static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_set()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(48), static_cast<const char *>(__extension__"void exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>::apply(Stack<size> *) const [size = 4]")));
+      (static_cast<bool>(!static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(49), static_cast<const char *>(__extension__"void exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>::apply(Stack<size> *) const [size = 4]")));
       static_cast<AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).set_deduced(this->value);
     }
     
@@ -2220,8 +2229,8 @@ namespace exploration
   {
     void apply(Stack<9> * stack) const
     {
-      (static_cast<bool>(!static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(752), static_cast<const char *>(__extension__"void exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>::apply(Stack<size> *) const [size = 9]")));
-      (static_cast<bool>(!static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(753), static_cast<const char *>(__extension__"void exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>::apply(Stack<size> *) const [size = 9]")));
+      (static_cast<bool>(!static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_set()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(48), static_cast<const char *>(__extension__"void exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>::apply(Stack<size> *) const [size = 9]")));
+      (static_cast<bool>(!static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(49), static_cast<const char *>(__extension__"void exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>::apply(Stack<size> *) const [size = 9]")));
       static_cast<AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).set_deduced(this->value);
     }
     
@@ -2235,9 +2244,9 @@ namespace exploration
   {
     void apply(Stack<4> * stack) const
     {
-      (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(760), static_cast<const char *>(__extension__"void exploration::PropagationIsDoneForCell<4>::apply(Stack<size> *) const [size = 4]")));
-      (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).get() == this->value) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).get() == value"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(761), static_cast<const char *>(__extension__"void exploration::PropagationIsDoneForCell<4>::apply(Stack<size> *) const [size = 4]")));
-      (static_cast<bool>(!static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(762), static_cast<const char *>(__extension__"void exploration::PropagationIsDoneForCell<4>::apply(Stack<size> *) const [size = 4]")));
+      (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).is_set()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(56), static_cast<const char *>(__extension__"void exploration::PropagationIsDoneForCell<4>::apply(Stack<size> *) const [size = 4]")));
+      (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).get() == this->value) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).get() == value"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(57), static_cast<const char *>(__extension__"void exploration::PropagationIsDoneForCell<4>::apply(Stack<size> *) const [size = 4]")));
+      (static_cast<bool>(!static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(58), static_cast<const char *>(__extension__"void exploration::PropagationIsDoneForCell<4>::apply(Stack<size> *) const [size = 4]")));
       static_cast<AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).set_propagated();
     }
     
@@ -2250,9 +2259,9 @@ namespace exploration
   {
     void apply(Stack<9> * stack) const
     {
-      (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(760), static_cast<const char *>(__extension__"void exploration::PropagationIsDoneForCell<9>::apply(Stack<size> *) const [size = 9]")));
-      (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).get() == this->value) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).get() == value"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(761), static_cast<const char *>(__extension__"void exploration::PropagationIsDoneForCell<9>::apply(Stack<size> *) const [size = 9]")));
-      (static_cast<bool>(!static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(762), static_cast<const char *>(__extension__"void exploration::PropagationIsDoneForCell<9>::apply(Stack<size> *) const [size = 9]")));
+      (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).is_set()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(56), static_cast<const char *>(__extension__"void exploration::PropagationIsDoneForCell<9>::apply(Stack<size> *) const [size = 9]")));
+      (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).get() == this->value) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).get() == value"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(57), static_cast<const char *>(__extension__"void exploration::PropagationIsDoneForCell<9>::apply(Stack<size> *) const [size = 9]")));
+      (static_cast<bool>(!static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(58), static_cast<const char *>(__extension__"void exploration::PropagationIsDoneForCell<9>::apply(Stack<size> *) const [size = 9]")));
       static_cast<AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).set_propagated();
     }
     
@@ -2305,9 +2314,9 @@ namespace exploration
   {
     void apply(Stack<4> * stack) const
     {
-      (static_cast<bool>(!static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(777), static_cast<const char *>(__extension__"void exploration::HypothesisIsMade<4>::apply(Stack<size> *) const [size = 4]")));
-      (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_allowed(this->value)) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).is_allowed(value)"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(778), static_cast<const char *>(__extension__"void exploration::HypothesisIsMade<4>::apply(Stack<size> *) const [size = 4]")));
-      (static_cast<bool>(!static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(779), static_cast<const char *>(__extension__"void exploration::HypothesisIsMade<4>::apply(Stack<size> *) const [size = 4]")));
+      (static_cast<bool>(!static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_set()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(73), static_cast<const char *>(__extension__"void exploration::HypothesisIsMade<4>::apply(Stack<size> *) const [size = 4]")));
+      (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_allowed(this->value)) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).is_allowed(value)"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(74), static_cast<const char *>(__extension__"void exploration::HypothesisIsMade<4>::apply(Stack<size> *) const [size = 4]")));
+      (static_cast<bool>(!static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(75), static_cast<const char *>(__extension__"void exploration::HypothesisIsMade<4>::apply(Stack<size> *) const [size = 4]")));
       stack->push();
       static_cast<AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).set_deduced(this->value);
     }
@@ -2321,9 +2330,9 @@ namespace exploration
   {
     void apply(Stack<9> * stack) const
     {
-      (static_cast<bool>(!static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_set()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(777), static_cast<const char *>(__extension__"void exploration::HypothesisIsMade<9>::apply(Stack<size> *) const [size = 9]")));
-      (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_allowed(this->value)) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).is_allowed(value)"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(778), static_cast<const char *>(__extension__"void exploration::HypothesisIsMade<9>::apply(Stack<size> *) const [size = 9]")));
-      (static_cast<bool>(!static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(779), static_cast<const char *>(__extension__"void exploration::HypothesisIsMade<9>::apply(Stack<size> *) const [size = 9]")));
+      (static_cast<bool>(!static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_set()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(73), static_cast<const char *>(__extension__"void exploration::HypothesisIsMade<9>::apply(Stack<size> *) const [size = 9]")));
+      (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_allowed(this->value)) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).is_allowed(value)"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(74), static_cast<const char *>(__extension__"void exploration::HypothesisIsMade<9>::apply(Stack<size> *) const [size = 9]")));
+      (static_cast<bool>(!static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(75), static_cast<const char *>(__extension__"void exploration::HypothesisIsMade<9>::apply(Stack<size> *) const [size = 9]")));
       stack->push();
       static_cast<AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).set_deduced(this->value);
     }
@@ -2361,7 +2370,7 @@ namespace exploration
   {
     void apply(Stack<4> * stack) const
     {
-      (static_cast<bool>(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(stack->current()).is_solved()) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().is_solved()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(792), static_cast<const char *>(__extension__"void exploration::SudokuIsSolved<4>::apply(Stack<size> *) const [size = 4]")));
+      (static_cast<bool>(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(stack->current()).is_solved()) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().is_solved()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(88), static_cast<const char *>(__extension__"void exploration::SudokuIsSolved<4>::apply(Stack<size> *) const [size = 4]")));
     }
     
   };
@@ -2371,7 +2380,7 @@ namespace exploration
   {
     void apply(Stack<9> * stack) const
     {
-      (static_cast<bool>(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(stack->current()).is_solved()) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().is_solved()"), static_cast<const char *>("/wd/src/exploration/events.cpp"), static_cast<unsigned int>(792), static_cast<const char *>(__extension__"void exploration::SudokuIsSolved<9>::apply(Stack<size> *) const [size = 9]")));
+      (static_cast<bool>(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(stack->current()).is_solved()) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().is_solved()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(88), static_cast<const char *>(__extension__"void exploration::SudokuIsSolved<9>::apply(Stack<size> *) const [size = 9]")));
     }
     
   };

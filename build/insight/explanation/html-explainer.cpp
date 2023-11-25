@@ -1,5 +1,7 @@
+# 1 "src/explanation/html-explainer.cpp"
 // Copyright 2023 Vincent Jacques
 
+# 1 "src/explanation/html-explainer.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLANATION_HTML_EXPLAINER_HPP_
@@ -9,6 +11,7 @@
 #include <fstream>
 #include <string>
 
+# 1 "src/exploration/events.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLORATION_EVENTS_HPP_
@@ -17,6 +20,7 @@
 #include <variant>
 #include <vector>
 
+# 1 "src/exploration/annotations.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLORATION_ANNOTATIONS_HPP_
@@ -30,6 +34,7 @@
 #include <utility>
 #include <vector>
 
+# 1 "src/puzzle/sudoku.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef PUZZLE_SUDOKU_HPP_
@@ -47,6 +52,7 @@
 #include <boost/range.hpp>
 #include <boost/range/adaptor/indexed.hpp>
 
+# 1 "src/puzzle/sudoku-constants.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef PUZZLE_SUDOKU_CONSTANTS_HPP_
@@ -225,6 +231,7 @@ class SudokuConstants
 
 
 #endif  // PUZZLE_SUDOKU_CONSTANTS_HPP_
+# 19 "src/puzzle/sudoku.hpp"
 
 
 template<typename CellBase, unsigned int size>
@@ -258,7 +265,7 @@ class SudokuBase
     public: 
     inline bool operator==(const Cell & other) const
     {
-      (static_cast<bool>(this->sudoku == other.sudoku) ? void(0) : __assert_fail("sudoku == other.sudoku", "/wd/src/explanation/html-explainer.cpp", 193, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->sudoku == other.sudoku) ? void(0) : __assert_fail("sudoku == other.sudoku", "src/puzzle/sudoku.hpp", 46, __extension____PRETTY_FUNCTION__));
       return this->coords == other.coords;
     }
     
@@ -299,26 +306,26 @@ class SudokuBase
     inline auto cells() const
     {
             
-      class __lambda_221_28
+      class __lambda_228_28
       {
         public: 
         template<class type_parameter_1_0>
         inline const SudokuBase::Cell & operator()(const type_parameter_1_0 & coords) const
         {
-          const auto __coords222 = coords;
+          const auto __coords229 = coords;
           return __this->sudoku->_cells[row][col];
         }
         private: 
         const SudokuBase::Region * __this;
         
         public:
-        __lambda_221_28(const SudokuBase::Region * _this)
+        __lambda_228_28(const SudokuBase::Region * _this)
         : __this{_this}
         {}
         
       };
       
-      const auto convert = __lambda_221_28{this};
+      const auto convert = __lambda_228_28{this};
       return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::regions[this->_index].begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::regions[this->_index].end(), convert));
     }
     
@@ -393,80 +400,80 @@ class SudokuBase
   public: 
   inline Cell & cell(const std::pair<unsigned int, unsigned int> & coords)
   {
-    const std::pair<unsigned int, unsigned int> __coords295 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords295));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords295));
-    (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "/wd/src/explanation/html-explainer.cpp", 296, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "/wd/src/explanation/html-explainer.cpp", 297, __extension____PRETTY_FUNCTION__));
+    const std::pair<unsigned int, unsigned int> __coords302 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords302));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords302));
+    (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "src/puzzle/sudoku.hpp", 149, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "src/puzzle/sudoku.hpp", 150, __extension____PRETTY_FUNCTION__));
     return this->_cells[row][col];
   }
   
   inline const Cell & cell(const std::pair<unsigned int, unsigned int> & coords) const
   {
-    const std::pair<unsigned int, unsigned int> __coords302 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords302));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords302));
-    (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "/wd/src/explanation/html-explainer.cpp", 303, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "/wd/src/explanation/html-explainer.cpp", 304, __extension____PRETTY_FUNCTION__));
+    const std::pair<unsigned int, unsigned int> __coords309 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords309));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords309));
+    (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "src/puzzle/sudoku.hpp", 156, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "src/puzzle/sudoku.hpp", 157, __extension____PRETTY_FUNCTION__));
     return this->_cells[row][col];
   }
   
   inline auto cells() const
   {
         
-    class __lambda_309_26
+    class __lambda_316_26
     {
       public: 
       template<class type_parameter_1_0>
       inline const Cell & operator()(const type_parameter_1_0 & cell) const
       {
-        const auto __cell310 = cell;
+        const auto __cell317 = cell;
         return __this->_cells[row][col];
       }
       private: 
       const SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_309_26(const SudokuBase<CellBase, size> * _this)
+      __lambda_316_26(const SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_309_26{this};
+    const auto convert = __lambda_316_26{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::cells.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::cells.end(), convert));
   }
   
   inline auto cells()
   {
         
-    class __lambda_320_26
+    class __lambda_327_26
     {
       public: 
       template<class type_parameter_1_0>
       inline Cell & operator()(const type_parameter_1_0 & cell) const
       {
-        const auto __cell321 = cell;
+        const auto __cell328 = cell;
         return __this->_cells[row][col];
       }
       private: 
       SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_320_26(SudokuBase<CellBase, size> * _this)
+      __lambda_327_26(SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_320_26{this};
+    const auto convert = __lambda_327_26{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::cells.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::cells.end(), convert));
   }
   
   inline auto regions() const
   {
         
-    class __lambda_331_26
+    class __lambda_338_26
     {
       public: 
       inline const Region operator()(const unsigned int index) const
@@ -478,13 +485,13 @@ class SudokuBase
       const SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_331_26(const SudokuBase<CellBase, size> * _this)
+      __lambda_338_26(const SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_331_26{this};
+    const auto convert = __lambda_338_26{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::region_indexes.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::region_indexes.end(), convert));
   }
   
@@ -493,7 +500,7 @@ class SudokuBase
   CellsArray _cells;
 };
 
-/* First instantiated from: html-explainer.cpp:520 */
+/* First instantiated from: html-explainer.cpp:528 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<4>, 4>
@@ -557,7 +564,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 4>, 4> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: html-explainer.cpp:253 */
+  /* First instantiated from: html-explainer.cpp:260 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 4>, 4> make_cells<0, 1, 2, 3>(const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -569,7 +576,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...col>
   inline std::array<Cell, 4> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: html-explainer.cpp:258 */
+  /* First instantiated from: html-explainer.cpp:265 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 4> make_row<0, 1, 2, 3>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -612,7 +619,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
 };
 
 #endif
-/* First instantiated from: html-explainer.cpp:520 */
+/* First instantiated from: html-explainer.cpp:528 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<9>, 9>
@@ -676,7 +683,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 9>, 9> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: html-explainer.cpp:253 */
+  /* First instantiated from: html-explainer.cpp:260 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 9>, 9> make_cells<0, 1, 2, 3, 4, 5, 6, 7, 8>(const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -688,7 +695,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...col>
   inline std::array<Cell, 9> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: html-explainer.cpp:258 */
+  /* First instantiated from: html-explainer.cpp:265 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 9> make_row<0, 1, 2, 3, 4, 5, 6, 7, 8>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -794,7 +801,7 @@ class ValueCell
   public: 
   inline void set(unsigned int value_)
   {
-    (static_cast<bool>(!static_cast<bool>(static_cast<const std::optional<unsigned int>>(this->value).operator bool()) || (this->value.operator*() == value_)) ? void(0) : __assert_fail(static_cast<const char *>("!value || *value == value_"), static_cast<const char *>("/wd/src/explanation/html-explainer.cpp"), static_cast<unsigned int>(369), static_cast<const char *>(__extension__"void ValueCell::set(unsigned int)")));
+    (static_cast<bool>(!static_cast<bool>(static_cast<const std::optional<unsigned int>>(this->value).operator bool()) || (this->value.operator*() == value_)) ? void(0) : __assert_fail(static_cast<const char *>("!value || *value == value_"), static_cast<const char *>("src/puzzle/sudoku.hpp"), static_cast<unsigned int>(222), static_cast<const char *>(__extension__"void ValueCell::set(unsigned int)")));
     this->value.operator=(std::optional<unsigned int>(value_));
   }
   
@@ -828,6 +835,7 @@ class Sudoku<ValueCell, size> : public SudokuBase<ValueCell, size>
 
 
 #endif  // PUZZLE_SUDOKU_HPP_
+# 15 "src/exploration/annotations.hpp"
 
 
 template<unsigned int size>
@@ -862,23 +870,23 @@ class AnnotatedCell
   inline unsigned int get() const
   {
     this->assert_invariants();
-    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "/wd/src/explanation/html-explainer.cpp", 420, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "src/exploration/annotations.hpp", 43, __extension____PRETTY_FUNCTION__));
     return this->set_value.value();
   }
   
   inline bool is_allowed(const unsigned int value) const
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "/wd/src/explanation/html-explainer.cpp", 427, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 50, __extension____PRETTY_FUNCTION__));
     return this->allowed_values.test(value);
   }
   
   inline void set_input(const unsigned int value)
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "/wd/src/explanation/html-explainer.cpp", 434, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "/wd/src/explanation/html-explainer.cpp", 435, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "/wd/src/explanation/html-explainer.cpp", 436, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 57, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 58, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 59, __extension____PRETTY_FUNCTION__));
     this->allowed_values.reset();
     this->allowed_values.set(value);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -889,9 +897,9 @@ class AnnotatedCell
   inline void set_deduced(const unsigned int value)
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "/wd/src/explanation/html-explainer.cpp", 448, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "/wd/src/explanation/html-explainer.cpp", 449, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "/wd/src/explanation/html-explainer.cpp", 450, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 71, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 72, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 73, __extension____PRETTY_FUNCTION__));
     this->allowed_values.reset();
     this->allowed_values.set(value);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -901,7 +909,7 @@ class AnnotatedCell
   inline void set_propagated()
   {
     this->assert_invariants();
-    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "/wd/src/explanation/html-explainer.cpp", 461, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "src/exploration/annotations.hpp", 84, __extension____PRETTY_FUNCTION__));
     this->propagated = true;
     this->assert_invariants();
   }
@@ -915,8 +923,8 @@ class AnnotatedCell
   inline void forbid(const unsigned int value)
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "/wd/src/explanation/html-explainer.cpp", 476, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "/wd/src/explanation/html-explainer.cpp", 477, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 99, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 100, __extension____PRETTY_FUNCTION__));
     this->allowed_values.reset(value);
     this->assert_invariants();
   }
@@ -931,18 +939,18 @@ class AnnotatedCell
   private: 
   inline void assert_invariants() const
   {
-    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail("allowed_values.any()", "/wd/src/explanation/html-explainer.cpp", 493, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail("allowed_values.any()", "src/exploration/annotations.hpp", 116, __extension____PRETTY_FUNCTION__));
     if(this->input) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "/wd/src/explanation/html-explainer.cpp", 497, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "src/exploration/annotations.hpp", 120, __extension____PRETTY_FUNCTION__));
     } 
     
     if(this->propagated) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "/wd/src/explanation/html-explainer.cpp", 502, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "src/exploration/annotations.hpp", 125, __extension____PRETTY_FUNCTION__));
     } 
     
     if(this->set_value.has_value()) {
-      (static_cast<bool>(this->allowed_values.count() == 1) ? void(0) : __assert_fail("allowed_values.count() == 1", "/wd/src/explanation/html-explainer.cpp", 507, __extension____PRETTY_FUNCTION__));
-      (static_cast<bool>(this->allowed_values.test(this->set_value.value())) ? void(0) : __assert_fail("allowed_values.test(set_value.value())", "/wd/src/explanation/html-explainer.cpp", 508, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->allowed_values.count() == 1) ? void(0) : __assert_fail("allowed_values.count() == 1", "src/exploration/annotations.hpp", 130, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->allowed_values.test(this->set_value.value())) ? void(0) : __assert_fail("allowed_values.test(set_value.value())", "src/exploration/annotations.hpp", 131, __extension____PRETTY_FUNCTION__));
     } 
     
   }
@@ -998,18 +1006,18 @@ class AnnotatedCell<4>
   private: 
   inline void assert_invariants() const
   {
-    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("/wd/src/explanation/html-explainer.cpp"), static_cast<unsigned int>(493), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(116), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
     if(this->input) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("/wd/src/explanation/html-explainer.cpp"), static_cast<unsigned int>(497), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(120), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
     } 
     
     if(this->propagated) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("/wd/src/explanation/html-explainer.cpp"), static_cast<unsigned int>(502), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(125), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
     } 
     
     if(this->set_value.has_value()) {
-      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("/wd/src/explanation/html-explainer.cpp"), static_cast<unsigned int>(507), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
-      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("/wd/src/explanation/html-explainer.cpp"), static_cast<unsigned int>(508), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(130), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(131), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
     } 
     
   }
@@ -1067,18 +1075,18 @@ class AnnotatedCell<9>
   private: 
   inline void assert_invariants() const
   {
-    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("/wd/src/explanation/html-explainer.cpp"), static_cast<unsigned int>(493), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(116), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     if(this->input) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("/wd/src/explanation/html-explainer.cpp"), static_cast<unsigned int>(497), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(120), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     } 
     
     if(this->propagated) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("/wd/src/explanation/html-explainer.cpp"), static_cast<unsigned int>(502), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(125), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     } 
     
     if(this->set_value.has_value()) {
-      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("/wd/src/explanation/html-explainer.cpp"), static_cast<unsigned int>(507), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
-      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("/wd/src/explanation/html-explainer.cpp"), static_cast<unsigned int>(508), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(130), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(131), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     } 
     
   }
@@ -1138,13 +1146,13 @@ class Stack
   public: 
   inline const AnnotatedSudoku<size> & current() const
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "/wd/src/explanation/html-explainer.cpp", 543, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 166, __extension____PRETTY_FUNCTION__));
     return this->stack.back();
   }
   
   inline AnnotatedSudoku<size> & current()
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "/wd/src/explanation/html-explainer.cpp", 548, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 171, __extension____PRETTY_FUNCTION__));
     return this->stack.back();
   }
   
@@ -1157,7 +1165,7 @@ class Stack
   
   inline void pop()
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "/wd/src/explanation/html-explainer.cpp", 572, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 195, __extension____PRETTY_FUNCTION__));
     this->stack.pop_back();
   }
   
@@ -1166,7 +1174,7 @@ class Stack
   std::vector<AnnotatedSudoku<size> > stack;
 };
 
-/* First instantiated from: html-explainer.cpp:760 */
+/* First instantiated from: html-explainer.cpp:770 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<4>
@@ -1182,7 +1190,7 @@ class Stack<4>
   public: 
   inline const Sudoku<AnnotatedCell<4>, 4> & current() const
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("/wd/src/explanation/html-explainer.cpp"), static_cast<unsigned int>(543), static_cast<const char *>(__extension__"const AnnotatedSudoku<size> &Stack<4>::current() const [size = 4]")));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(166), static_cast<const char *>(__extension__"const AnnotatedSudoku<size> &Stack<4>::current() const [size = 4]")));
     return this->stack.back();
   }
   
@@ -1202,7 +1210,7 @@ class Stack<4>
 };
 
 #endif
-/* First instantiated from: html-explainer.cpp:760 */
+/* First instantiated from: html-explainer.cpp:770 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<9>
@@ -1218,7 +1226,7 @@ class Stack<9>
   public: 
   inline const Sudoku<AnnotatedCell<9>, 9> & current() const
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("/wd/src/explanation/html-explainer.cpp"), static_cast<unsigned int>(543), static_cast<const char *>(__extension__"const AnnotatedSudoku<size> &Stack<9>::current() const [size = 9]")));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(166), static_cast<const char *>(__extension__"const AnnotatedSudoku<size> &Stack<9>::current() const [size = 9]")));
     return this->stack.back();
   }
   
@@ -1241,6 +1249,7 @@ class Stack<9>
 
 
 #endif  // EXPLORATION_ANNOTATIONS_HPP_
+# 10 "src/exploration/events.hpp"
 
 
 namespace exploration
@@ -1254,7 +1263,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:880 */
+  /* First instantiated from: html-explainer.cpp:894 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<4>
@@ -1266,7 +1275,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:880 */
+  /* First instantiated from: html-explainer.cpp:894 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<9>
@@ -1285,7 +1294,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: html-explainer.cpp:885 */
+  /* First instantiated from: html-explainer.cpp:899 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct InputsAreDone<4>
@@ -1295,7 +1304,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:885 */
+  /* First instantiated from: html-explainer.cpp:899 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct InputsAreDone<9>
@@ -1312,7 +1321,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: html-explainer.cpp:906 */
+  /* First instantiated from: html-explainer.cpp:920 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForSudoku<4>
@@ -1322,7 +1331,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:906 */
+  /* First instantiated from: html-explainer.cpp:920 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForSudoku<9>
@@ -1341,7 +1350,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:911 */
+  /* First instantiated from: html-explainer.cpp:925 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForCell<4>
@@ -1353,7 +1362,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:911 */
+  /* First instantiated from: html-explainer.cpp:925 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForCell<9>
@@ -1375,7 +1384,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:919 */
+  /* First instantiated from: html-explainer.cpp:933 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellPropagates<4>
@@ -1388,7 +1397,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:919 */
+  /* First instantiated from: html-explainer.cpp:933 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellPropagates<9>
@@ -1410,7 +1419,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:946 */
+  /* First instantiated from: html-explainer.cpp:960 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedFromSingleAllowedValue<4>
@@ -1422,7 +1431,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:946 */
+  /* First instantiated from: html-explainer.cpp:960 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedFromSingleAllowedValue<9>
@@ -1444,7 +1453,7 @@ namespace exploration
     unsigned int region;
   };
   
-  /* First instantiated from: html-explainer.cpp:951 */
+  /* First instantiated from: html-explainer.cpp:965 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedAsSinglePlaceForValueInRegion<4>
@@ -1457,7 +1466,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:951 */
+  /* First instantiated from: html-explainer.cpp:965 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedAsSinglePlaceForValueInRegion<9>
@@ -1479,7 +1488,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:956 */
+  /* First instantiated from: html-explainer.cpp:970 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForCell<4>
@@ -1491,7 +1500,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:956 */
+  /* First instantiated from: html-explainer.cpp:970 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForCell<9>
@@ -1510,7 +1519,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: html-explainer.cpp:961 */
+  /* First instantiated from: html-explainer.cpp:975 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForSudoku<4>
@@ -1520,7 +1529,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:961 */
+  /* First instantiated from: html-explainer.cpp:975 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForSudoku<9>
@@ -1539,7 +1548,7 @@ namespace exploration
     std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
   };
   
-  /* First instantiated from: html-explainer.cpp:966 */
+  /* First instantiated from: html-explainer.cpp:980 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<4>
@@ -1551,7 +1560,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:966 */
+  /* First instantiated from: html-explainer.cpp:980 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<9>
@@ -1572,7 +1581,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:971 */
+  /* First instantiated from: html-explainer.cpp:985 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<4>
@@ -1584,7 +1593,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:971 */
+  /* First instantiated from: html-explainer.cpp:985 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<9>
@@ -1605,7 +1614,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:976 */
+  /* First instantiated from: html-explainer.cpp:990 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<4>
@@ -1617,7 +1626,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:976 */
+  /* First instantiated from: html-explainer.cpp:990 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<9>
@@ -1636,7 +1645,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: html-explainer.cpp:981 */
+  /* First instantiated from: html-explainer.cpp:995 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct SudokuIsSolved<4>
@@ -1646,7 +1655,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:981 */
+  /* First instantiated from: html-explainer.cpp:995 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct SudokuIsSolved<9>
@@ -1679,6 +1688,7 @@ namespace exploration
 }  // namespace exploration
 
 #endif  // EXPLORATION_EVENTS_HPP_
+# 11 "src/explanation/html-explainer.hpp"
 
 
 template<unsigned int size>
@@ -1751,6 +1761,7 @@ class HtmlExplainer
 
 
 #endif  // EXPLANATION_HTML_EXPLAINER_HPP_
+# 4 "src/explanation/html-explainer.cpp"
 
 #include <cairomm/cairomm.h>
 
@@ -1758,6 +1769,7 @@ class HtmlExplainer
 
 #include <boost/format.hpp>
 
+# 1 "src/explanation/art.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLANATION_ART_HPP_
@@ -1768,6 +1780,7 @@ class HtmlExplainer
 #include <tuple>
 #include <vector>
 
+# 12 "src/explanation/art.hpp"
 
 
 namespace Cairo
@@ -1802,14 +1815,14 @@ namespace art
   template<unsigned int size>
   double round_grid_size(unsigned int);
   
-  /* First instantiated from: html-explainer.cpp:890 */
+  /* First instantiated from: html-explainer.cpp:904 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   double round_grid_size<4>(unsigned int);
   #endif
   
   
-  /* First instantiated from: html-explainer.cpp:890 */
+  /* First instantiated from: html-explainer.cpp:904 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   double round_grid_size<9>(unsigned int);
@@ -1838,14 +1851,14 @@ namespace art
   template<unsigned int size>
   void draw(std::shared_ptr<Cairo::Context>, const AnnotatedSudoku<size> &, const DrawOptions &);
   
-  /* First instantiated from: html-explainer.cpp:892 */
+  /* First instantiated from: html-explainer.cpp:906 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   void draw<4>(std::shared_ptr<Cairo::Context>, const Sudoku<AnnotatedCell<4>, 4> &, const DrawOptions &);
   #endif
   
   
-  /* First instantiated from: html-explainer.cpp:892 */
+  /* First instantiated from: html-explainer.cpp:906 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   void draw<9>(std::shared_ptr<Cairo::Context>, const Sudoku<AnnotatedCell<9>, 9> &, const DrawOptions &);
@@ -1855,6 +1868,7 @@ namespace art
 }  // namespace art
 
 #endif  // EXPLANATION_ART_HPP_
+# 12 "src/explanation/html-explainer.cpp"
 
 
 template<unsigned int size>
@@ -2078,9 +2092,9 @@ class HtmlExplainer<static_cast<unsigned int>(4)>
   
   void operator()(const exploration::PropagationStartsForCell<4> & event)
   {
-    const std::pair<unsigned int, unsigned int> __event911 = std::pair<unsigned int, unsigned int>(event.cell);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event911));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event911));
+    const std::pair<unsigned int, unsigned int> __event925 = std::pair<unsigned int, unsigned int>(event.cell);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event925));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event925));
     std::operator<<(std::operator<<(std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h2>Propagation from (")).operator<<(row), static_cast<const char *>(", ")).operator<<(col), static_cast<const char *>(")</h2>\n"));
     event.apply(&this->stack);
   }
@@ -2088,12 +2102,12 @@ class HtmlExplainer<static_cast<unsigned int>(4)>
   void operator()(const exploration::CellPropagates<4> & event)
   {
     event.apply(&this->stack);
-    const std::pair<unsigned int, unsigned int> __event921 = std::pair<unsigned int, unsigned int>(event.source_cell);
-    const unsigned int && src_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event921));
-    const unsigned int && src_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event921));
-    const std::pair<unsigned int, unsigned int> __event922 = std::pair<unsigned int, unsigned int>(event.target_cell);
-    const unsigned int && tgt_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event922));
-    const unsigned int && tgt_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event922));
+    const std::pair<unsigned int, unsigned int> __event935 = std::pair<unsigned int, unsigned int>(event.source_cell);
+    const unsigned int && src_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event935));
+    const unsigned int && src_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event935));
+    const std::pair<unsigned int, unsigned int> __event936 = std::pair<unsigned int, unsigned int>(event.target_cell);
+    const unsigned int && tgt_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event936));
+    const unsigned int && tgt_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event936));
     const std::basic_string<char, std::char_traits<char>, std::allocator<char> > image_name = static_cast<const std::basic_string<char, std::char_traits<char>, std::allocator<char> >>(boost::str<char, std::char_traits<char>, std::allocator<char> >(static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("propagation-%1%-%2%--%3%-%4%.png"))).operator%(src_row).operator%(src_col).operator%(tgt_row).operator%(tgt_col))));
     HtmlExplainer<4>::Image propagation = static_cast<const HtmlExplainer<static_cast<unsigned int>(4)> *>(this)->image(image_name);
     const double grid_size = art::round_grid_size<4U>(propagation.viewport_height);
@@ -2271,9 +2285,9 @@ class HtmlExplainer<static_cast<unsigned int>(9)>
   
   void operator()(const exploration::PropagationStartsForCell<9> & event)
   {
-    const std::pair<unsigned int, unsigned int> __event911 = std::pair<unsigned int, unsigned int>(event.cell);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event911));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event911));
+    const std::pair<unsigned int, unsigned int> __event925 = std::pair<unsigned int, unsigned int>(event.cell);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event925));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event925));
     std::operator<<(std::operator<<(std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h2>Propagation from (")).operator<<(row), static_cast<const char *>(", ")).operator<<(col), static_cast<const char *>(")</h2>\n"));
     event.apply(&this->stack);
   }
@@ -2281,12 +2295,12 @@ class HtmlExplainer<static_cast<unsigned int>(9)>
   void operator()(const exploration::CellPropagates<9> & event)
   {
     event.apply(&this->stack);
-    const std::pair<unsigned int, unsigned int> __event921 = std::pair<unsigned int, unsigned int>(event.source_cell);
-    const unsigned int && src_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event921));
-    const unsigned int && src_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event921));
-    const std::pair<unsigned int, unsigned int> __event922 = std::pair<unsigned int, unsigned int>(event.target_cell);
-    const unsigned int && tgt_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event922));
-    const unsigned int && tgt_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event922));
+    const std::pair<unsigned int, unsigned int> __event935 = std::pair<unsigned int, unsigned int>(event.source_cell);
+    const unsigned int && src_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event935));
+    const unsigned int && src_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event935));
+    const std::pair<unsigned int, unsigned int> __event936 = std::pair<unsigned int, unsigned int>(event.target_cell);
+    const unsigned int && tgt_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event936));
+    const unsigned int && tgt_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event936));
     const std::basic_string<char, std::char_traits<char>, std::allocator<char> > image_name = static_cast<const std::basic_string<char, std::char_traits<char>, std::allocator<char> >>(boost::str<char, std::char_traits<char>, std::allocator<char> >(static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("propagation-%1%-%2%--%3%-%4%.png"))).operator%(src_row).operator%(src_col).operator%(tgt_row).operator%(tgt_col))));
     HtmlExplainer<9>::Image propagation = static_cast<const HtmlExplainer<static_cast<unsigned int>(9)> *>(this)->image(image_name);
     const double grid_size = art::round_grid_size<9U>(propagation.viewport_height);

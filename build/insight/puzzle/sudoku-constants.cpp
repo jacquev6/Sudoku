@@ -1,5 +1,7 @@
+# 1 "src/puzzle/sudoku-constants.cpp"
 // Copyright 2023 Vincent Jacques
 
+# 1 "src/puzzle/sudoku-constants.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef PUZZLE_SUDOKU_CONSTANTS_HPP_
@@ -175,7 +177,7 @@ class SudokuConstants
   /* PASSED: static_assert((sqrt_size * sqrt_size) == size, "'size' must be a perfect square"); */
 };
 
-/* First instantiated from: sudoku-constants.cpp:121 */
+/* First instantiated from: sudoku-constants.cpp:124 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuConstants<4>
@@ -359,7 +361,7 @@ class SudokuConstants<4>
 };
 
 #endif
-/* First instantiated from: sudoku-constants.cpp:154 */
+/* First instantiated from: sudoku-constants.cpp:157 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuConstants<9>
@@ -546,6 +548,7 @@ class SudokuConstants<9>
 
 
 #endif  // PUZZLE_SUDOKU_CONSTANTS_HPP_
+# 4 "src/puzzle/sudoku-constants.cpp"
 
 
 /* PASSED: static_assert(std::operator==(SudokuConstants<4>::values, const std::array<unsigned int, 4>{{static_cast<unsigned int>(0), static_cast<unsigned int>(1), static_cast<unsigned int>(2), static_cast<unsigned int>(3)}})); */

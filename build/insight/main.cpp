@@ -1,7 +1,9 @@
+# 1 "src/main.cpp"
 // Copyright 2023 Vincent Jacques
 
 #include <CLI11.hpp>
 
+# 1 "src/explanation/html-explainer.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLANATION_HTML_EXPLAINER_HPP_
@@ -11,6 +13,7 @@
 #include <fstream>
 #include <string>
 
+# 1 "src/exploration/events.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLORATION_EVENTS_HPP_
@@ -19,6 +22,7 @@
 #include <variant>
 #include <vector>
 
+# 1 "src/exploration/annotations.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLORATION_ANNOTATIONS_HPP_
@@ -32,6 +36,7 @@
 #include <utility>
 #include <vector>
 
+# 1 "src/puzzle/sudoku.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef PUZZLE_SUDOKU_HPP_
@@ -49,6 +54,7 @@
 #include <boost/range.hpp>
 #include <boost/range/adaptor/indexed.hpp>
 
+# 1 "src/puzzle/sudoku-constants.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef PUZZLE_SUDOKU_CONSTANTS_HPP_
@@ -227,6 +233,7 @@ class SudokuConstants
 
 
 #endif  // PUZZLE_SUDOKU_CONSTANTS_HPP_
+# 19 "src/puzzle/sudoku.hpp"
 
 
 template<typename CellBase, unsigned int size>
@@ -260,7 +267,7 @@ class SudokuBase
     public: 
     inline bool operator==(const Cell & other) const
     {
-      (static_cast<bool>(this->sudoku == other.sudoku) ? void(0) : __assert_fail("sudoku == other.sudoku", "/wd/src/main.cpp", 195, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->sudoku == other.sudoku) ? void(0) : __assert_fail("sudoku == other.sudoku", "src/puzzle/sudoku.hpp", 46, __extension____PRETTY_FUNCTION__));
       return this->coords == other.coords;
     }
     
@@ -301,26 +308,26 @@ class SudokuBase
     inline auto cells() const
     {
             
-      class __lambda_223_28
+      class __lambda_230_28
       {
         public: 
         template<class type_parameter_1_0>
         inline const SudokuBase::Cell & operator()(const type_parameter_1_0 & coords) const
         {
-          const auto __coords224 = coords;
+          const auto __coords231 = coords;
           return __this->sudoku->_cells[row][col];
         }
         private: 
         const SudokuBase::Region * __this;
         
         public:
-        __lambda_223_28(const SudokuBase::Region * _this)
+        __lambda_230_28(const SudokuBase::Region * _this)
         : __this{_this}
         {}
         
       };
       
-      const auto convert = __lambda_223_28{this};
+      const auto convert = __lambda_230_28{this};
       return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::regions[this->_index].begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::regions[this->_index].end(), convert));
     }
     
@@ -395,80 +402,80 @@ class SudokuBase
   public: 
   inline Cell & cell(const std::pair<unsigned int, unsigned int> & coords)
   {
-    const std::pair<unsigned int, unsigned int> __coords297 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords297));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords297));
-    (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "/wd/src/main.cpp", 298, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "/wd/src/main.cpp", 299, __extension____PRETTY_FUNCTION__));
+    const std::pair<unsigned int, unsigned int> __coords304 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords304));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords304));
+    (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "src/puzzle/sudoku.hpp", 149, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "src/puzzle/sudoku.hpp", 150, __extension____PRETTY_FUNCTION__));
     return this->_cells[row][col];
   }
   
   inline const Cell & cell(const std::pair<unsigned int, unsigned int> & coords) const
   {
-    const std::pair<unsigned int, unsigned int> __coords304 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords304));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords304));
-    (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "/wd/src/main.cpp", 305, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "/wd/src/main.cpp", 306, __extension____PRETTY_FUNCTION__));
+    const std::pair<unsigned int, unsigned int> __coords311 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords311));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords311));
+    (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "src/puzzle/sudoku.hpp", 156, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "src/puzzle/sudoku.hpp", 157, __extension____PRETTY_FUNCTION__));
     return this->_cells[row][col];
   }
   
   inline auto cells() const
   {
         
-    class __lambda_311_26
+    class __lambda_318_26
     {
       public: 
       template<class type_parameter_1_0>
       inline const Cell & operator()(const type_parameter_1_0 & cell) const
       {
-        const auto __cell312 = cell;
+        const auto __cell319 = cell;
         return __this->_cells[row][col];
       }
       private: 
       const SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_311_26(const SudokuBase<CellBase, size> * _this)
+      __lambda_318_26(const SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_311_26{this};
+    const auto convert = __lambda_318_26{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::cells.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::cells.end(), convert));
   }
   
   inline auto cells()
   {
         
-    class __lambda_322_26
+    class __lambda_329_26
     {
       public: 
       template<class type_parameter_1_0>
       inline Cell & operator()(const type_parameter_1_0 & cell) const
       {
-        const auto __cell323 = cell;
+        const auto __cell330 = cell;
         return __this->_cells[row][col];
       }
       private: 
       SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_322_26(SudokuBase<CellBase, size> * _this)
+      __lambda_329_26(SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_322_26{this};
+    const auto convert = __lambda_329_26{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::cells.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::cells.end(), convert));
   }
   
   inline auto regions() const
   {
         
-    class __lambda_333_26
+    class __lambda_340_26
     {
       public: 
       inline const Region operator()(const unsigned int index) const
@@ -480,13 +487,13 @@ class SudokuBase
       const SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_333_26(const SudokuBase<CellBase, size> * _this)
+      __lambda_340_26(const SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_333_26{this};
+    const auto convert = __lambda_340_26{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::region_indexes.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::region_indexes.end(), convert));
   }
   
@@ -495,7 +502,7 @@ class SudokuBase
   CellsArray _cells;
 };
 
-/* First instantiated from: main.cpp:384 */
+/* First instantiated from: main.cpp:391 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<ValueCell, 4>
@@ -569,7 +576,7 @@ class SudokuBase<ValueCell, 4>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 4>, 4> copy_cells(const std::integer_sequence<unsigned int, row...> &, const std::array<std::array<Cell, 4>, 4> & other_cells);
   
-  /* First instantiated from: main.cpp:274 */
+  /* First instantiated from: main.cpp:281 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 4>, 4> copy_cells<0, 1, 2, 3>(const std::integer_sequence<unsigned int, 0, 1, 2, 3> &, const std::array<std::array<Cell, 4>, 4> & other_cells)
@@ -581,7 +588,7 @@ class SudokuBase<ValueCell, 4>
   template<unsigned int ...col>
   inline std::array<Cell, 4> copy_row(unsigned int row, const std::array<std::array<Cell, 4>, 4> & other_cells, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: main.cpp:279 */
+  /* First instantiated from: main.cpp:286 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 4> copy_row<0, 1, 2, 3>(unsigned int row, const std::array<std::array<Cell, 4>, 4> & other_cells, const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -614,7 +621,7 @@ class SudokuBase<ValueCell, 4>
 };
 
 #endif
-/* First instantiated from: main.cpp:384 */
+/* First instantiated from: main.cpp:391 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<ValueCell, 9>
@@ -688,7 +695,7 @@ class SudokuBase<ValueCell, 9>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 9>, 9> copy_cells(const std::integer_sequence<unsigned int, row...> &, const std::array<std::array<Cell, 9>, 9> & other_cells);
   
-  /* First instantiated from: main.cpp:274 */
+  /* First instantiated from: main.cpp:281 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 9>, 9> copy_cells<0, 1, 2, 3, 4, 5, 6, 7, 8>(const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &, const std::array<std::array<Cell, 9>, 9> & other_cells)
@@ -700,7 +707,7 @@ class SudokuBase<ValueCell, 9>
   template<unsigned int ...col>
   inline std::array<Cell, 9> copy_row(unsigned int row, const std::array<std::array<Cell, 9>, 9> & other_cells, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: main.cpp:279 */
+  /* First instantiated from: main.cpp:286 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 9> copy_row<0, 1, 2, 3, 4, 5, 6, 7, 8>(unsigned int row, const std::array<std::array<Cell, 9>, 9> & other_cells, const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -733,7 +740,7 @@ class SudokuBase<ValueCell, 9>
 };
 
 #endif
-/* First instantiated from: main.cpp:522 */
+/* First instantiated from: main.cpp:530 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<4>, 4>
@@ -797,7 +804,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 4>, 4> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: main.cpp:255 */
+  /* First instantiated from: main.cpp:262 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 4>, 4> make_cells<0, 1, 2, 3>(const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -809,7 +816,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...col>
   inline std::array<Cell, 4> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: main.cpp:260 */
+  /* First instantiated from: main.cpp:267 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 4> make_row<0, 1, 2, 3>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -852,7 +859,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
 };
 
 #endif
-/* First instantiated from: main.cpp:522 */
+/* First instantiated from: main.cpp:530 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<9>, 9>
@@ -916,7 +923,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 9>, 9> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: main.cpp:255 */
+  /* First instantiated from: main.cpp:262 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 9>, 9> make_cells<0, 1, 2, 3, 4, 5, 6, 7, 8>(const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -928,7 +935,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...col>
   inline std::array<Cell, 9> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: main.cpp:260 */
+  /* First instantiated from: main.cpp:267 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 9> make_row<0, 1, 2, 3, 4, 5, 6, 7, 8>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -989,7 +996,7 @@ class Sudoku : public SudokuBase<Cell, size>
 {
 };
 
-/* First instantiated from: main.cpp:1609 */
+/* First instantiated from: main.cpp:1647 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<ValueCell, 4> : public SudokuBase<ValueCell, 4>
@@ -1010,7 +1017,7 @@ class Sudoku<ValueCell, 4> : public SudokuBase<ValueCell, 4>
 };
 
 #endif
-/* First instantiated from: main.cpp:1609 */
+/* First instantiated from: main.cpp:1647 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<ValueCell, 9> : public SudokuBase<ValueCell, 9>
@@ -1076,7 +1083,7 @@ class ValueCell
   public: 
   inline void set(unsigned int value_)
   {
-    (static_cast<bool>(!static_cast<bool>(static_cast<const std::optional<unsigned int>>(this->value).operator bool()) || (this->value.operator*() == value_)) ? void(0) : __assert_fail(static_cast<const char *>("!value || *value == value_"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(371), static_cast<const char *>(__extension__"void ValueCell::set(unsigned int)")));
+    (static_cast<bool>(!static_cast<bool>(static_cast<const std::optional<unsigned int>>(this->value).operator bool()) || (this->value.operator*() == value_)) ? void(0) : __assert_fail(static_cast<const char *>("!value || *value == value_"), static_cast<const char *>("src/puzzle/sudoku.hpp"), static_cast<unsigned int>(222), static_cast<const char *>(__extension__"void ValueCell::set(unsigned int)")));
     this->value.operator=(std::optional<unsigned int>(value_));
   }
   
@@ -1111,6 +1118,7 @@ class Sudoku<ValueCell, size> : public SudokuBase<ValueCell, size>
 
 
 #endif  // PUZZLE_SUDOKU_HPP_
+# 15 "src/exploration/annotations.hpp"
 
 
 template<unsigned int size>
@@ -1145,23 +1153,23 @@ class AnnotatedCell
   inline unsigned int get() const
   {
     this->assert_invariants();
-    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "/wd/src/main.cpp", 422, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "src/exploration/annotations.hpp", 43, __extension____PRETTY_FUNCTION__));
     return this->set_value.value();
   }
   
   inline bool is_allowed(const unsigned int value) const
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "/wd/src/main.cpp", 429, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 50, __extension____PRETTY_FUNCTION__));
     return this->allowed_values.test(value);
   }
   
   inline void set_input(const unsigned int value)
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "/wd/src/main.cpp", 436, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "/wd/src/main.cpp", 437, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "/wd/src/main.cpp", 438, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 57, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 58, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 59, __extension____PRETTY_FUNCTION__));
     this->allowed_values.reset();
     this->allowed_values.set(value);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -1172,9 +1180,9 @@ class AnnotatedCell
   inline void set_deduced(const unsigned int value)
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "/wd/src/main.cpp", 450, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "/wd/src/main.cpp", 451, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "/wd/src/main.cpp", 452, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 71, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 72, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 73, __extension____PRETTY_FUNCTION__));
     this->allowed_values.reset();
     this->allowed_values.set(value);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -1184,7 +1192,7 @@ class AnnotatedCell
   inline void set_propagated()
   {
     this->assert_invariants();
-    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "/wd/src/main.cpp", 463, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "src/exploration/annotations.hpp", 84, __extension____PRETTY_FUNCTION__));
     this->propagated = true;
     this->assert_invariants();
   }
@@ -1198,8 +1206,8 @@ class AnnotatedCell
   inline void forbid(const unsigned int value)
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "/wd/src/main.cpp", 478, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "/wd/src/main.cpp", 479, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 99, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 100, __extension____PRETTY_FUNCTION__));
     this->allowed_values.reset(value);
     this->assert_invariants();
   }
@@ -1214,18 +1222,18 @@ class AnnotatedCell
   private: 
   inline void assert_invariants() const
   {
-    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail("allowed_values.any()", "/wd/src/main.cpp", 495, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail("allowed_values.any()", "src/exploration/annotations.hpp", 116, __extension____PRETTY_FUNCTION__));
     if(this->input) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "/wd/src/main.cpp", 499, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "src/exploration/annotations.hpp", 120, __extension____PRETTY_FUNCTION__));
     } 
     
     if(this->propagated) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "/wd/src/main.cpp", 504, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "src/exploration/annotations.hpp", 125, __extension____PRETTY_FUNCTION__));
     } 
     
     if(this->set_value.has_value()) {
-      (static_cast<bool>(this->allowed_values.count() == 1) ? void(0) : __assert_fail("allowed_values.count() == 1", "/wd/src/main.cpp", 509, __extension____PRETTY_FUNCTION__));
-      (static_cast<bool>(this->allowed_values.test(this->set_value.value())) ? void(0) : __assert_fail("allowed_values.test(set_value.value())", "/wd/src/main.cpp", 510, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->allowed_values.count() == 1) ? void(0) : __assert_fail("allowed_values.count() == 1", "src/exploration/annotations.hpp", 130, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->allowed_values.test(this->set_value.value())) ? void(0) : __assert_fail("allowed_values.test(set_value.value())", "src/exploration/annotations.hpp", 131, __extension____PRETTY_FUNCTION__));
     } 
     
   }
@@ -1281,18 +1289,18 @@ class AnnotatedCell<4>
   private: 
   inline void assert_invariants() const
   {
-    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(495), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(116), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
     if(this->input) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(499), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(120), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
     } 
     
     if(this->propagated) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(504), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(125), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
     } 
     
     if(this->set_value.has_value()) {
-      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(509), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
-      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(510), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(130), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(131), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
     } 
     
   }
@@ -1350,18 +1358,18 @@ class AnnotatedCell<9>
   private: 
   inline void assert_invariants() const
   {
-    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(495), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(116), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     if(this->input) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(499), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(120), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     } 
     
     if(this->propagated) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(504), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(125), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     } 
     
     if(this->set_value.has_value()) {
-      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(509), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
-      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(510), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(130), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(131), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     } 
     
   }
@@ -1421,13 +1429,13 @@ class Stack
   public: 
   inline const AnnotatedSudoku<size> & current() const
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "/wd/src/main.cpp", 545, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 166, __extension____PRETTY_FUNCTION__));
     return this->stack.back();
   }
   
   inline AnnotatedSudoku<size> & current()
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "/wd/src/main.cpp", 550, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 171, __extension____PRETTY_FUNCTION__));
     return this->stack.back();
   }
   
@@ -1440,7 +1448,7 @@ class Stack
   
   inline void pop()
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "/wd/src/main.cpp", 574, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 195, __extension____PRETTY_FUNCTION__));
     this->stack.pop_back();
   }
   
@@ -1449,7 +1457,7 @@ class Stack
   std::vector<AnnotatedSudoku<size> > stack;
 };
 
-/* First instantiated from: main.cpp:762 */
+/* First instantiated from: main.cpp:772 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<4>
@@ -1481,7 +1489,7 @@ class Stack<4>
 };
 
 #endif
-/* First instantiated from: main.cpp:762 */
+/* First instantiated from: main.cpp:772 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<9>
@@ -1516,6 +1524,7 @@ class Stack<9>
 
 
 #endif  // EXPLORATION_ANNOTATIONS_HPP_
+# 10 "src/exploration/events.hpp"
 
 
 namespace exploration
@@ -2008,6 +2017,7 @@ namespace exploration
 }  // namespace exploration
 
 #endif  // EXPLORATION_EVENTS_HPP_
+# 11 "src/explanation/html-explainer.hpp"
 
 
 template<unsigned int size>
@@ -2222,6 +2232,8 @@ class HtmlExplainer<9>
 
 
 #endif  // EXPLANATION_HTML_EXPLAINER_HPP_
+# 6 "src/main.cpp"
+# 1 "src/explanation/reorder.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLANATION_REORDER_HPP_
@@ -2230,6 +2242,7 @@ class HtmlExplainer<9>
 #include <functional>
 #include <vector>
 
+# 10 "src/explanation/reorder.hpp"
 
 
 template<unsigned int size, typename ProcessEvent>
@@ -2887,6 +2900,8 @@ class Reorder<9, VideoExplainer<9> >
 
 
 #endif  // EXPLANATION_REORDER_HPP_
+# 7 "src/main.cpp"
+# 1 "src/explanation/text-explainer.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLANATION_TEXT_EXPLAINER_HPP_
@@ -2896,6 +2911,7 @@ class Reorder<9, VideoExplainer<9> >
 
 #include <boost/format.hpp>
 
+# 11 "src/explanation/text-explainer.hpp"
 
 
 template<unsigned int size>
@@ -2911,7 +2927,7 @@ class TextExplainer
   
   inline ~TextExplainer()
   {
-    (static_cast<bool>(this->hypotheses_count == static_cast<unsigned int>(0)) ? void(0) : __assert_fail("hypotheses_count == 0", "/wd/src/main.cpp", 884, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->hypotheses_count == static_cast<unsigned int>(0)) ? void(0) : __assert_fail("hypotheses_count == 0", "src/explanation/text-explainer.hpp", 19, __extension____PRETTY_FUNCTION__));
   }
   
   
@@ -2985,7 +3001,7 @@ class TextExplainer
   
   inline void operator()(const exploration::HypothesisIsRejected<size> & event)
   {
-    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail("hypotheses_count > 0", "/wd/src/main.cpp", 954, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail("hypotheses_count > 0", "src/explanation/text-explainer.hpp", 89, __extension____PRETTY_FUNCTION__));
     this->print_prefix();
     --this->hypotheses_count;
     this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Hypothesis that (%1%, %2%) may have been %3% must be back-tracked\n"))) % (event.cell.first + 1)) % (event.cell.second + 1)) % (event.value + 1));
@@ -2999,7 +3015,7 @@ class TextExplainer
   
   inline void operator()(const exploration::HypothesisIsAccepted<size> & event)
   {
-    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail("hypotheses_count > 0", "/wd/src/main.cpp", 967, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail("hypotheses_count > 0", "src/explanation/text-explainer.hpp", 102, __extension____PRETTY_FUNCTION__));
     this->print_prefix();
     --this->hypotheses_count;
     this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can indeed be %3%\n"))) % (event.cell.first + 1)) % (event.cell.second + 1)) % (event.value + 1));
@@ -3042,7 +3058,7 @@ class TextExplainer<4>
   
   inline ~TextExplainer() noexcept
   {
-    (static_cast<bool>(this->hypotheses_count == static_cast<unsigned int>(0)) ? void(0) : __assert_fail(static_cast<const char *>("hypotheses_count == 0"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(884), static_cast<const char *>(__extension__"TextExplainer<4>::~TextExplainer() [size = 4]")));
+    (static_cast<bool>(this->hypotheses_count == static_cast<unsigned int>(0)) ? void(0) : __assert_fail(static_cast<const char *>("hypotheses_count == 0"), static_cast<const char *>("src/explanation/text-explainer.hpp"), static_cast<unsigned int>(19), static_cast<const char *>(__extension__"TextExplainer<4>::~TextExplainer() [size = 4]")));
   }
   
   
@@ -3116,7 +3132,7 @@ class TextExplainer<4>
   
   inline void operator()(const exploration::HypothesisIsRejected<4> & event)
   {
-    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail(static_cast<const char *>("hypotheses_count > 0"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(954), static_cast<const char *>(__extension__"void TextExplainer<4>::operator()(const exploration::HypothesisIsRejected<size> &) [size = 4]")));
+    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail(static_cast<const char *>("hypotheses_count > 0"), static_cast<const char *>("src/explanation/text-explainer.hpp"), static_cast<unsigned int>(89), static_cast<const char *>(__extension__"void TextExplainer<4>::operator()(const exploration::HypothesisIsRejected<size> &) [size = 4]")));
     this->print_prefix();
     --this->hypotheses_count;
     boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Hypothesis that (%1%, %2%) may have been %3% must be back-tracked\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1))))));
@@ -3130,7 +3146,7 @@ class TextExplainer<4>
   
   inline void operator()(const exploration::HypothesisIsAccepted<4> & event)
   {
-    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail(static_cast<const char *>("hypotheses_count > 0"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(967), static_cast<const char *>(__extension__"void TextExplainer<4>::operator()(const exploration::HypothesisIsAccepted<size> &) [size = 4]")));
+    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail(static_cast<const char *>("hypotheses_count > 0"), static_cast<const char *>("src/explanation/text-explainer.hpp"), static_cast<unsigned int>(102), static_cast<const char *>(__extension__"void TextExplainer<4>::operator()(const exploration::HypothesisIsAccepted<size> &) [size = 4]")));
     this->print_prefix();
     --this->hypotheses_count;
     boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can indeed be %3%\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1))))));
@@ -3176,7 +3192,7 @@ class TextExplainer<9>
   
   inline ~TextExplainer() noexcept
   {
-    (static_cast<bool>(this->hypotheses_count == static_cast<unsigned int>(0)) ? void(0) : __assert_fail(static_cast<const char *>("hypotheses_count == 0"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(884), static_cast<const char *>(__extension__"TextExplainer<9>::~TextExplainer() [size = 9]")));
+    (static_cast<bool>(this->hypotheses_count == static_cast<unsigned int>(0)) ? void(0) : __assert_fail(static_cast<const char *>("hypotheses_count == 0"), static_cast<const char *>("src/explanation/text-explainer.hpp"), static_cast<unsigned int>(19), static_cast<const char *>(__extension__"TextExplainer<9>::~TextExplainer() [size = 9]")));
   }
   
   
@@ -3250,7 +3266,7 @@ class TextExplainer<9>
   
   inline void operator()(const exploration::HypothesisIsRejected<9> & event)
   {
-    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail(static_cast<const char *>("hypotheses_count > 0"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(954), static_cast<const char *>(__extension__"void TextExplainer<9>::operator()(const exploration::HypothesisIsRejected<size> &) [size = 9]")));
+    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail(static_cast<const char *>("hypotheses_count > 0"), static_cast<const char *>("src/explanation/text-explainer.hpp"), static_cast<unsigned int>(89), static_cast<const char *>(__extension__"void TextExplainer<9>::operator()(const exploration::HypothesisIsRejected<size> &) [size = 9]")));
     this->print_prefix();
     --this->hypotheses_count;
     boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Hypothesis that (%1%, %2%) may have been %3% must be back-tracked\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1))))));
@@ -3264,7 +3280,7 @@ class TextExplainer<9>
   
   inline void operator()(const exploration::HypothesisIsAccepted<9> & event)
   {
-    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail(static_cast<const char *>("hypotheses_count > 0"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(967), static_cast<const char *>(__extension__"void TextExplainer<9>::operator()(const exploration::HypothesisIsAccepted<size> &) [size = 9]")));
+    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail(static_cast<const char *>("hypotheses_count > 0"), static_cast<const char *>("src/explanation/text-explainer.hpp"), static_cast<unsigned int>(102), static_cast<const char *>(__extension__"void TextExplainer<9>::operator()(const exploration::HypothesisIsAccepted<size> &) [size = 9]")));
     this->print_prefix();
     --this->hypotheses_count;
     boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can indeed be %3%\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1))))));
@@ -3298,6 +3314,8 @@ class TextExplainer<9>
 
 
 #endif  // EXPLANATION_TEXT_EXPLAINER_HPP_
+# 8 "src/main.cpp"
+# 1 "src/explanation/video/frames-serializer.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLANATION_VIDEO_FRAMES_SERIALIZER_HPP_
@@ -3307,6 +3325,7 @@ class TextExplainer<9>
 #include <iomanip>
 #include <string>
 
+# 1 "src/explanation/video/serializer.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLANATION_VIDEO_SERIALIZER_HPP_
@@ -3361,6 +3380,7 @@ namespace video
 }  // namespace video
 
 #endif  // EXPLANATION_VIDEO_SERIALIZER_HPP_
+# 11 "src/explanation/video/frames-serializer.hpp"
 
 
 namespace video
@@ -3400,6 +3420,8 @@ namespace video
 }  // namespace video
 
 #endif  // EXPLANATION_VIDEO_FRAMES_SERIALIZER_HPP_
+# 9 "src/main.cpp"
+# 1 "src/explanation/video-explainer.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLANATION_VIDEO_EXPLAINER_HPP_
@@ -3414,6 +3436,8 @@ namespace video
 #include <tuple>
 #include <vector>
 
+# 16 "src/explanation/video-explainer.hpp"
+# 17 "src/explanation/video-explainer.hpp"
 
 
 // Like Cairo::SaveGuard
@@ -3476,7 +3500,7 @@ class VideoExplainer
     , after{this->explainer.after}
     {
             
-      class __lambda_1129_18
+      class __lambda_1153_18
       {
         public: 
         template<class type_parameter_1_0>
@@ -3488,13 +3512,13 @@ class VideoExplainer
         VideoExplainer::VisitEventsGuard * __this;
         
         public:
-        __lambda_1129_18(VideoExplainer::VisitEventsGuard * _this)
+        __lambda_1153_18(VideoExplainer::VisitEventsGuard * _this)
         : __this{_this}
         {}
         
       };
       
-      std::visit(__lambda_1129_18{this}, event);
+      std::visit(__lambda_1153_18{this}, event);
       this->events.push_back(event);
     }
     
@@ -3527,7 +3551,7 @@ class VideoExplainer
         for(; ; ) {
           const auto & event;
                     
-          class __lambda_1153_20
+          class __lambda_1177_20
           {
             public: 
             template<class type_parameter_1_0>
@@ -3539,13 +3563,13 @@ class VideoExplainer
             VideoExplainer::VisitEventsGuard * __this;
             
             public:
-            __lambda_1153_20(VideoExplainer::VisitEventsGuard * _this)
+            __lambda_1177_20(VideoExplainer::VisitEventsGuard * _this)
             : __this{_this}
             {}
             
           };
           
-          std::visit(__lambda_1153_20{this}, event);
+          std::visit(__lambda_1177_20{this}, event);
         }
         
       }
@@ -4031,6 +4055,8 @@ class VideoExplainer<9>
 
 
 #endif  // EXPLANATION_VIDEO_EXPLAINER_HPP_
+# 10 "src/main.cpp"
+# 1 "src/explanation/video/video-serializer.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLANATION_VIDEO_VIDEO_SERIALIZER_HPP_
@@ -4048,6 +4074,7 @@ extern "C" {
 #include <filesystem>
 #include <memory>
 
+# 19 "src/explanation/video/video-serializer.hpp"
 
 
 namespace video
@@ -4066,9 +4093,9 @@ namespace video
     , pkt{av_packet_alloc()}
     , outfile{fopen(static_cast<const std::filesystem::path>(this->video_path).c_str(), static_cast<const char *>("wb"))}
     {
-      (static_cast<bool>(this->codec) ? void(0) : __assert_fail(static_cast<const char *>("codec"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1424), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
-      (static_cast<bool>(this->pkt) ? void(0) : __assert_fail(static_cast<const char *>("pkt"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1425), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
-      (static_cast<bool>(this->outfile) ? void(0) : __assert_fail(static_cast<const char *>("outfile"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1426), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
+      (static_cast<bool>(this->codec) ? void(0) : __assert_fail(static_cast<const char *>("codec"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(39), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
+      (static_cast<bool>(this->pkt) ? void(0) : __assert_fail(static_cast<const char *>("pkt"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(40), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
+      (static_cast<bool>(this->outfile) ? void(0) : __assert_fail(static_cast<const char *>("outfile"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(41), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
       this->context->bit_rate = static_cast<long>(400000);
       this->context->width = static_cast<int>(this->frame_width_pixels);
       this->context->height = static_cast<int>(this->frame_height_pixels);
@@ -4078,12 +4105,12 @@ namespace video
       this->context->max_b_frames = 1;
       this->context->pix_fmt = AV_PIX_FMT_YUV420P;
       int ret = avcodec_open2(this->context, this->codec, static_cast<AVDictionary **>(NULL));
-      (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1438), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
+      (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(53), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
       this->picture->format = static_cast<int>(this->context->pix_fmt);
       this->picture->width = static_cast<int>(this->frame_width_pixels);
       this->picture->height = static_cast<int>(this->frame_height_pixels);
       ret = av_frame_get_buffer(this->picture, 32);
-      (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1445), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
+      (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(60), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
     }
     
     inline virtual ~VideoSerializer() noexcept
@@ -4100,14 +4127,14 @@ namespace video
     inline virtual void serialize(std::shared_ptr<Cairo::ImageSurface> surface)
     {
       int ret = av_frame_make_writable(this->picture);
-      (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1462), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
-      (static_cast<bool>(static_cast<unsigned int>(static_cast<const Cairo::ImageSurface *>(static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(surface).operator->())->get_width()) == this->frame_width_pixels) ? void(0) : __assert_fail(static_cast<const char *>("surface->get_width() == frame_width_pixels"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1464), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
-      (static_cast<bool>(static_cast<unsigned int>(static_cast<const Cairo::ImageSurface *>(static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(surface).operator->())->get_height()) == this->frame_height_pixels) ? void(0) : __assert_fail(static_cast<const char *>("surface->get_height() == frame_height_pixels"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1465), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
+      (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(77), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
+      (static_cast<bool>(static_cast<unsigned int>(static_cast<const Cairo::ImageSurface *>(static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(surface).operator->())->get_width()) == this->frame_width_pixels) ? void(0) : __assert_fail(static_cast<const char *>("surface->get_width() == frame_width_pixels"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(79), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
+      (static_cast<bool>(static_cast<unsigned int>(static_cast<const Cairo::ImageSurface *>(static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(surface).operator->())->get_height()) == this->frame_height_pixels) ? void(0) : __assert_fail(static_cast<const char *>("surface->get_height() == frame_height_pixels"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(80), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
       unsigned char * data = static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(surface).operator->()->get_data();
-      (static_cast<bool>(data) ? void(0) : __assert_fail(static_cast<const char *>("data"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1467), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
-      (static_cast<bool>(static_cast<unsigned int>(static_cast<int *>(this->picture->linesize)[0]) == this->frame_width_pixels) ? void(0) : __assert_fail(static_cast<const char *>("picture->linesize[0] == frame_width_pixels"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1469), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
-      (static_cast<bool>(static_cast<unsigned int>(static_cast<int *>(this->picture->linesize)[1]) == (this->frame_width_pixels / static_cast<unsigned int>(2))) ? void(0) : __assert_fail(static_cast<const char *>("picture->linesize[1] == frame_width_pixels / 2"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1470), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
-      (static_cast<bool>(static_cast<unsigned int>(static_cast<int *>(this->picture->linesize)[2]) == (this->frame_width_pixels / static_cast<unsigned int>(2))) ? void(0) : __assert_fail(static_cast<const char *>("picture->linesize[2] == frame_width_pixels / 2"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1471), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
+      (static_cast<bool>(data) ? void(0) : __assert_fail(static_cast<const char *>("data"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(82), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
+      (static_cast<bool>(static_cast<unsigned int>(static_cast<int *>(this->picture->linesize)[0]) == this->frame_width_pixels) ? void(0) : __assert_fail(static_cast<const char *>("picture->linesize[0] == frame_width_pixels"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(84), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
+      (static_cast<bool>(static_cast<unsigned int>(static_cast<int *>(this->picture->linesize)[1]) == (this->frame_width_pixels / static_cast<unsigned int>(2))) ? void(0) : __assert_fail(static_cast<const char *>("picture->linesize[1] == frame_width_pixels / 2"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(85), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
+      (static_cast<bool>(static_cast<unsigned int>(static_cast<int *>(this->picture->linesize)[2]) == (this->frame_width_pixels / static_cast<unsigned int>(2))) ? void(0) : __assert_fail(static_cast<const char *>("picture->linesize[2] == frame_width_pixels / 2"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(86), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
       for(int y = 0; static_cast<unsigned int>(y) < this->frame_height_pixels; ++y) {
         for(int x = 0; static_cast<unsigned int>(x) < this->frame_width_pixels; ++x) {
           static_cast<unsigned char **>(this->picture->data)[0][(y * static_cast<int *>(this->picture->linesize)[0]) + x] = (static_cast<unsigned char>(((static_cast<double>(static_cast<int>(data[(((static_cast<unsigned int>(y) * this->frame_width_pixels) * static_cast<unsigned int>(4)) + (static_cast<unsigned int>(x * 4))) + static_cast<unsigned int>(0)])) * 0.29899999999999999) + (static_cast<double>(static_cast<int>(data[(((static_cast<unsigned int>(y) * this->frame_width_pixels) * static_cast<unsigned int>(4)) + (static_cast<unsigned int>(x * 4))) + static_cast<unsigned int>(1)])) * 0.58699999999999997)) + (static_cast<double>(static_cast<int>(data[(((static_cast<unsigned int>(y) * this->frame_width_pixels) * static_cast<unsigned int>(4)) + (static_cast<unsigned int>(x * 4))) + static_cast<unsigned int>(2)])) * 0.114)));
@@ -4133,14 +4160,14 @@ namespace video
     inline void encode(AVFrame * picture)
     {
       int ret = avcodec_send_frame(this->context, static_cast<const AVFrame *>(picture));
-      (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1516), static_cast<const char *>(__extension__"void video::VideoSerializer::encode(AVFrame *)")));
+      (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(131), static_cast<const char *>(__extension__"void video::VideoSerializer::encode(AVFrame *)")));
       while(ret >= 0) {
         ret = avcodec_receive_packet(this->context, this->pkt);
         if((ret == (-(11))) || (ret == (-static_cast<int>(((static_cast<unsigned int>((static_cast<int>(('E')) | (static_cast<int>(('O')) << 8)) | (static_cast<int>(('F')) << 16))) | (static_cast<unsigned int>((' ')) << 24)))))) {
           return;
         } 
         
-        (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1523), static_cast<const char *>(__extension__"void video::VideoSerializer::encode(AVFrame *)")));
+        (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(138), static_cast<const char *>(__extension__"void video::VideoSerializer::encode(AVFrame *)")));
         fwrite(reinterpret_cast<const void *>(this->pkt->data), static_cast<unsigned long>(1), static_cast<unsigned long>(this->pkt->size), this->outfile);
         av_packet_unref(this->pkt);
       }
@@ -4165,6 +4192,8 @@ namespace video
 }  // namespace video
 
 #endif  // EXPLANATION_VIDEO_VIDEO_SERIALIZER_HPP_
+# 11 "src/main.cpp"
+# 1 "src/exploration/sudoku-solver.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLORATION_SUDOKU_SOLVER_HPP_
@@ -4173,6 +4202,8 @@ namespace video
 #include <functional>
 #include <memory>
 
+# 10 "src/exploration/sudoku-solver.hpp"
+# 11 "src/exploration/sudoku-solver.hpp"
 
 
 template<unsigned int size>
@@ -4180,22 +4211,28 @@ Sudoku<ValueCell, size> solve_using_exploration(Sudoku<ValueCell, size>, const s
 ;
 
 #endif  // EXPLORATION_SUDOKU_SOLVER_HPP_
+# 12 "src/main.cpp"
+# 1 "src/puzzle/check.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef PUZZLE_CHECK_HPP_
 #define PUZZLE_CHECK_HPP_
 
+# 7 "src/puzzle/check.hpp"
 
 template<unsigned int size>
 bool is_solved(const Sudoku<ValueCell, size> &);
 ;
 
 #endif  // PUZZLE_CHECK_HPP_
+# 13 "src/main.cpp"
+# 1 "src/sat/sudoku-solver.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef SAT_SUDOKU_SOLVER_HPP_
 #define SAT_SUDOKU_SOLVER_HPP_
 
+# 7 "src/sat/sudoku-solver.hpp"
 
 
 template<unsigned int size>
@@ -4203,6 +4240,7 @@ Sudoku<ValueCell, size> solve_using_sat(Sudoku<ValueCell, size>);
 ;
 
 #endif  // SAT_SUDOKU_SOLVER_HPP_
+# 14 "src/main.cpp"
 
 #define DOCTEST_CONFIG_IMPLEMENT
 #include <doctest.h>  // NOLINT(build/include_order): keep last because it defines really common names like CHECK
@@ -4232,7 +4270,7 @@ template<unsigned int size>
 int main_(const Options & options)
 {
       
-  class __lambda_1607_24
+  class __lambda_1645_24
   {
     public: 
     inline auto operator()() const
@@ -4241,7 +4279,7 @@ int main_(const Options & options)
         return Sudoku<ValueCell, size>::load(std::cin);
       } else {
         std::basic_ifstream<char> input = std::basic_ifstream<char>(options.input_path, std::ios_base::in);
-        (static_cast<bool>(input.is_open()) ? void(0) : __assert_fail("input.is_open()", "/wd/src/main.cpp", 1613, __extension____PRETTY_FUNCTION__));
+        (static_cast<bool>(input.is_open()) ? void(0) : __assert_fail("input.is_open()", "src/main.cpp", 44, __extension____PRETTY_FUNCTION__));
         return Sudoku<ValueCell, size>::load(input);
       } 
       
@@ -4251,13 +4289,13 @@ int main_(const Options & options)
     const Options & options;
     
     public:
-    __lambda_1607_24(const Options & _options)
+    __lambda_1645_24(const Options & _options)
     : options{_options}
     {}
     
   };
   
-  const auto sudoku = (__lambda_1607_24{options})();
+  const auto sudoku = (__lambda_1645_24{options})();
   if(options.solve) {
     if(options.use_sat) {
       const auto solved = solve_using_sat(sudoku);
@@ -4292,7 +4330,7 @@ int main_(const Options & options)
       } else {
         if(static_cast<bool>(options.text_path.operator bool())) {
           text_output.emplace<const std::filesystem::path &>(options.text_path.operator*());
-          (static_cast<bool>(text_output.operator->()->is_open()) ? void(0) : __assert_fail("text_output->is_open()", "/wd/src/main.cpp", 1650, __extension____PRETTY_FUNCTION__));
+          (static_cast<bool>(text_output.operator->()->is_open()) ? void(0) : __assert_fail("text_output->is_open()", "src/main.cpp", 81, __extension____PRETTY_FUNCTION__));
           text_explainer.emplace(text_output.operator*());
         } 
         
@@ -4316,7 +4354,7 @@ int main_(const Options & options)
           video_text_explainer_.emplace(std::cout);
         } else {
           video_text_output.emplace<const std::filesystem::path &>(options.video_text_path.operator*());
-          (static_cast<bool>(video_text_output.operator->()->is_open()) ? void(0) : __assert_fail("video_text_output->is_open()", "/wd/src/main.cpp", 1672, __extension____PRETTY_FUNCTION__));
+          (static_cast<bool>(video_text_output.operator->()->is_open()) ? void(0) : __assert_fail("video_text_output->is_open()", "src/main.cpp", 103, __extension____PRETTY_FUNCTION__));
           video_text_explainer_.emplace(video_text_output.operator*());
         } 
         
@@ -4335,7 +4373,7 @@ int main_(const Options & options)
       } 
       
       if(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() > static_cast<unsigned long>(1)) {
-        (static_cast<bool>(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() == static_cast<unsigned long>(2)) ? void(0) : __assert_fail("video_serializers.size() == 2", "/wd/src/main.cpp", 1689, __extension____PRETTY_FUNCTION__));
+        (static_cast<bool>(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() == static_cast<unsigned long>(2)) ? void(0) : __assert_fail("video_serializers.size() == 2", "src/main.cpp", 120, __extension____PRETTY_FUNCTION__));
         video_serializers.push_back(std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >(std::make_unique<video::MultipleSerializer>(std::vector<video::Serializer *, std::allocator<video::Serializer *> >{std::initializer_list<video::Serializer *>{static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.operator[](static_cast<unsigned long>(0))).get(), static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.operator[](static_cast<unsigned long>(1))).get()}, static_cast<const std::allocator<video::Serializer *>>(std::allocator<video::Serializer *>())})));
       } 
       
@@ -4349,7 +4387,7 @@ int main_(const Options & options)
       } 
       
                   
-      class __lambda_1704_7
+      class __lambda_1742_7
       {
         public: 
         inline auto operator()(exploration::Event<size> && event) const
@@ -4375,7 +4413,7 @@ int main_(const Options & options)
         
       };
       
-      const auto solved = solve_using_exploration<size>(sudoku, __lambda_1704_7{});
+      const auto solved = solve_using_exploration<size>(sudoku, __lambda_1742_7{});
       if(is_solved(solved)) {
         return 0;
       } else {
@@ -4392,13 +4430,13 @@ int main_(const Options & options)
 }
 
 
-/* First instantiated from: main.cpp:1843 */
+/* First instantiated from: main.cpp:1881 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 int main_<4>(const Options & options)
 {
       
-  class __lambda_1607_24
+  class __lambda_1645_24
   {
     public: 
     inline Sudoku<ValueCell, 4> operator()() const
@@ -4407,7 +4445,7 @@ int main_<4>(const Options & options)
         return Sudoku<ValueCell, 4>::load(std::cin);
       } else {
         std::basic_ifstream<char> input = std::basic_ifstream<char>(options.input_path, std::ios_base::in);
-        (static_cast<bool>(input.is_open()) ? void(0) : __assert_fail(static_cast<const char *>("input.is_open()"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1613), static_cast<const char *>(__extension__"auto main_(const Options &)::(anonymous class)::operator()() const")));
+        (static_cast<bool>(input.is_open()) ? void(0) : __assert_fail(static_cast<const char *>("input.is_open()"), static_cast<const char *>("src/main.cpp"), static_cast<unsigned int>(44), static_cast<const char *>(__extension__"auto main_(const Options &)::(anonymous class)::operator()() const")));
         return Sudoku<ValueCell, 4>::load(static_cast<std::basic_istream<char>&>(input));
       } 
       
@@ -4417,13 +4455,13 @@ int main_<4>(const Options & options)
     const Options & options;
     
     public:
-    __lambda_1607_24(const Options & _options)
+    __lambda_1645_24(const Options & _options)
     : options{_options}
     {}
     
-  } __lambda_1607_24{options};
+  } __lambda_1645_24{options};
   
-  const Sudoku<ValueCell, 4> sudoku = static_cast<const Sudoku<ValueCell, 4>>(static_cast<const __lambda_1607_24>((__lambda_1607_24)).operator()());
+  const Sudoku<ValueCell, 4> sudoku = static_cast<const Sudoku<ValueCell, 4>>(static_cast<const __lambda_1645_24>((__lambda_1645_24)).operator()());
   if(options.solve) {
     if(options.use_sat) {
       const Sudoku<ValueCell, 4> solved = static_cast<const Sudoku<ValueCell, 4>>(solve_using_sat<4>(Sudoku<ValueCell, 4>(sudoku)));
@@ -4437,15 +4475,15 @@ int main_<4>(const Options & options)
       
     } else {
                   
-      class __lambda_1558_60
+      class __lambda_1589_60
       {
         public: 
         inline /*constexpr */ void operator()(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&) const
         {
         }
         
-        using retType_1558_60 = void (*)(exploration::Event<4U> &&);
-        inline constexpr operator retType_1558_60 () const noexcept
+        using retType_1589_60 = void (*)(exploration::Event<4U> &&);
+        inline constexpr operator retType_1589_60 () const noexcept
         {
           return __invoke;
         };
@@ -4453,17 +4491,17 @@ int main_<4>(const Options & options)
         private: 
         static inline /*constexpr */ void __invoke(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > && __param0)
         {
-          __lambda_1558_60{}.operator()(__param0);
+          __lambda_1589_60{}.operator()(__param0);
         }
         
         public: 
-        // inline /*constexpr */ __lambda_1558_60(const __lambda_1558_60 &) noexcept = default;
-        // inline /*constexpr */ __lambda_1558_60(__lambda_1558_60 &&) noexcept = default;
-        // /*constexpr */ __lambda_1558_60() = default;
+        // inline /*constexpr */ __lambda_1589_60(const __lambda_1589_60 &) noexcept = default;
+        // inline /*constexpr */ __lambda_1589_60(__lambda_1589_60 &&) noexcept = default;
+        // /*constexpr */ __lambda_1589_60() = default;
         
       };
       
-      const Sudoku<ValueCell, 4> solved = static_cast<const Sudoku<ValueCell, 4>>(solve_using_exploration<4>(Sudoku<ValueCell, 4>(sudoku), static_cast<const std::function<void (std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&)>>(std::function<void (std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&)>(__lambda_1558_60{}))));
+      const Sudoku<ValueCell, 4> solved = static_cast<const Sudoku<ValueCell, 4>>(solve_using_exploration<4>(Sudoku<ValueCell, 4>(sudoku), static_cast<const std::function<void (std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&)>>(std::function<void (std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&)>(__lambda_1589_60{}))));
       if(is_solved<4>(solved)) {
         solved.dump(std::cout);
         return 0;
@@ -4485,7 +4523,7 @@ int main_<4>(const Options & options)
       } else {
         if(static_cast<bool>(options.text_path.operator bool())) {
           text_output.emplace<const std::filesystem::path &>(options.text_path.operator*());
-          (static_cast<bool>(text_output.operator->()->is_open()) ? void(0) : __assert_fail(static_cast<const char *>("text_output->is_open()"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1650), static_cast<const char *>(__extension__"int main_(const Options &) [size = 4U]")));
+          (static_cast<bool>(text_output.operator->()->is_open()) ? void(0) : __assert_fail(static_cast<const char *>("text_output->is_open()"), static_cast<const char *>("src/main.cpp"), static_cast<unsigned int>(81), static_cast<const char *>(__extension__"int main_(const Options &) [size = 4U]")));
           text_explainer.emplace<std::basic_ofstream<char> &>(text_output.operator*());
         } 
         
@@ -4509,7 +4547,7 @@ int main_<4>(const Options & options)
           video_text_explainer_.emplace<std::basic_ostream<char> &>(std::cout);
         } else {
           video_text_output.emplace<const std::filesystem::path &>(options.video_text_path.operator*());
-          (static_cast<bool>(video_text_output.operator->()->is_open()) ? void(0) : __assert_fail(static_cast<const char *>("video_text_output->is_open()"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1672), static_cast<const char *>(__extension__"int main_(const Options &) [size = 4U]")));
+          (static_cast<bool>(video_text_output.operator->()->is_open()) ? void(0) : __assert_fail(static_cast<const char *>("video_text_output->is_open()"), static_cast<const char *>("src/main.cpp"), static_cast<unsigned int>(103), static_cast<const char *>(__extension__"int main_(const Options &) [size = 4U]")));
           video_text_explainer_.emplace<std::basic_ofstream<char> &>(video_text_output.operator*());
         } 
         
@@ -4528,7 +4566,7 @@ int main_<4>(const Options & options)
       } 
       
       if(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() > static_cast<unsigned long>(1)) {
-        (static_cast<bool>(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() == static_cast<unsigned long>(2)) ? void(0) : __assert_fail(static_cast<const char *>("video_serializers.size() == 2"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1689), static_cast<const char *>(__extension__"int main_(const Options &) [size = 4U]")));
+        (static_cast<bool>(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() == static_cast<unsigned long>(2)) ? void(0) : __assert_fail(static_cast<const char *>("video_serializers.size() == 2"), static_cast<const char *>("src/main.cpp"), static_cast<unsigned int>(120), static_cast<const char *>(__extension__"int main_(const Options &) [size = 4U]")));
         video_serializers.push_back(std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >(std::make_unique<video::MultipleSerializer>(std::vector<video::Serializer *, std::allocator<video::Serializer *> >(std::vector<video::Serializer *, std::allocator<video::Serializer *> >(std::initializer_list<video::Serializer *>{static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.operator[](static_cast<unsigned long>(0))).get(), static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.operator[](static_cast<unsigned long>(1))).get()}, static_cast<const std::allocator<video::Serializer *>>(std::allocator<video::Serializer *>()))))));
       } 
       
@@ -4542,7 +4580,7 @@ int main_<4>(const Options & options)
       } 
       
                   
-      class __lambda_1704_7
+      class __lambda_1742_7
       {
         public: 
         inline /*constexpr */ void operator()(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > && event) const
@@ -4571,9 +4609,9 @@ int main_<4>(const Options & options)
         std::optional<Reorder<4, TextExplainer<4> > > & video_text_explainer;
         std::optional<Reorder<4, VideoExplainer<4> > > & video_explainer;
         public: 
-        // inline /*constexpr */ __lambda_1704_7(const __lambda_1704_7 &) noexcept = default;
-        // inline /*constexpr */ __lambda_1704_7(__lambda_1704_7 &&) noexcept = default;
-        __lambda_1704_7(std::optional<TextExplainer<4> > & _text_explainer, std::optional<HtmlExplainer<4> > & _html_explainer, std::optional<Reorder<4, TextExplainer<4> > > & _video_text_explainer, std::optional<Reorder<4, VideoExplainer<4> > > & _video_explainer)
+        // inline /*constexpr */ __lambda_1742_7(const __lambda_1742_7 &) noexcept = default;
+        // inline /*constexpr */ __lambda_1742_7(__lambda_1742_7 &&) noexcept = default;
+        __lambda_1742_7(std::optional<TextExplainer<4> > & _text_explainer, std::optional<HtmlExplainer<4> > & _html_explainer, std::optional<Reorder<4, TextExplainer<4> > > & _video_text_explainer, std::optional<Reorder<4, VideoExplainer<4> > > & _video_explainer)
         : text_explainer{_text_explainer}
         , html_explainer{_html_explainer}
         , video_text_explainer{_video_text_explainer}
@@ -4582,7 +4620,7 @@ int main_<4>(const Options & options)
         
       };
       
-      const Sudoku<ValueCell, 4> solved = static_cast<const Sudoku<ValueCell, 4>>(solve_using_exploration<4U>(Sudoku<ValueCell, 4>(sudoku), static_cast<const std::function<void (std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&)>>(std::function<void (std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&)>(__lambda_1704_7{text_explainer, html_explainer, video_text_explainer, video_explainer}))));
+      const Sudoku<ValueCell, 4> solved = static_cast<const Sudoku<ValueCell, 4>>(solve_using_exploration<4U>(Sudoku<ValueCell, 4>(sudoku), static_cast<const std::function<void (std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&)>>(std::function<void (std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&)>(__lambda_1742_7{text_explainer, html_explainer, video_text_explainer, video_explainer}))));
       if(is_solved<4>(solved)) {
         return 0;
       } else {
@@ -4600,13 +4638,13 @@ int main_<4>(const Options & options)
 #endif
 
 
-/* First instantiated from: main.cpp:1845 */
+/* First instantiated from: main.cpp:1883 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 int main_<9>(const Options & options)
 {
       
-  class __lambda_1607_24
+  class __lambda_1645_24
   {
     public: 
     inline Sudoku<ValueCell, 9> operator()() const
@@ -4615,7 +4653,7 @@ int main_<9>(const Options & options)
         return Sudoku<ValueCell, 9>::load(std::cin);
       } else {
         std::basic_ifstream<char> input = std::basic_ifstream<char>(options.input_path, std::ios_base::in);
-        (static_cast<bool>(input.is_open()) ? void(0) : __assert_fail(static_cast<const char *>("input.is_open()"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1613), static_cast<const char *>(__extension__"auto main_(const Options &)::(anonymous class)::operator()() const")));
+        (static_cast<bool>(input.is_open()) ? void(0) : __assert_fail(static_cast<const char *>("input.is_open()"), static_cast<const char *>("src/main.cpp"), static_cast<unsigned int>(44), static_cast<const char *>(__extension__"auto main_(const Options &)::(anonymous class)::operator()() const")));
         return Sudoku<ValueCell, 9>::load(static_cast<std::basic_istream<char>&>(input));
       } 
       
@@ -4625,13 +4663,13 @@ int main_<9>(const Options & options)
     const Options & options;
     
     public:
-    __lambda_1607_24(const Options & _options)
+    __lambda_1645_24(const Options & _options)
     : options{_options}
     {}
     
-  } __lambda_1607_24{options};
+  } __lambda_1645_24{options};
   
-  const Sudoku<ValueCell, 9> sudoku = static_cast<const Sudoku<ValueCell, 9>>(static_cast<const __lambda_1607_24>((__lambda_1607_24)).operator()());
+  const Sudoku<ValueCell, 9> sudoku = static_cast<const Sudoku<ValueCell, 9>>(static_cast<const __lambda_1645_24>((__lambda_1645_24)).operator()());
   if(options.solve) {
     if(options.use_sat) {
       const Sudoku<ValueCell, 9> solved = static_cast<const Sudoku<ValueCell, 9>>(solve_using_sat<9>(Sudoku<ValueCell, 9>(sudoku)));
@@ -4645,15 +4683,15 @@ int main_<9>(const Options & options)
       
     } else {
                   
-      class __lambda_1558_60
+      class __lambda_1589_60
       {
         public: 
         inline /*constexpr */ void operator()(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&) const
         {
         }
         
-        using retType_1558_60 = void (*)(exploration::Event<9U> &&);
-        inline constexpr operator retType_1558_60 () const noexcept
+        using retType_1589_60 = void (*)(exploration::Event<9U> &&);
+        inline constexpr operator retType_1589_60 () const noexcept
         {
           return __invoke;
         };
@@ -4661,17 +4699,17 @@ int main_<9>(const Options & options)
         private: 
         static inline /*constexpr */ void __invoke(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > && __param0)
         {
-          __lambda_1558_60{}.operator()(__param0);
+          __lambda_1589_60{}.operator()(__param0);
         }
         
         public: 
-        // inline /*constexpr */ __lambda_1558_60(const __lambda_1558_60 &) noexcept = default;
-        // inline /*constexpr */ __lambda_1558_60(__lambda_1558_60 &&) noexcept = default;
-        // /*constexpr */ __lambda_1558_60() = default;
+        // inline /*constexpr */ __lambda_1589_60(const __lambda_1589_60 &) noexcept = default;
+        // inline /*constexpr */ __lambda_1589_60(__lambda_1589_60 &&) noexcept = default;
+        // /*constexpr */ __lambda_1589_60() = default;
         
       };
       
-      const Sudoku<ValueCell, 9> solved = static_cast<const Sudoku<ValueCell, 9>>(solve_using_exploration<9>(Sudoku<ValueCell, 9>(sudoku), static_cast<const std::function<void (std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&)>>(std::function<void (std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&)>(__lambda_1558_60{}))));
+      const Sudoku<ValueCell, 9> solved = static_cast<const Sudoku<ValueCell, 9>>(solve_using_exploration<9>(Sudoku<ValueCell, 9>(sudoku), static_cast<const std::function<void (std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&)>>(std::function<void (std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&)>(__lambda_1589_60{}))));
       if(is_solved<9>(solved)) {
         solved.dump(std::cout);
         return 0;
@@ -4693,7 +4731,7 @@ int main_<9>(const Options & options)
       } else {
         if(static_cast<bool>(options.text_path.operator bool())) {
           text_output.emplace<const std::filesystem::path &>(options.text_path.operator*());
-          (static_cast<bool>(text_output.operator->()->is_open()) ? void(0) : __assert_fail(static_cast<const char *>("text_output->is_open()"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1650), static_cast<const char *>(__extension__"int main_(const Options &) [size = 9U]")));
+          (static_cast<bool>(text_output.operator->()->is_open()) ? void(0) : __assert_fail(static_cast<const char *>("text_output->is_open()"), static_cast<const char *>("src/main.cpp"), static_cast<unsigned int>(81), static_cast<const char *>(__extension__"int main_(const Options &) [size = 9U]")));
           text_explainer.emplace<std::basic_ofstream<char> &>(text_output.operator*());
         } 
         
@@ -4717,7 +4755,7 @@ int main_<9>(const Options & options)
           video_text_explainer_.emplace<std::basic_ostream<char> &>(std::cout);
         } else {
           video_text_output.emplace<const std::filesystem::path &>(options.video_text_path.operator*());
-          (static_cast<bool>(video_text_output.operator->()->is_open()) ? void(0) : __assert_fail(static_cast<const char *>("video_text_output->is_open()"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1672), static_cast<const char *>(__extension__"int main_(const Options &) [size = 9U]")));
+          (static_cast<bool>(video_text_output.operator->()->is_open()) ? void(0) : __assert_fail(static_cast<const char *>("video_text_output->is_open()"), static_cast<const char *>("src/main.cpp"), static_cast<unsigned int>(103), static_cast<const char *>(__extension__"int main_(const Options &) [size = 9U]")));
           video_text_explainer_.emplace<std::basic_ofstream<char> &>(video_text_output.operator*());
         } 
         
@@ -4736,7 +4774,7 @@ int main_<9>(const Options & options)
       } 
       
       if(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() > static_cast<unsigned long>(1)) {
-        (static_cast<bool>(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() == static_cast<unsigned long>(2)) ? void(0) : __assert_fail(static_cast<const char *>("video_serializers.size() == 2"), static_cast<const char *>("/wd/src/main.cpp"), static_cast<unsigned int>(1689), static_cast<const char *>(__extension__"int main_(const Options &) [size = 9U]")));
+        (static_cast<bool>(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() == static_cast<unsigned long>(2)) ? void(0) : __assert_fail(static_cast<const char *>("video_serializers.size() == 2"), static_cast<const char *>("src/main.cpp"), static_cast<unsigned int>(120), static_cast<const char *>(__extension__"int main_(const Options &) [size = 9U]")));
         video_serializers.push_back(std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >(std::make_unique<video::MultipleSerializer>(std::vector<video::Serializer *, std::allocator<video::Serializer *> >(std::vector<video::Serializer *, std::allocator<video::Serializer *> >(std::initializer_list<video::Serializer *>{static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.operator[](static_cast<unsigned long>(0))).get(), static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.operator[](static_cast<unsigned long>(1))).get()}, static_cast<const std::allocator<video::Serializer *>>(std::allocator<video::Serializer *>()))))));
       } 
       
@@ -4750,7 +4788,7 @@ int main_<9>(const Options & options)
       } 
       
                   
-      class __lambda_1704_7
+      class __lambda_1742_7
       {
         public: 
         inline /*constexpr */ void operator()(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > && event) const
@@ -4779,9 +4817,9 @@ int main_<9>(const Options & options)
         std::optional<Reorder<9, TextExplainer<9> > > & video_text_explainer;
         std::optional<Reorder<9, VideoExplainer<9> > > & video_explainer;
         public: 
-        // inline /*constexpr */ __lambda_1704_7(const __lambda_1704_7 &) noexcept = default;
-        // inline /*constexpr */ __lambda_1704_7(__lambda_1704_7 &&) noexcept = default;
-        __lambda_1704_7(std::optional<TextExplainer<9> > & _text_explainer, std::optional<HtmlExplainer<9> > & _html_explainer, std::optional<Reorder<9, TextExplainer<9> > > & _video_text_explainer, std::optional<Reorder<9, VideoExplainer<9> > > & _video_explainer)
+        // inline /*constexpr */ __lambda_1742_7(const __lambda_1742_7 &) noexcept = default;
+        // inline /*constexpr */ __lambda_1742_7(__lambda_1742_7 &&) noexcept = default;
+        __lambda_1742_7(std::optional<TextExplainer<9> > & _text_explainer, std::optional<HtmlExplainer<9> > & _html_explainer, std::optional<Reorder<9, TextExplainer<9> > > & _video_text_explainer, std::optional<Reorder<9, VideoExplainer<9> > > & _video_explainer)
         : text_explainer{_text_explainer}
         , html_explainer{_html_explainer}
         , video_text_explainer{_video_text_explainer}
@@ -4790,7 +4828,7 @@ int main_<9>(const Options & options)
         
       };
       
-      const Sudoku<ValueCell, 9> solved = static_cast<const Sudoku<ValueCell, 9>>(solve_using_exploration<9U>(Sudoku<ValueCell, 9>(sudoku), static_cast<const std::function<void (std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&)>>(std::function<void (std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&)>(__lambda_1704_7{text_explainer, html_explainer, video_text_explainer, video_explainer}))));
+      const Sudoku<ValueCell, 9> solved = static_cast<const Sudoku<ValueCell, 9>>(solve_using_exploration<9U>(Sudoku<ValueCell, 9>(sudoku), static_cast<const std::function<void (std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&)>>(std::function<void (std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&)>(__lambda_1742_7{text_explainer, html_explainer, video_text_explainer, video_explainer}))));
       if(is_solved<9>(solved)) {
         return 0;
       } else {
@@ -4814,7 +4852,7 @@ struct ExistingFileOrStdinValidator : public CLI::Validator
   : CLI::Validator{CLI::Validator(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("FILE(or - for stdin)"), static_cast<const std::allocator<char>>(std::allocator<char>())))}
   {
         
-    class __lambda_1724_13
+    class __lambda_1762_13
     {
       public: 
       inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > operator()(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str) const
@@ -4827,8 +4865,8 @@ struct ExistingFileOrStdinValidator : public CLI::Validator
         
       }
       
-      using retType_1724_13 = std::string (*)(const std::string &);
-      inline constexpr operator retType_1724_13 () const noexcept
+      using retType_1762_13 = std::string (*)(const std::string &);
+      inline constexpr operator retType_1762_13 () const noexcept
       {
         return __invoke;
       };
@@ -4836,17 +4874,17 @@ struct ExistingFileOrStdinValidator : public CLI::Validator
       private: 
       static inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > __invoke(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str)
       {
-        return __lambda_1724_13{}.operator()(str);
+        return __lambda_1762_13{}.operator()(str);
       }
       
       public: 
-      // inline /*constexpr */ __lambda_1724_13(const __lambda_1724_13 &) noexcept = default;
-      // inline /*constexpr */ __lambda_1724_13(__lambda_1724_13 &&) noexcept = default;
-      // /*constexpr */ __lambda_1724_13() = default;
+      // inline /*constexpr */ __lambda_1762_13(const __lambda_1762_13 &) noexcept = default;
+      // inline /*constexpr */ __lambda_1762_13(__lambda_1762_13 &&) noexcept = default;
+      // /*constexpr */ __lambda_1762_13() = default;
       
-    } __lambda_1724_13{};
+    } __lambda_1762_13{};
     
-    /* static_cast<CLI::Validator *>(this)-> */ func_.operator=(__lambda_1724_13);
+    /* static_cast<CLI::Validator *>(this)-> */ func_.operator=(__lambda_1762_13);
   }
   
   // inline ~ExistingFileOrStdinValidator() noexcept = default;
@@ -4863,7 +4901,7 @@ struct FileOrStdoutValidator : public CLI::Validator
   : CLI::Validator{CLI::Validator(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("FILE(or - for stdout)"), static_cast<const std::allocator<char>>(std::allocator<char>())))}
   {
         
-    class __lambda_1738_13
+    class __lambda_1776_13
     {
       public: 
       inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > operator()(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str) const
@@ -4871,8 +4909,8 @@ struct FileOrStdoutValidator : public CLI::Validator
         return std::basic_string<char, std::char_traits<char>, std::allocator<char> >();
       }
       
-      using retType_1738_13 = std::string (*)(const std::string &);
-      inline constexpr operator retType_1738_13 () const noexcept
+      using retType_1776_13 = std::string (*)(const std::string &);
+      inline constexpr operator retType_1776_13 () const noexcept
       {
         return __invoke;
       };
@@ -4880,17 +4918,17 @@ struct FileOrStdoutValidator : public CLI::Validator
       private: 
       static inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > __invoke(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str)
       {
-        return __lambda_1738_13{}.operator()(str);
+        return __lambda_1776_13{}.operator()(str);
       }
       
       public: 
-      // inline /*constexpr */ __lambda_1738_13(const __lambda_1738_13 &) noexcept = default;
-      // inline /*constexpr */ __lambda_1738_13(__lambda_1738_13 &&) noexcept = default;
-      // /*constexpr */ __lambda_1738_13() = default;
+      // inline /*constexpr */ __lambda_1776_13(const __lambda_1776_13 &) noexcept = default;
+      // inline /*constexpr */ __lambda_1776_13(__lambda_1776_13 &&) noexcept = default;
+      // /*constexpr */ __lambda_1776_13() = default;
       
-    } __lambda_1738_13{};
+    } __lambda_1776_13{};
     
-    /* static_cast<CLI::Validator *>(this)-> */ func_.operator=(__lambda_1738_13);
+    /* static_cast<CLI::Validator *>(this)-> */ func_.operator=(__lambda_1776_13);
   }
   
   // inline ~FileOrStdoutValidator() noexcept = default;
@@ -4907,7 +4945,7 @@ struct FileValidator : public CLI::Validator
   : CLI::Validator{CLI::Validator(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("FILE"), static_cast<const std::allocator<char>>(std::allocator<char>())))}
   {
         
-    class __lambda_1746_13
+    class __lambda_1784_13
     {
       public: 
       inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > operator()(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str) const
@@ -4915,8 +4953,8 @@ struct FileValidator : public CLI::Validator
         return std::basic_string<char, std::char_traits<char>, std::allocator<char> >();
       }
       
-      using retType_1746_13 = std::string (*)(const std::string &);
-      inline constexpr operator retType_1746_13 () const noexcept
+      using retType_1784_13 = std::string (*)(const std::string &);
+      inline constexpr operator retType_1784_13 () const noexcept
       {
         return __invoke;
       };
@@ -4924,17 +4962,17 @@ struct FileValidator : public CLI::Validator
       private: 
       static inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > __invoke(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str)
       {
-        return __lambda_1746_13{}.operator()(str);
+        return __lambda_1784_13{}.operator()(str);
       }
       
       public: 
-      // inline /*constexpr */ __lambda_1746_13(const __lambda_1746_13 &) noexcept = default;
-      // inline /*constexpr */ __lambda_1746_13(__lambda_1746_13 &&) noexcept = default;
-      // /*constexpr */ __lambda_1746_13() = default;
+      // inline /*constexpr */ __lambda_1784_13(const __lambda_1784_13 &) noexcept = default;
+      // inline /*constexpr */ __lambda_1784_13(__lambda_1784_13 &&) noexcept = default;
+      // /*constexpr */ __lambda_1784_13() = default;
       
-    } __lambda_1746_13{};
+    } __lambda_1784_13{};
     
-    /* static_cast<CLI::Validator *>(this)-> */ func_.operator=(__lambda_1746_13);
+    /* static_cast<CLI::Validator *>(this)-> */ func_.operator=(__lambda_1784_13);
   }
   
   // inline ~FileValidator() noexcept = default;

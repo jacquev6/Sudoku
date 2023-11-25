@@ -1,5 +1,7 @@
+# 1 "src/puzzle/sudoku.cpp"
 // Copyright 2023 Vincent Jacques
 
+# 1 "src/puzzle/sudoku.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef PUZZLE_SUDOKU_HPP_
@@ -17,6 +19,7 @@
 #include <boost/range.hpp>
 #include <boost/range/adaptor/indexed.hpp>
 
+# 1 "src/puzzle/sudoku-constants.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef PUZZLE_SUDOKU_CONSTANTS_HPP_
@@ -192,7 +195,7 @@ class SudokuConstants
   /* PASSED: static_assert((sqrt_size * sqrt_size) == size, "'size' must be a perfect square"); */
 };
 
-/* First instantiated from: sudoku.cpp:374 */
+/* First instantiated from: sudoku.cpp:379 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuConstants<4>
@@ -376,7 +379,7 @@ class SudokuConstants<4>
 };
 
 #endif
-/* First instantiated from: sudoku.cpp:374 */
+/* First instantiated from: sudoku.cpp:379 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuConstants<9>
@@ -563,6 +566,7 @@ class SudokuConstants<9>
 
 
 #endif  // PUZZLE_SUDOKU_CONSTANTS_HPP_
+# 19 "src/puzzle/sudoku.hpp"
 
 
 template<typename CellBase, unsigned int size>
@@ -596,7 +600,7 @@ class SudokuBase
     public: 
     inline bool operator==(const Cell & other) const
     {
-      (static_cast<bool>(this->sudoku == other.sudoku) ? void(0) : __assert_fail("sudoku == other.sudoku", "/wd/src/puzzle/sudoku.cpp", 163, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->sudoku == other.sudoku) ? void(0) : __assert_fail("sudoku == other.sudoku", "src/puzzle/sudoku.hpp", 46, __extension____PRETTY_FUNCTION__));
       return this->coords == other.coords;
     }
     
@@ -637,26 +641,26 @@ class SudokuBase
     inline auto cells() const
     {
             
-      class __lambda_191_28
+      class __lambda_195_28
       {
         public: 
         template<class type_parameter_1_0>
         inline const SudokuBase::Cell & operator()(const type_parameter_1_0 & coords) const
         {
-          const auto __coords192 = coords;
+          const auto __coords196 = coords;
           return __this->sudoku->_cells[row][col];
         }
         private: 
         const SudokuBase::Region * __this;
         
         public:
-        __lambda_191_28(const SudokuBase::Region * _this)
+        __lambda_195_28(const SudokuBase::Region * _this)
         : __this{_this}
         {}
         
       };
       
-      const auto convert = __lambda_191_28{this};
+      const auto convert = __lambda_195_28{this};
       return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::regions[this->_index].begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::regions[this->_index].end(), convert));
     }
     
@@ -731,80 +735,80 @@ class SudokuBase
   public: 
   inline Cell & cell(const std::pair<unsigned int, unsigned int> & coords)
   {
-    const std::pair<unsigned int, unsigned int> __coords265 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords265));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords265));
-    (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "/wd/src/puzzle/sudoku.cpp", 266, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "/wd/src/puzzle/sudoku.cpp", 267, __extension____PRETTY_FUNCTION__));
+    const std::pair<unsigned int, unsigned int> __coords269 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords269));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords269));
+    (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "src/puzzle/sudoku.hpp", 149, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "src/puzzle/sudoku.hpp", 150, __extension____PRETTY_FUNCTION__));
     return this->_cells[row][col];
   }
   
   inline const Cell & cell(const std::pair<unsigned int, unsigned int> & coords) const
   {
-    const std::pair<unsigned int, unsigned int> __coords272 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords272));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords272));
-    (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "/wd/src/puzzle/sudoku.cpp", 273, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "/wd/src/puzzle/sudoku.cpp", 274, __extension____PRETTY_FUNCTION__));
+    const std::pair<unsigned int, unsigned int> __coords276 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords276));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords276));
+    (static_cast<bool>(row < size) ? void(0) : __assert_fail("row < size", "src/puzzle/sudoku.hpp", 156, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(col < size) ? void(0) : __assert_fail("col < size", "src/puzzle/sudoku.hpp", 157, __extension____PRETTY_FUNCTION__));
     return this->_cells[row][col];
   }
   
   inline auto cells() const
   {
         
-    class __lambda_279_26
+    class __lambda_283_26
     {
       public: 
       template<class type_parameter_1_0>
       inline const Cell & operator()(const type_parameter_1_0 & cell) const
       {
-        const auto __cell280 = cell;
+        const auto __cell284 = cell;
         return __this->_cells[row][col];
       }
       private: 
       const SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_279_26(const SudokuBase<CellBase, size> * _this)
+      __lambda_283_26(const SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_279_26{this};
+    const auto convert = __lambda_283_26{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::cells.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::cells.end(), convert));
   }
   
   inline auto cells()
   {
         
-    class __lambda_290_26
+    class __lambda_294_26
     {
       public: 
       template<class type_parameter_1_0>
       inline Cell & operator()(const type_parameter_1_0 & cell) const
       {
-        const auto __cell291 = cell;
+        const auto __cell295 = cell;
         return __this->_cells[row][col];
       }
       private: 
       SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_290_26(SudokuBase<CellBase, size> * _this)
+      __lambda_294_26(SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_290_26{this};
+    const auto convert = __lambda_294_26{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::cells.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::cells.end(), convert));
   }
   
   inline auto regions() const
   {
         
-    class __lambda_301_26
+    class __lambda_305_26
     {
       public: 
       inline const Region operator()(const unsigned int index) const
@@ -816,13 +820,13 @@ class SudokuBase
       const SudokuBase<CellBase, size> * __this;
       
       public:
-      __lambda_301_26(const SudokuBase<CellBase, size> * _this)
+      __lambda_305_26(const SudokuBase<CellBase, size> * _this)
       : __this{_this}
       {}
       
     };
     
-    const auto convert = __lambda_301_26{this};
+    const auto convert = __lambda_305_26{this};
     return boost::make_iterator_range(boost::make_transform_iterator(SudokuConstants<size>::region_indexes.begin(), convert), boost::make_transform_iterator(SudokuConstants<size>::region_indexes.end(), convert));
   }
   
@@ -831,7 +835,7 @@ class SudokuBase
   CellsArray _cells;
 };
 
-/* First instantiated from: sudoku.cpp:326 */
+/* First instantiated from: sudoku.cpp:330 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<TestCell, 4>
@@ -864,7 +868,7 @@ class SudokuBase<TestCell, 4>
     public: 
     inline bool operator==(const Cell & other) const
     {
-      (static_cast<bool>(this->sudoku == other.sudoku) ? void(0) : __assert_fail(static_cast<const char *>("sudoku == other.sudoku"), static_cast<const char *>("/wd/src/puzzle/sudoku.cpp"), static_cast<unsigned int>(163), static_cast<const char *>(__extension__"bool SudokuBase<TestCell, 4>::Cell::operator==(const Cell &) const [CellBase = TestCell, size = 4]")));
+      (static_cast<bool>(this->sudoku == other.sudoku) ? void(0) : __assert_fail(static_cast<const char *>("sudoku == other.sudoku"), static_cast<const char *>("src/puzzle/sudoku.hpp"), static_cast<unsigned int>(46), static_cast<const char *>(__extension__"bool SudokuBase<TestCell, 4>::Cell::operator==(const Cell &) const [CellBase = TestCell, size = 4]")));
       return std::operator==(this->coords, other.coords);
     }
     
@@ -910,7 +914,7 @@ class SudokuBase<TestCell, 4>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 4>, 4> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: sudoku.cpp:223 */
+  /* First instantiated from: sudoku.cpp:227 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 4>, 4> make_cells<0, 1, 2, 3>(const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -922,7 +926,7 @@ class SudokuBase<TestCell, 4>
   template<unsigned int ...col>
   inline std::array<Cell, 4> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: sudoku.cpp:228 */
+  /* First instantiated from: sudoku.cpp:232 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 4> make_row<0, 1, 2, 3>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -946,7 +950,7 @@ class SudokuBase<TestCell, 4>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 4>, 4> copy_cells(const std::integer_sequence<unsigned int, row...> &, const std::array<std::array<Cell, 4>, 4> & other_cells);
   
-  /* First instantiated from: sudoku.cpp:242 */
+  /* First instantiated from: sudoku.cpp:246 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 4>, 4> copy_cells<0, 1, 2, 3>(const std::integer_sequence<unsigned int, 0, 1, 2, 3> &, const std::array<std::array<Cell, 4>, 4> & other_cells)
@@ -958,7 +962,7 @@ class SudokuBase<TestCell, 4>
   template<unsigned int ...col>
   inline std::array<Cell, 4> copy_row(unsigned int row, const std::array<std::array<Cell, 4>, 4> & other_cells, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: sudoku.cpp:247 */
+  /* First instantiated from: sudoku.cpp:251 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 4> copy_row<0, 1, 2, 3>(unsigned int row, const std::array<std::array<Cell, 4>, 4> & other_cells, const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -976,11 +980,11 @@ class SudokuBase<TestCell, 4>
   public: 
   inline Cell & cell(const std::pair<unsigned int, unsigned int> & coords)
   {
-    const std::pair<unsigned int, unsigned int> __coords265 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords265));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords265));
-    (static_cast<bool>(row < 4U) ? void(0) : __assert_fail(static_cast<const char *>("row < size"), static_cast<const char *>("/wd/src/puzzle/sudoku.cpp"), static_cast<unsigned int>(266), static_cast<const char *>(__extension__"Cell &SudokuBase<TestCell, 4>::cell(const Coordinates &) [CellBase = TestCell, size = 4]")));
-    (static_cast<bool>(col < 4U) ? void(0) : __assert_fail(static_cast<const char *>("col < size"), static_cast<const char *>("/wd/src/puzzle/sudoku.cpp"), static_cast<unsigned int>(267), static_cast<const char *>(__extension__"Cell &SudokuBase<TestCell, 4>::cell(const Coordinates &) [CellBase = TestCell, size = 4]")));
+    const std::pair<unsigned int, unsigned int> __coords269 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords269));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords269));
+    (static_cast<bool>(row < 4U) ? void(0) : __assert_fail(static_cast<const char *>("row < size"), static_cast<const char *>("src/puzzle/sudoku.hpp"), static_cast<unsigned int>(149), static_cast<const char *>(__extension__"Cell &SudokuBase<TestCell, 4>::cell(const Coordinates &) [CellBase = TestCell, size = 4]")));
+    (static_cast<bool>(col < 4U) ? void(0) : __assert_fail(static_cast<const char *>("col < size"), static_cast<const char *>("src/puzzle/sudoku.hpp"), static_cast<unsigned int>(150), static_cast<const char *>(__extension__"Cell &SudokuBase<TestCell, 4>::cell(const Coordinates &) [CellBase = TestCell, size = 4]")));
     return this->_cells.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col));
   }
   
@@ -988,16 +992,16 @@ class SudokuBase<TestCell, 4>
   
   inline auto cells() const;
   
-  inline boost::iterator_range<boost::iterators::transform_iterator<__lambda_290_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > cells()
+  inline boost::iterator_range<boost::iterators::transform_iterator<__lambda_294_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > cells()
   {
         
-    class __lambda_290_26
+    class __lambda_294_26
     {
       public: 
       template<class type_parameter_0_0>
       inline /*constexpr */ Cell & operator()(const type_parameter_0_0 & cell) const
       {
-        const auto __cell291 = cell;
+        const auto __cell295 = cell;
         return __this->_cells[row][col];
       }
       
@@ -1006,9 +1010,9 @@ class SudokuBase<TestCell, 4>
       template<>
       inline /*constexpr */ Cell & operator()<std::pair<unsigned int, unsigned int> >(const std::pair<unsigned int, unsigned int> & cell) const
       {
-        const std::pair<unsigned int, unsigned int> __cell291 = std::pair<unsigned int, unsigned int>(cell);
-        const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell291));
-        const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell291));
+        const std::pair<unsigned int, unsigned int> __cell295 = std::pair<unsigned int, unsigned int>(cell);
+        const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell295));
+        const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell295));
         return __this->_cells.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col));
       }
       #endif
@@ -1016,16 +1020,16 @@ class SudokuBase<TestCell, 4>
       private: 
       SudokuBase<TestCell, 4> * __this;
       public: 
-      // inline /*constexpr */ __lambda_290_26 & operator=(const __lambda_290_26 &) /* noexcept */ = delete;
-      // inline /*constexpr */ __lambda_290_26(const __lambda_290_26 &) noexcept = default;
-      __lambda_290_26(SudokuBase<TestCell, 4> * _this)
+      // inline /*constexpr */ __lambda_294_26 & operator=(const __lambda_294_26 &) /* noexcept */ = delete;
+      // inline /*constexpr */ __lambda_294_26(const __lambda_294_26 &) noexcept = default;
+      __lambda_294_26(SudokuBase<TestCell, 4> * _this)
       : __this{_this}
       {}
       
     };
     
-    const __lambda_290_26 convert = static_cast<const __lambda_290_26>(__lambda_290_26{this});
-    return boost::make_iterator_range<boost::iterators::transform_iterator<__lambda_290_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> >(boost::iterators::make_transform_iterator<__lambda_290_26, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<4>::cells.begin(), __lambda_290_26(convert)), boost::iterators::make_transform_iterator<__lambda_290_26, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<4>::cells.end(), __lambda_290_26(convert)));
+    const __lambda_294_26 convert = static_cast<const __lambda_294_26>(__lambda_294_26{this});
+    return boost::make_iterator_range<boost::iterators::transform_iterator<__lambda_294_26, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> >(boost::iterators::make_transform_iterator<__lambda_294_26, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<4>::cells.begin(), __lambda_294_26(convert)), boost::iterators::make_transform_iterator<__lambda_294_26, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<4>::cells.end(), __lambda_294_26(convert)));
   }
   
   inline auto regions() const;
@@ -1037,7 +1041,7 @@ class SudokuBase<TestCell, 4>
 };
 
 #endif
-/* First instantiated from: sudoku.cpp:352 */
+/* First instantiated from: sudoku.cpp:356 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<ValueCell, 4>
@@ -1109,7 +1113,7 @@ class SudokuBase<ValueCell, 4>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 4>, 4> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: sudoku.cpp:223 */
+  /* First instantiated from: sudoku.cpp:227 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 4>, 4> make_cells<0, 1, 2, 3>(const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -1121,7 +1125,7 @@ class SudokuBase<ValueCell, 4>
   template<unsigned int ...col>
   inline std::array<Cell, 4> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: sudoku.cpp:228 */
+  /* First instantiated from: sudoku.cpp:232 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 4> make_row<0, 1, 2, 3>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -1145,7 +1149,7 @@ class SudokuBase<ValueCell, 4>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 4>, 4> copy_cells(const std::integer_sequence<unsigned int, row...> &, const std::array<std::array<Cell, 4>, 4> & other_cells);
   
-  /* First instantiated from: sudoku.cpp:242 */
+  /* First instantiated from: sudoku.cpp:246 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 4>, 4> copy_cells<0, 1, 2, 3>(const std::integer_sequence<unsigned int, 0, 1, 2, 3> &, const std::array<std::array<Cell, 4>, 4> & other_cells)
@@ -1157,7 +1161,7 @@ class SudokuBase<ValueCell, 4>
   template<unsigned int ...col>
   inline std::array<Cell, 4> copy_row(unsigned int row, const std::array<std::array<Cell, 4>, 4> & other_cells, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: sudoku.cpp:247 */
+  /* First instantiated from: sudoku.cpp:251 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 4> copy_row<0, 1, 2, 3>(unsigned int row, const std::array<std::array<Cell, 4>, 4> & other_cells, const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -1175,21 +1179,21 @@ class SudokuBase<ValueCell, 4>
   public: 
   inline Cell & cell(const std::pair<unsigned int, unsigned int> & coords)
   {
-    const std::pair<unsigned int, unsigned int> __coords265 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords265));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords265));
-    (static_cast<bool>(row < 4U) ? void(0) : __assert_fail(static_cast<const char *>("row < size"), static_cast<const char *>("/wd/src/puzzle/sudoku.cpp"), static_cast<unsigned int>(266), static_cast<const char *>(__extension__"Cell &SudokuBase<ValueCell, 4>::cell(const Coordinates &) [CellBase = ValueCell, size = 4]")));
-    (static_cast<bool>(col < 4U) ? void(0) : __assert_fail(static_cast<const char *>("col < size"), static_cast<const char *>("/wd/src/puzzle/sudoku.cpp"), static_cast<unsigned int>(267), static_cast<const char *>(__extension__"Cell &SudokuBase<ValueCell, 4>::cell(const Coordinates &) [CellBase = ValueCell, size = 4]")));
+    const std::pair<unsigned int, unsigned int> __coords269 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords269));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords269));
+    (static_cast<bool>(row < 4U) ? void(0) : __assert_fail(static_cast<const char *>("row < size"), static_cast<const char *>("src/puzzle/sudoku.hpp"), static_cast<unsigned int>(149), static_cast<const char *>(__extension__"Cell &SudokuBase<ValueCell, 4>::cell(const Coordinates &) [CellBase = ValueCell, size = 4]")));
+    (static_cast<bool>(col < 4U) ? void(0) : __assert_fail(static_cast<const char *>("col < size"), static_cast<const char *>("src/puzzle/sudoku.hpp"), static_cast<unsigned int>(150), static_cast<const char *>(__extension__"Cell &SudokuBase<ValueCell, 4>::cell(const Coordinates &) [CellBase = ValueCell, size = 4]")));
     return this->_cells.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col));
   }
   
   inline const Cell & cell(const std::pair<unsigned int, unsigned int> & coords) const
   {
-    const std::pair<unsigned int, unsigned int> __coords272 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords272));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords272));
-    (static_cast<bool>(row < 4U) ? void(0) : __assert_fail(static_cast<const char *>("row < size"), static_cast<const char *>("/wd/src/puzzle/sudoku.cpp"), static_cast<unsigned int>(273), static_cast<const char *>(__extension__"const Cell &SudokuBase<ValueCell, 4>::cell(const Coordinates &) const [CellBase = ValueCell, size = 4]")));
-    (static_cast<bool>(col < 4U) ? void(0) : __assert_fail(static_cast<const char *>("col < size"), static_cast<const char *>("/wd/src/puzzle/sudoku.cpp"), static_cast<unsigned int>(274), static_cast<const char *>(__extension__"const Cell &SudokuBase<ValueCell, 4>::cell(const Coordinates &) const [CellBase = ValueCell, size = 4]")));
+    const std::pair<unsigned int, unsigned int> __coords276 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords276));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords276));
+    (static_cast<bool>(row < 4U) ? void(0) : __assert_fail(static_cast<const char *>("row < size"), static_cast<const char *>("src/puzzle/sudoku.hpp"), static_cast<unsigned int>(156), static_cast<const char *>(__extension__"const Cell &SudokuBase<ValueCell, 4>::cell(const Coordinates &) const [CellBase = ValueCell, size = 4]")));
+    (static_cast<bool>(col < 4U) ? void(0) : __assert_fail(static_cast<const char *>("col < size"), static_cast<const char *>("src/puzzle/sudoku.hpp"), static_cast<unsigned int>(157), static_cast<const char *>(__extension__"const Cell &SudokuBase<ValueCell, 4>::cell(const Coordinates &) const [CellBase = ValueCell, size = 4]")));
     return this->_cells.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col));
   }
   
@@ -1206,7 +1210,7 @@ class SudokuBase<ValueCell, 4>
 };
 
 #endif
-/* First instantiated from: sudoku.cpp:352 */
+/* First instantiated from: sudoku.cpp:356 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<ValueCell, 9>
@@ -1278,7 +1282,7 @@ class SudokuBase<ValueCell, 9>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 9>, 9> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: sudoku.cpp:223 */
+  /* First instantiated from: sudoku.cpp:227 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 9>, 9> make_cells<0, 1, 2, 3, 4, 5, 6, 7, 8>(const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -1290,7 +1294,7 @@ class SudokuBase<ValueCell, 9>
   template<unsigned int ...col>
   inline std::array<Cell, 9> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: sudoku.cpp:228 */
+  /* First instantiated from: sudoku.cpp:232 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 9> make_row<0, 1, 2, 3, 4, 5, 6, 7, 8>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -1314,7 +1318,7 @@ class SudokuBase<ValueCell, 9>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 9>, 9> copy_cells(const std::integer_sequence<unsigned int, row...> &, const std::array<std::array<Cell, 9>, 9> & other_cells);
   
-  /* First instantiated from: sudoku.cpp:242 */
+  /* First instantiated from: sudoku.cpp:246 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 9>, 9> copy_cells<0, 1, 2, 3, 4, 5, 6, 7, 8>(const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &, const std::array<std::array<Cell, 9>, 9> & other_cells)
@@ -1326,7 +1330,7 @@ class SudokuBase<ValueCell, 9>
   template<unsigned int ...col>
   inline std::array<Cell, 9> copy_row(unsigned int row, const std::array<std::array<Cell, 9>, 9> & other_cells, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: sudoku.cpp:247 */
+  /* First instantiated from: sudoku.cpp:251 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 9> copy_row<0, 1, 2, 3, 4, 5, 6, 7, 8>(unsigned int row, const std::array<std::array<Cell, 9>, 9> & other_cells, const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -1344,21 +1348,21 @@ class SudokuBase<ValueCell, 9>
   public: 
   inline Cell & cell(const std::pair<unsigned int, unsigned int> & coords)
   {
-    const std::pair<unsigned int, unsigned int> __coords265 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords265));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords265));
-    (static_cast<bool>(row < 9U) ? void(0) : __assert_fail(static_cast<const char *>("row < size"), static_cast<const char *>("/wd/src/puzzle/sudoku.cpp"), static_cast<unsigned int>(266), static_cast<const char *>(__extension__"Cell &SudokuBase<ValueCell, 9>::cell(const Coordinates &) [CellBase = ValueCell, size = 9]")));
-    (static_cast<bool>(col < 9U) ? void(0) : __assert_fail(static_cast<const char *>("col < size"), static_cast<const char *>("/wd/src/puzzle/sudoku.cpp"), static_cast<unsigned int>(267), static_cast<const char *>(__extension__"Cell &SudokuBase<ValueCell, 9>::cell(const Coordinates &) [CellBase = ValueCell, size = 9]")));
+    const std::pair<unsigned int, unsigned int> __coords269 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords269));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords269));
+    (static_cast<bool>(row < 9U) ? void(0) : __assert_fail(static_cast<const char *>("row < size"), static_cast<const char *>("src/puzzle/sudoku.hpp"), static_cast<unsigned int>(149), static_cast<const char *>(__extension__"Cell &SudokuBase<ValueCell, 9>::cell(const Coordinates &) [CellBase = ValueCell, size = 9]")));
+    (static_cast<bool>(col < 9U) ? void(0) : __assert_fail(static_cast<const char *>("col < size"), static_cast<const char *>("src/puzzle/sudoku.hpp"), static_cast<unsigned int>(150), static_cast<const char *>(__extension__"Cell &SudokuBase<ValueCell, 9>::cell(const Coordinates &) [CellBase = ValueCell, size = 9]")));
     return this->_cells.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col));
   }
   
   inline const Cell & cell(const std::pair<unsigned int, unsigned int> & coords) const
   {
-    const std::pair<unsigned int, unsigned int> __coords272 = std::pair<unsigned int, unsigned int>(coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords272));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords272));
-    (static_cast<bool>(row < 9U) ? void(0) : __assert_fail(static_cast<const char *>("row < size"), static_cast<const char *>("/wd/src/puzzle/sudoku.cpp"), static_cast<unsigned int>(273), static_cast<const char *>(__extension__"const Cell &SudokuBase<ValueCell, 9>::cell(const Coordinates &) const [CellBase = ValueCell, size = 9]")));
-    (static_cast<bool>(col < 9U) ? void(0) : __assert_fail(static_cast<const char *>("col < size"), static_cast<const char *>("/wd/src/puzzle/sudoku.cpp"), static_cast<unsigned int>(274), static_cast<const char *>(__extension__"const Cell &SudokuBase<ValueCell, 9>::cell(const Coordinates &) const [CellBase = ValueCell, size = 9]")));
+    const std::pair<unsigned int, unsigned int> __coords276 = std::pair<unsigned int, unsigned int>(coords);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords276));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__coords276));
+    (static_cast<bool>(row < 9U) ? void(0) : __assert_fail(static_cast<const char *>("row < size"), static_cast<const char *>("src/puzzle/sudoku.hpp"), static_cast<unsigned int>(156), static_cast<const char *>(__extension__"const Cell &SudokuBase<ValueCell, 9>::cell(const Coordinates &) const [CellBase = ValueCell, size = 9]")));
+    (static_cast<bool>(col < 9U) ? void(0) : __assert_fail(static_cast<const char *>("col < size"), static_cast<const char *>("src/puzzle/sudoku.hpp"), static_cast<unsigned int>(157), static_cast<const char *>(__extension__"const Cell &SudokuBase<ValueCell, 9>::cell(const Coordinates &) const [CellBase = ValueCell, size = 9]")));
     return this->_cells.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col));
   }
   
@@ -1393,7 +1397,7 @@ class Sudoku : public SudokuBase<Cell, size>
 {
 };
 
-/* First instantiated from: sudoku.cpp:412 */
+/* First instantiated from: sudoku.cpp:417 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<TestCell, 4> : public SudokuBase<TestCell, 4>
@@ -1421,7 +1425,7 @@ class ValueCell
   public: 
   inline void set(unsigned int value_)
   {
-    (static_cast<bool>(!static_cast<bool>(static_cast<const std::optional<unsigned int>>(this->value).operator bool()) || (this->value.operator*() == value_)) ? void(0) : __assert_fail(static_cast<const char *>("!value || *value == value_"), static_cast<const char *>("/wd/src/puzzle/sudoku.cpp"), static_cast<unsigned int>(339), static_cast<const char *>(__extension__"void ValueCell::set(unsigned int)")));
+    (static_cast<bool>(!static_cast<bool>(static_cast<const std::optional<unsigned int>>(this->value).operator bool()) || (this->value.operator*() == value_)) ? void(0) : __assert_fail(static_cast<const char *>("!value || *value == value_"), static_cast<const char *>("src/puzzle/sudoku.hpp"), static_cast<unsigned int>(222), static_cast<const char *>(__extension__"void ValueCell::set(unsigned int)")));
     this->value.operator=(std::optional<unsigned int>(value_));
   }
   
@@ -1456,6 +1460,7 @@ class Sudoku<ValueCell, size> : public SudokuBase<ValueCell, size>
 
 
 #endif  // PUZZLE_SUDOKU_HPP_
+# 4 "src/puzzle/sudoku.cpp"
 
 #include <cassert>
 

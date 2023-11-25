@@ -1,5 +1,7 @@
+# 1 "src/explanation/video/video-serializer.cpp"
 // Copyright 2023 Vincent Jacques
 
+# 1 "src/explanation/video/video-serializer.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLANATION_VIDEO_VIDEO_SERIALIZER_HPP_
@@ -17,6 +19,7 @@ extern "C" {
 #include <filesystem>
 #include <memory>
 
+# 1 "src/explanation/video/serializer.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLANATION_VIDEO_SERIALIZER_HPP_
@@ -71,6 +74,7 @@ namespace video
 }  // namespace video
 
 #endif  // EXPLANATION_VIDEO_SERIALIZER_HPP_
+# 19 "src/explanation/video/video-serializer.hpp"
 
 
 namespace video
@@ -89,9 +93,9 @@ namespace video
     , pkt{av_packet_alloc()}
     , outfile{fopen(static_cast<const std::filesystem::path>(this->video_path).c_str(), static_cast<const char *>("wb"))}
     {
-      (static_cast<bool>(this->codec) ? void(0) : __assert_fail(static_cast<const char *>("codec"), static_cast<const char *>("/wd/src/explanation/video/video-serializer.cpp"), static_cast<unsigned int>(75), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
-      (static_cast<bool>(this->pkt) ? void(0) : __assert_fail(static_cast<const char *>("pkt"), static_cast<const char *>("/wd/src/explanation/video/video-serializer.cpp"), static_cast<unsigned int>(76), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
-      (static_cast<bool>(this->outfile) ? void(0) : __assert_fail(static_cast<const char *>("outfile"), static_cast<const char *>("/wd/src/explanation/video/video-serializer.cpp"), static_cast<unsigned int>(77), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
+      (static_cast<bool>(this->codec) ? void(0) : __assert_fail(static_cast<const char *>("codec"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(39), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
+      (static_cast<bool>(this->pkt) ? void(0) : __assert_fail(static_cast<const char *>("pkt"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(40), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
+      (static_cast<bool>(this->outfile) ? void(0) : __assert_fail(static_cast<const char *>("outfile"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(41), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
       this->context->bit_rate = static_cast<long>(400000);
       this->context->width = static_cast<int>(this->frame_width_pixels);
       this->context->height = static_cast<int>(this->frame_height_pixels);
@@ -101,12 +105,12 @@ namespace video
       this->context->max_b_frames = 1;
       this->context->pix_fmt = AV_PIX_FMT_YUV420P;
       int ret = avcodec_open2(this->context, this->codec, static_cast<AVDictionary **>(NULL));
-      (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("/wd/src/explanation/video/video-serializer.cpp"), static_cast<unsigned int>(89), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
+      (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(53), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
       this->picture->format = static_cast<int>(this->context->pix_fmt);
       this->picture->width = static_cast<int>(this->frame_width_pixels);
       this->picture->height = static_cast<int>(this->frame_height_pixels);
       ret = av_frame_get_buffer(this->picture, 32);
-      (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("/wd/src/explanation/video/video-serializer.cpp"), static_cast<unsigned int>(96), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
+      (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(60), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
     }
     
     inline virtual ~VideoSerializer() noexcept
@@ -123,14 +127,14 @@ namespace video
     inline virtual void serialize(std::shared_ptr<Cairo::ImageSurface> surface)
     {
       int ret = av_frame_make_writable(this->picture);
-      (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("/wd/src/explanation/video/video-serializer.cpp"), static_cast<unsigned int>(113), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
-      (static_cast<bool>(static_cast<unsigned int>(static_cast<const Cairo::ImageSurface *>(static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(surface).operator->())->get_width()) == this->frame_width_pixels) ? void(0) : __assert_fail(static_cast<const char *>("surface->get_width() == frame_width_pixels"), static_cast<const char *>("/wd/src/explanation/video/video-serializer.cpp"), static_cast<unsigned int>(115), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
-      (static_cast<bool>(static_cast<unsigned int>(static_cast<const Cairo::ImageSurface *>(static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(surface).operator->())->get_height()) == this->frame_height_pixels) ? void(0) : __assert_fail(static_cast<const char *>("surface->get_height() == frame_height_pixels"), static_cast<const char *>("/wd/src/explanation/video/video-serializer.cpp"), static_cast<unsigned int>(116), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
+      (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(77), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
+      (static_cast<bool>(static_cast<unsigned int>(static_cast<const Cairo::ImageSurface *>(static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(surface).operator->())->get_width()) == this->frame_width_pixels) ? void(0) : __assert_fail(static_cast<const char *>("surface->get_width() == frame_width_pixels"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(79), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
+      (static_cast<bool>(static_cast<unsigned int>(static_cast<const Cairo::ImageSurface *>(static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(surface).operator->())->get_height()) == this->frame_height_pixels) ? void(0) : __assert_fail(static_cast<const char *>("surface->get_height() == frame_height_pixels"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(80), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
       unsigned char * data = static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(surface).operator->()->get_data();
-      (static_cast<bool>(data) ? void(0) : __assert_fail(static_cast<const char *>("data"), static_cast<const char *>("/wd/src/explanation/video/video-serializer.cpp"), static_cast<unsigned int>(118), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
-      (static_cast<bool>(static_cast<unsigned int>(static_cast<int *>(this->picture->linesize)[0]) == this->frame_width_pixels) ? void(0) : __assert_fail(static_cast<const char *>("picture->linesize[0] == frame_width_pixels"), static_cast<const char *>("/wd/src/explanation/video/video-serializer.cpp"), static_cast<unsigned int>(120), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
-      (static_cast<bool>(static_cast<unsigned int>(static_cast<int *>(this->picture->linesize)[1]) == (this->frame_width_pixels / static_cast<unsigned int>(2))) ? void(0) : __assert_fail(static_cast<const char *>("picture->linesize[1] == frame_width_pixels / 2"), static_cast<const char *>("/wd/src/explanation/video/video-serializer.cpp"), static_cast<unsigned int>(121), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
-      (static_cast<bool>(static_cast<unsigned int>(static_cast<int *>(this->picture->linesize)[2]) == (this->frame_width_pixels / static_cast<unsigned int>(2))) ? void(0) : __assert_fail(static_cast<const char *>("picture->linesize[2] == frame_width_pixels / 2"), static_cast<const char *>("/wd/src/explanation/video/video-serializer.cpp"), static_cast<unsigned int>(122), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
+      (static_cast<bool>(data) ? void(0) : __assert_fail(static_cast<const char *>("data"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(82), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
+      (static_cast<bool>(static_cast<unsigned int>(static_cast<int *>(this->picture->linesize)[0]) == this->frame_width_pixels) ? void(0) : __assert_fail(static_cast<const char *>("picture->linesize[0] == frame_width_pixels"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(84), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
+      (static_cast<bool>(static_cast<unsigned int>(static_cast<int *>(this->picture->linesize)[1]) == (this->frame_width_pixels / static_cast<unsigned int>(2))) ? void(0) : __assert_fail(static_cast<const char *>("picture->linesize[1] == frame_width_pixels / 2"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(85), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
+      (static_cast<bool>(static_cast<unsigned int>(static_cast<int *>(this->picture->linesize)[2]) == (this->frame_width_pixels / static_cast<unsigned int>(2))) ? void(0) : __assert_fail(static_cast<const char *>("picture->linesize[2] == frame_width_pixels / 2"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(86), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
       for(int y = 0; static_cast<unsigned int>(y) < this->frame_height_pixels; ++y) {
         for(int x = 0; static_cast<unsigned int>(x) < this->frame_width_pixels; ++x) {
           static_cast<unsigned char **>(this->picture->data)[0][(y * static_cast<int *>(this->picture->linesize)[0]) + x] = (static_cast<unsigned char>(((static_cast<double>(static_cast<int>(data[(((static_cast<unsigned int>(y) * this->frame_width_pixels) * static_cast<unsigned int>(4)) + (static_cast<unsigned int>(x * 4))) + static_cast<unsigned int>(0)])) * 0.29899999999999999) + (static_cast<double>(static_cast<int>(data[(((static_cast<unsigned int>(y) * this->frame_width_pixels) * static_cast<unsigned int>(4)) + (static_cast<unsigned int>(x * 4))) + static_cast<unsigned int>(1)])) * 0.58699999999999997)) + (static_cast<double>(static_cast<int>(data[(((static_cast<unsigned int>(y) * this->frame_width_pixels) * static_cast<unsigned int>(4)) + (static_cast<unsigned int>(x * 4))) + static_cast<unsigned int>(2)])) * 0.114)));
@@ -156,14 +160,14 @@ namespace video
     inline void encode(AVFrame * picture)
     {
       int ret = avcodec_send_frame(this->context, static_cast<const AVFrame *>(picture));
-      (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("/wd/src/explanation/video/video-serializer.cpp"), static_cast<unsigned int>(167), static_cast<const char *>(__extension__"void video::VideoSerializer::encode(AVFrame *)")));
+      (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(131), static_cast<const char *>(__extension__"void video::VideoSerializer::encode(AVFrame *)")));
       while(ret >= 0) {
         ret = avcodec_receive_packet(this->context, this->pkt);
         if((ret == (-(11))) || (ret == (-static_cast<int>(((static_cast<unsigned int>((static_cast<int>(('E')) | (static_cast<int>(('O')) << 8)) | (static_cast<int>(('F')) << 16))) | (static_cast<unsigned int>((' ')) << 24)))))) {
           return;
         } 
         
-        (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("/wd/src/explanation/video/video-serializer.cpp"), static_cast<unsigned int>(174), static_cast<const char *>(__extension__"void video::VideoSerializer::encode(AVFrame *)")));
+        (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(138), static_cast<const char *>(__extension__"void video::VideoSerializer::encode(AVFrame *)")));
         fwrite(reinterpret_cast<const void *>(this->pkt->data), static_cast<unsigned long>(1), static_cast<unsigned long>(this->pkt->size), this->outfile);
         av_packet_unref(this->pkt);
       }
@@ -188,3 +192,4 @@ namespace video
 }  // namespace video
 
 #endif  // EXPLANATION_VIDEO_VIDEO_SERIALIZER_HPP_
+# 4 "src/explanation/video/video-serializer.cpp"

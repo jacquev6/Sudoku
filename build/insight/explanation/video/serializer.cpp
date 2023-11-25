@@ -1,5 +1,7 @@
+# 1 "src/explanation/video/serializer.cpp"
 // Copyright 2023 Vincent Jacques
 
+# 1 "src/explanation/video/serializer.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLANATION_VIDEO_SERIALIZER_HPP_
@@ -54,3 +56,4 @@ namespace video
 }  // namespace video
 
 #endif  // EXPLANATION_VIDEO_SERIALIZER_HPP_
+# 4 "src/explanation/video/serializer.cpp"

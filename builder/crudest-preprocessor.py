@@ -12,8 +12,9 @@ def main(args):
     def cat(file_path):
         assert file_path not in seen, (file_path, seen)
         seen.add(file_path)
+        print(f'# 1 "{file_path}"')
         with open(file_path) as f:
-            for line in f:
+            for line_index, line in enumerate(f):
                 if (
                     line.startswith('#include "')
                     and line.endswith('"\n')
@@ -21,6 +22,7 @@ def main(args):
                     included_path = os.path.normpath(os.path.join(os.path.dirname(file_path), line[10:-2]))
                     if included_path not in seen:
                         cat(included_path)
+                    print(f'# {line_index + 2} "{file_path}"')
                 else:
                     print(line, end='')
     cat(args[0])
