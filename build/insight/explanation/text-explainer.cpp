@@ -107,11 +107,11 @@ class SudokuConstants
   {
     std::array<std::pair<unsigned int, unsigned int>, size * size> cells;
     {
-      auto && __range0 = make_values();
+      auto && __range0 = values;
       for(; ; ) {
         unsigned int row;
         {
-          auto && __range1 = make_values();
+          auto && __range1 = values;
           for(; ; ) {
             unsigned int col;
             cells[(row * size) + col] = {row, col};
@@ -138,11 +138,11 @@ class SudokuConstants
   {
     std::array<std::array<std::pair<unsigned int, unsigned int>, size>, 3 * size> regions;
     {
-      auto && __range0 = make_values();
+      auto && __range0 = values;
       for(; ; ) {
         unsigned int row;
         {
-          auto && __range1 = make_values();
+          auto && __range1 = values;
           for(; ; ) {
             unsigned int col;
             regions[row][col] = {row, col};
@@ -153,11 +153,11 @@ class SudokuConstants
       
     }
     {
-      auto && __range0 = make_values();
+      auto && __range0 = values;
       for(; ; ) {
         unsigned int col;
         {
-          auto && __range1 = make_values();
+          auto && __range1 = values;
           for(; ; ) {
             unsigned int row;
             regions[size + col][row] = {row, col};
@@ -168,13 +168,13 @@ class SudokuConstants
       
     }
     {
-      auto && __range0 = make_values();
+      auto && __range0 = values;
       for(; ; ) {
         unsigned int square;
         const unsigned int top_row = (square / sqrt_size) * sqrt_size;
         const unsigned int left_col = (square % sqrt_size) * sqrt_size;
         {
-          auto && __range1 = make_values();
+          auto && __range1 = values;
           for(; ; ) {
             unsigned int cell;
             const unsigned int delta_row = cell / sqrt_size;
@@ -195,11 +195,11 @@ class SudokuConstants
   {
     std::array<std::array<std::array<unsigned int, 3>, size>, size> regions_of;
     {
-      auto && __range0 = make_values();
+      auto && __range0 = values;
       for(; ; ) {
         unsigned int row;
         {
-          auto && __range1 = make_values();
+          auto && __range1 = values;
           for(; ; ) {
             unsigned int col;
             regions_of[row][col] = {row, size + col, ((static_cast<unsigned int>(2) * size) + ((row / sqrt_size) * sqrt_size)) + (col / sqrt_size)};

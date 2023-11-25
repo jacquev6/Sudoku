@@ -43,8 +43,8 @@ class SudokuConstants {
 
   static constexpr auto make_cells() {
     std::array<std::pair<unsigned, unsigned>, size * size> cells;
-    for (unsigned row : make_values()) {
-      for (unsigned col : make_values()) {
+    for (unsigned row : values) {
+      for (unsigned col : values) {
         cells[row * size + col] = {row, col};
       }
     }
@@ -61,20 +61,20 @@ class SudokuConstants {
 
   static constexpr auto make_regions() {
     std::array<std::array<std::pair<unsigned, unsigned>, size>, 3 * size> regions;
-    for (unsigned row : make_values()) {
-      for (unsigned col : make_values()) {
+    for (unsigned row : values) {
+      for (unsigned col : values) {
         regions[row][col] = {row, col};
       }
     }
-    for (unsigned col : make_values()) {
-      for (unsigned row : make_values()) {
+    for (unsigned col : values) {
+      for (unsigned row : values) {
         regions[size + col][row] = {row, col};
       }
     }
-    for (unsigned square : make_values()) {
+    for (unsigned square : values) {
       const unsigned top_row = square / sqrt_size * sqrt_size;
       const unsigned left_col = square % sqrt_size * sqrt_size;
-      for (unsigned cell : make_values()) {
+      for (unsigned cell : values) {
         const unsigned delta_row = cell / sqrt_size;
         const unsigned delta_col = cell % sqrt_size;
         const unsigned row = top_row + delta_row;
@@ -87,8 +87,8 @@ class SudokuConstants {
 
   static constexpr auto make_regions_of() {
     std::array<std::array<std::array<unsigned, 3>, size>, size> regions_of;
-    for (unsigned row : make_values()) {
-      for (unsigned col : make_values()) {
+    for (unsigned row : values) {
+      for (unsigned col : values) {
         regions_of[row][col] = {
           row,
           size + col,
