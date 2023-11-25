@@ -2,45 +2,13 @@
 
 #include "sudoku-solver.hpp"
 
+#include <algorithm>
 #include <cassert>
+#include <deque>
 #include <functional>
-#include <list>
 #include <set>
 #include <utility>
 #include <vector>
-
-
-// FIFO with unique elements
-template<typename T>
-class UniqueQueue {
- public:
-  void add(const T& t) {
-    if (set.insert(t).second) {
-      list.push_back(t);
-    }
-  }
-
-  bool empty() const {
-    assert(list.empty() == set.empty());
-    return list.empty();
-  }
-
-  bool has(const T& t) const {
-    return set.count(t);
-  }
-
-  T get() {
-    assert(!empty());
-    const T t = list.front();
-    list.pop_front();
-    set.erase(t);
-    return t;
-  }
-
- private:
-  std::list<T> list;
-  std::set<T> set;
-};
 
 
 // This is the only way to modify the Stack (everywhere else, it's manipulated through const references).
@@ -89,12 +57,11 @@ struct EventsPairGuard {
 template<unsigned size>
 bool propagate(
   const Stack<size>& stack,
-  const std::set<Coordinates>& todo_,
+  std::deque<Coordinates> todo,
   const EventAdder<size>& add_event
 ) {
-  UniqueQueue<Coordinates> todo;
-  for (const auto cell : todo_) {
-    todo.add(cell);
+  for (const auto& coords : todo) {
+    assert(std::count(todo.begin(), todo.end(), coords) == 1);
   }
 
   EventsPairGuard<size> guard(
@@ -103,7 +70,8 @@ bool propagate(
     exploration::PropagationIsDoneForSudoku<size>());
 
   while (!todo.empty()) {
-    const auto source_coords = todo.get();
+    const auto source_coords = todo.front();
+    todo.pop_front();
     const auto& source_cell = stack.current().cell(source_coords);
     assert(source_cell.is_set());
     const unsigned value = source_cell.get();
@@ -132,7 +100,8 @@ bool propagate(
                   if (target_cell.is_allowed(value)) {
                     add_event(exploration::CellIsDeducedFromSingleAllowedValue<size>(
                       target_coords, value));
-                    todo.add(target_coords);
+                    assert(std::count(todo.begin(), todo.end(), target_coords) == 0);
+                    todo.push_back(target_coords);
                     break;
                   }
                 }
@@ -151,7 +120,8 @@ bool propagate(
                   const Coordinates single_coords = single_cell->coordinates();
                   add_event(exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>(
                     single_coords, value, target_region.index()));
-                  todo.add(single_coords);
+                  assert(std::count(todo.begin(), todo.end(), single_coords) == 0);
+                  todo.push_back(single_coords);
                 }
               }
 
@@ -201,7 +171,7 @@ Coordinates get_most_constrained_cell(const AnnotatedSudoku<size>& sudoku) {
 template<unsigned size>
 bool propagate_and_explore(
   const Stack<size>&,
-  const std::set<Coordinates>& todo,
+  const std::deque<Coordinates>& todo,
   const EventAdder<size>&
 );
 
@@ -242,7 +212,7 @@ bool explore(const Stack<size>& stack, const EventAdder<size>& add_event) {
 template<unsigned size>
 bool propagate_and_explore(
   const Stack<size>& stack,
-  const std::set<Coordinates>& todo,
+  const std::deque<Coordinates>& todo,
   const EventAdder<size>& add_event
 ) {
   if (propagate(stack, todo, add_event)) {
@@ -264,13 +234,13 @@ Sudoku<ValueCell, size> solve_using_exploration(
 ) {
   Stack<size> stack;
   EventAdder<size> add_event(&stack, add_event_);
-  std::set<Coordinates> todo;
+  std::deque<Coordinates> todo;
   for (const auto& cell : sudoku.cells()) {
     const auto val = cell.get();
     if (val) {
       const Coordinates coords = cell.coordinates();
       add_event(exploration::CellIsSetInInput<size>(coords, *val));
-      todo.insert(coords);
+      todo.push_back(coords);
     }
   }
 
