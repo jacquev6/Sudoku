@@ -11,8 +11,6 @@
 #include <utility>
 
 
-// @todo Put this typedef in a template<unsigned size> (probably SudokuConstants),
-// to let the type system detect if we try to mix coordinates for different size puzzles
 typedef std::pair<unsigned, unsigned> Coordinates;
 
 
@@ -21,7 +19,7 @@ class SudokuConstants
 {
   
   private: 
-  static inline constexpr unsigned int sqrt(unsigned int res, unsigned int l, unsigned int r)
+  static inline constexpr auto sqrt(unsigned int res, unsigned int l, unsigned int r)
   {
     if(l == r) {
       return r;
@@ -37,7 +35,7 @@ class SudokuConstants
     
   }
   
-  static inline constexpr unsigned int sqrt(unsigned int res)
+  static inline constexpr auto sqrt(unsigned int res)
   {
     return sqrt(res, 1, res);
   }
@@ -165,7 +163,7 @@ class SudokuConstants
   
   
   public: 
-  inline static constexpr const unsigned int sqrt_size = sqrt(size);
+  inline static constexpr const auto sqrt_size = sqrt(size);
   inline static constexpr const auto values = make_values();
   inline static constexpr const auto cells = make_cells();
   inline static constexpr const auto region_indexes = make_region_indexes();
@@ -177,7 +175,7 @@ class SudokuConstants
   /* PASSED: static_assert((sqrt_size * sqrt_size) == size, "'size' must be a perfect square"); */
 };
 
-/* First instantiated from: sudoku-constants.cpp:124 */
+/* First instantiated from: sudoku-constants.cpp:122 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuConstants<4>
@@ -361,7 +359,7 @@ class SudokuConstants<4>
 };
 
 #endif
-/* First instantiated from: sudoku-constants.cpp:157 */
+/* First instantiated from: sudoku-constants.cpp:155 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuConstants<9>

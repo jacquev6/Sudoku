@@ -54,8 +54,6 @@
 #include <utility>
 
 
-// @todo Put this typedef in a template<unsigned size> (probably SudokuConstants),
-// to let the type system detect if we try to mix coordinates for different size puzzles
 typedef std::pair<unsigned, unsigned> Coordinates;
 
 
@@ -64,7 +62,7 @@ class SudokuConstants
 {
   
   private: 
-  static inline constexpr unsigned int sqrt(unsigned int res, unsigned int l, unsigned int r)
+  static inline constexpr auto sqrt(unsigned int res, unsigned int l, unsigned int r)
   {
     if(l == r) {
       return r;
@@ -80,7 +78,7 @@ class SudokuConstants
     
   }
   
-  static inline constexpr unsigned int sqrt(unsigned int res)
+  static inline constexpr auto sqrt(unsigned int res)
   {
     return sqrt(res, 1, res);
   }
@@ -208,7 +206,7 @@ class SudokuConstants
   
   
   public: 
-  inline static constexpr const unsigned int sqrt_size = sqrt(size);
+  inline static constexpr const auto sqrt_size = sqrt(size);
   inline static constexpr const auto values = make_values();
   inline static constexpr const auto cells = make_cells();
   inline static constexpr const auto region_indexes = make_region_indexes();
@@ -220,7 +218,7 @@ class SudokuConstants
   /* PASSED: static_assert((sqrt_size * sqrt_size) == size, "'size' must be a perfect square"); */
 };
 
-/* First instantiated from: art.cpp:669 */
+/* First instantiated from: art.cpp:667 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuConstants<4>
@@ -404,7 +402,7 @@ class SudokuConstants<4>
 };
 
 #endif
-/* First instantiated from: art.cpp:669 */
+/* First instantiated from: art.cpp:667 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuConstants<9>
@@ -860,7 +858,7 @@ class SudokuBase
   CellsArray _cells;
 };
 
-/* First instantiated from: art.cpp:520 */
+/* First instantiated from: art.cpp:518 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<4>, 4>
@@ -927,7 +925,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 4>, 4> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: art.cpp:252 */
+  /* First instantiated from: art.cpp:250 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 4>, 4> make_cells<0, 1, 2, 3>(const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -939,7 +937,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...col>
   inline std::array<Cell, 4> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: art.cpp:257 */
+  /* First instantiated from: art.cpp:255 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 4> make_row<0, 1, 2, 3>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -1058,7 +1056,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
 };
 
 #endif
-/* First instantiated from: art.cpp:520 */
+/* First instantiated from: art.cpp:518 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<9>, 9>
@@ -1125,7 +1123,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 9>, 9> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: art.cpp:252 */
+  /* First instantiated from: art.cpp:250 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 9>, 9> make_cells<0, 1, 2, 3, 4, 5, 6, 7, 8>(const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -1137,7 +1135,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...col>
   inline std::array<Cell, 9> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: art.cpp:257 */
+  /* First instantiated from: art.cpp:255 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 9> make_row<0, 1, 2, 3, 4, 5, 6, 7, 8>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -1274,7 +1272,7 @@ class Sudoku : public SudokuBase<Cell, size>
 {
 };
 
-/* First instantiated from: art.cpp:679 */
+/* First instantiated from: art.cpp:677 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<AnnotatedCell<4>, 4> : public SudokuBase<AnnotatedCell<4>, 4>
@@ -1289,7 +1287,7 @@ class Sudoku<AnnotatedCell<4>, 4> : public SudokuBase<AnnotatedCell<4>, 4>
 };
 
 #endif
-/* First instantiated from: art.cpp:679 */
+/* First instantiated from: art.cpp:677 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<AnnotatedCell<9>, 9> : public SudokuBase<AnnotatedCell<9>, 9>
@@ -1481,7 +1479,7 @@ class AnnotatedCell
   bool propagated;
 };
 
-/* First instantiated from: art.cpp:171 */
+/* First instantiated from: art.cpp:169 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class AnnotatedCell<4>
@@ -1582,7 +1580,7 @@ class AnnotatedCell<4>
 };
 
 #endif
-/* First instantiated from: art.cpp:171 */
+/* First instantiated from: art.cpp:169 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class AnnotatedCell<9>
@@ -1818,7 +1816,7 @@ namespace art
   template<unsigned int size>
   double round_grid_size(unsigned int);
   
-  /* First instantiated from: art.cpp:828 */
+  /* First instantiated from: art.cpp:826 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   double round_grid_size<4>(unsigned int available_size)
@@ -1828,7 +1826,7 @@ namespace art
   #endif
   
   
-  /* First instantiated from: art.cpp:829 */
+  /* First instantiated from: art.cpp:827 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   double round_grid_size<9>(unsigned int available_size)
@@ -1860,7 +1858,7 @@ namespace art
   template<unsigned int size>
   void draw(std::shared_ptr<Cairo::Context>, const AnnotatedSudoku<size> &, const DrawOptions &);
   
-  /* First instantiated from: art.cpp:831 */
+  /* First instantiated from: art.cpp:829 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   void draw<4>(std::shared_ptr<Cairo::Context> cr, const Sudoku<AnnotatedCell<4>, 4> & sudoku, const DrawOptions & options)
@@ -2140,7 +2138,7 @@ namespace art
   #endif
   
   
-  /* First instantiated from: art.cpp:832 */
+  /* First instantiated from: art.cpp:830 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   void draw<9>(std::shared_ptr<Cairo::Context> cr, const Sudoku<AnnotatedCell<9>, 9> & sudoku, const DrawOptions & options)
@@ -2444,7 +2442,7 @@ namespace art
     return static_cast<double>((((available_size - thick_line_width) / size) * size) + thick_line_width);
   }
   
-  /* First instantiated from: art.cpp:828 */
+  /* First instantiated from: art.cpp:826 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   double round_grid_size<4>(unsigned int available_size)
@@ -2454,7 +2452,7 @@ namespace art
   #endif
   
   
-  /* First instantiated from: art.cpp:829 */
+  /* First instantiated from: art.cpp:827 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   double round_grid_size<9>(unsigned int available_size)
@@ -2717,7 +2715,7 @@ namespace art
     };
   }
   
-  /* First instantiated from: art.cpp:831 */
+  /* First instantiated from: art.cpp:829 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   void draw<4>(std::shared_ptr<Cairo::Context> cr, const Sudoku<AnnotatedCell<4>, 4> & sudoku, const DrawOptions & options)
@@ -2997,7 +2995,7 @@ namespace art
   #endif
   
   
-  /* First instantiated from: art.cpp:832 */
+  /* First instantiated from: art.cpp:830 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   void draw<9>(std::shared_ptr<Cairo::Context> cr, const Sudoku<AnnotatedCell<9>, 9> & sudoku, const DrawOptions & options)
@@ -3330,7 +3328,7 @@ namespace art
     std::array<std::array<Cairo::RefPtr<Cairo::Context>, rows>, cols> crs;
   };
   
-  /* First instantiated from: art.cpp:890 */
+  /* First instantiated from: art.cpp:888 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct TestImage<2, 1>
@@ -3387,7 +3385,7 @@ namespace art
   };
   
   #endif
-  /* First instantiated from: art.cpp:910 */
+  /* First instantiated from: art.cpp:908 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct TestImage<3, 2>

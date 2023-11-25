@@ -7,8 +7,6 @@
 #include <utility>
 
 
-// @todo Put this typedef in a template<unsigned size> (probably SudokuConstants),
-// to let the type system detect if we try to mix coordinates for different size puzzles
 typedef std::pair<unsigned, unsigned> Coordinates;
 
 
@@ -17,7 +15,7 @@ class SudokuConstants {
  private:
   // Square root heavily inspired by
   // https://baptiste-wicht.com/posts/2014/07/compile-integer-square-roots-at-compile-time-in-cpp.html
-  static constexpr unsigned sqrt(unsigned res, unsigned l, unsigned r) {
+  static constexpr auto sqrt(unsigned res, unsigned l, unsigned r) {
     if (l == r) {
       return r;
     } else {
@@ -30,7 +28,7 @@ class SudokuConstants {
     }
   }
 
-  static constexpr unsigned sqrt(unsigned res) {
+  static constexpr auto sqrt(unsigned res) {
     return sqrt(res, 1, res);
   }
 
@@ -102,7 +100,7 @@ class SudokuConstants {
   }
 
  public:
-  static constexpr unsigned sqrt_size = sqrt(size);
+  static constexpr auto sqrt_size = sqrt(size);
   static constexpr auto values = make_values();
   static constexpr auto cells = make_cells();
   static constexpr auto region_indexes = make_region_indexes();

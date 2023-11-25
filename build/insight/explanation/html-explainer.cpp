@@ -62,8 +62,6 @@
 #include <utility>
 
 
-// @todo Put this typedef in a template<unsigned size> (probably SudokuConstants),
-// to let the type system detect if we try to mix coordinates for different size puzzles
 typedef std::pair<unsigned, unsigned> Coordinates;
 
 
@@ -72,7 +70,7 @@ class SudokuConstants
 {
   
   private: 
-  static inline constexpr unsigned int sqrt(unsigned int res, unsigned int l, unsigned int r)
+  static inline constexpr auto sqrt(unsigned int res, unsigned int l, unsigned int r)
   {
     if(l == r) {
       return r;
@@ -88,7 +86,7 @@ class SudokuConstants
     
   }
   
-  static inline constexpr unsigned int sqrt(unsigned int res)
+  static inline constexpr auto sqrt(unsigned int res)
   {
     return sqrt(res, 1, res);
   }
@@ -216,7 +214,7 @@ class SudokuConstants
   
   
   public: 
-  inline static constexpr const unsigned int sqrt_size = sqrt(size);
+  inline static constexpr const auto sqrt_size = sqrt(size);
   inline static constexpr const auto values = make_values();
   inline static constexpr const auto cells = make_cells();
   inline static constexpr const auto region_indexes = make_region_indexes();
@@ -500,7 +498,7 @@ class SudokuBase
   CellsArray _cells;
 };
 
-/* First instantiated from: html-explainer.cpp:528 */
+/* First instantiated from: html-explainer.cpp:526 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<4>, 4>
@@ -564,7 +562,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 4>, 4> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: html-explainer.cpp:260 */
+  /* First instantiated from: html-explainer.cpp:258 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 4>, 4> make_cells<0, 1, 2, 3>(const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -576,7 +574,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...col>
   inline std::array<Cell, 4> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: html-explainer.cpp:265 */
+  /* First instantiated from: html-explainer.cpp:263 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 4> make_row<0, 1, 2, 3>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -619,7 +617,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
 };
 
 #endif
-/* First instantiated from: html-explainer.cpp:528 */
+/* First instantiated from: html-explainer.cpp:526 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<9>, 9>
@@ -683,7 +681,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 9>, 9> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: html-explainer.cpp:260 */
+  /* First instantiated from: html-explainer.cpp:258 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 9>, 9> make_cells<0, 1, 2, 3, 4, 5, 6, 7, 8>(const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -695,7 +693,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...col>
   inline std::array<Cell, 9> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: html-explainer.cpp:265 */
+  /* First instantiated from: html-explainer.cpp:263 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 9> make_row<0, 1, 2, 3, 4, 5, 6, 7, 8>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -1174,7 +1172,7 @@ class Stack
   std::vector<AnnotatedSudoku<size> > stack;
 };
 
-/* First instantiated from: html-explainer.cpp:770 */
+/* First instantiated from: html-explainer.cpp:768 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<4>
@@ -1210,7 +1208,7 @@ class Stack<4>
 };
 
 #endif
-/* First instantiated from: html-explainer.cpp:770 */
+/* First instantiated from: html-explainer.cpp:768 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<9>
@@ -1263,7 +1261,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:894 */
+  /* First instantiated from: html-explainer.cpp:892 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<4>
@@ -1275,7 +1273,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:894 */
+  /* First instantiated from: html-explainer.cpp:892 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<9>
@@ -1294,7 +1292,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: html-explainer.cpp:899 */
+  /* First instantiated from: html-explainer.cpp:897 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct InputsAreDone<4>
@@ -1304,7 +1302,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:899 */
+  /* First instantiated from: html-explainer.cpp:897 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct InputsAreDone<9>
@@ -1321,7 +1319,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: html-explainer.cpp:920 */
+  /* First instantiated from: html-explainer.cpp:918 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForSudoku<4>
@@ -1331,7 +1329,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:920 */
+  /* First instantiated from: html-explainer.cpp:918 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForSudoku<9>
@@ -1350,7 +1348,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:925 */
+  /* First instantiated from: html-explainer.cpp:923 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForCell<4>
@@ -1362,7 +1360,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:925 */
+  /* First instantiated from: html-explainer.cpp:923 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForCell<9>
@@ -1384,7 +1382,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:933 */
+  /* First instantiated from: html-explainer.cpp:931 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellPropagates<4>
@@ -1397,7 +1395,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:933 */
+  /* First instantiated from: html-explainer.cpp:931 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellPropagates<9>
@@ -1419,7 +1417,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:960 */
+  /* First instantiated from: html-explainer.cpp:958 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedFromSingleAllowedValue<4>
@@ -1431,7 +1429,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:960 */
+  /* First instantiated from: html-explainer.cpp:958 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedFromSingleAllowedValue<9>
@@ -1453,7 +1451,7 @@ namespace exploration
     unsigned int region;
   };
   
-  /* First instantiated from: html-explainer.cpp:965 */
+  /* First instantiated from: html-explainer.cpp:963 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedAsSinglePlaceForValueInRegion<4>
@@ -1466,7 +1464,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:965 */
+  /* First instantiated from: html-explainer.cpp:963 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedAsSinglePlaceForValueInRegion<9>
@@ -1488,7 +1486,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:970 */
+  /* First instantiated from: html-explainer.cpp:968 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForCell<4>
@@ -1500,7 +1498,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:970 */
+  /* First instantiated from: html-explainer.cpp:968 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForCell<9>
@@ -1519,7 +1517,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: html-explainer.cpp:975 */
+  /* First instantiated from: html-explainer.cpp:973 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForSudoku<4>
@@ -1529,7 +1527,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:975 */
+  /* First instantiated from: html-explainer.cpp:973 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForSudoku<9>
@@ -1548,7 +1546,7 @@ namespace exploration
     std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
   };
   
-  /* First instantiated from: html-explainer.cpp:980 */
+  /* First instantiated from: html-explainer.cpp:978 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<4>
@@ -1560,7 +1558,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:980 */
+  /* First instantiated from: html-explainer.cpp:978 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<9>
@@ -1581,7 +1579,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:985 */
+  /* First instantiated from: html-explainer.cpp:983 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<4>
@@ -1593,7 +1591,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:985 */
+  /* First instantiated from: html-explainer.cpp:983 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<9>
@@ -1614,7 +1612,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:990 */
+  /* First instantiated from: html-explainer.cpp:988 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<4>
@@ -1626,7 +1624,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:990 */
+  /* First instantiated from: html-explainer.cpp:988 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<9>
@@ -1645,7 +1643,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: html-explainer.cpp:995 */
+  /* First instantiated from: html-explainer.cpp:993 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct SudokuIsSolved<4>
@@ -1655,7 +1653,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:995 */
+  /* First instantiated from: html-explainer.cpp:993 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct SudokuIsSolved<9>
@@ -1815,14 +1813,14 @@ namespace art
   template<unsigned int size>
   double round_grid_size(unsigned int);
   
-  /* First instantiated from: html-explainer.cpp:904 */
+  /* First instantiated from: html-explainer.cpp:902 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   double round_grid_size<4>(unsigned int);
   #endif
   
   
-  /* First instantiated from: html-explainer.cpp:904 */
+  /* First instantiated from: html-explainer.cpp:902 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   double round_grid_size<9>(unsigned int);
@@ -1851,14 +1849,14 @@ namespace art
   template<unsigned int size>
   void draw(std::shared_ptr<Cairo::Context>, const AnnotatedSudoku<size> &, const DrawOptions &);
   
-  /* First instantiated from: html-explainer.cpp:906 */
+  /* First instantiated from: html-explainer.cpp:904 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   void draw<4>(std::shared_ptr<Cairo::Context>, const Sudoku<AnnotatedCell<4>, 4> &, const DrawOptions &);
   #endif
   
   
-  /* First instantiated from: html-explainer.cpp:906 */
+  /* First instantiated from: html-explainer.cpp:904 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   void draw<9>(std::shared_ptr<Cairo::Context>, const Sudoku<AnnotatedCell<9>, 9> &, const DrawOptions &);

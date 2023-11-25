@@ -64,8 +64,6 @@
 #include <utility>
 
 
-// @todo Put this typedef in a template<unsigned size> (probably SudokuConstants),
-// to let the type system detect if we try to mix coordinates for different size puzzles
 typedef std::pair<unsigned, unsigned> Coordinates;
 
 
@@ -74,7 +72,7 @@ class SudokuConstants
 {
   
   private: 
-  static inline constexpr unsigned int sqrt(unsigned int res, unsigned int l, unsigned int r)
+  static inline constexpr auto sqrt(unsigned int res, unsigned int l, unsigned int r)
   {
     if(l == r) {
       return r;
@@ -90,7 +88,7 @@ class SudokuConstants
     
   }
   
-  static inline constexpr unsigned int sqrt(unsigned int res)
+  static inline constexpr auto sqrt(unsigned int res)
   {
     return sqrt(res, 1, res);
   }
@@ -218,7 +216,7 @@ class SudokuConstants
   
   
   public: 
-  inline static constexpr const unsigned int sqrt_size = sqrt(size);
+  inline static constexpr const auto sqrt_size = sqrt(size);
   inline static constexpr const auto values = make_values();
   inline static constexpr const auto cells = make_cells();
   inline static constexpr const auto region_indexes = make_region_indexes();
@@ -502,7 +500,7 @@ class SudokuBase
   CellsArray _cells;
 };
 
-/* First instantiated from: main.cpp:391 */
+/* First instantiated from: main.cpp:389 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<ValueCell, 4>
@@ -576,7 +574,7 @@ class SudokuBase<ValueCell, 4>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 4>, 4> copy_cells(const std::integer_sequence<unsigned int, row...> &, const std::array<std::array<Cell, 4>, 4> & other_cells);
   
-  /* First instantiated from: main.cpp:281 */
+  /* First instantiated from: main.cpp:279 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 4>, 4> copy_cells<0, 1, 2, 3>(const std::integer_sequence<unsigned int, 0, 1, 2, 3> &, const std::array<std::array<Cell, 4>, 4> & other_cells)
@@ -588,7 +586,7 @@ class SudokuBase<ValueCell, 4>
   template<unsigned int ...col>
   inline std::array<Cell, 4> copy_row(unsigned int row, const std::array<std::array<Cell, 4>, 4> & other_cells, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: main.cpp:286 */
+  /* First instantiated from: main.cpp:284 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 4> copy_row<0, 1, 2, 3>(unsigned int row, const std::array<std::array<Cell, 4>, 4> & other_cells, const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -621,7 +619,7 @@ class SudokuBase<ValueCell, 4>
 };
 
 #endif
-/* First instantiated from: main.cpp:391 */
+/* First instantiated from: main.cpp:389 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<ValueCell, 9>
@@ -695,7 +693,7 @@ class SudokuBase<ValueCell, 9>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 9>, 9> copy_cells(const std::integer_sequence<unsigned int, row...> &, const std::array<std::array<Cell, 9>, 9> & other_cells);
   
-  /* First instantiated from: main.cpp:281 */
+  /* First instantiated from: main.cpp:279 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 9>, 9> copy_cells<0, 1, 2, 3, 4, 5, 6, 7, 8>(const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &, const std::array<std::array<Cell, 9>, 9> & other_cells)
@@ -707,7 +705,7 @@ class SudokuBase<ValueCell, 9>
   template<unsigned int ...col>
   inline std::array<Cell, 9> copy_row(unsigned int row, const std::array<std::array<Cell, 9>, 9> & other_cells, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: main.cpp:286 */
+  /* First instantiated from: main.cpp:284 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 9> copy_row<0, 1, 2, 3, 4, 5, 6, 7, 8>(unsigned int row, const std::array<std::array<Cell, 9>, 9> & other_cells, const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -740,7 +738,7 @@ class SudokuBase<ValueCell, 9>
 };
 
 #endif
-/* First instantiated from: main.cpp:530 */
+/* First instantiated from: main.cpp:528 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<4>, 4>
@@ -804,7 +802,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 4>, 4> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: main.cpp:262 */
+  /* First instantiated from: main.cpp:260 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 4>, 4> make_cells<0, 1, 2, 3>(const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -816,7 +814,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...col>
   inline std::array<Cell, 4> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: main.cpp:267 */
+  /* First instantiated from: main.cpp:265 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 4> make_row<0, 1, 2, 3>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -859,7 +857,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
 };
 
 #endif
-/* First instantiated from: main.cpp:530 */
+/* First instantiated from: main.cpp:528 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<9>, 9>
@@ -923,7 +921,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 9>, 9> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: main.cpp:262 */
+  /* First instantiated from: main.cpp:260 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 9>, 9> make_cells<0, 1, 2, 3, 4, 5, 6, 7, 8>(const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -935,7 +933,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...col>
   inline std::array<Cell, 9> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: main.cpp:267 */
+  /* First instantiated from: main.cpp:265 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 9> make_row<0, 1, 2, 3, 4, 5, 6, 7, 8>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -996,7 +994,7 @@ class Sudoku : public SudokuBase<Cell, size>
 {
 };
 
-/* First instantiated from: main.cpp:1647 */
+/* First instantiated from: main.cpp:1645 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<ValueCell, 4> : public SudokuBase<ValueCell, 4>
@@ -1017,7 +1015,7 @@ class Sudoku<ValueCell, 4> : public SudokuBase<ValueCell, 4>
 };
 
 #endif
-/* First instantiated from: main.cpp:1647 */
+/* First instantiated from: main.cpp:1645 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<ValueCell, 9> : public SudokuBase<ValueCell, 9>
@@ -1457,7 +1455,7 @@ class Stack
   std::vector<AnnotatedSudoku<size> > stack;
 };
 
-/* First instantiated from: main.cpp:772 */
+/* First instantiated from: main.cpp:770 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<4>
@@ -1489,7 +1487,7 @@ class Stack<4>
 };
 
 #endif
-/* First instantiated from: main.cpp:772 */
+/* First instantiated from: main.cpp:770 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<9>
@@ -4430,7 +4428,7 @@ int main_(const Options & options)
 }
 
 
-/* First instantiated from: main.cpp:1881 */
+/* First instantiated from: main.cpp:1879 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 int main_<4>(const Options & options)
@@ -4482,8 +4480,8 @@ int main_<4>(const Options & options)
         {
         }
         
-        using retType_1589_60 = void (*)(exploration::Event<4U> &&);
-        inline constexpr operator retType_1589_60 () const noexcept
+        using retType_1587_60 = void (*)(exploration::Event<4U> &&);
+        inline constexpr operator retType_1587_60 () const noexcept
         {
           return __invoke;
         };
@@ -4638,7 +4636,7 @@ int main_<4>(const Options & options)
 #endif
 
 
-/* First instantiated from: main.cpp:1883 */
+/* First instantiated from: main.cpp:1881 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 int main_<9>(const Options & options)
@@ -4690,8 +4688,8 @@ int main_<9>(const Options & options)
         {
         }
         
-        using retType_1589_60 = void (*)(exploration::Event<9U> &&);
-        inline constexpr operator retType_1589_60 () const noexcept
+        using retType_1587_60 = void (*)(exploration::Event<9U> &&);
+        inline constexpr operator retType_1587_60 () const noexcept
         {
           return __invoke;
         };
@@ -4865,8 +4863,8 @@ struct ExistingFileOrStdinValidator : public CLI::Validator
         
       }
       
-      using retType_1762_13 = std::string (*)(const std::string &);
-      inline constexpr operator retType_1762_13 () const noexcept
+      using retType_1760_13 = std::string (*)(const std::string &);
+      inline constexpr operator retType_1760_13 () const noexcept
       {
         return __invoke;
       };
@@ -4909,8 +4907,8 @@ struct FileOrStdoutValidator : public CLI::Validator
         return std::basic_string<char, std::char_traits<char>, std::allocator<char> >();
       }
       
-      using retType_1776_13 = std::string (*)(const std::string &);
-      inline constexpr operator retType_1776_13 () const noexcept
+      using retType_1774_13 = std::string (*)(const std::string &);
+      inline constexpr operator retType_1774_13 () const noexcept
       {
         return __invoke;
       };
@@ -4953,8 +4951,8 @@ struct FileValidator : public CLI::Validator
         return std::basic_string<char, std::char_traits<char>, std::allocator<char> >();
       }
       
-      using retType_1784_13 = std::string (*)(const std::string &);
-      inline constexpr operator retType_1784_13 () const noexcept
+      using retType_1782_13 = std::string (*)(const std::string &);
+      inline constexpr operator retType_1782_13 () const noexcept
       {
         return __invoke;
       };

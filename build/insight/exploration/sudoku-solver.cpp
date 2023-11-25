@@ -38,8 +38,6 @@
 #include <utility>
 
 
-// @todo Put this typedef in a template<unsigned size> (probably SudokuConstants),
-// to let the type system detect if we try to mix coordinates for different size puzzles
 typedef std::pair<unsigned, unsigned> Coordinates;
 
 
@@ -48,7 +46,7 @@ class SudokuConstants
 {
   
   private: 
-  static inline constexpr unsigned int sqrt(unsigned int res, unsigned int l, unsigned int r)
+  static inline constexpr auto sqrt(unsigned int res, unsigned int l, unsigned int r)
   {
     if(l == r) {
       return r;
@@ -64,7 +62,7 @@ class SudokuConstants
     
   }
   
-  static inline constexpr unsigned int sqrt(unsigned int res)
+  static inline constexpr auto sqrt(unsigned int res)
   {
     return sqrt(res, 1, res);
   }
@@ -192,7 +190,7 @@ class SudokuConstants
   
   
   public: 
-  inline static constexpr const unsigned int sqrt_size = sqrt(size);
+  inline static constexpr const auto sqrt_size = sqrt(size);
   inline static constexpr const auto values = make_values();
   inline static constexpr const auto cells = make_cells();
   inline static constexpr const auto region_indexes = make_region_indexes();
@@ -204,7 +202,7 @@ class SudokuConstants
   /* PASSED: static_assert((sqrt_size * sqrt_size) == size, "'size' must be a perfect square"); */
 };
 
-/* First instantiated from: sudoku-solver.cpp:309 */
+/* First instantiated from: sudoku-solver.cpp:307 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuConstants<4>
@@ -388,7 +386,7 @@ class SudokuConstants<4>
 };
 
 #endif
-/* First instantiated from: sudoku-solver.cpp:309 */
+/* First instantiated from: sudoku-solver.cpp:307 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuConstants<9>
@@ -844,7 +842,7 @@ class SudokuBase
   CellsArray _cells;
 };
 
-/* First instantiated from: sudoku-solver.cpp:365 */
+/* First instantiated from: sudoku-solver.cpp:363 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<ValueCell, 4>
@@ -921,7 +919,7 @@ class SudokuBase<ValueCell, 4>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 4>, 4> copy_cells(const std::integer_sequence<unsigned int, row...> &, const std::array<std::array<Cell, 4>, 4> & other_cells);
   
-  /* First instantiated from: sudoku-solver.cpp:255 */
+  /* First instantiated from: sudoku-solver.cpp:253 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 4>, 4> copy_cells<0, 1, 2, 3>(const std::integer_sequence<unsigned int, 0, 1, 2, 3> &, const std::array<std::array<Cell, 4>, 4> & other_cells)
@@ -933,7 +931,7 @@ class SudokuBase<ValueCell, 4>
   template<unsigned int ...col>
   inline std::array<Cell, 4> copy_row(unsigned int row, const std::array<std::array<Cell, 4>, 4> & other_cells, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: sudoku-solver.cpp:260 */
+  /* First instantiated from: sudoku-solver.cpp:258 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 4> copy_row<0, 1, 2, 3>(unsigned int row, const std::array<std::array<Cell, 4>, 4> & other_cells, const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -1012,7 +1010,7 @@ class SudokuBase<ValueCell, 4>
 };
 
 #endif
-/* First instantiated from: sudoku-solver.cpp:365 */
+/* First instantiated from: sudoku-solver.cpp:363 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<ValueCell, 9>
@@ -1089,7 +1087,7 @@ class SudokuBase<ValueCell, 9>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 9>, 9> copy_cells(const std::integer_sequence<unsigned int, row...> &, const std::array<std::array<Cell, 9>, 9> & other_cells);
   
-  /* First instantiated from: sudoku-solver.cpp:255 */
+  /* First instantiated from: sudoku-solver.cpp:253 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 9>, 9> copy_cells<0, 1, 2, 3, 4, 5, 6, 7, 8>(const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &, const std::array<std::array<Cell, 9>, 9> & other_cells)
@@ -1101,7 +1099,7 @@ class SudokuBase<ValueCell, 9>
   template<unsigned int ...col>
   inline std::array<Cell, 9> copy_row(unsigned int row, const std::array<std::array<Cell, 9>, 9> & other_cells, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: sudoku-solver.cpp:260 */
+  /* First instantiated from: sudoku-solver.cpp:258 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 9> copy_row<0, 1, 2, 3, 4, 5, 6, 7, 8>(unsigned int row, const std::array<std::array<Cell, 9>, 9> & other_cells, const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -1180,7 +1178,7 @@ class SudokuBase<ValueCell, 9>
 };
 
 #endif
-/* First instantiated from: sudoku-solver.cpp:528 */
+/* First instantiated from: sudoku-solver.cpp:526 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<4>, 4>
@@ -1342,7 +1340,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 4>, 4> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: sudoku-solver.cpp:236 */
+  /* First instantiated from: sudoku-solver.cpp:234 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 4>, 4> make_cells<0, 1, 2, 3>(const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -1354,7 +1352,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...col>
   inline std::array<Cell, 4> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: sudoku-solver.cpp:241 */
+  /* First instantiated from: sudoku-solver.cpp:239 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 4> make_row<0, 1, 2, 3>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -1481,7 +1479,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
 };
 
 #endif
-/* First instantiated from: sudoku-solver.cpp:528 */
+/* First instantiated from: sudoku-solver.cpp:526 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<9>, 9>
@@ -1643,7 +1641,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 9>, 9> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: sudoku-solver.cpp:236 */
+  /* First instantiated from: sudoku-solver.cpp:234 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 9>, 9> make_cells<0, 1, 2, 3, 4, 5, 6, 7, 8>(const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -1655,7 +1653,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...col>
   inline std::array<Cell, 9> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: sudoku-solver.cpp:241 */
+  /* First instantiated from: sudoku-solver.cpp:239 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 9> make_row<0, 1, 2, 3, 4, 5, 6, 7, 8>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -1800,7 +1798,7 @@ class Sudoku : public SudokuBase<Cell, size>
 {
 };
 
-/* First instantiated from: sudoku-solver.cpp:994 */
+/* First instantiated from: sudoku-solver.cpp:992 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<ValueCell, 4> : public SudokuBase<ValueCell, 4>
@@ -1821,7 +1819,7 @@ class Sudoku<ValueCell, 4> : public SudokuBase<ValueCell, 4>
 };
 
 #endif
-/* First instantiated from: sudoku-solver.cpp:994 */
+/* First instantiated from: sudoku-solver.cpp:992 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<ValueCell, 9> : public SudokuBase<ValueCell, 9>
@@ -2353,7 +2351,7 @@ class Stack
   std::vector<AnnotatedSudoku<size> > stack;
 };
 
-/* First instantiated from: sudoku-solver.cpp:998 */
+/* First instantiated from: sudoku-solver.cpp:996 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<4>
@@ -2393,7 +2391,7 @@ class Stack<4>
 };
 
 #endif
-/* First instantiated from: sudoku-solver.cpp:998 */
+/* First instantiated from: sudoku-solver.cpp:996 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<9>
@@ -2450,7 +2448,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: sudoku-solver.cpp:1005 */
+  /* First instantiated from: sudoku-solver.cpp:1003 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<4>
@@ -2463,7 +2461,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: sudoku-solver.cpp:1005 */
+  /* First instantiated from: sudoku-solver.cpp:1003 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<9>
@@ -3011,7 +3009,7 @@ class UniqueQueue
   std::set<T> set;
 };
 
-/* First instantiated from: sudoku-solver.cpp:828 */
+/* First instantiated from: sudoku-solver.cpp:826 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class UniqueQueue<std::pair<unsigned int, unsigned int> >
@@ -3100,7 +3098,7 @@ struct EventAdder
   const std::function<void (exploration::Event<size> &&)> & add_event;
 };
 
-/* First instantiated from: sudoku-solver.cpp:999 */
+/* First instantiated from: sudoku-solver.cpp:997 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventAdder<4>
@@ -3279,7 +3277,7 @@ struct EventAdder<4>
 };
 
 #endif
-/* First instantiated from: sudoku-solver.cpp:999 */
+/* First instantiated from: sudoku-solver.cpp:997 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventAdder<9>
@@ -3481,7 +3479,7 @@ struct EventsPairGuard
   exploration::Event<size> out;
 };
 
-/* First instantiated from: sudoku-solver.cpp:833 */
+/* First instantiated from: sudoku-solver.cpp:831 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<4>
@@ -3504,7 +3502,7 @@ struct EventsPairGuard<4>
 };
 
 #endif
-/* First instantiated from: sudoku-solver.cpp:833 */
+/* First instantiated from: sudoku-solver.cpp:831 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<9>
@@ -3639,7 +3637,7 @@ bool propagate(const Stack<size> & stack, const std::set<std::pair<unsigned int,
 }
 
 
-/* First instantiated from: sudoku-solver.cpp:981 */
+/* First instantiated from: sudoku-solver.cpp:979 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool propagate<4>(const Stack<4> & stack, const std::set<std::pair<unsigned int, unsigned int>, std::less<std::pair<unsigned int, unsigned int> >, std::allocator<std::pair<unsigned int, unsigned int> > > & todo_, const EventAdder<4> & add_event)
@@ -3761,7 +3759,7 @@ bool propagate<4>(const Stack<4> & stack, const std::set<std::pair<unsigned int,
 #endif
 
 
-/* First instantiated from: sudoku-solver.cpp:981 */
+/* First instantiated from: sudoku-solver.cpp:979 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool propagate<9>(const Stack<9> & stack, const std::set<std::pair<unsigned int, unsigned int>, std::less<std::pair<unsigned int, unsigned int> >, std::allocator<std::pair<unsigned int, unsigned int> > > & todo_, const EventAdder<9> & add_event)
@@ -3914,7 +3912,7 @@ std::pair<unsigned int, unsigned int> get_most_constrained_cell(const AnnotatedS
 }
 
 
-/* First instantiated from: sudoku-solver.cpp:946 */
+/* First instantiated from: sudoku-solver.cpp:944 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 std::pair<unsigned int, unsigned int> get_most_constrained_cell<4>(const Sudoku<AnnotatedCell<4>, 4> & sudoku)
@@ -3949,7 +3947,7 @@ std::pair<unsigned int, unsigned int> get_most_constrained_cell<4>(const Sudoku<
 #endif
 
 
-/* First instantiated from: sudoku-solver.cpp:946 */
+/* First instantiated from: sudoku-solver.cpp:944 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 std::pair<unsigned int, unsigned int> get_most_constrained_cell<9>(const Sudoku<AnnotatedCell<9>, 9> & sudoku)
@@ -4030,7 +4028,7 @@ bool explore(const Stack<size> & stack, const EventAdder<size> & add_event)
 }
 
 
-/* First instantiated from: sudoku-solver.cpp:985 */
+/* First instantiated from: sudoku-solver.cpp:983 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool explore<4>(const Stack<4> & stack, const EventAdder<4> & add_event)
@@ -4075,7 +4073,7 @@ bool explore<4>(const Stack<4> & stack, const EventAdder<4> & add_event)
 #endif
 
 
-/* First instantiated from: sudoku-solver.cpp:985 */
+/* First instantiated from: sudoku-solver.cpp:983 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool explore<9>(const Stack<9> & stack, const EventAdder<9> & add_event)
@@ -4138,7 +4136,7 @@ bool propagate_and_explore(const Stack<size> & stack, const std::set<std::pair<u
 }
 
 
-/* First instantiated from: sudoku-solver.cpp:1012 */
+/* First instantiated from: sudoku-solver.cpp:1010 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool propagate_and_explore<4>(const Stack<4> & stack, const std::set<std::pair<unsigned int, unsigned int>, std::less<std::pair<unsigned int, unsigned int> >, std::allocator<std::pair<unsigned int, unsigned int> > > & todo, const EventAdder<4> & add_event)
@@ -4158,7 +4156,7 @@ bool propagate_and_explore<4>(const Stack<4> & stack, const std::set<std::pair<u
 #endif
 
 
-/* First instantiated from: sudoku-solver.cpp:1012 */
+/* First instantiated from: sudoku-solver.cpp:1010 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool propagate_and_explore<9>(const Stack<9> & stack, const std::set<std::pair<unsigned int, unsigned int>, std::less<std::pair<unsigned int, unsigned int> >, std::allocator<std::pair<unsigned int, unsigned int> > > & todo, const EventAdder<9> & add_event)
@@ -4216,7 +4214,7 @@ Sudoku<ValueCell, size> solve_using_exploration(Sudoku<ValueCell, size> sudoku, 
 }
 
 
-/* First instantiated from: sudoku-solver.cpp:1022 */
+/* First instantiated from: sudoku-solver.cpp:1020 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 Sudoku<ValueCell, 4> solve_using_exploration<4>(Sudoku<ValueCell, 4> sudoku, const std::function<void (std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &&)> & add_event_)
@@ -4260,7 +4258,7 @@ Sudoku<ValueCell, 4> solve_using_exploration<4>(Sudoku<ValueCell, 4> sudoku, con
 #endif
 
 
-/* First instantiated from: sudoku-solver.cpp:1027 */
+/* First instantiated from: sudoku-solver.cpp:1025 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 Sudoku<ValueCell, 9> solve_using_exploration<9>(Sudoku<ValueCell, 9> sudoku, const std::function<void (std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &&)> & add_event_)

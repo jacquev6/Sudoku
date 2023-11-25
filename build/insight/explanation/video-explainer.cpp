@@ -67,8 +67,6 @@
 #include <utility>
 
 
-// @todo Put this typedef in a template<unsigned size> (probably SudokuConstants),
-// to let the type system detect if we try to mix coordinates for different size puzzles
 typedef std::pair<unsigned, unsigned> Coordinates;
 
 
@@ -77,7 +75,7 @@ class SudokuConstants
 {
   
   private: 
-  static inline constexpr unsigned int sqrt(unsigned int res, unsigned int l, unsigned int r)
+  static inline constexpr auto sqrt(unsigned int res, unsigned int l, unsigned int r)
   {
     if(l == r) {
       return r;
@@ -93,7 +91,7 @@ class SudokuConstants
     
   }
   
-  static inline constexpr unsigned int sqrt(unsigned int res)
+  static inline constexpr auto sqrt(unsigned int res)
   {
     return sqrt(res, 1, res);
   }
@@ -221,7 +219,7 @@ class SudokuConstants
   
   
   public: 
-  inline static constexpr const unsigned int sqrt_size = sqrt(size);
+  inline static constexpr const auto sqrt_size = sqrt(size);
   inline static constexpr const auto values = make_values();
   inline static constexpr const auto cells = make_cells();
   inline static constexpr const auto region_indexes = make_region_indexes();
@@ -505,7 +503,7 @@ class SudokuBase
   CellsArray _cells;
 };
 
-/* First instantiated from: video-explainer.cpp:533 */
+/* First instantiated from: video-explainer.cpp:531 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<4>, 4>
@@ -569,7 +567,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 4>, 4> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: video-explainer.cpp:265 */
+  /* First instantiated from: video-explainer.cpp:263 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 4>, 4> make_cells<0, 1, 2, 3>(const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -581,7 +579,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...col>
   inline std::array<Cell, 4> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: video-explainer.cpp:270 */
+  /* First instantiated from: video-explainer.cpp:268 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 4> make_row<0, 1, 2, 3>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -624,7 +622,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
 };
 
 #endif
-/* First instantiated from: video-explainer.cpp:533 */
+/* First instantiated from: video-explainer.cpp:531 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<9>, 9>
@@ -688,7 +686,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 9>, 9> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: video-explainer.cpp:265 */
+  /* First instantiated from: video-explainer.cpp:263 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 9>, 9> make_cells<0, 1, 2, 3, 4, 5, 6, 7, 8>(const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -700,7 +698,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...col>
   inline std::array<Cell, 9> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: video-explainer.cpp:270 */
+  /* First instantiated from: video-explainer.cpp:268 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 9> make_row<0, 1, 2, 3, 4, 5, 6, 7, 8>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -1179,7 +1177,7 @@ class Stack
   std::vector<AnnotatedSudoku<size> > stack;
 };
 
-/* First instantiated from: video-explainer.cpp:1050 */
+/* First instantiated from: video-explainer.cpp:1048 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<4>
@@ -1215,7 +1213,7 @@ class Stack<4>
 };
 
 #endif
-/* First instantiated from: video-explainer.cpp:1050 */
+/* First instantiated from: video-explainer.cpp:1048 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<9>
@@ -2314,14 +2312,14 @@ namespace art
   template<unsigned int size>
   void draw(std::shared_ptr<Cairo::Context>, const AnnotatedSudoku<size> &, const DrawOptions &);
   
-  /* First instantiated from: video-explainer.cpp:1163 */
+  /* First instantiated from: video-explainer.cpp:1161 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   void draw<4>(std::shared_ptr<Cairo::Context>, const Sudoku<AnnotatedCell<4>, 4> &, const DrawOptions &);
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1163 */
+  /* First instantiated from: video-explainer.cpp:1161 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   void draw<9>(std::shared_ptr<Cairo::Context>, const Sudoku<AnnotatedCell<9>, 9> &, const DrawOptions &);
@@ -3029,7 +3027,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
     inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<T> & events_);
     
     
-    /* First instantiated from: video-explainer.cpp:1363 */
+    /* First instantiated from: video-explainer.cpp:1361 */
     #ifdef INSIGHTS_USE_TEMPLATE
     template<>
     inline VisitEventsGuard<exploration::CellPropagates<4> >(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > & events_)
@@ -3054,7 +3052,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
     
     
     
-    /* First instantiated from: video-explainer.cpp:1448 */
+    /* First instantiated from: video-explainer.cpp:1446 */
     #ifdef INSIGHTS_USE_TEMPLATE
     template<>
     inline VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<4> >(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > & events_)
@@ -3079,7 +3077,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
     
     
     
-    /* First instantiated from: video-explainer.cpp:1510 */
+    /* First instantiated from: video-explainer.cpp:1508 */
     #ifdef INSIGHTS_USE_TEMPLATE
     template<>
     inline VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> >(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > & events_)
@@ -4106,7 +4104,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
     inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<T> & events_);
     
     
-    /* First instantiated from: video-explainer.cpp:1363 */
+    /* First instantiated from: video-explainer.cpp:1361 */
     #ifdef INSIGHTS_USE_TEMPLATE
     template<>
     inline VisitEventsGuard<exploration::CellPropagates<9> >(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > & events_)
@@ -4131,7 +4129,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
     
     
     
-    /* First instantiated from: video-explainer.cpp:1448 */
+    /* First instantiated from: video-explainer.cpp:1446 */
     #ifdef INSIGHTS_USE_TEMPLATE
     template<>
     inline VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<9> >(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > & events_)
@@ -4156,7 +4154,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
     
     
     
-    /* First instantiated from: video-explainer.cpp:1510 */
+    /* First instantiated from: video-explainer.cpp:1508 */
     #ifdef INSIGHTS_USE_TEMPLATE
     template<>
     inline VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> >(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > & events_)
