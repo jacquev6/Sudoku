@@ -2039,7 +2039,7 @@ void HtmlExplainer<size>::make_image(
   if (options.draw_stack && stack.height() > 1) {
     {
       Cairo::SaveGuard guard(cr);
-      const double small_grid_size = art::round_grid_size<size>(viewport_width - grid_size - margin);
+      const double small_grid_size = art::round_grid_size<size>(viewport_width - grid_size - 3 * margin);
       for (const auto& saved : stack.saved()) {
         art::draw(cr, saved, {.grid_size = small_grid_size});
         cr->translate(0, small_grid_size + margin);
@@ -2344,7 +2344,7 @@ class HtmlExplainer<static_cast<unsigned int>(4)>
     if(options.draw_stack && (this->stack.height() > 1)) {
       {
         Cairo::SaveGuard guard = Cairo::SaveGuard(static_cast<const std::shared_ptr<Cairo::Context>>(cr));
-        const double small_grid_size = art::round_grid_size<4U>(static_cast<unsigned int>((static_cast<double>(viewport_width) - grid_size) - static_cast<double>(margin)));
+        const double small_grid_size = art::round_grid_size<4U>(static_cast<unsigned int>((static_cast<double>(viewport_width) - grid_size) - (static_cast<double>(static_cast<unsigned int>(3) * margin))));
         {
           Saved && __range1 = this->stack.saved();
           std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<4>, 4> *, std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > > > > __begin0 = __range1.begin();
@@ -2542,7 +2542,7 @@ class HtmlExplainer<static_cast<unsigned int>(9)>
     if(options.draw_stack && (this->stack.height() > 1)) {
       {
         Cairo::SaveGuard guard = Cairo::SaveGuard(static_cast<const std::shared_ptr<Cairo::Context>>(cr));
-        const double small_grid_size = art::round_grid_size<9U>(static_cast<unsigned int>((static_cast<double>(viewport_width) - grid_size) - static_cast<double>(margin)));
+        const double small_grid_size = art::round_grid_size<9U>(static_cast<unsigned int>((static_cast<double>(viewport_width) - grid_size) - (static_cast<double>(static_cast<unsigned int>(3) * margin))));
         {
           Saved && __range1 = this->stack.saved();
           std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<9>, 9> *, std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > > > > __begin0 = __range1.begin();

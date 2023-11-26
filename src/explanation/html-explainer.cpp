@@ -35,7 +35,7 @@ void HtmlExplainer<size>::make_image(
   if (options.draw_stack && stack.height() > 1) {
     {
       Cairo::SaveGuard guard(cr);
-      const double small_grid_size = art::round_grid_size<size>(viewport_width - grid_size - margin);
+      const double small_grid_size = art::round_grid_size<size>(viewport_width - grid_size - 3 * margin);
       for (const auto& saved : stack.saved()) {
         art::draw(cr, saved, {.grid_size = small_grid_size});
         cr->translate(0, small_grid_size + margin);
