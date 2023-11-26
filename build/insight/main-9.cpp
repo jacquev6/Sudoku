@@ -895,7 +895,7 @@ class SudokuBase<ValueCell, 9>
 };
 
 #endif
-/* First instantiated from: main-9.cpp:568 */
+/* First instantiated from: main-9.cpp:589 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<9>, 9>
@@ -1214,7 +1214,7 @@ class Sudoku : public SudokuBase<Cell, size>
 {
 };
 
-/* First instantiated from: main-9.cpp:1972 */
+/* First instantiated from: main-9.cpp:1993 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<ValueCell, 9> : public SudokuBase<ValueCell, 9>
@@ -1328,6 +1328,7 @@ class AnnotatedCell
   : allowed_values{}
   , set_value{std::optional<unsigned int>()}
   , input{false}
+  , hypothesis{false}
   , propagated{false}
   {
     this->allowed_values.set();
@@ -1342,6 +1343,12 @@ class AnnotatedCell
     return this->input;
   }
   
+  inline bool is_hypothesis() const
+  {
+    this->assert_invariants();
+    return this->hypothesis;
+  }
+  
   inline bool is_set() const
   {
     this->assert_invariants();
@@ -1351,23 +1358,23 @@ class AnnotatedCell
   inline unsigned int get() const
   {
     this->assert_invariants();
-    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "src/exploration/annotations.hpp", 43, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "src/exploration/annotations.hpp", 49, __extension____PRETTY_FUNCTION__));
     return this->set_value.value();
   }
   
   inline bool is_allowed(const unsigned int value) const
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 50, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 56, __extension____PRETTY_FUNCTION__));
     return this->allowed_values.test(value);
   }
   
   inline void set_input(const unsigned int value)
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 57, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 58, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 59, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 63, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 64, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 65, __extension____PRETTY_FUNCTION__));
     this->allowed_values.reset();
     this->allowed_values.set(value);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -1375,12 +1382,25 @@ class AnnotatedCell
     this->assert_invariants();
   }
   
+  inline void set_hypothesis(const unsigned int value)
+  {
+    this->assert_invariants();
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 77, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 78, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 79, __extension____PRETTY_FUNCTION__));
+    this->allowed_values.reset();
+    this->allowed_values.set(value);
+    this->set_value.operator=(std::optional<unsigned int>(value));
+    this->hypothesis = true;
+    this->assert_invariants();
+  }
+  
   inline void set_deduced(const unsigned int value)
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 71, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 72, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 73, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 91, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 92, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 93, __extension____PRETTY_FUNCTION__));
     this->allowed_values.reset();
     this->allowed_values.set(value);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -1390,7 +1410,7 @@ class AnnotatedCell
   inline void set_propagated()
   {
     this->assert_invariants();
-    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "src/exploration/annotations.hpp", 84, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "src/exploration/annotations.hpp", 104, __extension____PRETTY_FUNCTION__));
     this->propagated = true;
     this->assert_invariants();
   }
@@ -1404,8 +1424,8 @@ class AnnotatedCell
   inline void forbid(const unsigned int value)
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 99, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 100, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 119, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 120, __extension____PRETTY_FUNCTION__));
     this->allowed_values.reset(value);
     this->assert_invariants();
   }
@@ -1420,18 +1440,18 @@ class AnnotatedCell
   private: 
   inline void assert_invariants() const
   {
-    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail("allowed_values.any()", "src/exploration/annotations.hpp", 116, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail("allowed_values.any()", "src/exploration/annotations.hpp", 136, __extension____PRETTY_FUNCTION__));
     if(this->input) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "src/exploration/annotations.hpp", 120, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "src/exploration/annotations.hpp", 140, __extension____PRETTY_FUNCTION__));
     } 
     
     if(this->propagated) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "src/exploration/annotations.hpp", 125, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "src/exploration/annotations.hpp", 145, __extension____PRETTY_FUNCTION__));
     } 
     
     if(this->set_value.has_value()) {
-      (static_cast<bool>(this->allowed_values.count() == 1) ? void(0) : __assert_fail("allowed_values.count() == 1", "src/exploration/annotations.hpp", 130, __extension____PRETTY_FUNCTION__));
-      (static_cast<bool>(this->allowed_values.test(this->set_value.value())) ? void(0) : __assert_fail("allowed_values.test(set_value.value())", "src/exploration/annotations.hpp", 131, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->allowed_values.count() == 1) ? void(0) : __assert_fail("allowed_values.count() == 1", "src/exploration/annotations.hpp", 150, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->allowed_values.test(this->set_value.value())) ? void(0) : __assert_fail("allowed_values.test(set_value.value())", "src/exploration/annotations.hpp", 151, __extension____PRETTY_FUNCTION__));
     } 
     
   }
@@ -1441,6 +1461,7 @@ class AnnotatedCell
   std::bitset<size> allowed_values;
   std::optional<unsigned int> set_value;
   bool input;
+  bool hypothesis;
   bool propagated;
 };
 
@@ -1455,6 +1476,7 @@ class AnnotatedCell<9>
   : allowed_values{std::bitset<9>()}
   , set_value{std::optional<unsigned int>()}
   , input{false}
+  , hypothesis{false}
   , propagated{false}
   {
     this->allowed_values.set();
@@ -1465,6 +1487,8 @@ class AnnotatedCell<9>
   public: 
   inline bool is_input() const;
   
+  inline bool is_hypothesis() const;
+  
   inline bool is_set() const
   {
     this->assert_invariants();
@@ -1474,18 +1498,20 @@ class AnnotatedCell<9>
   inline unsigned int get() const
   {
     this->assert_invariants();
-    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(43), static_cast<const char *>(__extension__"unsigned int AnnotatedCell<9>::get() const [size = 9]")));
+    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(49), static_cast<const char *>(__extension__"unsigned int AnnotatedCell<9>::get() const [size = 9]")));
     return this->set_value.value();
   }
   
   inline bool is_allowed(const unsigned int value) const
   {
     this->assert_invariants();
-    (static_cast<bool>(value < 9U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(50), static_cast<const char *>(__extension__"bool AnnotatedCell<9>::is_allowed(const unsigned int) const [size = 9]")));
+    (static_cast<bool>(value < 9U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(56), static_cast<const char *>(__extension__"bool AnnotatedCell<9>::is_allowed(const unsigned int) const [size = 9]")));
     return this->allowed_values.test(static_cast<unsigned long>(value));
   }
   
   inline void set_input(const unsigned int value);
+  
+  inline void set_hypothesis(const unsigned int value);
   
   inline void set_deduced(const unsigned int value);
   
@@ -1505,18 +1531,18 @@ class AnnotatedCell<9>
   private: 
   inline void assert_invariants() const
   {
-    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(116), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(136), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     if(this->input) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(120), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(140), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     } 
     
     if(this->propagated) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(125), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(145), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     } 
     
     if(this->set_value.has_value()) {
-      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(130), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
-      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(131), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(150), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(151), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     } 
     
   }
@@ -1526,6 +1552,7 @@ class AnnotatedCell<9>
   std::bitset<9> allowed_values;
   std::optional<unsigned int> set_value;
   bool input;
+  bool hypothesis;
   bool propagated;
   public: 
 };
@@ -1576,13 +1603,13 @@ class Stack
   public: 
   inline const AnnotatedSudoku<size> & current() const
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 166, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 187, __extension____PRETTY_FUNCTION__));
     return this->stack.back();
   }
   
   inline AnnotatedSudoku<size> & current()
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 171, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 192, __extension____PRETTY_FUNCTION__));
     return this->stack.back();
   }
   
@@ -1631,7 +1658,7 @@ class Stack
   
   inline void pop()
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 199, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 220, __extension____PRETTY_FUNCTION__));
     this->stack.pop_back();
   }
   
@@ -1640,7 +1667,7 @@ class Stack
   std::vector<AnnotatedSudoku<size> > stack;
 };
 
-/* First instantiated from: main-9.cpp:860 */
+/* First instantiated from: main-9.cpp:881 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<9>
@@ -1656,13 +1683,13 @@ class Stack<9>
   public: 
   inline const Sudoku<AnnotatedCell<9>, 9> & current() const
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(166), static_cast<const char *>(__extension__"const AnnotatedSudoku<size> &Stack<9>::current() const [size = 9]")));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(187), static_cast<const char *>(__extension__"const AnnotatedSudoku<size> &Stack<9>::current() const [size = 9]")));
     return this->stack.back();
   }
   
   inline Sudoku<AnnotatedCell<9>, 9> & current()
   {
-    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(171), static_cast<const char *>(__extension__"AnnotatedSudoku<size> &Stack<9>::current() [size = 9]")));
+    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(192), static_cast<const char *>(__extension__"AnnotatedSudoku<size> &Stack<9>::current() [size = 9]")));
     return this->stack.back();
   }
   
@@ -1704,7 +1731,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-9.cpp:1915 */
+  /* First instantiated from: main-9.cpp:1936 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<9>
@@ -1723,7 +1750,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: main-9.cpp:1920 */
+  /* First instantiated from: main-9.cpp:1941 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct InputsAreDone<9>
@@ -1740,7 +1767,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: main-9.cpp:1743 */
+  /* First instantiated from: main-9.cpp:1764 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForSudoku<9>
@@ -1759,7 +1786,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-9.cpp:1755 */
+  /* First instantiated from: main-9.cpp:1776 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForCell<9>
@@ -1851,7 +1878,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-9.cpp:1756 */
+  /* First instantiated from: main-9.cpp:1777 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForCell<9>
@@ -1871,7 +1898,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: main-9.cpp:1744 */
+  /* First instantiated from: main-9.cpp:1765 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForSudoku<9>
@@ -1891,7 +1918,7 @@ namespace exploration
     std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
   };
   
-  /* First instantiated from: main-9.cpp:1867 */
+  /* First instantiated from: main-9.cpp:1888 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<9>
@@ -1912,7 +1939,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-9.cpp:1872 */
+  /* First instantiated from: main-9.cpp:1893 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<9>
@@ -1933,7 +1960,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-9.cpp:1877 */
+  /* First instantiated from: main-9.cpp:1898 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<9>
@@ -1952,7 +1979,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: main-9.cpp:1806 */
+  /* First instantiated from: main-9.cpp:1827 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct SudokuIsSolved<9>
@@ -1971,7 +1998,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-9.cpp:1874 */
+  /* First instantiated from: main-9.cpp:1895 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsAccepted<9>
@@ -1991,7 +2018,7 @@ namespace exploration
     std::pair<unsigned int, unsigned int> cell;
   };
   
-  /* First instantiated from: main-9.cpp:1868 */
+  /* First instantiated from: main-9.cpp:1889 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationIsDone<9>
@@ -3680,7 +3707,7 @@ struct EventAdder
   const AddEvent & add_event;
 };
 
-/* First instantiated from: main-9.cpp:1909 */
+/* First instantiated from: main-9.cpp:1930 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventAdder<9, __lambda_5>
@@ -3694,7 +3721,7 @@ struct EventAdder<9, __lambda_5>
   template<typename Event>
   inline void operator()(const Event & event) const;
   
-  /* First instantiated from: main-9.cpp:1915 */
+  /* First instantiated from: main-9.cpp:1936 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsSetInInput<9> >(const exploration::CellIsSetInInput<9> & event) const
@@ -3705,7 +3732,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1920 */
+  /* First instantiated from: main-9.cpp:1941 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::InputsAreDone<9> >(const exploration::InputsAreDone<9> & event) const
@@ -3716,7 +3743,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1769 */
+  /* First instantiated from: main-9.cpp:1790 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellPropagates<9> >(const exploration::CellPropagates<9> & event) const
@@ -3727,7 +3754,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1774 */
+  /* First instantiated from: main-9.cpp:1795 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsDeducedFromSingleAllowedValue<9> >(const exploration::CellIsDeducedFromSingleAllowedValue<9> & event) const
@@ -3738,7 +3765,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1794 */
+  /* First instantiated from: main-9.cpp:1815 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> >(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> & event) const
@@ -3749,7 +3776,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1806 */
+  /* First instantiated from: main-9.cpp:1827 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::SudokuIsSolved<9> >(const exploration::SudokuIsSolved<9> & event) const
@@ -3760,7 +3787,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1719 */
+  /* First instantiated from: main-9.cpp:1740 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationStartsForSudoku<9> >(const exploration::PropagationStartsForSudoku<9> & event) const
@@ -3771,7 +3798,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1723 */
+  /* First instantiated from: main-9.cpp:1744 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationIsDoneForSudoku<9> >(const exploration::PropagationIsDoneForSudoku<9> & event) const
@@ -3782,7 +3809,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1719 */
+  /* First instantiated from: main-9.cpp:1740 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationStartsForCell<9> >(const exploration::PropagationStartsForCell<9> & event) const
@@ -3793,7 +3820,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1723 */
+  /* First instantiated from: main-9.cpp:1744 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationIsDoneForCell<9> >(const exploration::PropagationIsDoneForCell<9> & event) const
@@ -3804,7 +3831,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1872 */
+  /* First instantiated from: main-9.cpp:1893 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsMade<9> >(const exploration::HypothesisIsMade<9> & event) const
@@ -3815,7 +3842,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1874 */
+  /* First instantiated from: main-9.cpp:1895 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsAccepted<9> >(const exploration::HypothesisIsAccepted<9> & event) const
@@ -3826,7 +3853,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1877 */
+  /* First instantiated from: main-9.cpp:1898 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsRejected<9> >(const exploration::HypothesisIsRejected<9> & event) const
@@ -3837,7 +3864,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1719 */
+  /* First instantiated from: main-9.cpp:1740 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::ExplorationStarts<9> >(const exploration::ExplorationStarts<9> & event) const
@@ -3848,7 +3875,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1723 */
+  /* First instantiated from: main-9.cpp:1744 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::ExplorationIsDone<9> >(const exploration::ExplorationIsDone<9> & event) const
@@ -3866,7 +3893,7 @@ struct EventAdder<9, __lambda_5>
 };
 
 #endif
-/* First instantiated from: main-9.cpp:1909 */
+/* First instantiated from: main-9.cpp:1930 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventAdder<9, __lambda_6>
@@ -3880,7 +3907,7 @@ struct EventAdder<9, __lambda_6>
   template<typename Event>
   inline void operator()(const Event & event) const;
   
-  /* First instantiated from: main-9.cpp:1915 */
+  /* First instantiated from: main-9.cpp:1936 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsSetInInput<9> >(const exploration::CellIsSetInInput<9> & event) const
@@ -3891,7 +3918,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1920 */
+  /* First instantiated from: main-9.cpp:1941 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::InputsAreDone<9> >(const exploration::InputsAreDone<9> & event) const
@@ -3902,7 +3929,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1769 */
+  /* First instantiated from: main-9.cpp:1790 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellPropagates<9> >(const exploration::CellPropagates<9> & event) const
@@ -3913,7 +3940,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1774 */
+  /* First instantiated from: main-9.cpp:1795 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsDeducedFromSingleAllowedValue<9> >(const exploration::CellIsDeducedFromSingleAllowedValue<9> & event) const
@@ -3924,7 +3951,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1794 */
+  /* First instantiated from: main-9.cpp:1815 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> >(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> & event) const
@@ -3935,7 +3962,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1806 */
+  /* First instantiated from: main-9.cpp:1827 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::SudokuIsSolved<9> >(const exploration::SudokuIsSolved<9> & event) const
@@ -3946,7 +3973,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1719 */
+  /* First instantiated from: main-9.cpp:1740 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationStartsForSudoku<9> >(const exploration::PropagationStartsForSudoku<9> & event) const
@@ -3957,7 +3984,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1723 */
+  /* First instantiated from: main-9.cpp:1744 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationIsDoneForSudoku<9> >(const exploration::PropagationIsDoneForSudoku<9> & event) const
@@ -3968,7 +3995,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1719 */
+  /* First instantiated from: main-9.cpp:1740 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationStartsForCell<9> >(const exploration::PropagationStartsForCell<9> & event) const
@@ -3979,7 +4006,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1723 */
+  /* First instantiated from: main-9.cpp:1744 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationIsDoneForCell<9> >(const exploration::PropagationIsDoneForCell<9> & event) const
@@ -3990,7 +4017,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1872 */
+  /* First instantiated from: main-9.cpp:1893 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsMade<9> >(const exploration::HypothesisIsMade<9> & event) const
@@ -4001,7 +4028,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1874 */
+  /* First instantiated from: main-9.cpp:1895 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsAccepted<9> >(const exploration::HypothesisIsAccepted<9> & event) const
@@ -4012,7 +4039,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1877 */
+  /* First instantiated from: main-9.cpp:1898 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsRejected<9> >(const exploration::HypothesisIsRejected<9> & event) const
@@ -4023,7 +4050,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1719 */
+  /* First instantiated from: main-9.cpp:1740 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::ExplorationStarts<9> >(const exploration::ExplorationStarts<9> & event) const
@@ -4034,7 +4061,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1723 */
+  /* First instantiated from: main-9.cpp:1744 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::ExplorationIsDone<9> >(const exploration::ExplorationIsDone<9> & event) const
@@ -4075,7 +4102,7 @@ struct EventsPairGuard
   EventOut out;
 };
 
-/* First instantiated from: main-9.cpp:1741 */
+/* First instantiated from: main-9.cpp:1762 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<9, __lambda_5, exploration::PropagationStartsForSudoku<9>, exploration::PropagationIsDoneForSudoku<9> >
@@ -4097,7 +4124,7 @@ struct EventsPairGuard<9, __lambda_5, exploration::PropagationStartsForSudoku<9>
 };
 
 #endif
-/* First instantiated from: main-9.cpp:1741 */
+/* First instantiated from: main-9.cpp:1762 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<9, __lambda_6, exploration::PropagationStartsForSudoku<9>, exploration::PropagationIsDoneForSudoku<9> >
@@ -4119,7 +4146,7 @@ struct EventsPairGuard<9, __lambda_6, exploration::PropagationStartsForSudoku<9>
 };
 
 #endif
-/* First instantiated from: main-9.cpp:1753 */
+/* First instantiated from: main-9.cpp:1774 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<9, __lambda_5, exploration::PropagationStartsForCell<9>, exploration::PropagationIsDoneForCell<9> >
@@ -4141,7 +4168,7 @@ struct EventsPairGuard<9, __lambda_5, exploration::PropagationStartsForCell<9>, 
 };
 
 #endif
-/* First instantiated from: main-9.cpp:1753 */
+/* First instantiated from: main-9.cpp:1774 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<9, __lambda_6, exploration::PropagationStartsForCell<9>, exploration::PropagationIsDoneForCell<9> >
@@ -4163,7 +4190,7 @@ struct EventsPairGuard<9, __lambda_6, exploration::PropagationStartsForCell<9>, 
 };
 
 #endif
-/* First instantiated from: main-9.cpp:1865 */
+/* First instantiated from: main-9.cpp:1886 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<9, __lambda_5, exploration::ExplorationStarts<9>, exploration::ExplorationIsDone<9> >
@@ -4185,7 +4212,7 @@ struct EventsPairGuard<9, __lambda_5, exploration::ExplorationStarts<9>, explora
 };
 
 #endif
-/* First instantiated from: main-9.cpp:1865 */
+/* First instantiated from: main-9.cpp:1886 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<9, __lambda_6, exploration::ExplorationStarts<9>, exploration::ExplorationIsDone<9> >
@@ -4210,42 +4237,42 @@ struct EventsPairGuard<9, __lambda_6, exploration::ExplorationStarts<9>, explora
 
 
 
-/* First instantiated from: main-9.cpp:1741 */
+/* First instantiated from: main-9.cpp:1762 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 EventsPairGuard(const EventAdder<9, __lambda_5> & add_event_, const exploration::PropagationStartsForSudoku<9> & in, const exploration::PropagationIsDoneForSudoku<9> & out_) -> EventsPairGuard<9, __lambda_5, exploration::PropagationStartsForSudoku<9>, exploration::PropagationIsDoneForSudoku<9> >;
 #endif
 
 
-/* First instantiated from: main-9.cpp:1753 */
+/* First instantiated from: main-9.cpp:1774 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 EventsPairGuard(const EventAdder<9, __lambda_5> & add_event_, const exploration::PropagationStartsForCell<9> & in, const exploration::PropagationIsDoneForCell<9> & out_) -> EventsPairGuard<9, __lambda_5, exploration::PropagationStartsForCell<9>, exploration::PropagationIsDoneForCell<9> >;
 #endif
 
 
-/* First instantiated from: main-9.cpp:1865 */
+/* First instantiated from: main-9.cpp:1886 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 EventsPairGuard(const EventAdder<9, __lambda_5> & add_event_, const exploration::ExplorationStarts<9> & in, const exploration::ExplorationIsDone<9> & out_) -> EventsPairGuard<9, __lambda_5, exploration::ExplorationStarts<9>, exploration::ExplorationIsDone<9> >;
 #endif
 
 
-/* First instantiated from: main-9.cpp:1741 */
+/* First instantiated from: main-9.cpp:1762 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 EventsPairGuard(const EventAdder<9, __lambda_6> & add_event_, const exploration::PropagationStartsForSudoku<9> & in, const exploration::PropagationIsDoneForSudoku<9> & out_) -> EventsPairGuard<9, __lambda_6, exploration::PropagationStartsForSudoku<9>, exploration::PropagationIsDoneForSudoku<9> >;
 #endif
 
 
-/* First instantiated from: main-9.cpp:1753 */
+/* First instantiated from: main-9.cpp:1774 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 EventsPairGuard(const EventAdder<9, __lambda_6> & add_event_, const exploration::PropagationStartsForCell<9> & in, const exploration::PropagationIsDoneForCell<9> & out_) -> EventsPairGuard<9, __lambda_6, exploration::PropagationStartsForCell<9>, exploration::PropagationIsDoneForCell<9> >;
 #endif
 
 
-/* First instantiated from: main-9.cpp:1865 */
+/* First instantiated from: main-9.cpp:1886 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 EventsPairGuard(const EventAdder<9, __lambda_6> & add_event_, const exploration::ExplorationStarts<9> & in, const exploration::ExplorationIsDone<9> & out_) -> EventsPairGuard<9, __lambda_6, exploration::ExplorationStarts<9>, exploration::ExplorationIsDone<9> >;
@@ -4360,7 +4387,7 @@ bool propagate(const Stack<size> & stack, std::deque<std::pair<unsigned int, uns
 }
 
 
-/* First instantiated from: main-9.cpp:1891 */
+/* First instantiated from: main-9.cpp:1912 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool propagate<9, __lambda_5>(const Stack<9> & stack, std::deque<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > todo, const EventAdder<9, __lambda_5> & add_event)
@@ -4481,7 +4508,7 @@ bool propagate<9, __lambda_5>(const Stack<9> & stack, std::deque<std::pair<unsig
 #endif
 
 
-/* First instantiated from: main-9.cpp:1891 */
+/* First instantiated from: main-9.cpp:1912 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool propagate<9, __lambda_6>(const Stack<9> & stack, std::deque<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > todo, const EventAdder<9, __lambda_6> & add_event)
@@ -4633,7 +4660,7 @@ std::pair<unsigned int, unsigned int> get_most_constrained_cell(const AnnotatedS
 }
 
 
-/* First instantiated from: main-9.cpp:1856 */
+/* First instantiated from: main-9.cpp:1877 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 std::pair<unsigned int, unsigned int> get_most_constrained_cell<9>(const Sudoku<AnnotatedCell<9>, 9> & sudoku)
@@ -4714,7 +4741,7 @@ bool explore(const Stack<size> & stack, const EventAdder<size, AddEvent> & add_e
 }
 
 
-/* First instantiated from: main-9.cpp:1895 */
+/* First instantiated from: main-9.cpp:1916 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool explore<9, __lambda_5>(const Stack<9> & stack, const EventAdder<9, __lambda_5> & add_event)
@@ -4759,7 +4786,7 @@ bool explore<9, __lambda_5>(const Stack<9> & stack, const EventAdder<9, __lambda
 #endif
 
 
-/* First instantiated from: main-9.cpp:1895 */
+/* First instantiated from: main-9.cpp:1916 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool explore<9, __lambda_6>(const Stack<9> & stack, const EventAdder<9, __lambda_6> & add_event)
@@ -4822,7 +4849,7 @@ bool propagate_and_explore(const Stack<size> & stack, const std::deque<std::pair
 }
 
 
-/* First instantiated from: main-9.cpp:1922 */
+/* First instantiated from: main-9.cpp:1943 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool propagate_and_explore<9, __lambda_5>(const Stack<9> & stack, const std::deque<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > & todo, const EventAdder<9, __lambda_5> & add_event)
@@ -4842,7 +4869,7 @@ bool propagate_and_explore<9, __lambda_5>(const Stack<9> & stack, const std::deq
 #endif
 
 
-/* First instantiated from: main-9.cpp:1922 */
+/* First instantiated from: main-9.cpp:1943 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool propagate_and_explore<9, __lambda_6>(const Stack<9> & stack, const std::deque<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > & todo, const EventAdder<9, __lambda_6> & add_event)
@@ -4900,7 +4927,7 @@ Sudoku<ValueCell, size> solve_using_exploration(Sudoku<ValueCell, size> sudoku, 
 }
 
 
-/* First instantiated from: main-9.cpp:2065 */
+/* First instantiated from: main-9.cpp:2086 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 Sudoku<ValueCell, 9> solve_using_exploration<9, __lambda_6>(Sudoku<ValueCell, 9> sudoku, const __lambda_6 & add_event_)
@@ -4944,7 +4971,7 @@ Sudoku<ValueCell, 9> solve_using_exploration<9, __lambda_6>(Sudoku<ValueCell, 9>
 #endif
 
 
-/* First instantiated from: main-9.cpp:1934 */
+/* First instantiated from: main-9.cpp:1955 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 Sudoku<ValueCell, 9> solve_using_exploration<9, __lambda_5>(Sudoku<ValueCell, 9> sudoku, const __lambda_5 & add_event_)
@@ -5015,7 +5042,7 @@ Sudoku<ValueCell, size> solve_using_exploration(Sudoku<ValueCell, size> sudoku)
 }
 
 
-/* First instantiated from: main-9.cpp:1993 */
+/* First instantiated from: main-9.cpp:2014 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 Sudoku<ValueCell, 9> solve_using_exploration<9>(Sudoku<ValueCell, 9> sudoku)
@@ -5362,7 +5389,7 @@ int main_(const Options & options)
 }
 
 
-/* First instantiated from: main-9.cpp:2088 */
+/* First instantiated from: main-9.cpp:2109 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 int main_<9>(const Options & options)

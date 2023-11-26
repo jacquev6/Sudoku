@@ -855,7 +855,7 @@ class SudokuBase
   CellsArray _cells;
 };
 
-/* First instantiated from: events.cpp:515 */
+/* First instantiated from: events.cpp:536 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<4>, 4>
@@ -1020,7 +1020,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
 };
 
 #endif
-/* First instantiated from: events.cpp:515 */
+/* First instantiated from: events.cpp:536 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<9>, 9>
@@ -1203,7 +1203,7 @@ class Sudoku : public SudokuBase<Cell, size>
 {
 };
 
-/* First instantiated from: events.cpp:705 */
+/* First instantiated from: events.cpp:726 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<AnnotatedCell<4>, 4> : public SudokuBase<AnnotatedCell<4>, 4>
@@ -1234,7 +1234,7 @@ class Sudoku<AnnotatedCell<4>, 4> : public SudokuBase<AnnotatedCell<4>, 4>
 };
 
 #endif
-/* First instantiated from: events.cpp:705 */
+/* First instantiated from: events.cpp:726 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<AnnotatedCell<9>, 9> : public SudokuBase<AnnotatedCell<9>, 9>
@@ -1326,6 +1326,7 @@ class AnnotatedCell
   : allowed_values{}
   , set_value{std::optional<unsigned int>()}
   , input{false}
+  , hypothesis{false}
   , propagated{false}
   {
     this->allowed_values.set();
@@ -1340,6 +1341,12 @@ class AnnotatedCell
     return this->input;
   }
   
+  inline bool is_hypothesis() const
+  {
+    this->assert_invariants();
+    return this->hypothesis;
+  }
+  
   inline bool is_set() const
   {
     this->assert_invariants();
@@ -1349,23 +1356,23 @@ class AnnotatedCell
   inline unsigned int get() const
   {
     this->assert_invariants();
-    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "src/exploration/annotations.hpp", 43, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "src/exploration/annotations.hpp", 49, __extension____PRETTY_FUNCTION__));
     return this->set_value.value();
   }
   
   inline bool is_allowed(const unsigned int value) const
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 50, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 56, __extension____PRETTY_FUNCTION__));
     return this->allowed_values.test(value);
   }
   
   inline void set_input(const unsigned int value)
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 57, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 58, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 59, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 63, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 64, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 65, __extension____PRETTY_FUNCTION__));
     this->allowed_values.reset();
     this->allowed_values.set(value);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -1373,12 +1380,25 @@ class AnnotatedCell
     this->assert_invariants();
   }
   
+  inline void set_hypothesis(const unsigned int value)
+  {
+    this->assert_invariants();
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 77, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 78, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 79, __extension____PRETTY_FUNCTION__));
+    this->allowed_values.reset();
+    this->allowed_values.set(value);
+    this->set_value.operator=(std::optional<unsigned int>(value));
+    this->hypothesis = true;
+    this->assert_invariants();
+  }
+  
   inline void set_deduced(const unsigned int value)
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 71, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 72, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 73, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 91, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 92, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 93, __extension____PRETTY_FUNCTION__));
     this->allowed_values.reset();
     this->allowed_values.set(value);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -1388,7 +1408,7 @@ class AnnotatedCell
   inline void set_propagated()
   {
     this->assert_invariants();
-    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "src/exploration/annotations.hpp", 84, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "src/exploration/annotations.hpp", 104, __extension____PRETTY_FUNCTION__));
     this->propagated = true;
     this->assert_invariants();
   }
@@ -1402,8 +1422,8 @@ class AnnotatedCell
   inline void forbid(const unsigned int value)
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 99, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 100, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 119, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 120, __extension____PRETTY_FUNCTION__));
     this->allowed_values.reset(value);
     this->assert_invariants();
   }
@@ -1418,18 +1438,18 @@ class AnnotatedCell
   private: 
   inline void assert_invariants() const
   {
-    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail("allowed_values.any()", "src/exploration/annotations.hpp", 116, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail("allowed_values.any()", "src/exploration/annotations.hpp", 136, __extension____PRETTY_FUNCTION__));
     if(this->input) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "src/exploration/annotations.hpp", 120, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "src/exploration/annotations.hpp", 140, __extension____PRETTY_FUNCTION__));
     } 
     
     if(this->propagated) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "src/exploration/annotations.hpp", 125, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "src/exploration/annotations.hpp", 145, __extension____PRETTY_FUNCTION__));
     } 
     
     if(this->set_value.has_value()) {
-      (static_cast<bool>(this->allowed_values.count() == 1) ? void(0) : __assert_fail("allowed_values.count() == 1", "src/exploration/annotations.hpp", 130, __extension____PRETTY_FUNCTION__));
-      (static_cast<bool>(this->allowed_values.test(this->set_value.value())) ? void(0) : __assert_fail("allowed_values.test(set_value.value())", "src/exploration/annotations.hpp", 131, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->allowed_values.count() == 1) ? void(0) : __assert_fail("allowed_values.count() == 1", "src/exploration/annotations.hpp", 150, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->allowed_values.test(this->set_value.value())) ? void(0) : __assert_fail("allowed_values.test(set_value.value())", "src/exploration/annotations.hpp", 151, __extension____PRETTY_FUNCTION__));
     } 
     
   }
@@ -1439,6 +1459,7 @@ class AnnotatedCell
   std::bitset<size> allowed_values;
   std::optional<unsigned int> set_value;
   bool input;
+  bool hypothesis;
   bool propagated;
 };
 
@@ -1455,6 +1476,8 @@ class AnnotatedCell<4>
   public: 
   inline bool is_input() const;
   
+  inline bool is_hypothesis() const;
+  
   inline bool is_set() const
   {
     this->assert_invariants();
@@ -1464,23 +1487,23 @@ class AnnotatedCell<4>
   inline unsigned int get() const
   {
     this->assert_invariants();
-    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(43), static_cast<const char *>(__extension__"unsigned int AnnotatedCell<4>::get() const [size = 4]")));
+    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(49), static_cast<const char *>(__extension__"unsigned int AnnotatedCell<4>::get() const [size = 4]")));
     return this->set_value.value();
   }
   
   inline bool is_allowed(const unsigned int value) const
   {
     this->assert_invariants();
-    (static_cast<bool>(value < 4U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(50), static_cast<const char *>(__extension__"bool AnnotatedCell<4>::is_allowed(const unsigned int) const [size = 4]")));
+    (static_cast<bool>(value < 4U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(56), static_cast<const char *>(__extension__"bool AnnotatedCell<4>::is_allowed(const unsigned int) const [size = 4]")));
     return this->allowed_values.test(static_cast<unsigned long>(value));
   }
   
   inline void set_input(const unsigned int value)
   {
     static_cast<const AnnotatedCell<4> *>(this)->assert_invariants();
-    (static_cast<bool>(value < 4U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(57), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_input(const unsigned int) [size = 4]")));
-    (static_cast<bool>(static_cast<const AnnotatedCell<4> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(58), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_input(const unsigned int) [size = 4]")));
-    (static_cast<bool>(!static_cast<const AnnotatedCell<4> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(59), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_input(const unsigned int) [size = 4]")));
+    (static_cast<bool>(value < 4U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(63), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_input(const unsigned int) [size = 4]")));
+    (static_cast<bool>(static_cast<const AnnotatedCell<4> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(64), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_input(const unsigned int) [size = 4]")));
+    (static_cast<bool>(!static_cast<const AnnotatedCell<4> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(65), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_input(const unsigned int) [size = 4]")));
     this->allowed_values.reset();
     this->allowed_values.set(static_cast<unsigned long>(value), true);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -1488,12 +1511,25 @@ class AnnotatedCell<4>
     static_cast<const AnnotatedCell<4> *>(this)->assert_invariants();
   }
   
+  inline void set_hypothesis(const unsigned int value)
+  {
+    static_cast<const AnnotatedCell<4> *>(this)->assert_invariants();
+    (static_cast<bool>(value < 4U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(77), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_hypothesis(const unsigned int) [size = 4]")));
+    (static_cast<bool>(static_cast<const AnnotatedCell<4> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(78), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_hypothesis(const unsigned int) [size = 4]")));
+    (static_cast<bool>(!static_cast<const AnnotatedCell<4> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(79), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_hypothesis(const unsigned int) [size = 4]")));
+    this->allowed_values.reset();
+    this->allowed_values.set(static_cast<unsigned long>(value), true);
+    this->set_value.operator=(std::optional<unsigned int>(value));
+    this->hypothesis = true;
+    static_cast<const AnnotatedCell<4> *>(this)->assert_invariants();
+  }
+  
   inline void set_deduced(const unsigned int value)
   {
     static_cast<const AnnotatedCell<4> *>(this)->assert_invariants();
-    (static_cast<bool>(value < 4U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(71), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_deduced(const unsigned int) [size = 4]")));
-    (static_cast<bool>(static_cast<const AnnotatedCell<4> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(72), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_deduced(const unsigned int) [size = 4]")));
-    (static_cast<bool>(!static_cast<const AnnotatedCell<4> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(73), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_deduced(const unsigned int) [size = 4]")));
+    (static_cast<bool>(value < 4U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(91), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_deduced(const unsigned int) [size = 4]")));
+    (static_cast<bool>(static_cast<const AnnotatedCell<4> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(92), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_deduced(const unsigned int) [size = 4]")));
+    (static_cast<bool>(!static_cast<const AnnotatedCell<4> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(93), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_deduced(const unsigned int) [size = 4]")));
     this->allowed_values.reset();
     this->allowed_values.set(static_cast<unsigned long>(value), true);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -1503,7 +1539,7 @@ class AnnotatedCell<4>
   inline void set_propagated()
   {
     static_cast<const AnnotatedCell<4> *>(this)->assert_invariants();
-    (static_cast<bool>(static_cast<const AnnotatedCell<4> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(84), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_propagated() [size = 4]")));
+    (static_cast<bool>(static_cast<const AnnotatedCell<4> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(104), static_cast<const char *>(__extension__"void AnnotatedCell<4>::set_propagated() [size = 4]")));
     this->propagated = true;
     static_cast<const AnnotatedCell<4> *>(this)->assert_invariants();
   }
@@ -1517,8 +1553,8 @@ class AnnotatedCell<4>
   inline void forbid(const unsigned int value)
   {
     static_cast<const AnnotatedCell<4> *>(this)->assert_invariants();
-    (static_cast<bool>(value < 4U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(99), static_cast<const char *>(__extension__"void AnnotatedCell<4>::forbid(const unsigned int) [size = 4]")));
-    (static_cast<bool>(static_cast<const AnnotatedCell<4> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(100), static_cast<const char *>(__extension__"void AnnotatedCell<4>::forbid(const unsigned int) [size = 4]")));
+    (static_cast<bool>(value < 4U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(119), static_cast<const char *>(__extension__"void AnnotatedCell<4>::forbid(const unsigned int) [size = 4]")));
+    (static_cast<bool>(static_cast<const AnnotatedCell<4> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(120), static_cast<const char *>(__extension__"void AnnotatedCell<4>::forbid(const unsigned int) [size = 4]")));
     this->allowed_values.reset(static_cast<unsigned long>(value));
     static_cast<const AnnotatedCell<4> *>(this)->assert_invariants();
   }
@@ -1529,18 +1565,18 @@ class AnnotatedCell<4>
   private: 
   inline void assert_invariants() const
   {
-    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(116), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(136), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
     if(this->input) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(120), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(140), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
     } 
     
     if(this->propagated) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(125), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(145), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
     } 
     
     if(this->set_value.has_value()) {
-      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(130), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
-      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(131), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(150), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(151), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
     } 
     
   }
@@ -1550,6 +1586,7 @@ class AnnotatedCell<4>
   std::bitset<4> allowed_values;
   std::optional<unsigned int> set_value;
   bool input;
+  bool hypothesis;
   bool propagated;
   public: 
   // inline constexpr AnnotatedCell(const AnnotatedCell<4> &) noexcept = default;
@@ -1569,6 +1606,8 @@ class AnnotatedCell<9>
   public: 
   inline bool is_input() const;
   
+  inline bool is_hypothesis() const;
+  
   inline bool is_set() const
   {
     this->assert_invariants();
@@ -1578,23 +1617,23 @@ class AnnotatedCell<9>
   inline unsigned int get() const
   {
     this->assert_invariants();
-    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(43), static_cast<const char *>(__extension__"unsigned int AnnotatedCell<9>::get() const [size = 9]")));
+    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(49), static_cast<const char *>(__extension__"unsigned int AnnotatedCell<9>::get() const [size = 9]")));
     return this->set_value.value();
   }
   
   inline bool is_allowed(const unsigned int value) const
   {
     this->assert_invariants();
-    (static_cast<bool>(value < 9U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(50), static_cast<const char *>(__extension__"bool AnnotatedCell<9>::is_allowed(const unsigned int) const [size = 9]")));
+    (static_cast<bool>(value < 9U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(56), static_cast<const char *>(__extension__"bool AnnotatedCell<9>::is_allowed(const unsigned int) const [size = 9]")));
     return this->allowed_values.test(static_cast<unsigned long>(value));
   }
   
   inline void set_input(const unsigned int value)
   {
     static_cast<const AnnotatedCell<9> *>(this)->assert_invariants();
-    (static_cast<bool>(value < 9U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(57), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_input(const unsigned int) [size = 9]")));
-    (static_cast<bool>(static_cast<const AnnotatedCell<9> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(58), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_input(const unsigned int) [size = 9]")));
-    (static_cast<bool>(!static_cast<const AnnotatedCell<9> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(59), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_input(const unsigned int) [size = 9]")));
+    (static_cast<bool>(value < 9U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(63), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_input(const unsigned int) [size = 9]")));
+    (static_cast<bool>(static_cast<const AnnotatedCell<9> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(64), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_input(const unsigned int) [size = 9]")));
+    (static_cast<bool>(!static_cast<const AnnotatedCell<9> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(65), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_input(const unsigned int) [size = 9]")));
     this->allowed_values.reset();
     this->allowed_values.set(static_cast<unsigned long>(value), true);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -1602,12 +1641,25 @@ class AnnotatedCell<9>
     static_cast<const AnnotatedCell<9> *>(this)->assert_invariants();
   }
   
+  inline void set_hypothesis(const unsigned int value)
+  {
+    static_cast<const AnnotatedCell<9> *>(this)->assert_invariants();
+    (static_cast<bool>(value < 9U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(77), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_hypothesis(const unsigned int) [size = 9]")));
+    (static_cast<bool>(static_cast<const AnnotatedCell<9> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(78), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_hypothesis(const unsigned int) [size = 9]")));
+    (static_cast<bool>(!static_cast<const AnnotatedCell<9> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(79), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_hypothesis(const unsigned int) [size = 9]")));
+    this->allowed_values.reset();
+    this->allowed_values.set(static_cast<unsigned long>(value), true);
+    this->set_value.operator=(std::optional<unsigned int>(value));
+    this->hypothesis = true;
+    static_cast<const AnnotatedCell<9> *>(this)->assert_invariants();
+  }
+  
   inline void set_deduced(const unsigned int value)
   {
     static_cast<const AnnotatedCell<9> *>(this)->assert_invariants();
-    (static_cast<bool>(value < 9U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(71), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_deduced(const unsigned int) [size = 9]")));
-    (static_cast<bool>(static_cast<const AnnotatedCell<9> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(72), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_deduced(const unsigned int) [size = 9]")));
-    (static_cast<bool>(!static_cast<const AnnotatedCell<9> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(73), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_deduced(const unsigned int) [size = 9]")));
+    (static_cast<bool>(value < 9U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(91), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_deduced(const unsigned int) [size = 9]")));
+    (static_cast<bool>(static_cast<const AnnotatedCell<9> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(92), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_deduced(const unsigned int) [size = 9]")));
+    (static_cast<bool>(!static_cast<const AnnotatedCell<9> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("!is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(93), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_deduced(const unsigned int) [size = 9]")));
     this->allowed_values.reset();
     this->allowed_values.set(static_cast<unsigned long>(value), true);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -1617,7 +1669,7 @@ class AnnotatedCell<9>
   inline void set_propagated()
   {
     static_cast<const AnnotatedCell<9> *>(this)->assert_invariants();
-    (static_cast<bool>(static_cast<const AnnotatedCell<9> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(84), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_propagated() [size = 9]")));
+    (static_cast<bool>(static_cast<const AnnotatedCell<9> *>(this)->is_set()) ? void(0) : __assert_fail(static_cast<const char *>("is_set()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(104), static_cast<const char *>(__extension__"void AnnotatedCell<9>::set_propagated() [size = 9]")));
     this->propagated = true;
     static_cast<const AnnotatedCell<9> *>(this)->assert_invariants();
   }
@@ -1631,8 +1683,8 @@ class AnnotatedCell<9>
   inline void forbid(const unsigned int value)
   {
     static_cast<const AnnotatedCell<9> *>(this)->assert_invariants();
-    (static_cast<bool>(value < 9U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(99), static_cast<const char *>(__extension__"void AnnotatedCell<9>::forbid(const unsigned int) [size = 9]")));
-    (static_cast<bool>(static_cast<const AnnotatedCell<9> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(100), static_cast<const char *>(__extension__"void AnnotatedCell<9>::forbid(const unsigned int) [size = 9]")));
+    (static_cast<bool>(value < 9U) ? void(0) : __assert_fail(static_cast<const char *>("value < size"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(119), static_cast<const char *>(__extension__"void AnnotatedCell<9>::forbid(const unsigned int) [size = 9]")));
+    (static_cast<bool>(static_cast<const AnnotatedCell<9> *>(this)->is_allowed(value)) ? void(0) : __assert_fail(static_cast<const char *>("is_allowed(value)"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(120), static_cast<const char *>(__extension__"void AnnotatedCell<9>::forbid(const unsigned int) [size = 9]")));
     this->allowed_values.reset(static_cast<unsigned long>(value));
     static_cast<const AnnotatedCell<9> *>(this)->assert_invariants();
   }
@@ -1643,18 +1695,18 @@ class AnnotatedCell<9>
   private: 
   inline void assert_invariants() const
   {
-    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(116), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(136), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     if(this->input) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(120), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(140), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     } 
     
     if(this->propagated) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(125), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(145), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     } 
     
     if(this->set_value.has_value()) {
-      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(130), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
-      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(131), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(150), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(151), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     } 
     
   }
@@ -1664,6 +1716,7 @@ class AnnotatedCell<9>
   std::bitset<9> allowed_values;
   std::optional<unsigned int> set_value;
   bool input;
+  bool hypothesis;
   bool propagated;
   public: 
   // inline constexpr AnnotatedCell(const AnnotatedCell<9> &) noexcept = default;
@@ -1715,13 +1768,13 @@ class Stack
   public: 
   inline const AnnotatedSudoku<size> & current() const
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 166, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 187, __extension____PRETTY_FUNCTION__));
     return this->stack.back();
   }
   
   inline AnnotatedSudoku<size> & current()
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 171, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 192, __extension____PRETTY_FUNCTION__));
     return this->stack.back();
   }
   
@@ -1770,7 +1823,7 @@ class Stack
   
   inline void pop()
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 199, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 220, __extension____PRETTY_FUNCTION__));
     this->stack.pop_back();
   }
   
@@ -1779,7 +1832,7 @@ class Stack
   std::vector<AnnotatedSudoku<size> > stack;
 };
 
-/* First instantiated from: events.cpp:705 */
+/* First instantiated from: events.cpp:726 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<4>
@@ -1794,7 +1847,7 @@ class Stack<4>
   
   inline Sudoku<AnnotatedCell<4>, 4> & current()
   {
-    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(171), static_cast<const char *>(__extension__"AnnotatedSudoku<size> &Stack<4>::current() [size = 4]")));
+    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(192), static_cast<const char *>(__extension__"AnnotatedSudoku<size> &Stack<4>::current() [size = 4]")));
     return this->stack.back();
   }
   
@@ -1814,7 +1867,7 @@ class Stack<4>
   
   inline void pop()
   {
-    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(199), static_cast<const char *>(__extension__"void Stack<4>::pop() [size = 4]")));
+    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(220), static_cast<const char *>(__extension__"void Stack<4>::pop() [size = 4]")));
     this->stack.pop_back();
   }
   
@@ -1825,7 +1878,7 @@ class Stack<4>
 };
 
 #endif
-/* First instantiated from: events.cpp:705 */
+/* First instantiated from: events.cpp:726 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<9>
@@ -1840,7 +1893,7 @@ class Stack<9>
   
   inline Sudoku<AnnotatedCell<9>, 9> & current()
   {
-    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(171), static_cast<const char *>(__extension__"AnnotatedSudoku<size> &Stack<9>::current() [size = 9]")));
+    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(192), static_cast<const char *>(__extension__"AnnotatedSudoku<size> &Stack<9>::current() [size = 9]")));
     return this->stack.back();
   }
   
@@ -1860,7 +1913,7 @@ class Stack<9>
   
   inline void pop()
   {
-    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(199), static_cast<const char *>(__extension__"void Stack<9>::pop() [size = 9]")));
+    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(220), static_cast<const char *>(__extension__"void Stack<9>::pop() [size = 9]")));
     this->stack.pop_back();
   }
   
@@ -2081,7 +2134,7 @@ namespace exploration
     (static_cast<bool>(stack->current().cell(this->cell).is_allowed(this->value)) ? void(0) : __assert_fail("stack->current().cell(cell).is_allowed(value)", "src/exploration/events.cpp", 70, __extension____PRETTY_FUNCTION__));
     (static_cast<bool>(!stack->current().cell(this->cell).is_propagated()) ? void(0) : __assert_fail("!stack->current().cell(cell).is_propagated()", "src/exploration/events.cpp", 71, __extension____PRETTY_FUNCTION__));
     stack->push();
-    stack->current().cell(this->cell).set_deduced(this->value);
+    stack->current().cell(this->cell).set_hypothesis(this->value);
   }
   
   void HypothesisIsRejected::apply(Stack<size> * stack) const
@@ -2363,7 +2416,7 @@ namespace exploration
       (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_allowed(this->value)) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).is_allowed(value)"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(70), static_cast<const char *>(__extension__"void exploration::HypothesisIsMade<4>::apply(Stack<size> *) const [size = 4]")));
       (static_cast<bool>(!static_cast<const AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(71), static_cast<const char *>(__extension__"void exploration::HypothesisIsMade<4>::apply(Stack<size> *) const [size = 4]")));
       stack->push();
-      static_cast<AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).set_deduced(this->value);
+      static_cast<AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(stack->current()).cell(this->cell)).set_hypothesis(this->value);
     }
     
     std::pair<unsigned int, unsigned int> cell;
@@ -2379,7 +2432,7 @@ namespace exploration
       (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_allowed(this->value)) ? void(0) : __assert_fail(static_cast<const char *>("stack->current().cell(cell).is_allowed(value)"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(70), static_cast<const char *>(__extension__"void exploration::HypothesisIsMade<9>::apply(Stack<size> *) const [size = 9]")));
       (static_cast<bool>(!static_cast<const AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).is_propagated()) ? void(0) : __assert_fail(static_cast<const char *>("!stack->current().cell(cell).is_propagated()"), static_cast<const char *>("src/exploration/events.cpp"), static_cast<unsigned int>(71), static_cast<const char *>(__extension__"void exploration::HypothesisIsMade<9>::apply(Stack<size> *) const [size = 9]")));
       stack->push();
-      static_cast<AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).set_deduced(this->value);
+      static_cast<AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(stack->current()).cell(this->cell)).set_hypothesis(this->value);
     }
     
     std::pair<unsigned int, unsigned int> cell;

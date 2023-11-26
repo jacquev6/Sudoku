@@ -502,7 +502,7 @@ class SudokuBase
   CellsArray _cells;
 };
 
-/* First instantiated from: video-explainer.cpp:530 */
+/* First instantiated from: video-explainer.cpp:551 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<4>, 4>
@@ -621,7 +621,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
 };
 
 #endif
-/* First instantiated from: video-explainer.cpp:530 */
+/* First instantiated from: video-explainer.cpp:551 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<9>, 9>
@@ -849,6 +849,7 @@ class AnnotatedCell
   : allowed_values{}
   , set_value{std::optional<unsigned int>()}
   , input{false}
+  , hypothesis{false}
   , propagated{false}
   {
     this->allowed_values.set();
@@ -863,6 +864,12 @@ class AnnotatedCell
     return this->input;
   }
   
+  inline bool is_hypothesis() const
+  {
+    this->assert_invariants();
+    return this->hypothesis;
+  }
+  
   inline bool is_set() const
   {
     this->assert_invariants();
@@ -872,23 +879,23 @@ class AnnotatedCell
   inline unsigned int get() const
   {
     this->assert_invariants();
-    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "src/exploration/annotations.hpp", 43, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "src/exploration/annotations.hpp", 49, __extension____PRETTY_FUNCTION__));
     return this->set_value.value();
   }
   
   inline bool is_allowed(const unsigned int value) const
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 50, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 56, __extension____PRETTY_FUNCTION__));
     return this->allowed_values.test(value);
   }
   
   inline void set_input(const unsigned int value)
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 57, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 58, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 59, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 63, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 64, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 65, __extension____PRETTY_FUNCTION__));
     this->allowed_values.reset();
     this->allowed_values.set(value);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -896,12 +903,25 @@ class AnnotatedCell
     this->assert_invariants();
   }
   
+  inline void set_hypothesis(const unsigned int value)
+  {
+    this->assert_invariants();
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 77, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 78, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 79, __extension____PRETTY_FUNCTION__));
+    this->allowed_values.reset();
+    this->allowed_values.set(value);
+    this->set_value.operator=(std::optional<unsigned int>(value));
+    this->hypothesis = true;
+    this->assert_invariants();
+  }
+  
   inline void set_deduced(const unsigned int value)
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 71, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 72, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 73, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 91, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 92, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->is_set()) ? void(0) : __assert_fail("!is_set()", "src/exploration/annotations.hpp", 93, __extension____PRETTY_FUNCTION__));
     this->allowed_values.reset();
     this->allowed_values.set(value);
     this->set_value.operator=(std::optional<unsigned int>(value));
@@ -911,7 +931,7 @@ class AnnotatedCell
   inline void set_propagated()
   {
     this->assert_invariants();
-    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "src/exploration/annotations.hpp", 84, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_set()) ? void(0) : __assert_fail("is_set()", "src/exploration/annotations.hpp", 104, __extension____PRETTY_FUNCTION__));
     this->propagated = true;
     this->assert_invariants();
   }
@@ -925,8 +945,8 @@ class AnnotatedCell
   inline void forbid(const unsigned int value)
   {
     this->assert_invariants();
-    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 99, __extension____PRETTY_FUNCTION__));
-    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 100, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(value < size) ? void(0) : __assert_fail("value < size", "src/exploration/annotations.hpp", 119, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->is_allowed(value)) ? void(0) : __assert_fail("is_allowed(value)", "src/exploration/annotations.hpp", 120, __extension____PRETTY_FUNCTION__));
     this->allowed_values.reset(value);
     this->assert_invariants();
   }
@@ -941,18 +961,18 @@ class AnnotatedCell
   private: 
   inline void assert_invariants() const
   {
-    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail("allowed_values.any()", "src/exploration/annotations.hpp", 116, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail("allowed_values.any()", "src/exploration/annotations.hpp", 136, __extension____PRETTY_FUNCTION__));
     if(this->input) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "src/exploration/annotations.hpp", 120, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "src/exploration/annotations.hpp", 140, __extension____PRETTY_FUNCTION__));
     } 
     
     if(this->propagated) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "src/exploration/annotations.hpp", 125, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail("set_value.has_value()", "src/exploration/annotations.hpp", 145, __extension____PRETTY_FUNCTION__));
     } 
     
     if(this->set_value.has_value()) {
-      (static_cast<bool>(this->allowed_values.count() == 1) ? void(0) : __assert_fail("allowed_values.count() == 1", "src/exploration/annotations.hpp", 130, __extension____PRETTY_FUNCTION__));
-      (static_cast<bool>(this->allowed_values.test(this->set_value.value())) ? void(0) : __assert_fail("allowed_values.test(set_value.value())", "src/exploration/annotations.hpp", 131, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->allowed_values.count() == 1) ? void(0) : __assert_fail("allowed_values.count() == 1", "src/exploration/annotations.hpp", 150, __extension____PRETTY_FUNCTION__));
+      (static_cast<bool>(this->allowed_values.test(this->set_value.value())) ? void(0) : __assert_fail("allowed_values.test(set_value.value())", "src/exploration/annotations.hpp", 151, __extension____PRETTY_FUNCTION__));
     } 
     
   }
@@ -962,6 +982,7 @@ class AnnotatedCell
   std::bitset<size> allowed_values;
   std::optional<unsigned int> set_value;
   bool input;
+  bool hypothesis;
   bool propagated;
 };
 
@@ -976,6 +997,7 @@ class AnnotatedCell<4>
   : allowed_values{std::bitset<4>()}
   , set_value{std::optional<unsigned int>()}
   , input{false}
+  , hypothesis{false}
   , propagated{false}
   {
     this->allowed_values.set();
@@ -986,6 +1008,8 @@ class AnnotatedCell<4>
   public: 
   inline bool is_input() const;
   
+  inline bool is_hypothesis() const;
+  
   inline bool is_set() const;
   
   inline unsigned int get() const;
@@ -993,6 +1017,8 @@ class AnnotatedCell<4>
   inline bool is_allowed(const unsigned int value) const;
   
   inline void set_input(const unsigned int value);
+  
+  inline void set_hypothesis(const unsigned int value);
   
   inline void set_deduced(const unsigned int value);
   
@@ -1008,18 +1034,18 @@ class AnnotatedCell<4>
   private: 
   inline void assert_invariants() const
   {
-    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(116), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(136), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
     if(this->input) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(120), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(140), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
     } 
     
     if(this->propagated) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(125), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(145), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
     } 
     
     if(this->set_value.has_value()) {
-      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(130), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
-      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(131), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(150), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
+      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(151), static_cast<const char *>(__extension__"void AnnotatedCell<4>::assert_invariants() const [size = 4]")));
     } 
     
   }
@@ -1029,6 +1055,7 @@ class AnnotatedCell<4>
   std::bitset<4> allowed_values;
   std::optional<unsigned int> set_value;
   bool input;
+  bool hypothesis;
   bool propagated;
   public: 
 };
@@ -1045,6 +1072,7 @@ class AnnotatedCell<9>
   : allowed_values{std::bitset<9>()}
   , set_value{std::optional<unsigned int>()}
   , input{false}
+  , hypothesis{false}
   , propagated{false}
   {
     this->allowed_values.set();
@@ -1055,6 +1083,8 @@ class AnnotatedCell<9>
   public: 
   inline bool is_input() const;
   
+  inline bool is_hypothesis() const;
+  
   inline bool is_set() const;
   
   inline unsigned int get() const;
@@ -1062,6 +1092,8 @@ class AnnotatedCell<9>
   inline bool is_allowed(const unsigned int value) const;
   
   inline void set_input(const unsigned int value);
+  
+  inline void set_hypothesis(const unsigned int value);
   
   inline void set_deduced(const unsigned int value);
   
@@ -1077,18 +1109,18 @@ class AnnotatedCell<9>
   private: 
   inline void assert_invariants() const
   {
-    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(116), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+    (static_cast<bool>(this->allowed_values.any()) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.any()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(136), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     if(this->input) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(120), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(140), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     } 
     
     if(this->propagated) {
-      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(125), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->set_value.has_value()) ? void(0) : __assert_fail(static_cast<const char *>("set_value.has_value()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(145), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     } 
     
     if(this->set_value.has_value()) {
-      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(130), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
-      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(131), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->allowed_values.count() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.count() == 1"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(150), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
+      (static_cast<bool>(this->allowed_values.test(static_cast<unsigned long>(this->set_value.value()))) ? void(0) : __assert_fail(static_cast<const char *>("allowed_values.test(set_value.value())"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(151), static_cast<const char *>(__extension__"void AnnotatedCell<9>::assert_invariants() const [size = 9]")));
     } 
     
   }
@@ -1098,6 +1130,7 @@ class AnnotatedCell<9>
   std::bitset<9> allowed_values;
   std::optional<unsigned int> set_value;
   bool input;
+  bool hypothesis;
   bool propagated;
   public: 
 };
@@ -1148,13 +1181,13 @@ class Stack
   public: 
   inline const AnnotatedSudoku<size> & current() const
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 166, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 187, __extension____PRETTY_FUNCTION__));
     return this->stack.back();
   }
   
   inline AnnotatedSudoku<size> & current()
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 171, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 192, __extension____PRETTY_FUNCTION__));
     return this->stack.back();
   }
   
@@ -1203,7 +1236,7 @@ class Stack
   
   inline void pop()
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 199, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 220, __extension____PRETTY_FUNCTION__));
     this->stack.pop_back();
   }
   
@@ -1212,7 +1245,7 @@ class Stack
   std::vector<AnnotatedSudoku<size> > stack;
 };
 
-/* First instantiated from: video-explainer.cpp:1040 */
+/* First instantiated from: video-explainer.cpp:1061 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<4>
@@ -1228,7 +1261,7 @@ class Stack<4>
   public: 
   inline const Sudoku<AnnotatedCell<4>, 4> & current() const
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(166), static_cast<const char *>(__extension__"const AnnotatedSudoku<size> &Stack<4>::current() const [size = 4]")));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(187), static_cast<const char *>(__extension__"const AnnotatedSudoku<size> &Stack<4>::current() const [size = 4]")));
     return this->stack.back();
   }
   
@@ -1255,7 +1288,7 @@ class Stack<4>
 };
 
 #endif
-/* First instantiated from: video-explainer.cpp:1040 */
+/* First instantiated from: video-explainer.cpp:1061 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<9>
@@ -1271,7 +1304,7 @@ class Stack<9>
   public: 
   inline const Sudoku<AnnotatedCell<9>, 9> & current() const
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(166), static_cast<const char *>(__extension__"const AnnotatedSudoku<size> &Stack<9>::current() const [size = 9]")));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(187), static_cast<const char *>(__extension__"const AnnotatedSudoku<size> &Stack<9>::current() const [size = 9]")));
     return this->stack.back();
   }
   
@@ -1315,7 +1348,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: video-explainer.cpp:1136 */
+  /* First instantiated from: video-explainer.cpp:1157 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<4>
@@ -1329,7 +1362,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1136 */
+  /* First instantiated from: video-explainer.cpp:1157 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<9>
@@ -1350,7 +1383,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: video-explainer.cpp:1141 */
+  /* First instantiated from: video-explainer.cpp:1162 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct InputsAreDone<4>
@@ -1362,7 +1395,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1141 */
+  /* First instantiated from: video-explainer.cpp:1162 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct InputsAreDone<9>
@@ -1381,7 +1414,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: video-explainer.cpp:1207 */
+  /* First instantiated from: video-explainer.cpp:1228 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForSudoku<4>
@@ -1393,7 +1426,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1207 */
+  /* First instantiated from: video-explainer.cpp:1228 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForSudoku<9>
@@ -1414,7 +1447,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: video-explainer.cpp:1214 */
+  /* First instantiated from: video-explainer.cpp:1235 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForCell<4>
@@ -1428,7 +1461,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1214 */
+  /* First instantiated from: video-explainer.cpp:1235 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForCell<9>
@@ -1568,7 +1601,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: video-explainer.cpp:1340 */
+  /* First instantiated from: video-explainer.cpp:1361 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForCell<4>
@@ -1582,7 +1615,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1340 */
+  /* First instantiated from: video-explainer.cpp:1361 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForCell<9>
@@ -1603,7 +1636,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: video-explainer.cpp:1558 */
+  /* First instantiated from: video-explainer.cpp:1579 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForSudoku<4>
@@ -1615,7 +1648,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1558 */
+  /* First instantiated from: video-explainer.cpp:1579 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForSudoku<9>
@@ -1636,7 +1669,7 @@ namespace exploration
     std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
   };
   
-  /* First instantiated from: video-explainer.cpp:1565 */
+  /* First instantiated from: video-explainer.cpp:1586 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<4>
@@ -1651,7 +1684,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1565 */
+  /* First instantiated from: video-explainer.cpp:1586 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<9>
@@ -1675,7 +1708,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: video-explainer.cpp:1572 */
+  /* First instantiated from: video-explainer.cpp:1593 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<4>
@@ -1689,7 +1722,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1572 */
+  /* First instantiated from: video-explainer.cpp:1593 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<9>
@@ -1712,7 +1745,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: video-explainer.cpp:1579 */
+  /* First instantiated from: video-explainer.cpp:1600 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<4>
@@ -1726,7 +1759,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1579 */
+  /* First instantiated from: video-explainer.cpp:1600 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<9>
@@ -1747,7 +1780,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: video-explainer.cpp:1586 */
+  /* First instantiated from: video-explainer.cpp:1607 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct SudokuIsSolved<4>
@@ -1759,7 +1792,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1586 */
+  /* First instantiated from: video-explainer.cpp:1607 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct SudokuIsSolved<9>
@@ -1780,7 +1813,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: video-explainer.cpp:1607 */
+  /* First instantiated from: video-explainer.cpp:1628 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsAccepted<4>
@@ -1794,7 +1827,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1607 */
+  /* First instantiated from: video-explainer.cpp:1628 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsAccepted<9>
@@ -1816,7 +1849,7 @@ namespace exploration
     std::pair<unsigned int, unsigned int> cell;
   };
   
-  /* First instantiated from: video-explainer.cpp:1614 */
+  /* First instantiated from: video-explainer.cpp:1635 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationIsDone<4>
@@ -1829,7 +1862,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1614 */
+  /* First instantiated from: video-explainer.cpp:1635 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationIsDone<9>
@@ -2325,14 +2358,14 @@ namespace art
   template<unsigned int size>
   void draw(std::shared_ptr<Cairo::Context>, const AnnotatedSudoku<size> &, const DrawOptions &);
   
-  /* First instantiated from: video-explainer.cpp:1153 */
+  /* First instantiated from: video-explainer.cpp:1174 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   void draw<4>(std::shared_ptr<Cairo::Context>, const Sudoku<AnnotatedCell<4>, 4> &, const DrawOptions &);
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1153 */
+  /* First instantiated from: video-explainer.cpp:1174 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   void draw<9>(std::shared_ptr<Cairo::Context>, const Sudoku<AnnotatedCell<9>, 9> &, const DrawOptions &);
@@ -2870,7 +2903,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   private: 
   template<typename Event>
   class VisitEventsGuard;
-  /* First instantiated from: video-explainer.cpp:1136 */
+  /* First instantiated from: video-explainer.cpp:1157 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::CellIsSetInInput<4> >
@@ -2918,7 +2951,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1141 */
+  /* First instantiated from: video-explainer.cpp:1162 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::InputsAreDone<4> >
@@ -2966,7 +2999,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1207 */
+  /* First instantiated from: video-explainer.cpp:1228 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::PropagationStartsForSudoku<4> >
@@ -3014,7 +3047,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1214 */
+  /* First instantiated from: video-explainer.cpp:1235 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::PropagationStartsForCell<4> >
@@ -3062,7 +3095,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1247 */
+  /* First instantiated from: video-explainer.cpp:1268 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::CellPropagates<4> >
@@ -3127,7 +3160,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1340 */
+  /* First instantiated from: video-explainer.cpp:1361 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::PropagationIsDoneForCell<4> >
@@ -3175,7 +3208,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1438 */
+  /* First instantiated from: video-explainer.cpp:1459 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<4> >
@@ -3232,7 +3265,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1500 */
+  /* First instantiated from: video-explainer.cpp:1521 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> >
@@ -3289,7 +3322,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1558 */
+  /* First instantiated from: video-explainer.cpp:1579 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::PropagationIsDoneForSudoku<4> >
@@ -3337,7 +3370,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1565 */
+  /* First instantiated from: video-explainer.cpp:1586 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::ExplorationStarts<4> >
@@ -3385,7 +3418,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1572 */
+  /* First instantiated from: video-explainer.cpp:1593 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::HypothesisIsMade<4> >
@@ -3433,7 +3466,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1579 */
+  /* First instantiated from: video-explainer.cpp:1600 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::HypothesisIsRejected<4> >
@@ -3481,7 +3514,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1586 */
+  /* First instantiated from: video-explainer.cpp:1607 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::SudokuIsSolved<4> >
@@ -3529,7 +3562,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1607 */
+  /* First instantiated from: video-explainer.cpp:1628 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::HypothesisIsAccepted<4> >
@@ -3577,7 +3610,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1614 */
+  /* First instantiated from: video-explainer.cpp:1635 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::ExplorationIsDone<4> >
@@ -3630,91 +3663,91 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   template<typename Event>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const Event &) -> VisitEventsGuard<Event>;
   
-  /* First instantiated from: video-explainer.cpp:1136 */
+  /* First instantiated from: video-explainer.cpp:1157 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::CellIsSetInInput<4> &) -> VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1141 */
+  /* First instantiated from: video-explainer.cpp:1162 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::InputsAreDone<4> &) -> VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1207 */
+  /* First instantiated from: video-explainer.cpp:1228 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::PropagationStartsForSudoku<4> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1214 */
+  /* First instantiated from: video-explainer.cpp:1235 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::PropagationStartsForCell<4> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1247 */
+  /* First instantiated from: video-explainer.cpp:1268 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::CellPropagates<4> &) -> VideoExplainer::VisitEventsGuard<exploration::CellPropagates<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1340 */
+  /* First instantiated from: video-explainer.cpp:1361 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::PropagationIsDoneForCell<4> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1558 */
+  /* First instantiated from: video-explainer.cpp:1579 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::PropagationIsDoneForSudoku<4> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1565 */
+  /* First instantiated from: video-explainer.cpp:1586 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::ExplorationStarts<4> &) -> VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1572 */
+  /* First instantiated from: video-explainer.cpp:1593 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::HypothesisIsMade<4> &) -> VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1579 */
+  /* First instantiated from: video-explainer.cpp:1600 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::HypothesisIsRejected<4> &) -> VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1586 */
+  /* First instantiated from: video-explainer.cpp:1607 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::SudokuIsSolved<4> &) -> VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1607 */
+  /* First instantiated from: video-explainer.cpp:1628 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::HypothesisIsAccepted<4> &) -> VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1614 */
+  /* First instantiated from: video-explainer.cpp:1635 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::ExplorationIsDone<4> &) -> VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<4> >;
@@ -3741,21 +3774,21 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   template<typename Event>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const std::vector<Event> &) -> VisitEventsGuard<Event>;
   
-  /* First instantiated from: video-explainer.cpp:1353 */
+  /* First instantiated from: video-explainer.cpp:1374 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > &) -> VideoExplainer::VisitEventsGuard<exploration::CellPropagates<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1438 */
+  /* First instantiated from: video-explainer.cpp:1459 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > &) -> VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1500 */
+  /* First instantiated from: video-explainer.cpp:1521 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > &) -> VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> >;
@@ -4412,7 +4445,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   private: 
   template<typename Event>
   class VisitEventsGuard;
-  /* First instantiated from: video-explainer.cpp:1136 */
+  /* First instantiated from: video-explainer.cpp:1157 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::CellIsSetInInput<9> >
@@ -4460,7 +4493,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1141 */
+  /* First instantiated from: video-explainer.cpp:1162 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::InputsAreDone<9> >
@@ -4508,7 +4541,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1207 */
+  /* First instantiated from: video-explainer.cpp:1228 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::PropagationStartsForSudoku<9> >
@@ -4556,7 +4589,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1214 */
+  /* First instantiated from: video-explainer.cpp:1235 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::PropagationStartsForCell<9> >
@@ -4604,7 +4637,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1247 */
+  /* First instantiated from: video-explainer.cpp:1268 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::CellPropagates<9> >
@@ -4669,7 +4702,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1340 */
+  /* First instantiated from: video-explainer.cpp:1361 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::PropagationIsDoneForCell<9> >
@@ -4717,7 +4750,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1438 */
+  /* First instantiated from: video-explainer.cpp:1459 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<9> >
@@ -4774,7 +4807,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1500 */
+  /* First instantiated from: video-explainer.cpp:1521 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> >
@@ -4831,7 +4864,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1558 */
+  /* First instantiated from: video-explainer.cpp:1579 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::PropagationIsDoneForSudoku<9> >
@@ -4879,7 +4912,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1565 */
+  /* First instantiated from: video-explainer.cpp:1586 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::ExplorationStarts<9> >
@@ -4927,7 +4960,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1572 */
+  /* First instantiated from: video-explainer.cpp:1593 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::HypothesisIsMade<9> >
@@ -4975,7 +5008,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1579 */
+  /* First instantiated from: video-explainer.cpp:1600 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::HypothesisIsRejected<9> >
@@ -5023,7 +5056,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1586 */
+  /* First instantiated from: video-explainer.cpp:1607 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::SudokuIsSolved<9> >
@@ -5071,7 +5104,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1607 */
+  /* First instantiated from: video-explainer.cpp:1628 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::HypothesisIsAccepted<9> >
@@ -5119,7 +5152,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1614 */
+  /* First instantiated from: video-explainer.cpp:1635 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::ExplorationIsDone<9> >
@@ -5172,91 +5205,91 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   template<typename Event>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const Event &) -> VisitEventsGuard<Event>;
   
-  /* First instantiated from: video-explainer.cpp:1136 */
+  /* First instantiated from: video-explainer.cpp:1157 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::CellIsSetInInput<9> &) -> VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1141 */
+  /* First instantiated from: video-explainer.cpp:1162 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::InputsAreDone<9> &) -> VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1207 */
+  /* First instantiated from: video-explainer.cpp:1228 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::PropagationStartsForSudoku<9> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1214 */
+  /* First instantiated from: video-explainer.cpp:1235 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::PropagationStartsForCell<9> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1247 */
+  /* First instantiated from: video-explainer.cpp:1268 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::CellPropagates<9> &) -> VideoExplainer::VisitEventsGuard<exploration::CellPropagates<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1340 */
+  /* First instantiated from: video-explainer.cpp:1361 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::PropagationIsDoneForCell<9> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1558 */
+  /* First instantiated from: video-explainer.cpp:1579 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::PropagationIsDoneForSudoku<9> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1565 */
+  /* First instantiated from: video-explainer.cpp:1586 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::ExplorationStarts<9> &) -> VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1572 */
+  /* First instantiated from: video-explainer.cpp:1593 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::HypothesisIsMade<9> &) -> VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1579 */
+  /* First instantiated from: video-explainer.cpp:1600 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::HypothesisIsRejected<9> &) -> VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1586 */
+  /* First instantiated from: video-explainer.cpp:1607 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::SudokuIsSolved<9> &) -> VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1607 */
+  /* First instantiated from: video-explainer.cpp:1628 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::HypothesisIsAccepted<9> &) -> VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1614 */
+  /* First instantiated from: video-explainer.cpp:1635 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::ExplorationIsDone<9> &) -> VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<9> >;
@@ -5283,21 +5316,21 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   template<typename Event>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const std::vector<Event> &) -> VisitEventsGuard<Event>;
   
-  /* First instantiated from: video-explainer.cpp:1353 */
+  /* First instantiated from: video-explainer.cpp:1374 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > &) -> VideoExplainer::VisitEventsGuard<exploration::CellPropagates<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1438 */
+  /* First instantiated from: video-explainer.cpp:1459 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > &) -> VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1500 */
+  /* First instantiated from: video-explainer.cpp:1521 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > &) -> VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> >;

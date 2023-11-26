@@ -64,6 +64,13 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku<size>& sudoku,
         cr->rectangle(x - cell_size / 2, y - cell_size / 2, cell_size, cell_size);
         cr->set_source_rgb(0.85, 0.85, 0.85);
         cr->fill();
+      } else if (cell.is_hypothesis()) {
+        Cairo::SaveGuard saver(cr);
+
+        const auto [x, y] = cell_center(cell.coordinates());
+        cr->rectangle(x - cell_size / 2, y - cell_size / 2, cell_size, cell_size);
+        cr->set_source_rgb(0.85, 0.85, 1);
+        cr->fill();
       }
 
       Cairo::TextExtents extents;

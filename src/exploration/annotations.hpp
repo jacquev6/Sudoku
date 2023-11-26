@@ -21,6 +21,7 @@ class AnnotatedCell {
     allowed_values(),
     set_value(),
     input(false),
+    hypothesis(false),
     propagated(false)
   {  // NOLINT(whitespace/braces)
     allowed_values.set();
@@ -31,6 +32,11 @@ class AnnotatedCell {
   bool is_input() const {
     assert_invariants();
     return input;
+  }
+
+  bool is_hypothesis() const {
+    assert_invariants();
+    return hypothesis;
   }
 
   bool is_set() const {
@@ -62,6 +68,20 @@ class AnnotatedCell {
     allowed_values.set(value);
     set_value = value;
     input = true;
+
+    assert_invariants();
+  }
+
+  void set_hypothesis(const unsigned value) {
+    assert_invariants();
+    assert(value < size);
+    assert(is_allowed(value));
+    assert(!is_set());
+
+    allowed_values.reset();
+    allowed_values.set(value);
+    set_value = value;
+    hypothesis = true;
 
     assert_invariants();
   }
@@ -136,6 +156,7 @@ class AnnotatedCell {
   std::bitset<size> allowed_values;
   std::optional<unsigned> set_value;
   bool input;
+  bool hypothesis;
   bool propagated;
 };
 

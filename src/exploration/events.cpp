@@ -71,7 +71,7 @@ void HypothesisIsMade<size>::apply(Stack<size>* stack) const {
   assert(!stack->current().cell(cell).is_propagated());
 
   stack->push();
-  stack->current().cell(cell).set_deduced(value);
+  stack->current().cell(cell).set_hypothesis(value);
 }
 
 template<unsigned size>
