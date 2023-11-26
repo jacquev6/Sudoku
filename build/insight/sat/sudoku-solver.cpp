@@ -1360,11 +1360,11 @@ Sudoku<ValueCell, size> solve_using_sat(Sudoku<ValueCell, size> sudoku)
           {
             auto && __range1 = region;
             for(; ; ) {
-              const auto cell1;
+              const auto & cell1;
               {
                 auto && __range3 = region;
                 for(; ; ) {
-                  const auto cell2;
+                  const auto & cell2;
                   if(cell1 < cell2) {
                     addClause(~Minisat::mkLit(has_value[cell1.first][cell1.second][val]), ~Minisat::mkLit(has_value[cell2.first][cell2.second][val]));
                   } 
@@ -1521,13 +1521,13 @@ Sudoku<ValueCell, 4> solve_using_sat<4>(Sudoku<ValueCell, 4> sudoku)
             const std::pair<unsigned int, unsigned int> * __begin0 = __range1.begin();
             const std::pair<unsigned int, unsigned int> * __end0 = __range1.end();
             for(; __begin0 != __end0; ++__begin0) {
-              const std::pair<unsigned int, unsigned int> cell1 = std::pair<unsigned int, unsigned int>(*__begin0);
+              const std::pair<unsigned int, unsigned int> & cell1 = *__begin0;
               {
                 const std::array<std::pair<unsigned int, unsigned int>, 4> & __range3 = region;
                 const std::pair<unsigned int, unsigned int> * __begin0 = __range3.begin();
                 const std::pair<unsigned int, unsigned int> * __end0 = __range3.end();
                 for(; __begin0 != __end0; ++__begin0) {
-                  const std::pair<unsigned int, unsigned int> cell2 = std::pair<unsigned int, unsigned int>(*__begin0);
+                  const std::pair<unsigned int, unsigned int> & cell2 = *__begin0;
                   if(operator<(std::operator<=>(cell1, cell2), __cmp_cat::__unspec(static_cast<std::__cmp_cat::__unspec *>(0)))) {
                     solver.addClause(Minisat::operator~(Minisat::mkLit(has_value.operator[](static_cast<unsigned long>(cell1.first)).operator[](static_cast<unsigned long>(cell1.second)).operator[](static_cast<unsigned long>(val)), false)), Minisat::operator~(Minisat::mkLit(has_value.operator[](static_cast<unsigned long>(cell2.first)).operator[](static_cast<unsigned long>(cell2.second)).operator[](static_cast<unsigned long>(val)), false)));
                   } 
@@ -1695,13 +1695,13 @@ Sudoku<ValueCell, 9> solve_using_sat<9>(Sudoku<ValueCell, 9> sudoku)
             const std::pair<unsigned int, unsigned int> * __begin0 = __range1.begin();
             const std::pair<unsigned int, unsigned int> * __end0 = __range1.end();
             for(; __begin0 != __end0; ++__begin0) {
-              const std::pair<unsigned int, unsigned int> cell1 = std::pair<unsigned int, unsigned int>(*__begin0);
+              const std::pair<unsigned int, unsigned int> & cell1 = *__begin0;
               {
                 const std::array<std::pair<unsigned int, unsigned int>, 9> & __range3 = region;
                 const std::pair<unsigned int, unsigned int> * __begin0 = __range3.begin();
                 const std::pair<unsigned int, unsigned int> * __end0 = __range3.end();
                 for(; __begin0 != __end0; ++__begin0) {
-                  const std::pair<unsigned int, unsigned int> cell2 = std::pair<unsigned int, unsigned int>(*__begin0);
+                  const std::pair<unsigned int, unsigned int> & cell2 = *__begin0;
                   if(operator<(std::operator<=>(cell1, cell2), __cmp_cat::__unspec(static_cast<std::__cmp_cat::__unspec *>(0)))) {
                     solver.addClause(Minisat::operator~(Minisat::mkLit(has_value.operator[](static_cast<unsigned long>(cell1.first)).operator[](static_cast<unsigned long>(cell1.second)).operator[](static_cast<unsigned long>(val)), false)), Minisat::operator~(Minisat::mkLit(has_value.operator[](static_cast<unsigned long>(cell2.first)).operator[](static_cast<unsigned long>(cell2.second)).operator[](static_cast<unsigned long>(val)), false)));
                   } 

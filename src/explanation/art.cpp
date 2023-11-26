@@ -124,7 +124,7 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku<size>& sudoku,
   }
 
   // Circled cells
-  for (const auto cell : options.circled_cells) {
+  for (const auto& cell : options.circled_cells) {
     cr->begin_new_sub_path();
     const auto [x, y] = cell_center(cell);
     cr->arc(x, y, 0.8 * cell_size / 2, 0, 2 * M_PI);
@@ -137,7 +137,7 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku<size>& sudoku,
   cr->stroke();
 
   // Boxed cells
-  for (const auto cell : options.boxed_cells) {
+  for (const auto& cell : options.boxed_cells) {
     const auto [x, y] = cell_center(cell);
     cr->rectangle(x - 0.8 * cell_size / 2, y - 0.8 * cell_size / 2, 0.8 * cell_size, 0.8 * cell_size);
   }
@@ -149,13 +149,13 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku<size>& sudoku,
   cr->stroke();
 
   // Circled values
-  for (const auto [cell, value] : options.circled_values) {
+  for (const auto& [cell, value] : options.circled_values) {
     cr->begin_new_sub_path();
     const auto [x, y] = value_center(cell, value);
     cr->arc(x, y, 0.8 * 0.5 * cell_size / SudokuConstants<size>::sqrt_size, 0, 2 * M_PI);
   }
   {
-    const auto [r, g, b] = options.circled_values_color;
+    const auto& [r, g, b] = options.circled_values_color;
     cr->set_source_rgb(r, g, b);
   }
   cr->set_line_width(options.circled_values_line_width);
@@ -172,7 +172,7 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const AnnotatedSudoku<size>& sudoku,
     }
     cr->set_line_width(options.links_from_cell_to_value_line_width);
 
-    for (const auto [source_cell, target_cell, value] : options.links_from_cell_to_value) {
+    for (const auto& [source_cell, target_cell, value] : options.links_from_cell_to_value) {
       Cairo::SaveGuard saver(cr);
 
       const auto [x1, y1] = cell_center(source_cell);
@@ -434,7 +434,7 @@ TEST_CASE("draw - possible-values circled") {
     image.crs[0][0]->translate((image.viewport_width - grid_size) / 2, (image.viewport_height - grid_size) / 2);
     AnnotatedSudoku<4> sudoku;
     std::vector<std::tuple<Coordinates, unsigned>> circled_values;
-    for (const auto cell : SudokuConstants<4>::cells) {
+    for (const auto& cell : SudokuConstants<4>::cells) {
       for (const unsigned value : SudokuConstants<4>::values) {
         circled_values.push_back({cell, value});
       }
@@ -479,7 +479,7 @@ TEST_CASE("draw - possible-values linked") {
       links_from_cell_to_value;
     std::vector<std::tuple<Coordinates, unsigned>> circled_values;
     Coordinates source_cell = {2, 3};
-    for (const auto cell : SudokuConstants<4>::cells) {
+    for (const auto& cell : SudokuConstants<4>::cells) {
       if (cell != source_cell) {
         const auto [row, col] = cell;
         for (const unsigned value : SudokuConstants<4>::values) {

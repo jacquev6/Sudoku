@@ -84,7 +84,6 @@ bool propagate(
       exploration::PropagationStartsForCell<size>(source_coords, value),
       exploration::PropagationIsDoneForCell<size>(source_coords, value));
 
-    const auto [row, col] = source_coords;
     for (const auto& source_region : source_cell.regions()) {
       for (const auto& target_cell : source_region.cells()) {
         const auto target_coords = target_cell.coordinates();

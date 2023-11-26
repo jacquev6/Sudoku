@@ -67,7 +67,7 @@ class TextExplainer {
       % (event.value + 1) % (event.cell.first + 1) % (event.cell.second + 1);
   }
 
-  void operator()(const exploration::PropagationIsDoneForSudoku<size>& event) {
+  void operator()(const exploration::PropagationIsDoneForSudoku<size>&) {
     print_prefix();
     os << "All cells have been fully propagated\n";
   }
@@ -93,7 +93,7 @@ class TextExplainer {
       % (event.cell.first + 1) % (event.cell.second + 1) % (event.value + 1);
   }
 
-  void operator()(const exploration::SudokuIsSolved<size>& event) {
+  void operator()(const exploration::SudokuIsSolved<size>&) {
     print_prefix();
     os << "Sudoku is solved\n";
   }

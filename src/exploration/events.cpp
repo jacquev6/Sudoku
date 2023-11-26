@@ -10,12 +10,10 @@ void CellIsSetInInput<size>::apply(Stack<size>* stack) const {
 }
 
 template<unsigned size>
-void InputsAreDone<size>::apply(Stack<size>* stack) const {
-}
+void InputsAreDone<size>::apply(Stack<size>*) const {}
 
 template<unsigned size>
-void PropagationStartsForSudoku<size>::apply(Stack<size>* stack) const {
-}
+void PropagationStartsForSudoku<size>::apply(Stack<size>*) const {}
 
 template<unsigned size>
 void PropagationStartsForCell<size>::apply(Stack<size>* stack) const {
@@ -61,12 +59,10 @@ void PropagationIsDoneForCell<size>::apply(Stack<size>* stack) const {
 }
 
 template<unsigned size>
-void PropagationIsDoneForSudoku<size>::apply(Stack<size>* stack) const {
-}
+void PropagationIsDoneForSudoku<size>::apply(Stack<size>*) const {}
 
 template<unsigned size>
-void ExplorationStarts<size>::apply(Stack<size>* stack) const {
-}
+void ExplorationStarts<size>::apply(Stack<size>*) const {}
 
 template<unsigned size>
 void HypothesisIsMade<size>::apply(Stack<size>* stack) const {
@@ -89,12 +85,10 @@ void SudokuIsSolved<size>::apply(Stack<size>* stack) const {
 }
 
 template<unsigned size>
-void HypothesisIsAccepted<size>::apply(Stack<size>* stack) const {
-}
+void HypothesisIsAccepted<size>::apply(Stack<size>*) const {}
 
 template<unsigned size>
-void ExplorationIsDone<size>::apply(Stack<size>* stack) const {
-}
+void ExplorationIsDone<size>::apply(Stack<size>*) const {}
 
 template struct CellIsSetInInput<4>;
 template struct CellIsSetInInput<9>;

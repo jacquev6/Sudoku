@@ -2032,10 +2032,10 @@ void HtmlExplainer<size>::operator()(const exploration::SudokuIsSolved<size>& ev
 }
 
 template<unsigned size>
-void HtmlExplainer<size>::operator()(const exploration::HypothesisIsAccepted<size>& event) {}
+void HtmlExplainer<size>::operator()(const exploration::HypothesisIsAccepted<size>&) {}
 
 template<unsigned size>
-void HtmlExplainer<size>::operator()(const exploration::ExplorationIsDone<size>& event) {}
+void HtmlExplainer<size>::operator()(const exploration::ExplorationIsDone<size>&) {}
 
 
 
@@ -2158,11 +2158,11 @@ class HtmlExplainer<static_cast<unsigned int>(4)>
     std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("</body></html>\n"));
   }
   
-  void operator()(const exploration::HypothesisIsAccepted<4> & event)
+  void operator()(const exploration::HypothesisIsAccepted<4> &)
   {
   }
   
-  void operator()(const exploration::ExplorationIsDone<4> & event)
+  void operator()(const exploration::ExplorationIsDone<4> &)
   {
   }
   
@@ -2351,11 +2351,11 @@ class HtmlExplainer<static_cast<unsigned int>(9)>
     std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("</body></html>\n"));
   }
   
-  void operator()(const exploration::HypothesisIsAccepted<9> & event)
+  void operator()(const exploration::HypothesisIsAccepted<9> &)
   {
   }
   
-  void operator()(const exploration::ExplorationIsDone<9> & event)
+  void operator()(const exploration::ExplorationIsDone<9> &)
   {
   }
   

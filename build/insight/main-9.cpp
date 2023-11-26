@@ -1213,7 +1213,7 @@ class Sudoku : public SudokuBase<Cell, size>
 {
 };
 
-/* First instantiated from: main-9.cpp:1901 */
+/* First instantiated from: main-9.cpp:1900 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<ValueCell, 9> : public SudokuBase<ValueCell, 9>
@@ -1660,7 +1660,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-9.cpp:1844 */
+  /* First instantiated from: main-9.cpp:1843 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<9>
@@ -1679,7 +1679,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: main-9.cpp:1849 */
+  /* First instantiated from: main-9.cpp:1848 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct InputsAreDone<9>
@@ -1847,7 +1847,7 @@ namespace exploration
     std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
   };
   
-  /* First instantiated from: main-9.cpp:1796 */
+  /* First instantiated from: main-9.cpp:1795 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<9>
@@ -1868,7 +1868,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-9.cpp:1801 */
+  /* First instantiated from: main-9.cpp:1800 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<9>
@@ -1889,7 +1889,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-9.cpp:1806 */
+  /* First instantiated from: main-9.cpp:1805 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<9>
@@ -1908,7 +1908,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: main-9.cpp:1735 */
+  /* First instantiated from: main-9.cpp:1734 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct SudokuIsSolved<9>
@@ -1927,7 +1927,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-9.cpp:1803 */
+  /* First instantiated from: main-9.cpp:1802 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsAccepted<9>
@@ -1947,7 +1947,7 @@ namespace exploration
     std::pair<unsigned int, unsigned int> cell;
   };
   
-  /* First instantiated from: main-9.cpp:1797 */
+  /* First instantiated from: main-9.cpp:1796 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationIsDone<9>
@@ -2589,7 +2589,7 @@ class TextExplainer
     this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("%1% in (%2%, %3%) has been fully propagated\n"))) % (event.value + 1)) % (event.cell.first + 1)) % (event.cell.second + 1));
   }
   
-  inline void operator()(const exploration::PropagationIsDoneForSudoku<size> & event)
+  inline void operator()(const exploration::PropagationIsDoneForSudoku<size> &)
   {
     this->print_prefix();
     std::operator<<(this->os, static_cast<const char *>("All cells have been fully propagated\n"));
@@ -2616,7 +2616,7 @@ class TextExplainer
     this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Hypothesis that (%1%, %2%) may have been %3% must be back-tracked\n"))) % (event.cell.first + 1)) % (event.cell.second + 1)) % (event.value + 1));
   }
   
-  inline void operator()(const exploration::SudokuIsSolved<size> & event)
+  inline void operator()(const exploration::SudokuIsSolved<size> &)
   {
     this->print_prefix();
     std::operator<<(this->os, static_cast<const char *>("Sudoku is solved\n"));
@@ -2720,7 +2720,7 @@ class TextExplainer<9>
     boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("%1% in (%2%, %3%) has been fully propagated\n"))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1))))));
   }
   
-  inline void operator()(const exploration::PropagationIsDoneForSudoku<9> & event)
+  inline void operator()(const exploration::PropagationIsDoneForSudoku<9> &)
   {
     this->print_prefix();
     std::operator<<(this->os, static_cast<const char *>("All cells have been fully propagated\n"));
@@ -2747,7 +2747,7 @@ class TextExplainer<9>
     boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Hypothesis that (%1%, %2%) may have been %3% must be back-tracked\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1))))));
   }
   
-  inline void operator()(const exploration::SudokuIsSolved<9> & event)
+  inline void operator()(const exploration::SudokuIsSolved<9> &)
   {
     this->print_prefix();
     std::operator<<(this->os, static_cast<const char *>("Sudoku is solved\n"));
@@ -3412,7 +3412,7 @@ namespace video
 {
   struct VideoSerializer : public Serializer
   {
-    inline explicit VideoSerializer(const std::filesystem::path & video_path_, unsigned int frame_width_, unsigned int frame_height_)
+    inline explicit VideoSerializer(const std::filesystem::path & video_path_, int frame_width_, int frame_height_)
     : Serializer()
     , frame_index{static_cast<unsigned int>(0)}
     , video_path{std::filesystem::path(video_path_)}
@@ -3424,24 +3424,24 @@ namespace video
     , pkt{av_packet_alloc()}
     , outfile{fopen(static_cast<const std::filesystem::path>(this->video_path).c_str(), static_cast<const char *>("wb"))}
     {
-      (static_cast<bool>(this->codec) ? void(0) : __assert_fail(static_cast<const char *>("codec"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(39), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
-      (static_cast<bool>(this->pkt) ? void(0) : __assert_fail(static_cast<const char *>("pkt"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(40), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
-      (static_cast<bool>(this->outfile) ? void(0) : __assert_fail(static_cast<const char *>("outfile"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(41), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
+      (static_cast<bool>(this->codec) ? void(0) : __assert_fail(static_cast<const char *>("codec"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(39), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, int, int)")));
+      (static_cast<bool>(this->pkt) ? void(0) : __assert_fail(static_cast<const char *>("pkt"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(40), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, int, int)")));
+      (static_cast<bool>(this->outfile) ? void(0) : __assert_fail(static_cast<const char *>("outfile"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(41), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, int, int)")));
       this->context->bit_rate = static_cast<long>(400000);
-      this->context->width = static_cast<int>(this->frame_width_pixels);
-      this->context->height = static_cast<int>(this->frame_height_pixels);
-      this->context->time_base.operator=(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CompoundLiteralExpr */);
-      this->context->framerate.operator=(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CompoundLiteralExpr */);
+      this->context->width = this->frame_width_pixels;
+      this->context->height = this->frame_height_pixels;
+      this->context->time_base.operator=(AVRational{1, 25});
+      this->context->framerate.operator=(AVRational{25, 1});
       this->context->gop_size = 10;
       this->context->max_b_frames = 1;
       this->context->pix_fmt = AV_PIX_FMT_YUV420P;
       int ret = avcodec_open2(this->context, this->codec, static_cast<AVDictionary **>(NULL));
-      (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(53), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
+      (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(53), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, int, int)")));
       this->picture->format = static_cast<int>(this->context->pix_fmt);
-      this->picture->width = static_cast<int>(this->frame_width_pixels);
-      this->picture->height = static_cast<int>(this->frame_height_pixels);
+      this->picture->width = this->frame_width_pixels;
+      this->picture->height = this->frame_height_pixels;
       ret = av_frame_get_buffer(this->picture, 32);
-      (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(60), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, unsigned int, unsigned int)")));
+      (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(60), static_cast<const char *>(__extension__"video::VideoSerializer::VideoSerializer(const std::filesystem::path &, int, int)")));
     }
     
     inline virtual ~VideoSerializer() noexcept
@@ -3459,24 +3459,24 @@ namespace video
     {
       int ret = av_frame_make_writable(this->picture);
       (static_cast<bool>(ret >= 0) ? void(0) : __assert_fail(static_cast<const char *>("ret >= 0"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(77), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
-      (static_cast<bool>(static_cast<unsigned int>(static_cast<const Cairo::ImageSurface *>(static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(surface).operator->())->get_width()) == this->frame_width_pixels) ? void(0) : __assert_fail(static_cast<const char *>("surface->get_width() == frame_width_pixels"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(79), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
-      (static_cast<bool>(static_cast<unsigned int>(static_cast<const Cairo::ImageSurface *>(static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(surface).operator->())->get_height()) == this->frame_height_pixels) ? void(0) : __assert_fail(static_cast<const char *>("surface->get_height() == frame_height_pixels"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(80), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
+      (static_cast<bool>(static_cast<const Cairo::ImageSurface *>(static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(surface).operator->())->get_width() == this->frame_width_pixels) ? void(0) : __assert_fail(static_cast<const char *>("surface->get_width() == frame_width_pixels"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(79), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
+      (static_cast<bool>(static_cast<const Cairo::ImageSurface *>(static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(surface).operator->())->get_height() == this->frame_height_pixels) ? void(0) : __assert_fail(static_cast<const char *>("surface->get_height() == frame_height_pixels"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(80), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
       unsigned char * data = static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(surface).operator->()->get_data();
       (static_cast<bool>(data) ? void(0) : __assert_fail(static_cast<const char *>("data"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(82), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
-      (static_cast<bool>(static_cast<unsigned int>(static_cast<int *>(this->picture->linesize)[0]) == this->frame_width_pixels) ? void(0) : __assert_fail(static_cast<const char *>("picture->linesize[0] == frame_width_pixels"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(84), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
-      (static_cast<bool>(static_cast<unsigned int>(static_cast<int *>(this->picture->linesize)[1]) == (this->frame_width_pixels / static_cast<unsigned int>(2))) ? void(0) : __assert_fail(static_cast<const char *>("picture->linesize[1] == frame_width_pixels / 2"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(85), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
-      (static_cast<bool>(static_cast<unsigned int>(static_cast<int *>(this->picture->linesize)[2]) == (this->frame_width_pixels / static_cast<unsigned int>(2))) ? void(0) : __assert_fail(static_cast<const char *>("picture->linesize[2] == frame_width_pixels / 2"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(86), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
-      for(int y = 0; static_cast<unsigned int>(y) < this->frame_height_pixels; ++y) {
-        for(int x = 0; static_cast<unsigned int>(x) < this->frame_width_pixels; ++x) {
-          static_cast<unsigned char **>(this->picture->data)[0][(y * static_cast<int *>(this->picture->linesize)[0]) + x] = (static_cast<unsigned char>(((static_cast<double>(static_cast<int>(data[(((static_cast<unsigned int>(y) * this->frame_width_pixels) * static_cast<unsigned int>(4)) + (static_cast<unsigned int>(x * 4))) + static_cast<unsigned int>(0)])) * 0.29899999999999999) + (static_cast<double>(static_cast<int>(data[(((static_cast<unsigned int>(y) * this->frame_width_pixels) * static_cast<unsigned int>(4)) + (static_cast<unsigned int>(x * 4))) + static_cast<unsigned int>(1)])) * 0.58699999999999997)) + (static_cast<double>(static_cast<int>(data[(((static_cast<unsigned int>(y) * this->frame_width_pixels) * static_cast<unsigned int>(4)) + (static_cast<unsigned int>(x * 4))) + static_cast<unsigned int>(2)])) * 0.114)));
+      (static_cast<bool>(static_cast<int *>(this->picture->linesize)[0] == this->frame_width_pixels) ? void(0) : __assert_fail(static_cast<const char *>("picture->linesize[0] == frame_width_pixels"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(84), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
+      (static_cast<bool>(static_cast<int *>(this->picture->linesize)[1] == (this->frame_width_pixels / 2)) ? void(0) : __assert_fail(static_cast<const char *>("picture->linesize[1] == frame_width_pixels / 2"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(85), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
+      (static_cast<bool>(static_cast<int *>(this->picture->linesize)[2] == (this->frame_width_pixels / 2)) ? void(0) : __assert_fail(static_cast<const char *>("picture->linesize[2] == frame_width_pixels / 2"), static_cast<const char *>("src/explanation/video/video-serializer.hpp"), static_cast<unsigned int>(86), static_cast<const char *>(__extension__"virtual void video::VideoSerializer::serialize(Cairo::RefPtr<Cairo::ImageSurface>)")));
+      for(int y = 0; y < this->frame_height_pixels; ++y) {
+        for(int x = 0; x < this->frame_width_pixels; ++x) {
+          static_cast<unsigned char **>(this->picture->data)[0][(y * static_cast<int *>(this->picture->linesize)[0]) + x] = (static_cast<unsigned char>(((static_cast<double>(static_cast<int>(data[(((y * this->frame_width_pixels) * 4) + (x * 4)) + 0])) * 0.29899999999999999) + (static_cast<double>(static_cast<int>(data[(((y * this->frame_width_pixels) * 4) + (x * 4)) + 1])) * 0.58699999999999997)) + (static_cast<double>(static_cast<int>(data[(((y * this->frame_width_pixels) * 4) + (x * 4)) + 2])) * 0.114)));
         }
         
       }
       
-      for(int y = 0; static_cast<unsigned int>(y) < (this->frame_height_pixels / static_cast<unsigned int>(2)); ++y) {
-        for(int x = 0; static_cast<unsigned int>(x) < (this->frame_width_pixels / static_cast<unsigned int>(2)); ++x) {
-          static_cast<unsigned char **>(this->picture->data)[1][(y * static_cast<int *>(this->picture->linesize)[1]) + x] = (static_cast<unsigned char>((((static_cast<double>(static_cast<int>(data[(((static_cast<unsigned int>((y * 2)) * this->frame_width_pixels) * static_cast<unsigned int>(4)) + (static_cast<unsigned int>((x * 2) * 4))) + static_cast<unsigned int>(0)])) * -0.16900000000000001) + (static_cast<double>(static_cast<int>(data[(((static_cast<unsigned int>((y * 2)) * this->frame_width_pixels) * static_cast<unsigned int>(4)) + (static_cast<unsigned int>((x * 2) * 4))) + static_cast<unsigned int>(1)])) * -0.33100000000000002)) + (static_cast<double>(static_cast<int>(data[(((static_cast<unsigned int>((y * 2)) * this->frame_width_pixels) * static_cast<unsigned int>(4)) + (static_cast<unsigned int>((x * 2) * 4))) + static_cast<unsigned int>(2)])) * 0.5)) + static_cast<double>(128)));
-          static_cast<unsigned char **>(this->picture->data)[2][(y * static_cast<int *>(this->picture->linesize)[2]) + x] = (static_cast<unsigned char>((((static_cast<double>(static_cast<int>(data[(((static_cast<unsigned int>((y * 2)) * this->frame_width_pixels) * static_cast<unsigned int>(4)) + (static_cast<unsigned int>((x * 2) * 4))) + static_cast<unsigned int>(0)])) * 0.5) + (static_cast<double>(static_cast<int>(data[(((static_cast<unsigned int>((y * 2)) * this->frame_width_pixels) * static_cast<unsigned int>(4)) + (static_cast<unsigned int>((x * 2) * 4))) + static_cast<unsigned int>(1)])) * -0.41899999999999998)) + (static_cast<double>(static_cast<int>(data[(((static_cast<unsigned int>((y * 2)) * this->frame_width_pixels) * static_cast<unsigned int>(4)) + (static_cast<unsigned int>((x * 2) * 4))) + static_cast<unsigned int>(2)])) * -0.081000000000000003)) + static_cast<double>(128)));
+      for(int y = 0; y < (this->frame_height_pixels / 2); ++y) {
+        for(int x = 0; x < (this->frame_width_pixels / 2); ++x) {
+          static_cast<unsigned char **>(this->picture->data)[1][(y * static_cast<int *>(this->picture->linesize)[1]) + x] = (static_cast<unsigned char>((((static_cast<double>(static_cast<int>(data[((((y * 2) * this->frame_width_pixels) * 4) + ((x * 2) * 4)) + 0])) * -0.16900000000000001) + (static_cast<double>(static_cast<int>(data[((((y * 2) * this->frame_width_pixels) * 4) + ((x * 2) * 4)) + 1])) * -0.33100000000000002)) + (static_cast<double>(static_cast<int>(data[((((y * 2) * this->frame_width_pixels) * 4) + ((x * 2) * 4)) + 2])) * 0.5)) + static_cast<double>(128)));
+          static_cast<unsigned char **>(this->picture->data)[2][(y * static_cast<int *>(this->picture->linesize)[2]) + x] = (static_cast<unsigned char>((((static_cast<double>(static_cast<int>(data[((((y * 2) * this->frame_width_pixels) * 4) + ((x * 2) * 4)) + 0])) * 0.5) + (static_cast<double>(static_cast<int>(data[((((y * 2) * this->frame_width_pixels) * 4) + ((x * 2) * 4)) + 1])) * -0.41899999999999998)) + (static_cast<double>(static_cast<int>(data[((((y * 2) * this->frame_width_pixels) * 4) + ((x * 2) * 4)) + 2])) * -0.081000000000000003)) + static_cast<double>(128)));
         }
         
       }
@@ -3509,8 +3509,8 @@ namespace video
     private: 
     unsigned int frame_index;
     std::filesystem::path video_path;
-    unsigned int frame_width_pixels;
-    unsigned int frame_height_pixels;
+    int frame_width_pixels;
+    int frame_height_pixels;
     const AVCodec * codec;
     AVCodecContext * context;
     AVFrame * picture;
@@ -3565,7 +3565,7 @@ struct EventAdder
   const AddEvent & add_event;
 };
 
-/* First instantiated from: main-9.cpp:1838 */
+/* First instantiated from: main-9.cpp:1837 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventAdder<9, __lambda_5>
@@ -3579,7 +3579,7 @@ struct EventAdder<9, __lambda_5>
   template<typename Event>
   inline void operator()(const Event & event) const;
   
-  /* First instantiated from: main-9.cpp:1844 */
+  /* First instantiated from: main-9.cpp:1843 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsSetInInput<9> >(const exploration::CellIsSetInInput<9> & event) const
@@ -3590,7 +3590,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1849 */
+  /* First instantiated from: main-9.cpp:1848 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::InputsAreDone<9> >(const exploration::InputsAreDone<9> & event) const
@@ -3601,7 +3601,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1698 */
+  /* First instantiated from: main-9.cpp:1697 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellPropagates<9> >(const exploration::CellPropagates<9> & event) const
@@ -3612,7 +3612,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1703 */
+  /* First instantiated from: main-9.cpp:1702 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsDeducedFromSingleAllowedValue<9> >(const exploration::CellIsDeducedFromSingleAllowedValue<9> & event) const
@@ -3623,7 +3623,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1723 */
+  /* First instantiated from: main-9.cpp:1722 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> >(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> & event) const
@@ -3634,7 +3634,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1735 */
+  /* First instantiated from: main-9.cpp:1734 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::SudokuIsSolved<9> >(const exploration::SudokuIsSolved<9> & event) const
@@ -3689,7 +3689,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1801 */
+  /* First instantiated from: main-9.cpp:1800 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsMade<9> >(const exploration::HypothesisIsMade<9> & event) const
@@ -3700,7 +3700,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1803 */
+  /* First instantiated from: main-9.cpp:1802 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsAccepted<9> >(const exploration::HypothesisIsAccepted<9> & event) const
@@ -3711,7 +3711,7 @@ struct EventAdder<9, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1806 */
+  /* First instantiated from: main-9.cpp:1805 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsRejected<9> >(const exploration::HypothesisIsRejected<9> & event) const
@@ -3751,7 +3751,7 @@ struct EventAdder<9, __lambda_5>
 };
 
 #endif
-/* First instantiated from: main-9.cpp:1838 */
+/* First instantiated from: main-9.cpp:1837 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventAdder<9, __lambda_6>
@@ -3765,7 +3765,7 @@ struct EventAdder<9, __lambda_6>
   template<typename Event>
   inline void operator()(const Event & event) const;
   
-  /* First instantiated from: main-9.cpp:1844 */
+  /* First instantiated from: main-9.cpp:1843 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsSetInInput<9> >(const exploration::CellIsSetInInput<9> & event) const
@@ -3776,7 +3776,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1849 */
+  /* First instantiated from: main-9.cpp:1848 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::InputsAreDone<9> >(const exploration::InputsAreDone<9> & event) const
@@ -3787,7 +3787,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1698 */
+  /* First instantiated from: main-9.cpp:1697 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellPropagates<9> >(const exploration::CellPropagates<9> & event) const
@@ -3798,7 +3798,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1703 */
+  /* First instantiated from: main-9.cpp:1702 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsDeducedFromSingleAllowedValue<9> >(const exploration::CellIsDeducedFromSingleAllowedValue<9> & event) const
@@ -3809,7 +3809,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1723 */
+  /* First instantiated from: main-9.cpp:1722 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> >(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> & event) const
@@ -3820,7 +3820,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1735 */
+  /* First instantiated from: main-9.cpp:1734 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::SudokuIsSolved<9> >(const exploration::SudokuIsSolved<9> & event) const
@@ -3875,7 +3875,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1801 */
+  /* First instantiated from: main-9.cpp:1800 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsMade<9> >(const exploration::HypothesisIsMade<9> & event) const
@@ -3886,7 +3886,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1803 */
+  /* First instantiated from: main-9.cpp:1802 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsAccepted<9> >(const exploration::HypothesisIsAccepted<9> & event) const
@@ -3897,7 +3897,7 @@ struct EventAdder<9, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-9.cpp:1806 */
+  /* First instantiated from: main-9.cpp:1805 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsRejected<9> >(const exploration::HypothesisIsRejected<9> & event) const
@@ -4048,7 +4048,7 @@ struct EventsPairGuard<9, __lambda_6, exploration::PropagationStartsForCell<9>, 
 };
 
 #endif
-/* First instantiated from: main-9.cpp:1794 */
+/* First instantiated from: main-9.cpp:1793 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<9, __lambda_5, exploration::ExplorationStarts<9>, exploration::ExplorationIsDone<9> >
@@ -4070,7 +4070,7 @@ struct EventsPairGuard<9, __lambda_5, exploration::ExplorationStarts<9>, explora
 };
 
 #endif
-/* First instantiated from: main-9.cpp:1794 */
+/* First instantiated from: main-9.cpp:1793 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<9, __lambda_6, exploration::ExplorationStarts<9>, exploration::ExplorationIsDone<9> >
@@ -4109,7 +4109,7 @@ EventsPairGuard(const EventAdder<9, __lambda_5> & add_event_, const exploration:
 #endif
 
 
-/* First instantiated from: main-9.cpp:1794 */
+/* First instantiated from: main-9.cpp:1793 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 EventsPairGuard(const EventAdder<9, __lambda_5> & add_event_, const exploration::ExplorationStarts<9> & in, const exploration::ExplorationIsDone<9> & out_) -> EventsPairGuard<9, __lambda_5, exploration::ExplorationStarts<9>, exploration::ExplorationIsDone<9> >;
@@ -4130,7 +4130,7 @@ EventsPairGuard(const EventAdder<9, __lambda_6> & add_event_, const exploration:
 #endif
 
 
-/* First instantiated from: main-9.cpp:1794 */
+/* First instantiated from: main-9.cpp:1793 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 EventsPairGuard(const EventAdder<9, __lambda_6> & add_event_, const exploration::ExplorationStarts<9> & in, const exploration::ExplorationIsDone<9> & out_) -> EventsPairGuard<9, __lambda_6, exploration::ExplorationStarts<9>, exploration::ExplorationIsDone<9> >;
@@ -4158,9 +4158,6 @@ bool propagate(const Stack<size> & stack, std::deque<std::pair<unsigned int, uns
     (static_cast<bool>(source_cell.is_set()) ? void(0) : __assert_fail("source_cell.is_set()", "src/exploration/sudoku-solver.hpp", 79, __extension____PRETTY_FUNCTION__));
     const unsigned int value = source_cell.get();
     EventsPairGuard guard = add_event, exploration::PropagationStartsForCell<size>(source_coords, value), exploration::PropagationIsDoneForCell<size>(source_coords, value);
-    const std::pair<unsigned int, unsigned int> __source_coords0 = std::pair<unsigned int, unsigned int>(source_coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__source_coords0));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__source_coords0));
     {
       auto && __range0 = source_cell.regions();
       for(; ; ) {
@@ -4177,7 +4174,7 @@ bool propagate(const Stack<size> & stack, std::deque<std::pair<unsigned int, uns
                 } 
                 
               } else {
-                (static_cast<bool>(target_cell.allowed_count() > 1) ? void(0) : __assert_fail("target_cell.allowed_count() > 1", "src/exploration/sudoku-solver.hpp", 97, __extension____PRETTY_FUNCTION__));
+                (static_cast<bool>(target_cell.allowed_count() > 1) ? void(0) : __assert_fail("target_cell.allowed_count() > 1", "src/exploration/sudoku-solver.hpp", 96, __extension____PRETTY_FUNCTION__));
                 if(target_cell.is_allowed(value)) {
                   add_event(exploration::CellPropagates<size>(source_coords, target_coords, value));
                   if(target_cell.allowed_count() == 1) {
@@ -4187,7 +4184,7 @@ bool propagate(const Stack<size> & stack, std::deque<std::pair<unsigned int, uns
                         unsigned int value;
                         if(target_cell.is_allowed(value)) {
                           add_event(exploration::CellIsDeducedFromSingleAllowedValue<size>(target_coords, value));
-                          (static_cast<bool>(std::count(todo.begin(), todo.end(), target_coords) == 0) ? void(0) : __assert_fail("std::count(todo.begin(), todo.end(), target_coords) == 0", "src/exploration/sudoku-solver.hpp", 106, __extension____PRETTY_FUNCTION__));
+                          (static_cast<bool>(std::count(todo.begin(), todo.end(), target_coords) == 0) ? void(0) : __assert_fail("std::count(todo.begin(), todo.end(), target_coords) == 0", "src/exploration/sudoku-solver.hpp", 105, __extension____PRETTY_FUNCTION__));
                           push_back(target_coords);
                           break;
                         } 
@@ -4218,7 +4215,7 @@ bool propagate(const Stack<size> & stack, std::deque<std::pair<unsigned int, uns
                       if((count == static_cast<unsigned int>(1)) && !single_cell->is_set()) {
                         const std::pair<unsigned int, unsigned int> single_coords = single_cell->coordinates();
                         add_event(exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>(single_coords, value, target_region.index()));
-                        (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), single_coords) == static_cast<long>(0)) ? void(0) : __assert_fail("std::count(todo.begin(), todo.end(), single_coords) == 0", "src/exploration/sudoku-solver.hpp", 126, __extension____PRETTY_FUNCTION__));
+                        (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), single_coords) == static_cast<long>(0)) ? void(0) : __assert_fail("std::count(todo.begin(), todo.end(), single_coords) == 0", "src/exploration/sudoku-solver.hpp", 125, __extension____PRETTY_FUNCTION__));
                         todo.push_back(single_coords);
                       } 
                       
@@ -4248,7 +4245,7 @@ bool propagate(const Stack<size> & stack, std::deque<std::pair<unsigned int, uns
 }
 
 
-/* First instantiated from: main-9.cpp:1820 */
+/* First instantiated from: main-9.cpp:1819 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool propagate<9, __lambda_5>(const Stack<9> & stack, std::deque<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > todo, const EventAdder<9, __lambda_5> & add_event)
@@ -4259,7 +4256,7 @@ bool propagate<9, __lambda_5>(const Stack<9> & stack, std::deque<std::pair<unsig
     std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *> __end2 = __range2.end();
     for(; !operator==(static_cast<const std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>>(__begin2), static_cast<const std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>>(__end2)); __begin2.operator++()) {
       const std::pair<unsigned int, unsigned int> & coords = static_cast<const std::pair<unsigned int, unsigned int>>(static_cast<const std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>>(__begin2).operator*());
-      (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), coords) == static_cast<long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), coords) == 1"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(67), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 9U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:264:42)]")));
+      (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), coords) == static_cast<long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), coords) == 1"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(67), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 9U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:263:42)]")));
     }
     
   }
@@ -4268,12 +4265,9 @@ bool propagate<9, __lambda_5>(const Stack<9> & stack, std::deque<std::pair<unsig
     const std::pair<unsigned int, unsigned int> source_coords = std::pair<unsigned int, unsigned int>(static_cast<const std::pair<unsigned int, unsigned int>>(todo.front()));
     todo.pop_front();
     const Cell & source_cell = static_cast<const SudokuBase<AnnotatedCell<9>, 9>&>(stack.current()).cell(source_coords);
-    (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(source_cell).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("source_cell.is_set()"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(79), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 9U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:264:42)]")));
+    (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(source_cell).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("source_cell.is_set()"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(79), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 9U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:263:42)]")));
     const unsigned int value = static_cast<const AnnotatedCell<9>&>(source_cell).get();
     EventsPairGuard<9, __lambda_5, exploration::PropagationStartsForCell<9>, exploration::PropagationIsDoneForCell<9> > guard = EventsPairGuard<9, __lambda_5, exploration::PropagationStartsForCell<9>, exploration::PropagationIsDoneForCell<9> >(add_event, static_cast<const exploration::PropagationStartsForCell<9>>(exploration::PropagationStartsForCell<9>(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CXXParenListInitExpr */)), static_cast<const exploration::PropagationIsDoneForCell<9>>(exploration::PropagationIsDoneForCell<9>(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CXXParenListInitExpr */)));
-    const std::pair<unsigned int, unsigned int> __source_coords0 = std::pair<unsigned int, unsigned int>(source_coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__source_coords0));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__source_coords0));
     {
       boost::iterator_range<boost::iterators::transform_iterator<__lambda_4, const unsigned int *, boost::use_default, boost::use_default> > && __range0 = source_cell.regions();
       boost::iterators::transform_iterator<__lambda_4, const unsigned int *, boost::use_default, boost::use_default> __begin0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_4, const unsigned int *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range0).begin();
@@ -4294,7 +4288,7 @@ bool propagate<9, __lambda_5>(const Stack<9> & stack, std::deque<std::pair<unsig
                 } 
                 
               } else {
-                (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(target_cell).allowed_count() > static_cast<unsigned int>(1)) ? void(0) : __assert_fail(static_cast<const char *>("target_cell.allowed_count() > 1"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(97), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 9U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:264:42)]")));
+                (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(target_cell).allowed_count() > static_cast<unsigned int>(1)) ? void(0) : __assert_fail(static_cast<const char *>("target_cell.allowed_count() > 1"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(96), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 9U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:263:42)]")));
                 if(static_cast<const AnnotatedCell<9>&>(target_cell).is_allowed(value)) {
                   add_event.operator()(static_cast<const exploration::CellPropagates<9>>(exploration::CellPropagates<9>(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CXXParenListInitExpr */)));
                   if(static_cast<const AnnotatedCell<9>&>(target_cell).allowed_count() == static_cast<unsigned int>(1)) {
@@ -4306,7 +4300,7 @@ bool propagate<9, __lambda_5>(const Stack<9> & stack, std::deque<std::pair<unsig
                         unsigned int value = *__begin0;
                         if(static_cast<const AnnotatedCell<9>&>(target_cell).is_allowed(value)) {
                           add_event.operator()(static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<9>>(exploration::CellIsDeducedFromSingleAllowedValue<9>(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CXXParenListInitExpr */)));
-                          (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), target_coords) == static_cast<long>(0)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), target_coords) == 0"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(106), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 9U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:264:42)]")));
+                          (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), target_coords) == static_cast<long>(0)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), target_coords) == 0"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(105), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 9U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:263:42)]")));
                           todo.push_back(target_coords);
                           break;
                         } 
@@ -4341,7 +4335,7 @@ bool propagate<9, __lambda_5>(const Stack<9> & stack, std::deque<std::pair<unsig
                       if((count == static_cast<unsigned int>(1)) && !static_cast<const AnnotatedCell<9> *>(single_cell)->is_set()) {
                         const std::pair<unsigned int, unsigned int> single_coords = static_cast<const std::pair<unsigned int, unsigned int>>(single_cell->coordinates());
                         add_event.operator()(static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>>(exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CXXParenListInitExpr */)));
-                        (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), single_coords) == static_cast<long>(0)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), single_coords) == 0"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(126), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 9U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:264:42)]")));
+                        (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), single_coords) == static_cast<long>(0)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), single_coords) == 0"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(125), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 9U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:263:42)]")));
                         todo.push_back(single_coords);
                       } 
                       
@@ -4372,7 +4366,7 @@ bool propagate<9, __lambda_5>(const Stack<9> & stack, std::deque<std::pair<unsig
 #endif
 
 
-/* First instantiated from: main-9.cpp:1820 */
+/* First instantiated from: main-9.cpp:1819 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool propagate<9, __lambda_6>(const Stack<9> & stack, std::deque<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > todo, const EventAdder<9, __lambda_6> & add_event)
@@ -4395,9 +4389,6 @@ bool propagate<9, __lambda_6>(const Stack<9> & stack, std::deque<std::pair<unsig
     (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(source_cell).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("source_cell.is_set()"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(79), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 9U, AddEvent = (lambda at src/main.impl.hpp:121:7)]")));
     const unsigned int value = static_cast<const AnnotatedCell<9>&>(source_cell).get();
     EventsPairGuard<9, __lambda_6, exploration::PropagationStartsForCell<9>, exploration::PropagationIsDoneForCell<9> > guard = EventsPairGuard<9, __lambda_6, exploration::PropagationStartsForCell<9>, exploration::PropagationIsDoneForCell<9> >(add_event, static_cast<const exploration::PropagationStartsForCell<9>>(exploration::PropagationStartsForCell<9>(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CXXParenListInitExpr */)), static_cast<const exploration::PropagationIsDoneForCell<9>>(exploration::PropagationIsDoneForCell<9>(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CXXParenListInitExpr */)));
-    const std::pair<unsigned int, unsigned int> __source_coords0 = std::pair<unsigned int, unsigned int>(source_coords);
-    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__source_coords0));
-    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__source_coords0));
     {
       boost::iterator_range<boost::iterators::transform_iterator<__lambda_4, const unsigned int *, boost::use_default, boost::use_default> > && __range0 = source_cell.regions();
       boost::iterators::transform_iterator<__lambda_4, const unsigned int *, boost::use_default, boost::use_default> __begin0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_4, const unsigned int *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range0).begin();
@@ -4418,7 +4409,7 @@ bool propagate<9, __lambda_6>(const Stack<9> & stack, std::deque<std::pair<unsig
                 } 
                 
               } else {
-                (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(target_cell).allowed_count() > static_cast<unsigned int>(1)) ? void(0) : __assert_fail(static_cast<const char *>("target_cell.allowed_count() > 1"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(97), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 9U, AddEvent = (lambda at src/main.impl.hpp:121:7)]")));
+                (static_cast<bool>(static_cast<const AnnotatedCell<9>&>(target_cell).allowed_count() > static_cast<unsigned int>(1)) ? void(0) : __assert_fail(static_cast<const char *>("target_cell.allowed_count() > 1"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(96), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 9U, AddEvent = (lambda at src/main.impl.hpp:121:7)]")));
                 if(static_cast<const AnnotatedCell<9>&>(target_cell).is_allowed(value)) {
                   add_event.operator()(static_cast<const exploration::CellPropagates<9>>(exploration::CellPropagates<9>(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CXXParenListInitExpr */)));
                   if(static_cast<const AnnotatedCell<9>&>(target_cell).allowed_count() == static_cast<unsigned int>(1)) {
@@ -4430,7 +4421,7 @@ bool propagate<9, __lambda_6>(const Stack<9> & stack, std::deque<std::pair<unsig
                         unsigned int value = *__begin0;
                         if(static_cast<const AnnotatedCell<9>&>(target_cell).is_allowed(value)) {
                           add_event.operator()(static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<9>>(exploration::CellIsDeducedFromSingleAllowedValue<9>(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CXXParenListInitExpr */)));
-                          (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), target_coords) == static_cast<long>(0)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), target_coords) == 0"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(106), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 9U, AddEvent = (lambda at src/main.impl.hpp:121:7)]")));
+                          (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), target_coords) == static_cast<long>(0)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), target_coords) == 0"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(105), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 9U, AddEvent = (lambda at src/main.impl.hpp:121:7)]")));
                           todo.push_back(target_coords);
                           break;
                         } 
@@ -4465,7 +4456,7 @@ bool propagate<9, __lambda_6>(const Stack<9> & stack, std::deque<std::pair<unsig
                       if((count == static_cast<unsigned int>(1)) && !static_cast<const AnnotatedCell<9> *>(single_cell)->is_set()) {
                         const std::pair<unsigned int, unsigned int> single_coords = static_cast<const std::pair<unsigned int, unsigned int>>(single_cell->coordinates());
                         add_event.operator()(static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>>(exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CXXParenListInitExpr */)));
-                        (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), single_coords) == static_cast<long>(0)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), single_coords) == 0"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(126), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 9U, AddEvent = (lambda at src/main.impl.hpp:121:7)]")));
+                        (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), single_coords) == static_cast<long>(0)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), single_coords) == 0"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(125), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 9U, AddEvent = (lambda at src/main.impl.hpp:121:7)]")));
                         todo.push_back(single_coords);
                       } 
                       
@@ -4527,7 +4518,7 @@ std::pair<unsigned int, unsigned int> get_most_constrained_cell(const AnnotatedS
 }
 
 
-/* First instantiated from: main-9.cpp:1785 */
+/* First instantiated from: main-9.cpp:1784 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 std::pair<unsigned int, unsigned int> get_most_constrained_cell<9>(const Sudoku<AnnotatedCell<9>, 9> & sudoku)
@@ -4571,7 +4562,7 @@ bool propagate_and_explore(const Stack<size> &, const std::deque<std::pair<unsig
 template<unsigned int size, typename AddEvent>
 bool explore(const Stack<size> & stack, const EventAdder<size, AddEvent> & add_event)
 {
-  (static_cast<bool>(!stack.current().is_solved()) ? void(0) : __assert_fail("!stack.current().is_solved()", "src/exploration/sudoku-solver.hpp", 184, __extension____PRETTY_FUNCTION__));
+  (static_cast<bool>(!stack.current().is_solved()) ? void(0) : __assert_fail("!stack.current().is_solved()", "src/exploration/sudoku-solver.hpp", 183, __extension____PRETTY_FUNCTION__));
   const auto & cell = stack.current().cell(get_most_constrained_cell(stack.current()));
   const std::pair<unsigned int, unsigned int> coords = cell.coordinates();
   std::vector<unsigned int, std::allocator<unsigned int> > allowed_values = std::vector<unsigned int, std::allocator<unsigned int> >();
@@ -4608,12 +4599,12 @@ bool explore(const Stack<size> & stack, const EventAdder<size, AddEvent> & add_e
 }
 
 
-/* First instantiated from: main-9.cpp:1824 */
+/* First instantiated from: main-9.cpp:1823 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool explore<9, __lambda_5>(const Stack<9> & stack, const EventAdder<9, __lambda_5> & add_event)
 {
-  (static_cast<bool>(!stack.current().is_solved()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.current().is_solved()"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(184), static_cast<const char *>(__extension__"bool explore(const Stack<size> &, const EventAdder<size, AddEvent> &) [size = 9U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:264:42)]")));
+  (static_cast<bool>(!stack.current().is_solved()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.current().is_solved()"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(183), static_cast<const char *>(__extension__"bool explore(const Stack<size> &, const EventAdder<size, AddEvent> &) [size = 9U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:263:42)]")));
   const Cell & cell = static_cast<const SudokuBase<AnnotatedCell<9>, 9>&>(stack.current()).cell(static_cast<const std::pair<unsigned int, unsigned int>>(get_most_constrained_cell<9>(stack.current())));
   const std::pair<unsigned int, unsigned int> coords = static_cast<const std::pair<unsigned int, unsigned int>>(cell.coordinates());
   std::vector<unsigned int, std::allocator<unsigned int> > allowed_values = std::vector<unsigned int, std::allocator<unsigned int> >();
@@ -4653,12 +4644,12 @@ bool explore<9, __lambda_5>(const Stack<9> & stack, const EventAdder<9, __lambda
 #endif
 
 
-/* First instantiated from: main-9.cpp:1824 */
+/* First instantiated from: main-9.cpp:1823 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool explore<9, __lambda_6>(const Stack<9> & stack, const EventAdder<9, __lambda_6> & add_event)
 {
-  (static_cast<bool>(!stack.current().is_solved()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.current().is_solved()"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(184), static_cast<const char *>(__extension__"bool explore(const Stack<size> &, const EventAdder<size, AddEvent> &) [size = 9U, AddEvent = (lambda at src/main.impl.hpp:121:7)]")));
+  (static_cast<bool>(!stack.current().is_solved()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.current().is_solved()"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(183), static_cast<const char *>(__extension__"bool explore(const Stack<size> &, const EventAdder<size, AddEvent> &) [size = 9U, AddEvent = (lambda at src/main.impl.hpp:121:7)]")));
   const Cell & cell = static_cast<const SudokuBase<AnnotatedCell<9>, 9>&>(stack.current()).cell(static_cast<const std::pair<unsigned int, unsigned int>>(get_most_constrained_cell<9>(stack.current())));
   const std::pair<unsigned int, unsigned int> coords = static_cast<const std::pair<unsigned int, unsigned int>>(cell.coordinates());
   std::vector<unsigned int, std::allocator<unsigned int> > allowed_values = std::vector<unsigned int, std::allocator<unsigned int> >();
@@ -4716,7 +4707,7 @@ bool propagate_and_explore(const Stack<size> & stack, const std::deque<std::pair
 }
 
 
-/* First instantiated from: main-9.cpp:1851 */
+/* First instantiated from: main-9.cpp:1850 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool propagate_and_explore<9, __lambda_5>(const Stack<9> & stack, const std::deque<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > & todo, const EventAdder<9, __lambda_5> & add_event)
@@ -4736,7 +4727,7 @@ bool propagate_and_explore<9, __lambda_5>(const Stack<9> & stack, const std::deq
 #endif
 
 
-/* First instantiated from: main-9.cpp:1851 */
+/* First instantiated from: main-9.cpp:1850 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool propagate_and_explore<9, __lambda_6>(const Stack<9> & stack, const std::deque<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > & todo, const EventAdder<9, __lambda_6> & add_event)
@@ -4794,7 +4785,7 @@ Sudoku<ValueCell, size> solve_using_exploration(Sudoku<ValueCell, size> sudoku, 
 }
 
 
-/* First instantiated from: main-9.cpp:1994 */
+/* First instantiated from: main-9.cpp:1993 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 Sudoku<ValueCell, 9> solve_using_exploration<9, __lambda_6>(Sudoku<ValueCell, 9> sudoku, const __lambda_6 & add_event_)
@@ -4838,7 +4829,7 @@ Sudoku<ValueCell, 9> solve_using_exploration<9, __lambda_6>(Sudoku<ValueCell, 9>
 #endif
 
 
-/* First instantiated from: main-9.cpp:1863 */
+/* First instantiated from: main-9.cpp:1862 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 Sudoku<ValueCell, 9> solve_using_exploration<9, __lambda_5>(Sudoku<ValueCell, 9> sudoku, const __lambda_5 & add_event_)
@@ -4909,7 +4900,7 @@ Sudoku<ValueCell, size> solve_using_exploration(Sudoku<ValueCell, size> sudoku)
 }
 
 
-/* First instantiated from: main-9.cpp:1922 */
+/* First instantiated from: main-9.cpp:1921 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 Sudoku<ValueCell, 9> solve_using_exploration<9>(Sudoku<ValueCell, 9> sudoku)
@@ -5256,7 +5247,7 @@ int main_(const Options & options)
 }
 
 
-/* First instantiated from: main-9.cpp:2017 */
+/* First instantiated from: main-9.cpp:2016 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 int main_<9>(const Options & options)

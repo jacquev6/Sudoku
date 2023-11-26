@@ -23,8 +23,8 @@ namespace video {
 struct VideoSerializer : Serializer {
   explicit VideoSerializer(
     const std::filesystem::path& video_path_,
-    unsigned frame_width_,
-    unsigned frame_height_
+    int frame_width_,
+    int frame_height_
   ) :  // NOLINT(whitespace/parens)
     frame_index(0),
     video_path(video_path_),
@@ -43,8 +43,8 @@ struct VideoSerializer : Serializer {
     context->bit_rate = 400000;
     context->width = frame_width_pixels;
     context->height = frame_height_pixels;
-    context->time_base = (AVRational){1, 25};
-    context->framerate = (AVRational){25, 1};
+    context->time_base = AVRational{1, 25};
+    context->framerate = AVRational{25, 1};
     context->gop_size = 10;
     context->max_b_frames = 1;
     context->pix_fmt = AV_PIX_FMT_YUV420P;
@@ -145,8 +145,8 @@ struct VideoSerializer : Serializer {
  private:
   unsigned frame_index;
   std::filesystem::path video_path;
-  unsigned frame_width_pixels;
-  unsigned frame_height_pixels;
+  int frame_width_pixels;
+  int frame_height_pixels;
   const AVCodec* codec;
   AVCodecContext* context;
   AVFrame* picture;

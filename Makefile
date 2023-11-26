@@ -80,7 +80,7 @@ compile: ${object_files}
 build/obj/%.o: src/%.cpp
 	@${echo} "Compile: g++ -c $<"
 	@mkdir -p ${@D}
-	@CCACHE_LOGFILE=$@.ccache-log g++ -g --coverage -O0 -c -std=c++20 $$(pkg-config cairomm-1.16 libavutil libavcodec --cflags) -include icecream.hpp -MMD -MP $< -o $@
+	@CCACHE_LOGFILE=$@.ccache-log g++ -g --coverage -O0 -c -std=c++20 -Wall -Wextra -pedantic -Werror -Wno-missing-field-initializers $$(pkg-config cairomm-1.16 libavutil libavcodec --cflags) -include icecream.hpp -MMD -MP $< -o $@
 	@sed -i 's#^build/obj/\(.*\)\.o:#build/obj/\1.o build/insight/\1.cpp:#' build/obj/$*.d
 
 # Special object file containing doctest's main function

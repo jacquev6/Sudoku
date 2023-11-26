@@ -48,8 +48,8 @@ Sudoku<ValueCell, size> solve_using_sat(Sudoku<ValueCell, size> sudoku) {
     // ... each value...
     for (const unsigned val : SudokuConstants<size>::values) {
       // ... appears at most once
-      for (const auto cell1 : region) {
-        for (const auto cell2 : region) {
+      for (const auto& cell1 : region) {
+        for (const auto& cell2 : region) {
           if (cell1 < cell2) {
             solver.addClause(
               ~Minisat::mkLit(has_value[cell1.first][cell1.second][val]),

@@ -12,7 +12,7 @@
 
 struct ExistingFileOrStdinValidator : public CLI::Validator {
   ExistingFileOrStdinValidator() : CLI::Validator("FILE(or - for stdin)") {
-    func_ = [](const std::string &str) {
+    func_ = [](const std::string& str) {
       if (str == "-") {
         return std::string();
       } else {
@@ -26,7 +26,7 @@ const ExistingFileOrStdinValidator ExistingFileOrStdin;
 
 struct FileOrStdoutValidator : public CLI::Validator {
   FileOrStdoutValidator() : CLI::Validator("FILE(or - for stdout)") {
-    func_ = [](const std::string &str) { return std::string(); };
+    func_ = [](const std::string&) { return std::string(); };
   }
 };
 
@@ -34,7 +34,7 @@ const FileOrStdoutValidator FileOrStdout;
 
 struct FileValidator : public CLI::Validator {
   FileValidator() : CLI::Validator("FILE") {
-    func_ = [](const std::string &str) { return std::string(); };
+    func_ = [](const std::string&) { return std::string(); };
   }
 };
 

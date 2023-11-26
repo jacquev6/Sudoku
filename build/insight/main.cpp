@@ -104,7 +104,7 @@ struct FileOrStdoutValidator : public CLI::Validator
     class __lambda_1
     {
       public: 
-      inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > operator()(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str) const
+      inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > operator()(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > &) const
       {
         return std::basic_string<char, std::char_traits<char>, std::allocator<char> >();
       }
@@ -116,9 +116,9 @@ struct FileOrStdoutValidator : public CLI::Validator
       };
       
       private: 
-      static inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > __invoke(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str)
+      static inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > __invoke(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & __param0)
       {
-        return __lambda_1{}.operator()(str);
+        return __lambda_1{}.operator()(__param0);
       }
       
       public: 
@@ -148,7 +148,7 @@ struct FileValidator : public CLI::Validator
     class __lambda_2
     {
       public: 
-      inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > operator()(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str) const
+      inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > operator()(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > &) const
       {
         return std::basic_string<char, std::char_traits<char>, std::allocator<char> >();
       }
@@ -160,9 +160,9 @@ struct FileValidator : public CLI::Validator
       };
       
       private: 
-      static inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > __invoke(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & str)
+      static inline /*constexpr */ std::basic_string<char, std::char_traits<char>, std::allocator<char> > __invoke(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & __param0)
       {
-        return __lambda_2{}.operator()(str);
+        return __lambda_2{}.operator()(__param0);
       }
       
       public: 

@@ -2026,7 +2026,7 @@ namespace art
       __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > > __begin1 = __range0.begin();
       __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > > __end1 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__end1)); __begin1.operator++()) {
-        const std::pair<unsigned int, unsigned int> cell = std::pair<unsigned int, unsigned int>(static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1).operator*());
+        const std::pair<unsigned int, unsigned int> & cell = static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1).operator*();
         static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->begin_new_sub_path();
         const std::pair<double, double> __operator3 = static_cast<const std::pair<double, double>>(cell_center.operator()(cell));
         const double && x = std::get<0UL>(static_cast<const std::pair<double, double> &&>(__operator3));
@@ -2049,7 +2049,7 @@ namespace art
       __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > > __begin1 = __range0.begin();
       __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > > __end1 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__end1)); __begin1.operator++()) {
-        const std::pair<unsigned int, unsigned int> cell = std::pair<unsigned int, unsigned int>(static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1).operator*());
+        const std::pair<unsigned int, unsigned int> & cell = static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1).operator*();
         const std::pair<double, double> __operator4 = static_cast<const std::pair<double, double>>(cell_center.operator()(cell));
         const double && x = std::get<0UL>(static_cast<const std::pair<double, double> &&>(__operator4));
         const double && y = std::get<1UL>(static_cast<const std::pair<double, double> &&>(__operator4));
@@ -2071,9 +2071,9 @@ namespace art
       __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > > __begin1 = __range0.begin();
       __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > > __end1 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__end1)); __begin1.operator++()) {
-        const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> __operator5 = std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>(static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1).operator*());
-        const std::pair<unsigned int, unsigned int> && cell = std::get<0UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator5));
-        const unsigned int && value = std::get<1UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator5));
+        const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> & __operator5 = static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1).operator*();
+        const std::pair<unsigned int, unsigned int> & cell = std::get<0UL>(__operator5);
+        const unsigned int & value = std::get<1UL>(__operator5);
         static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->begin_new_sub_path();
         const std::pair<double, double> __operator6 = static_cast<const std::pair<double, double>>(value_center.operator()(cell, value));
         const double && x = std::get<0UL>(static_cast<const std::pair<double, double> &&>(__operator6));
@@ -2083,10 +2083,10 @@ namespace art
       
     }
     {
-      const std::tuple<double, double, double> __options2 = std::tuple<double, double, double>(options.circled_values_color);
-      const double && r = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__options2));
-      const double && g = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__options2));
-      const double && b = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__options2));
+      const std::tuple<double, double, double> & __options2 = options.circled_values_color;
+      const double & r = std::get<0UL>(__options2);
+      const double & g = std::get<1UL>(__options2);
+      const double & b = std::get<2UL>(__options2);
       static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->set_source_rgb(r, g, b);
     };
     static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->set_line_width(options.circled_values_line_width);
@@ -2106,10 +2106,10 @@ namespace art
         __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > > __begin1 = __range0.begin();
         __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > > __end1 = __range0.end();
         for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__end1)); __begin1.operator++()) {
-          const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> __operator7 = std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>(static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1).operator*());
-          const std::pair<unsigned int, unsigned int> && source_cell = std::get<0UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator7));
-          const std::pair<unsigned int, unsigned int> && target_cell = std::get<1UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator7));
-          const unsigned int && value = std::get<2UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator7));
+          const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> & __operator7 = static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1).operator*();
+          const std::pair<unsigned int, unsigned int> & source_cell = std::get<0UL>(__operator7);
+          const std::pair<unsigned int, unsigned int> & target_cell = std::get<1UL>(__operator7);
+          const unsigned int & value = std::get<2UL>(__operator7);
           Cairo::SaveGuard saver = Cairo::SaveGuard(static_cast<const std::shared_ptr<Cairo::Context>>(cr));
           const std::pair<double, double> __operator8 = static_cast<const std::pair<double, double>>(cell_center.operator()(source_cell));
           const double && x1 = std::get<0UL>(static_cast<const std::pair<double, double> &&>(__operator8));
@@ -2306,7 +2306,7 @@ namespace art
       __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > > __begin1 = __range0.begin();
       __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > > __end1 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__end1)); __begin1.operator++()) {
-        const std::pair<unsigned int, unsigned int> cell = std::pair<unsigned int, unsigned int>(static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1).operator*());
+        const std::pair<unsigned int, unsigned int> & cell = static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1).operator*();
         static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->begin_new_sub_path();
         const std::pair<double, double> __operator3 = static_cast<const std::pair<double, double>>(cell_center.operator()(cell));
         const double && x = std::get<0UL>(static_cast<const std::pair<double, double> &&>(__operator3));
@@ -2329,7 +2329,7 @@ namespace art
       __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > > __begin1 = __range0.begin();
       __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > > __end1 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__end1)); __begin1.operator++()) {
-        const std::pair<unsigned int, unsigned int> cell = std::pair<unsigned int, unsigned int>(static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1).operator*());
+        const std::pair<unsigned int, unsigned int> & cell = static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1).operator*();
         const std::pair<double, double> __operator4 = static_cast<const std::pair<double, double>>(cell_center.operator()(cell));
         const double && x = std::get<0UL>(static_cast<const std::pair<double, double> &&>(__operator4));
         const double && y = std::get<1UL>(static_cast<const std::pair<double, double> &&>(__operator4));
@@ -2351,9 +2351,9 @@ namespace art
       __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > > __begin1 = __range0.begin();
       __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > > __end1 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__end1)); __begin1.operator++()) {
-        const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> __operator5 = std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>(static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1).operator*());
-        const std::pair<unsigned int, unsigned int> && cell = std::get<0UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator5));
-        const unsigned int && value = std::get<1UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator5));
+        const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> & __operator5 = static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1).operator*();
+        const std::pair<unsigned int, unsigned int> & cell = std::get<0UL>(__operator5);
+        const unsigned int & value = std::get<1UL>(__operator5);
         static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->begin_new_sub_path();
         const std::pair<double, double> __operator6 = static_cast<const std::pair<double, double>>(value_center.operator()(cell, value));
         const double && x = std::get<0UL>(static_cast<const std::pair<double, double> &&>(__operator6));
@@ -2363,10 +2363,10 @@ namespace art
       
     }
     {
-      const std::tuple<double, double, double> __options2 = std::tuple<double, double, double>(options.circled_values_color);
-      const double && r = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__options2));
-      const double && g = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__options2));
-      const double && b = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__options2));
+      const std::tuple<double, double, double> & __options2 = options.circled_values_color;
+      const double & r = std::get<0UL>(__options2);
+      const double & g = std::get<1UL>(__options2);
+      const double & b = std::get<2UL>(__options2);
       static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->set_source_rgb(r, g, b);
     };
     static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->set_line_width(options.circled_values_line_width);
@@ -2386,10 +2386,10 @@ namespace art
         __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > > __begin1 = __range0.begin();
         __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > > __end1 = __range0.end();
         for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__end1)); __begin1.operator++()) {
-          const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> __operator7 = std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>(static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1).operator*());
-          const std::pair<unsigned int, unsigned int> && source_cell = std::get<0UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator7));
-          const std::pair<unsigned int, unsigned int> && target_cell = std::get<1UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator7));
-          const unsigned int && value = std::get<2UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator7));
+          const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> & __operator7 = static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1).operator*();
+          const std::pair<unsigned int, unsigned int> & source_cell = std::get<0UL>(__operator7);
+          const std::pair<unsigned int, unsigned int> & target_cell = std::get<1UL>(__operator7);
+          const unsigned int & value = std::get<2UL>(__operator7);
           Cairo::SaveGuard saver = Cairo::SaveGuard(static_cast<const std::shared_ptr<Cairo::Context>>(cr));
           const std::pair<double, double> __operator8 = static_cast<const std::pair<double, double>>(cell_center.operator()(source_cell));
           const double && x1 = std::get<0UL>(static_cast<const std::pair<double, double> &&>(__operator8));
@@ -2615,7 +2615,7 @@ namespace art
       __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > > __begin1 = __range0.begin();
       __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > > __end1 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__end1)); __begin1.operator++()) {
-        const std::pair<unsigned int, unsigned int> cell = std::pair<unsigned int, unsigned int>(static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1).operator*());
+        const std::pair<unsigned int, unsigned int> & cell = static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1).operator*();
         static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->begin_new_sub_path();
         const auto __cell_center2 = cell_center(cell);
         static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->arc(x, y, (0.80000000000000004 * cell_size) / static_cast<double>(2), 0, static_cast<double>(2) * 3.1415926535897931);
@@ -2636,7 +2636,7 @@ namespace art
       __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > > __begin1 = __range0.begin();
       __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > > __end1 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__end1)); __begin1.operator++()) {
-        const std::pair<unsigned int, unsigned int> cell = std::pair<unsigned int, unsigned int>(static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1).operator*());
+        const std::pair<unsigned int, unsigned int> & cell = static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1).operator*();
         const auto __cell_center3 = cell_center(cell);
         static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->rectangle(x - ((0.80000000000000004 * cell_size) / static_cast<double>(2)), y - ((0.80000000000000004 * cell_size) / static_cast<double>(2)), 0.80000000000000004 * cell_size, 0.80000000000000004 * cell_size);
       }
@@ -2656,9 +2656,9 @@ namespace art
       __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > > __begin1 = __range0.begin();
       __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > > __end1 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__end1)); __begin1.operator++()) {
-        const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> __operator5 = std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>(static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1).operator*());
-        const std::pair<unsigned int, unsigned int> && cell = std::get<0UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator5));
-        const unsigned int && value = std::get<1UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator5));
+        const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> & __operator5 = static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1).operator*();
+        const std::pair<unsigned int, unsigned int> & cell = std::get<0UL>(__operator5);
+        const unsigned int & value = std::get<1UL>(__operator5);
         static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->begin_new_sub_path();
         const auto __value_center1 = value_center(cell, value);
         static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->arc(x, y, ((0.80000000000000004 * 0.5) * cell_size) / SudokuConstants<size>::sqrt_size, 0, static_cast<double>(2) * 3.1415926535897931);
@@ -2666,10 +2666,10 @@ namespace art
       
     }
     {
-      const std::tuple<double, double, double> __options2 = std::tuple<double, double, double>(options.circled_values_color);
-      const double && r = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__options2));
-      const double && g = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__options2));
-      const double && b = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__options2));
+      const std::tuple<double, double, double> & __options2 = options.circled_values_color;
+      const double & r = std::get<0UL>(__options2);
+      const double & g = std::get<1UL>(__options2);
+      const double & b = std::get<2UL>(__options2);
       static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->set_source_rgb(r, g, b);
     };
     static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->set_line_width(options.circled_values_line_width);
@@ -2689,10 +2689,10 @@ namespace art
         __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > > __begin1 = __range0.begin();
         __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > > __end1 = __range0.end();
         for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__end1)); __begin1.operator++()) {
-          const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> __operator7 = std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>(static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1).operator*());
-          const std::pair<unsigned int, unsigned int> && source_cell = std::get<0UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator7));
-          const std::pair<unsigned int, unsigned int> && target_cell = std::get<1UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator7));
-          const unsigned int && value = std::get<2UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator7));
+          const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> & __operator7 = static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1).operator*();
+          const std::pair<unsigned int, unsigned int> & source_cell = std::get<0UL>(__operator7);
+          const std::pair<unsigned int, unsigned int> & target_cell = std::get<1UL>(__operator7);
+          const unsigned int & value = std::get<2UL>(__operator7);
           Cairo::SaveGuard saver = Cairo::SaveGuard(static_cast<const std::shared_ptr<Cairo::Context>>(cr));
           const auto __cell_center4 = cell_center(source_cell);
           const auto __value_center2 = value_center(target_cell, value);
@@ -2883,7 +2883,7 @@ namespace art
       __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > > __begin1 = __range0.begin();
       __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > > __end1 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__end1)); __begin1.operator++()) {
-        const std::pair<unsigned int, unsigned int> cell = std::pair<unsigned int, unsigned int>(static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1).operator*());
+        const std::pair<unsigned int, unsigned int> & cell = static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1).operator*();
         static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->begin_new_sub_path();
         const std::pair<double, double> __operator3 = static_cast<const std::pair<double, double>>(cell_center.operator()(cell));
         const double && x = std::get<0UL>(static_cast<const std::pair<double, double> &&>(__operator3));
@@ -2906,7 +2906,7 @@ namespace art
       __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > > __begin1 = __range0.begin();
       __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > > __end1 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__end1)); __begin1.operator++()) {
-        const std::pair<unsigned int, unsigned int> cell = std::pair<unsigned int, unsigned int>(static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1).operator*());
+        const std::pair<unsigned int, unsigned int> & cell = static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1).operator*();
         const std::pair<double, double> __operator4 = static_cast<const std::pair<double, double>>(cell_center.operator()(cell));
         const double && x = std::get<0UL>(static_cast<const std::pair<double, double> &&>(__operator4));
         const double && y = std::get<1UL>(static_cast<const std::pair<double, double> &&>(__operator4));
@@ -2928,9 +2928,9 @@ namespace art
       __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > > __begin1 = __range0.begin();
       __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > > __end1 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__end1)); __begin1.operator++()) {
-        const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> __operator5 = std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>(static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1).operator*());
-        const std::pair<unsigned int, unsigned int> && cell = std::get<0UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator5));
-        const unsigned int && value = std::get<1UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator5));
+        const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> & __operator5 = static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1).operator*();
+        const std::pair<unsigned int, unsigned int> & cell = std::get<0UL>(__operator5);
+        const unsigned int & value = std::get<1UL>(__operator5);
         static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->begin_new_sub_path();
         const std::pair<double, double> __operator6 = static_cast<const std::pair<double, double>>(value_center.operator()(cell, value));
         const double && x = std::get<0UL>(static_cast<const std::pair<double, double> &&>(__operator6));
@@ -2940,10 +2940,10 @@ namespace art
       
     }
     {
-      const std::tuple<double, double, double> __options2 = std::tuple<double, double, double>(options.circled_values_color);
-      const double && r = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__options2));
-      const double && g = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__options2));
-      const double && b = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__options2));
+      const std::tuple<double, double, double> & __options2 = options.circled_values_color;
+      const double & r = std::get<0UL>(__options2);
+      const double & g = std::get<1UL>(__options2);
+      const double & b = std::get<2UL>(__options2);
       static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->set_source_rgb(r, g, b);
     };
     static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->set_line_width(options.circled_values_line_width);
@@ -2963,10 +2963,10 @@ namespace art
         __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > > __begin1 = __range0.begin();
         __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > > __end1 = __range0.end();
         for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__end1)); __begin1.operator++()) {
-          const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> __operator7 = std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>(static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1).operator*());
-          const std::pair<unsigned int, unsigned int> && source_cell = std::get<0UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator7));
-          const std::pair<unsigned int, unsigned int> && target_cell = std::get<1UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator7));
-          const unsigned int && value = std::get<2UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator7));
+          const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> & __operator7 = static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1).operator*();
+          const std::pair<unsigned int, unsigned int> & source_cell = std::get<0UL>(__operator7);
+          const std::pair<unsigned int, unsigned int> & target_cell = std::get<1UL>(__operator7);
+          const unsigned int & value = std::get<2UL>(__operator7);
           Cairo::SaveGuard saver = Cairo::SaveGuard(static_cast<const std::shared_ptr<Cairo::Context>>(cr));
           const std::pair<double, double> __operator8 = static_cast<const std::pair<double, double>>(cell_center.operator()(source_cell));
           const double && x1 = std::get<0UL>(static_cast<const std::pair<double, double> &&>(__operator8));
@@ -3163,7 +3163,7 @@ namespace art
       __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > > __begin1 = __range0.begin();
       __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > > __end1 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__end1)); __begin1.operator++()) {
-        const std::pair<unsigned int, unsigned int> cell = std::pair<unsigned int, unsigned int>(static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1).operator*());
+        const std::pair<unsigned int, unsigned int> & cell = static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1).operator*();
         static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->begin_new_sub_path();
         const std::pair<double, double> __operator3 = static_cast<const std::pair<double, double>>(cell_center.operator()(cell));
         const double && x = std::get<0UL>(static_cast<const std::pair<double, double> &&>(__operator3));
@@ -3186,7 +3186,7 @@ namespace art
       __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > > __begin1 = __range0.begin();
       __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > > __end1 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__end1)); __begin1.operator++()) {
-        const std::pair<unsigned int, unsigned int> cell = std::pair<unsigned int, unsigned int>(static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1).operator*());
+        const std::pair<unsigned int, unsigned int> & cell = static_cast<const __gnu_cxx::__normal_iterator<const std::pair<unsigned int, unsigned int> *, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > >>(__begin1).operator*();
         const std::pair<double, double> __operator4 = static_cast<const std::pair<double, double>>(cell_center.operator()(cell));
         const double && x = std::get<0UL>(static_cast<const std::pair<double, double> &&>(__operator4));
         const double && y = std::get<1UL>(static_cast<const std::pair<double, double> &&>(__operator4));
@@ -3208,9 +3208,9 @@ namespace art
       __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > > __begin1 = __range0.begin();
       __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > > __end1 = __range0.end();
       for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__end1)); __begin1.operator++()) {
-        const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> __operator5 = std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>(static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1).operator*());
-        const std::pair<unsigned int, unsigned int> && cell = std::get<0UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator5));
-        const unsigned int && value = std::get<1UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator5));
+        const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> & __operator5 = static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1).operator*();
+        const std::pair<unsigned int, unsigned int> & cell = std::get<0UL>(__operator5);
+        const unsigned int & value = std::get<1UL>(__operator5);
         static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->begin_new_sub_path();
         const std::pair<double, double> __operator6 = static_cast<const std::pair<double, double>>(value_center.operator()(cell, value));
         const double && x = std::get<0UL>(static_cast<const std::pair<double, double> &&>(__operator6));
@@ -3220,10 +3220,10 @@ namespace art
       
     }
     {
-      const std::tuple<double, double, double> __options2 = std::tuple<double, double, double>(options.circled_values_color);
-      const double && r = std::get<0UL>(static_cast<const std::tuple<double, double, double> &&>(__options2));
-      const double && g = std::get<1UL>(static_cast<const std::tuple<double, double, double> &&>(__options2));
-      const double && b = std::get<2UL>(static_cast<const std::tuple<double, double, double> &&>(__options2));
+      const std::tuple<double, double, double> & __options2 = options.circled_values_color;
+      const double & r = std::get<0UL>(__options2);
+      const double & g = std::get<1UL>(__options2);
+      const double & b = std::get<2UL>(__options2);
       static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->set_source_rgb(r, g, b);
     };
     static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->set_line_width(options.circled_values_line_width);
@@ -3243,10 +3243,10 @@ namespace art
         __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > > __begin1 = __range0.begin();
         __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > > __end1 = __range0.end();
         for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__end1)); __begin1.operator++()) {
-          const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> __operator7 = std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>(static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1).operator*());
-          const std::pair<unsigned int, unsigned int> && source_cell = std::get<0UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator7));
-          const std::pair<unsigned int, unsigned int> && target_cell = std::get<1UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator7));
-          const unsigned int && value = std::get<2UL>(static_cast<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> &&>(__operator7));
+          const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> & __operator7 = static_cast<const __gnu_cxx::__normal_iterator<const std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> *, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > >>(__begin1).operator*();
+          const std::pair<unsigned int, unsigned int> & source_cell = std::get<0UL>(__operator7);
+          const std::pair<unsigned int, unsigned int> & target_cell = std::get<1UL>(__operator7);
+          const unsigned int & value = std::get<2UL>(__operator7);
           Cairo::SaveGuard saver = Cairo::SaveGuard(static_cast<const std::shared_ptr<Cairo::Context>>(cr));
           const std::pair<double, double> __operator8 = static_cast<const std::pair<double, double>>(cell_center.operator()(source_cell));
           const double && x1 = std::get<0UL>(static_cast<const std::pair<double, double> &&>(__operator8));
@@ -3662,7 +3662,7 @@ namespace art
         const std::pair<unsigned int, unsigned int> * __begin1 = __range0.begin();
         const std::pair<unsigned int, unsigned int> * __end1 = __range0.end();
         for(; __begin1 != __end1; ++__begin1) {
-          const std::pair<unsigned int, unsigned int> cell = std::pair<unsigned int, unsigned int>(*__begin1);
+          const std::pair<unsigned int, unsigned int> & cell = *__begin1;
           {
             const std::array<unsigned int, 4> & __range1 = SudokuConstants<4>::values;
             const unsigned int * __begin3 = __range1.begin();
@@ -3722,7 +3722,7 @@ namespace art
         const std::pair<unsigned int, unsigned int> * __begin1 = __range0.begin();
         const std::pair<unsigned int, unsigned int> * __end1 = __range0.end();
         for(; __begin1 != __end1; ++__begin1) {
-          const std::pair<unsigned int, unsigned int> cell = std::pair<unsigned int, unsigned int>(*__begin1);
+          const std::pair<unsigned int, unsigned int> & cell = *__begin1;
           if(!std::operator==(cell, static_cast<const std::pair<unsigned int, unsigned int>>(source_cell))) {
             const std::pair<unsigned int, unsigned int> __cell11 = std::pair<unsigned int, unsigned int>(cell);
             const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell11));

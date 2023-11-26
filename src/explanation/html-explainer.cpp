@@ -176,10 +176,10 @@ void HtmlExplainer<size>::operator()(const exploration::SudokuIsSolved<size>& ev
 }
 
 template<unsigned size>
-void HtmlExplainer<size>::operator()(const exploration::HypothesisIsAccepted<size>& event) {}
+void HtmlExplainer<size>::operator()(const exploration::HypothesisIsAccepted<size>&) {}
 
 template<unsigned size>
-void HtmlExplainer<size>::operator()(const exploration::ExplorationIsDone<size>& event) {}
+void HtmlExplainer<size>::operator()(const exploration::ExplorationIsDone<size>&) {}
 
 template class HtmlExplainer<4>;
 template class HtmlExplainer<9>;

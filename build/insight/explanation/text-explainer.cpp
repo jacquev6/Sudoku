@@ -1240,7 +1240,7 @@ class TextExplainer
     this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("%1% in (%2%, %3%) has been fully propagated\n"))) % (event.value + 1)) % (event.cell.first + 1)) % (event.cell.second + 1));
   }
   
-  inline void operator()(const exploration::PropagationIsDoneForSudoku<size> & event)
+  inline void operator()(const exploration::PropagationIsDoneForSudoku<size> &)
   {
     this->print_prefix();
     std::operator<<(this->os, static_cast<const char *>("All cells have been fully propagated\n"));
@@ -1267,7 +1267,7 @@ class TextExplainer
     this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Hypothesis that (%1%, %2%) may have been %3% must be back-tracked\n"))) % (event.cell.first + 1)) % (event.cell.second + 1)) % (event.value + 1));
   }
   
-  inline void operator()(const exploration::SudokuIsSolved<size> & event)
+  inline void operator()(const exploration::SudokuIsSolved<size> &)
   {
     this->print_prefix();
     std::operator<<(this->os, static_cast<const char *>("Sudoku is solved\n"));
@@ -1377,7 +1377,7 @@ class TextExplainer<static_cast<unsigned int>(4)>
     boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("%1% in (%2%, %3%) has been fully propagated\n"))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1))))));
   }
   
-  inline void operator()(const exploration::PropagationIsDoneForSudoku<4> & event)
+  inline void operator()(const exploration::PropagationIsDoneForSudoku<4> &)
   {
     this->print_prefix();
     std::operator<<(this->os, static_cast<const char *>("All cells have been fully propagated\n"));
@@ -1404,7 +1404,7 @@ class TextExplainer<static_cast<unsigned int>(4)>
     boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Hypothesis that (%1%, %2%) may have been %3% must be back-tracked\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1))))));
   }
   
-  inline void operator()(const exploration::SudokuIsSolved<4> & event)
+  inline void operator()(const exploration::SudokuIsSolved<4> &)
   {
     this->print_prefix();
     std::operator<<(this->os, static_cast<const char *>("Sudoku is solved\n"));
@@ -1510,7 +1510,7 @@ class TextExplainer<static_cast<unsigned int>(9)>
     boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("%1% in (%2%, %3%) has been fully propagated\n"))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1))))));
   }
   
-  inline void operator()(const exploration::PropagationIsDoneForSudoku<9> & event)
+  inline void operator()(const exploration::PropagationIsDoneForSudoku<9> &)
   {
     this->print_prefix();
     std::operator<<(this->os, static_cast<const char *>("All cells have been fully propagated\n"));
@@ -1537,7 +1537,7 @@ class TextExplainer<static_cast<unsigned int>(9)>
     boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Hypothesis that (%1%, %2%) may have been %3% must be back-tracked\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1))))));
   }
   
-  inline void operator()(const exploration::SudokuIsSolved<9> & event)
+  inline void operator()(const exploration::SudokuIsSolved<9> &)
   {
     this->print_prefix();
     std::operator<<(this->os, static_cast<const char *>("Sudoku is solved\n"));
