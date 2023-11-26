@@ -4,6 +4,9 @@ ifndef SUDOKU_MAKE_CALLED_BY_SCRIPT
   $(error Don't call 'make' directly. Use the './make.sh' script.)
 endif
 
+# https://stackoverflow.com/a/589300/905845
+SHELL := /bin/bash -o pipefail -o errexit -o nounset
+
 
 # Top-level targets
 

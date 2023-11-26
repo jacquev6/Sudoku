@@ -132,11 +132,11 @@ int main_(const Options& options) {
 
     const auto solved = solve_using_exploration<size>(
       sudoku,
-      [&](exploration::Event<size>&& event) {
-        if (text_explainer) std::visit(*text_explainer, event);
-        if (html_explainer) std::visit(*html_explainer, event);
-        if (video_text_explainer) std::visit(*video_text_explainer, event);
-        if (video_explainer) std::visit(*video_explainer, event);
+      [&](const auto& event) {
+        if (text_explainer) (*text_explainer)(event);
+        if (html_explainer) (*html_explainer)(event);
+        if (video_text_explainer) (*video_text_explainer)(event);
+        if (video_explainer) (*video_explainer)(event);
       });
 
     if (is_solved(solved)) {

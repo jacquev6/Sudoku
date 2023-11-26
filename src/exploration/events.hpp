@@ -3,7 +3,6 @@
 #ifndef EXPLORATION_EVENTS_HPP_
 #define EXPLORATION_EVENTS_HPP_
 
-#include <variant>
 #include <vector>
 
 #include "annotations.hpp"
@@ -121,24 +120,6 @@ struct ExplorationIsDone {
 
   Coordinates cell;
 };
-
-template<unsigned size>
-using Event = std::variant<
-  CellIsSetInInput<size>,
-  InputsAreDone<size>,
-  PropagationStartsForSudoku<size>,
-  PropagationStartsForCell<size>,
-  CellPropagates<size>,
-  CellIsDeducedFromSingleAllowedValue<size>,
-  CellIsDeducedAsSinglePlaceForValueInRegion<size>,
-  PropagationIsDoneForCell<size>,
-  PropagationIsDoneForSudoku<size>,
-  ExplorationStarts<size>,
-  HypothesisIsMade<size>,
-  HypothesisIsRejected<size>,
-  SudokuIsSolved<size>,
-  HypothesisIsAccepted<size>,
-  ExplorationIsDone<size>>;
 
 }  // namespace exploration
 

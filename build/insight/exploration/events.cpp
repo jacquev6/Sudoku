@@ -7,7 +7,6 @@
 #ifndef EXPLORATION_EVENTS_HPP_
 #define EXPLORATION_EVENTS_HPP_
 
-#include <variant>
 #include <vector>
 
 # 1 "src/exploration/annotations.hpp"
@@ -216,7 +215,7 @@ class SudokuConstants
   /* PASSED: static_assert((sqrt_size * sqrt_size) == size, "'size' must be a perfect square"); */
 };
 
-/* First instantiated from: events.cpp:310 */
+/* First instantiated from: events.cpp:309 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuConstants<4>
@@ -400,7 +399,7 @@ class SudokuConstants<4>
 };
 
 #endif
-/* First instantiated from: events.cpp:310 */
+/* First instantiated from: events.cpp:309 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuConstants<9>
@@ -856,7 +855,7 @@ class SudokuBase
   CellsArray _cells;
 };
 
-/* First instantiated from: events.cpp:516 */
+/* First instantiated from: events.cpp:515 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<4>, 4>
@@ -930,7 +929,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 4>, 4> copy_cells(const std::integer_sequence<unsigned int, row...> &, const std::array<std::array<Cell, 4>, 4> & other_cells);
   
-  /* First instantiated from: events.cpp:267 */
+  /* First instantiated from: events.cpp:266 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 4>, 4> copy_cells<0, 1, 2, 3>(const std::integer_sequence<unsigned int, 0, 1, 2, 3> &, const std::array<std::array<Cell, 4>, 4> & other_cells)
@@ -942,7 +941,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...col>
   inline std::array<Cell, 4> copy_row(unsigned int row, const std::array<std::array<Cell, 4>, 4> & other_cells, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: events.cpp:272 */
+  /* First instantiated from: events.cpp:271 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 4> copy_row<0, 1, 2, 3>(unsigned int row, const std::array<std::array<Cell, 4>, 4> & other_cells, const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -1021,7 +1020,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
 };
 
 #endif
-/* First instantiated from: events.cpp:516 */
+/* First instantiated from: events.cpp:515 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<9>, 9>
@@ -1095,7 +1094,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 9>, 9> copy_cells(const std::integer_sequence<unsigned int, row...> &, const std::array<std::array<Cell, 9>, 9> & other_cells);
   
-  /* First instantiated from: events.cpp:267 */
+  /* First instantiated from: events.cpp:266 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 9>, 9> copy_cells<0, 1, 2, 3, 4, 5, 6, 7, 8>(const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &, const std::array<std::array<Cell, 9>, 9> & other_cells)
@@ -1107,7 +1106,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...col>
   inline std::array<Cell, 9> copy_row(unsigned int row, const std::array<std::array<Cell, 9>, 9> & other_cells, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: events.cpp:272 */
+  /* First instantiated from: events.cpp:271 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 9> copy_row<0, 1, 2, 3, 4, 5, 6, 7, 8>(unsigned int row, const std::array<std::array<Cell, 9>, 9> & other_cells, const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -1204,7 +1203,7 @@ class Sudoku : public SudokuBase<Cell, size>
 {
 };
 
-/* First instantiated from: events.cpp:720 */
+/* First instantiated from: events.cpp:701 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<AnnotatedCell<4>, 4> : public SudokuBase<AnnotatedCell<4>, 4>
@@ -1235,7 +1234,7 @@ class Sudoku<AnnotatedCell<4>, 4> : public SudokuBase<AnnotatedCell<4>, 4>
 };
 
 #endif
-/* First instantiated from: events.cpp:720 */
+/* First instantiated from: events.cpp:701 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<AnnotatedCell<9>, 9> : public SudokuBase<AnnotatedCell<9>, 9>
@@ -1443,7 +1442,7 @@ class AnnotatedCell
   bool propagated;
 };
 
-/* First instantiated from: events.cpp:167 */
+/* First instantiated from: events.cpp:166 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class AnnotatedCell<4>
@@ -1557,7 +1556,7 @@ class AnnotatedCell<4>
 };
 
 #endif
-/* First instantiated from: events.cpp:167 */
+/* First instantiated from: events.cpp:166 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class AnnotatedCell<9>
@@ -1744,7 +1743,7 @@ class Stack
   std::vector<AnnotatedSudoku<size> > stack;
 };
 
-/* First instantiated from: events.cpp:720 */
+/* First instantiated from: events.cpp:701 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<4>
@@ -1783,7 +1782,7 @@ class Stack<4>
 };
 
 #endif
-/* First instantiated from: events.cpp:720 */
+/* First instantiated from: events.cpp:701 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<9>
@@ -1825,7 +1824,7 @@ class Stack<9>
 
 
 #endif  // EXPLORATION_ANNOTATIONS_HPP_
-# 10 "src/exploration/events.hpp"
+# 9 "src/exploration/events.hpp"
 
 
 namespace exploration
@@ -1958,8 +1957,6 @@ namespace exploration
     std::pair<unsigned int, unsigned int> cell;
   };
   
-  template<unsigned int size>
-  using Event = std::variant<CellIsSetInInput<size>, InputsAreDone<size>, PropagationStartsForSudoku<size>, PropagationStartsForCell<size>, CellPropagates<size>, CellIsDeducedFromSingleAllowedValue<size>, CellIsDeducedAsSinglePlaceForValueInRegion<size>, PropagationIsDoneForCell<size>, PropagationIsDoneForSudoku<size>, ExplorationStarts<size>, HypothesisIsMade<size>, HypothesisIsRejected<size>, SudokuIsSolved<size>, HypothesisIsAccepted<size>, ExplorationIsDone<size> >;
   
 }  // namespace exploration
 

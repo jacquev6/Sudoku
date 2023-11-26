@@ -53,26 +53,26 @@ class VideoExplainer {
   {}
 
  private:
+  template<typename Event>
   class VisitEventsGuard {
    public:
-    VisitEventsGuard(VideoExplainer* explainer_, const exploration::Event<size>& event) :
+    VisitEventsGuard(VideoExplainer* explainer_, const Event& event) :
       explainer(*explainer_),
       events(),
       before(explainer.before),
       after(explainer.after)
     {  // NOLINT(whitespace/braces)
-      std::visit([this](const auto& e){ e.apply(&explainer.after); }, event);
+      event.apply(&explainer.after);
       events.push_back(event);
     }
 
-    template<typename T>
-    VisitEventsGuard(VideoExplainer* explainer_, const std::vector<T>& events_) :
+    VisitEventsGuard(VideoExplainer* explainer_, const std::vector<Event>& events_) :
       explainer(*explainer_),
       events(),
       before(explainer.before),
       after(explainer.after)
     {  // NOLINT(whitespace/braces)
-      for (const T& event : events_) {
+      for (const auto& event : events_) {
         event.apply(&explainer.after);
         events.push_back(event);
       }
@@ -85,18 +85,25 @@ class VideoExplainer {
 
     ~VisitEventsGuard() {
       for (const auto& event : events) {
-        std::visit([this](const auto& e){ e.apply(&explainer.before); }, event);
+        event.apply(&explainer.before);
       }
     }
 
    private:
     VideoExplainer& explainer;
-    std::vector<exploration::Event<size>> events;
+    std::vector<Event> events;
 
    public:
     const Stack<size>& before;
     const Stack<size>& after;
   };
+
+  // Deduction guides required by Clang (used through C++ Insights)
+  template<typename Event>
+  VisitEventsGuard(VideoExplainer*, const Event&) -> VisitEventsGuard<Event>;
+
+  template<typename Event>
+  VisitEventsGuard(VideoExplainer*, const std::vector<Event>&) -> VisitEventsGuard<Event>;
 
   class FrameGuard {
    public:

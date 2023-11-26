@@ -17,58 +17,57 @@
 // This design ensures that the events returned to the client can replicate exactly the evolution of the
 // stack that happened during the exploration, because the stack actually evolved only through said events.
 // (I think this is brilliant, but I *may* biased as I'm the author of this code).
-template<unsigned size>
+template<unsigned size, typename AddEvent>
 struct EventAdder {
-  EventAdder(Stack<size>* stack_, const std::function<void(exploration::Event<size>&&)>& add_event_)
+  EventAdder(Stack<size>* stack_, const AddEvent& add_event_)
     : stack(stack_), add_event(add_event_) {}
 
-  void operator()(exploration::Event<size>&& event) const {
-    std::visit([this](const auto& e) { e.apply(stack); }, event);
-    add_event(std::move(event));
+  template<typename Event>
+  void operator()(const Event& event) const {
+    event.apply(stack);
+    add_event(event);
   }
 
  private:
   Stack<size>* stack;
-  const std::function<void(exploration::Event<size>&&)>& add_event;
+  const AddEvent& add_event;
 };
 
 
 // Make sure a closing event is added, however the scope is exited
-template<unsigned size>
+template<unsigned size, typename AddEvent, typename EventIn, typename EventOut>
 struct EventsPairGuard {
   EventsPairGuard(
-    const EventAdder<size>& add_event_,
-    exploration::Event<size>&& in,
-    exploration::Event<size>&& out_
+    const EventAdder<size, AddEvent>& add_event_,
+    const EventIn& in,
+    const EventOut& out_
   ) :  // NOLINT(whitespace/parens)
     add_event(add_event_),
-    out(std::move(out_))
+    out(out_)
   {  // NOLINT(whitespace/braces)
-    add_event(std::move(in));
+    add_event(in);
   }
 
   ~EventsPairGuard() {
-    add_event(std::move(out));
+    add_event(out);
   }
 
-  const EventAdder<size>& add_event;
-  exploration::Event<size> out;
+  const EventAdder<size, AddEvent>& add_event;
+  EventOut out;
 };
 
 
-
-
-template<unsigned size>
+template<unsigned size, typename AddEvent>
 bool propagate(
   const Stack<size>& stack,
   std::deque<Coordinates> todo,
-  const EventAdder<size>& add_event
+  const EventAdder<size, AddEvent>& add_event
 ) {
   for (const auto& coords : todo) {
     assert(std::count(todo.begin(), todo.end(), coords) == 1);
   }
 
-  EventsPairGuard<size> guard(
+  EventsPairGuard guard(
     add_event,
     exploration::PropagationStartsForSudoku<size>(),
     exploration::PropagationIsDoneForSudoku<size>());
@@ -80,7 +79,7 @@ bool propagate(
     assert(source_cell.is_set());
     const unsigned value = source_cell.get();
 
-    EventsPairGuard<size> guard(
+    EventsPairGuard guard(
       add_event,
       exploration::PropagationStartsForCell<size>(source_coords, value),
       exploration::PropagationIsDoneForCell<size>(source_coords, value));
@@ -172,16 +171,16 @@ Coordinates get_most_constrained_cell(const AnnotatedSudoku<size>& sudoku) {
 }
 
 
-template<unsigned size>
+template<unsigned size, typename AddEvent>
 bool propagate_and_explore(
   const Stack<size>&,
   const std::deque<Coordinates>& todo,
-  const EventAdder<size>&
+  const EventAdder<size, AddEvent>&
 );
 
 
-template<unsigned size>
-bool explore(const Stack<size>& stack, const EventAdder<size>& add_event) {
+template<unsigned size, typename AddEvent>
+bool explore(const Stack<size>& stack, const EventAdder<size, AddEvent>& add_event) {
   assert(!stack.current().is_solved());
 
   const auto& cell = stack.current().cell(get_most_constrained_cell(stack.current()));
@@ -193,7 +192,7 @@ bool explore(const Stack<size>& stack, const EventAdder<size>& add_event) {
     }
   }
 
-  EventsPairGuard<size> guard(
+  EventsPairGuard guard(
     add_event,
     exploration::ExplorationStarts<size>(coords, allowed_values),
     exploration::ExplorationIsDone<size>(coords));
@@ -213,11 +212,11 @@ bool explore(const Stack<size>& stack, const EventAdder<size>& add_event) {
 }
 
 
-template<unsigned size>
+template<unsigned size, typename AddEvent>
 bool propagate_and_explore(
   const Stack<size>& stack,
   const std::deque<Coordinates>& todo,
-  const EventAdder<size>& add_event
+  const EventAdder<size, AddEvent>& add_event
 ) {
   if (propagate(stack, todo, add_event)) {
     if (stack.current().is_solved()) {
@@ -231,13 +230,13 @@ bool propagate_and_explore(
 }
 
 
-template<unsigned size>
+template<unsigned size, typename AddEvent>
 Sudoku<ValueCell, size> solve_using_exploration(
   Sudoku<ValueCell, size> sudoku,
-  const std::function<void(exploration::Event<size>&&)>& add_event_ = [](exploration::Event<size>&&) {}
+  const AddEvent& add_event_
 ) {
   Stack<size> stack;
-  EventAdder<size> add_event(&stack, add_event_);
+  EventAdder<size, AddEvent> add_event(&stack, add_event_);
   std::deque<Coordinates> todo;
   for (const auto& cell : sudoku.cells()) {
     const auto val = cell.get();
@@ -258,6 +257,11 @@ Sudoku<ValueCell, size> solve_using_exploration(
     }
   }
   return sudoku;
+}
+
+template<unsigned size>
+Sudoku<ValueCell, size> solve_using_exploration(Sudoku<ValueCell, size> sudoku) {
+  return solve_using_exploration(sudoku, [](const auto&) {});
 }
 
 #endif  // EXPLORATION_SUDOKU_SOLVER_HPP_

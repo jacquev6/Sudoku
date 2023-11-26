@@ -22,7 +22,6 @@
 #ifndef EXPLORATION_EVENTS_HPP_
 #define EXPLORATION_EVENTS_HPP_
 
-#include <variant>
 #include <vector>
 
 # 1 "src/exploration/annotations.hpp"
@@ -503,7 +502,7 @@ class SudokuBase
   CellsArray _cells;
 };
 
-/* First instantiated from: video-explainer.cpp:531 */
+/* First instantiated from: video-explainer.cpp:530 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<4>, 4>
@@ -567,7 +566,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 4>, 4> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: video-explainer.cpp:263 */
+  /* First instantiated from: video-explainer.cpp:262 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 4>, 4> make_cells<0, 1, 2, 3>(const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -579,7 +578,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...col>
   inline std::array<Cell, 4> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: video-explainer.cpp:268 */
+  /* First instantiated from: video-explainer.cpp:267 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 4> make_row<0, 1, 2, 3>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -622,7 +621,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
 };
 
 #endif
-/* First instantiated from: video-explainer.cpp:531 */
+/* First instantiated from: video-explainer.cpp:530 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<9>, 9>
@@ -686,7 +685,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 9>, 9> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: video-explainer.cpp:263 */
+  /* First instantiated from: video-explainer.cpp:262 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 9>, 9> make_cells<0, 1, 2, 3, 4, 5, 6, 7, 8>(const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -698,7 +697,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...col>
   inline std::array<Cell, 9> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: video-explainer.cpp:268 */
+  /* First instantiated from: video-explainer.cpp:267 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 9> make_row<0, 1, 2, 3, 4, 5, 6, 7, 8>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -1177,7 +1176,7 @@ class Stack
   std::vector<AnnotatedSudoku<size> > stack;
 };
 
-/* First instantiated from: video-explainer.cpp:1048 */
+/* First instantiated from: video-explainer.cpp:1036 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<4>
@@ -1213,7 +1212,7 @@ class Stack<4>
 };
 
 #endif
-/* First instantiated from: video-explainer.cpp:1048 */
+/* First instantiated from: video-explainer.cpp:1036 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<9>
@@ -1252,7 +1251,7 @@ class Stack<9>
 
 
 #endif  // EXPLORATION_ANNOTATIONS_HPP_
-# 10 "src/exploration/events.hpp"
+# 9 "src/exploration/events.hpp"
 
 
 namespace exploration
@@ -1266,7 +1265,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1132 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<4>
@@ -1280,7 +1279,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1132 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<9>
@@ -1301,7 +1300,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1137 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct InputsAreDone<4>
@@ -1313,7 +1312,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1137 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct InputsAreDone<9>
@@ -1332,7 +1331,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1203 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForSudoku<4>
@@ -1344,7 +1343,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1203 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForSudoku<9>
@@ -1365,7 +1364,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1210 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForCell<4>
@@ -1379,7 +1378,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1210 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForCell<9>
@@ -1519,7 +1518,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1336 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForCell<4>
@@ -1533,7 +1532,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1336 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForCell<9>
@@ -1554,7 +1553,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1554 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForSudoku<4>
@@ -1566,7 +1565,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1554 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForSudoku<9>
@@ -1587,7 +1586,7 @@ namespace exploration
     std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1561 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<4>
@@ -1602,7 +1601,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1561 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<9>
@@ -1626,7 +1625,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1568 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<4>
@@ -1640,7 +1639,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1568 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<9>
@@ -1663,7 +1662,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1575 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<4>
@@ -1677,7 +1676,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1575 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<9>
@@ -1698,7 +1697,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1582 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct SudokuIsSolved<4>
@@ -1710,7 +1709,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1582 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct SudokuIsSolved<9>
@@ -1731,7 +1730,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1603 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsAccepted<4>
@@ -1745,7 +1744,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1603 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsAccepted<9>
@@ -1767,7 +1766,7 @@ namespace exploration
     std::pair<unsigned int, unsigned int> cell;
   };
   
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1610 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationIsDone<4>
@@ -1780,7 +1779,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: type_traits:1364 */
+  /* First instantiated from: video-explainer.cpp:1610 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationIsDone<9>
@@ -1793,8 +1792,6 @@ namespace exploration
   };
   
   #endif
-  template<unsigned int size>
-  using Event = std::variant<CellIsSetInInput<size>, InputsAreDone<size>, PropagationStartsForSudoku<size>, PropagationStartsForCell<size>, CellPropagates<size>, CellIsDeducedFromSingleAllowedValue<size>, CellIsDeducedAsSinglePlaceForValueInRegion<size>, PropagationIsDoneForCell<size>, PropagationIsDoneForSudoku<size>, ExplorationStarts<size>, HypothesisIsMade<size>, HypothesisIsRejected<size>, SudokuIsSolved<size>, HypothesisIsAccepted<size>, ExplorationIsDone<size> >;
   
 }  // namespace exploration
 
@@ -1907,41 +1904,22 @@ class VideoExplainer
   
   
   private: 
+  template<typename Event>
   class VisitEventsGuard
   {
     
     public: 
-    inline VisitEventsGuard(VideoExplainer<size> * explainer_, const exploration::Event<size> & event)
+    inline VisitEventsGuard(VideoExplainer<size> * explainer_, const Event & event)
     : explainer{*explainer_}
     , events{}
     , before{this->explainer.before}
     , after{this->explainer.after}
     {
-            
-      class __lambda_4
-      {
-        public: 
-        template<class type_parameter_1_0>
-        inline auto operator()(const type_parameter_1_0 & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        private: 
-        VideoExplainer::VisitEventsGuard * __this;
-        
-        public:
-        __lambda_4(VideoExplainer::VisitEventsGuard * _this)
-        : __this{_this}
-        {}
-        
-      };
-      
-      std::visit(__lambda_4{this}, event);
+      event.apply(&this->explainer.after);
       this->events.push_back(event);
     }
     
-    template<typename T>
-    inline VisitEventsGuard(VideoExplainer<size> * explainer_, const std::vector<T> & events_)
+    inline VisitEventsGuard(VideoExplainer<size> * explainer_, const std::vector<Event> & events_)
     : explainer{*explainer_}
     , events{}
     , before{this->explainer.before}
@@ -1950,7 +1928,7 @@ class VideoExplainer
       {
         auto && __range1 = events_;
         for(; ; ) {
-          const T & event;
+          const auto & event;
           event.apply(&this->explainer.after);
           this->events.push_back(event);
         }
@@ -1958,36 +1936,17 @@ class VideoExplainer
       }
     }
     
-    // inline VisitEventsGuard(const VisitEventsGuard &) = delete;
-    // inline VisitEventsGuard & operator=(const VisitEventsGuard &) = delete;
-    // inline VisitEventsGuard(VisitEventsGuard &&) = delete;
-    // inline VisitEventsGuard & operator=(VisitEventsGuard &&) = delete;
+    // inline VisitEventsGuard(const VisitEventsGuard<Event> &) = delete;
+    // inline VisitEventsGuard<Event> & operator=(const VisitEventsGuard<Event> &) = delete;
+    // inline VisitEventsGuard(VisitEventsGuard<Event> &&) = delete;
+    // inline VisitEventsGuard<Event> & operator=(VisitEventsGuard<Event> &&) = delete;
     inline ~VisitEventsGuard()
     {
       {
-        auto && __range0 = this->events;
+        auto && __range1 = this->events;
         for(; ; ) {
           const auto & event;
-                    
-          class __lambda_5
-          {
-            public: 
-            template<class type_parameter_1_0>
-            inline auto operator()(const type_parameter_1_0 & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            private: 
-            VideoExplainer::VisitEventsGuard * __this;
-            
-            public:
-            __lambda_5(VideoExplainer::VisitEventsGuard * _this)
-            : __this{_this}
-            {}
-            
-          };
-          
-          std::visit(__lambda_5{this}, event);
+          event.apply(&this->explainer.before);
         }
         
       }
@@ -1996,13 +1955,17 @@ class VideoExplainer
     
     private: 
     VideoExplainer<size> & explainer;
-    std::vector<exploration::Event<size> > events;
+    std::vector<Event> events;
     
     public: 
     const Stack<size> & before;
     const Stack<size> & after;
   };
   
+  template<typename Event>
+  VisitEventsGuard(VideoExplainer<size> *, const Event &) -> VisitEventsGuard<Event>;
+  template<typename Event>
+  VisitEventsGuard(VideoExplainer<size> *, const std::vector<Event> &) -> VisitEventsGuard<Event>;
   class FrameGuard
   {
     
@@ -2312,14 +2275,14 @@ namespace art
   template<unsigned int size>
   void draw(std::shared_ptr<Cairo::Context>, const AnnotatedSudoku<size> &, const DrawOptions &);
   
-  /* First instantiated from: video-explainer.cpp:1161 */
+  /* First instantiated from: video-explainer.cpp:1149 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   void draw<4>(std::shared_ptr<Cairo::Context>, const Sudoku<AnnotatedCell<4>, 4> &, const DrawOptions &);
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1161 */
+  /* First instantiated from: video-explainer.cpp:1149 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   void draw<9>(std::shared_ptr<Cairo::Context>, const Sudoku<AnnotatedCell<9>, 9> &, const DrawOptions &);
@@ -2855,184 +2818,220 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   
   
   private: 
-  class VisitEventsGuard
+  template<typename Event>
+  class VisitEventsGuard;
+  /* First instantiated from: video-explainer.cpp:1132 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::CellIsSetInInput<4> >
   {
     
     public: 
-    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > & event)
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const exploration::CellIsSetInInput<4> & event)
     : explainer{*explainer_}
-    , events{std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > >()}
+    , events{std::vector<exploration::CellIsSetInInput<4>, std::allocator<exploration::CellIsSetInInput<4> > >()}
     , before{static_cast<const Stack<4>>(this->explainer.before)}
     , after{static_cast<const Stack<4>>(this->explainer.after)}
     {
-            
-      class __lambda_4
-      {
-        public: 
-        template<class type_parameter_0_0>
-        inline /*constexpr */ auto operator()(const type_parameter_0_0 & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::CellIsSetInInput<4> >(const exploration::CellIsSetInInput<4> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::InputsAreDone<4> >(const exploration::InputsAreDone<4> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::PropagationStartsForSudoku<4> >(const exploration::PropagationStartsForSudoku<4> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::PropagationStartsForCell<4> >(const exploration::PropagationStartsForCell<4> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::CellPropagates<4> >(const exploration::CellPropagates<4> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::CellIsDeducedFromSingleAllowedValue<4> >(const exploration::CellIsDeducedFromSingleAllowedValue<4> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> >(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::PropagationIsDoneForCell<4> >(const exploration::PropagationIsDoneForCell<4> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::PropagationIsDoneForSudoku<4> >(const exploration::PropagationIsDoneForSudoku<4> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::ExplorationStarts<4> >(const exploration::ExplorationStarts<4> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::HypothesisIsMade<4> >(const exploration::HypothesisIsMade<4> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::HypothesisIsRejected<4> >(const exploration::HypothesisIsRejected<4> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::SudokuIsSolved<4> >(const exploration::SudokuIsSolved<4> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::HypothesisIsAccepted<4> >(const exploration::HypothesisIsAccepted<4> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::ExplorationIsDone<4> >(const exploration::ExplorationIsDone<4> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        private: 
-        VideoExplainer<4>::VisitEventsGuard * __this;
-        
-        public:
-        __lambda_4(VideoExplainer<4>::VisitEventsGuard * _this)
-        : __this{_this}
-        {}
-        
-      };
-      
-      std::visit<__lambda_4, const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &>(__lambda_4{this}, event);
+      event.apply(&this->explainer.after);
       this->events.push_back(event);
     }
     
-    template<typename T>
-    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<T> & events_);
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<exploration::CellIsSetInInput<4>, std::allocator<exploration::CellIsSetInInput<4> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<4> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<4> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<4> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<4> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<4> > & operator=(VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<4> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::CellIsSetInInput<4>, std::allocator<exploration::CellIsSetInInput<4> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::CellIsSetInInput<4> *, std::vector<exploration::CellIsSetInInput<4>, std::allocator<exploration::CellIsSetInInput<4> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::CellIsSetInInput<4> *, std::vector<exploration::CellIsSetInInput<4>, std::allocator<exploration::CellIsSetInInput<4> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsSetInInput<4> *, std::vector<exploration::CellIsSetInInput<4>, std::allocator<exploration::CellIsSetInInput<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsSetInInput<4> *, std::vector<exploration::CellIsSetInInput<4>, std::allocator<exploration::CellIsSetInInput<4> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::CellIsSetInInput<4> & event = static_cast<const exploration::CellIsSetInInput<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsSetInInput<4> *, std::vector<exploration::CellIsSetInInput<4>, std::allocator<exploration::CellIsSetInInput<4> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
     
     
-    /* First instantiated from: video-explainer.cpp:1361 */
-    #ifdef INSIGHTS_USE_TEMPLATE
-    template<>
-    inline VisitEventsGuard<exploration::CellPropagates<4> >(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > & events_)
+    private: 
+    VideoExplainer<static_cast<unsigned int>(4)> & explainer;
+    std::vector<exploration::CellIsSetInInput<4>, std::allocator<exploration::CellIsSetInInput<4> > > events;
+    
+    public: 
+    const Stack<4> & before;
+    const Stack<4> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1137 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::InputsAreDone<4> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const exploration::InputsAreDone<4> & event)
     : explainer{*explainer_}
-    , events{std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > >()}
+    , events{std::vector<exploration::InputsAreDone<4>, std::allocator<exploration::InputsAreDone<4> > >()}
+    , before{static_cast<const Stack<4>>(this->explainer.before)}
+    , after{static_cast<const Stack<4>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<exploration::InputsAreDone<4>, std::allocator<exploration::InputsAreDone<4> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<4> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<4> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<4> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<4> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<4> > & operator=(VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<4> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::InputsAreDone<4>, std::allocator<exploration::InputsAreDone<4> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::InputsAreDone<4> *, std::vector<exploration::InputsAreDone<4>, std::allocator<exploration::InputsAreDone<4> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::InputsAreDone<4> *, std::vector<exploration::InputsAreDone<4>, std::allocator<exploration::InputsAreDone<4> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::InputsAreDone<4> *, std::vector<exploration::InputsAreDone<4>, std::allocator<exploration::InputsAreDone<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::InputsAreDone<4> *, std::vector<exploration::InputsAreDone<4>, std::allocator<exploration::InputsAreDone<4> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::InputsAreDone<4> & event = static_cast<const exploration::InputsAreDone<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::InputsAreDone<4> *, std::vector<exploration::InputsAreDone<4>, std::allocator<exploration::InputsAreDone<4> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(4)> & explainer;
+    std::vector<exploration::InputsAreDone<4>, std::allocator<exploration::InputsAreDone<4> > > events;
+    
+    public: 
+    const Stack<4> & before;
+    const Stack<4> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1203 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::PropagationStartsForSudoku<4> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const exploration::PropagationStartsForSudoku<4> & event)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::PropagationStartsForSudoku<4>, std::allocator<exploration::PropagationStartsForSudoku<4> > >()}
+    , before{static_cast<const Stack<4>>(this->explainer.before)}
+    , after{static_cast<const Stack<4>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<exploration::PropagationStartsForSudoku<4>, std::allocator<exploration::PropagationStartsForSudoku<4> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<4> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<4> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<4> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<4> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<4> > & operator=(VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<4> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::PropagationStartsForSudoku<4>, std::allocator<exploration::PropagationStartsForSudoku<4> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::PropagationStartsForSudoku<4> *, std::vector<exploration::PropagationStartsForSudoku<4>, std::allocator<exploration::PropagationStartsForSudoku<4> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::PropagationStartsForSudoku<4> *, std::vector<exploration::PropagationStartsForSudoku<4>, std::allocator<exploration::PropagationStartsForSudoku<4> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationStartsForSudoku<4> *, std::vector<exploration::PropagationStartsForSudoku<4>, std::allocator<exploration::PropagationStartsForSudoku<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationStartsForSudoku<4> *, std::vector<exploration::PropagationStartsForSudoku<4>, std::allocator<exploration::PropagationStartsForSudoku<4> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::PropagationStartsForSudoku<4> & event = static_cast<const exploration::PropagationStartsForSudoku<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationStartsForSudoku<4> *, std::vector<exploration::PropagationStartsForSudoku<4>, std::allocator<exploration::PropagationStartsForSudoku<4> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(4)> & explainer;
+    std::vector<exploration::PropagationStartsForSudoku<4>, std::allocator<exploration::PropagationStartsForSudoku<4> > > events;
+    
+    public: 
+    const Stack<4> & before;
+    const Stack<4> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1210 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::PropagationStartsForCell<4> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const exploration::PropagationStartsForCell<4> & event)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::PropagationStartsForCell<4>, std::allocator<exploration::PropagationStartsForCell<4> > >()}
+    , before{static_cast<const Stack<4>>(this->explainer.before)}
+    , after{static_cast<const Stack<4>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<exploration::PropagationStartsForCell<4>, std::allocator<exploration::PropagationStartsForCell<4> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<4> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<4> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<4> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<4> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<4> > & operator=(VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<4> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::PropagationStartsForCell<4>, std::allocator<exploration::PropagationStartsForCell<4> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::PropagationStartsForCell<4> *, std::vector<exploration::PropagationStartsForCell<4>, std::allocator<exploration::PropagationStartsForCell<4> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::PropagationStartsForCell<4> *, std::vector<exploration::PropagationStartsForCell<4>, std::allocator<exploration::PropagationStartsForCell<4> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationStartsForCell<4> *, std::vector<exploration::PropagationStartsForCell<4>, std::allocator<exploration::PropagationStartsForCell<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationStartsForCell<4> *, std::vector<exploration::PropagationStartsForCell<4>, std::allocator<exploration::PropagationStartsForCell<4> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::PropagationStartsForCell<4> & event = static_cast<const exploration::PropagationStartsForCell<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationStartsForCell<4> *, std::vector<exploration::PropagationStartsForCell<4>, std::allocator<exploration::PropagationStartsForCell<4> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(4)> & explainer;
+    std::vector<exploration::PropagationStartsForCell<4>, std::allocator<exploration::PropagationStartsForCell<4> > > events;
+    
+    public: 
+    const Stack<4> & before;
+    const Stack<4> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1243 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::CellPropagates<4> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const exploration::CellPropagates<4> & event)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > >()}
+    , before{static_cast<const Stack<4>>(this->explainer.before)}
+    , after{static_cast<const Stack<4>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > & events_)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > >()}
     , before{static_cast<const Stack<4>>(this->explainer.before)}
     , after{static_cast<const Stack<4>>(this->explainer.after)}
     {
@@ -3043,21 +3042,101 @@ class VideoExplainer<static_cast<unsigned int>(4)>
         for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__end1)); __begin1.operator++()) {
           const exploration::CellPropagates<4> & event = static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__begin1).operator*();
           event.apply(&this->explainer.after);
-          this->events.push_back(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event));
+          this->events.push_back(event);
         }
         
       }
     }
-    #endif
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::CellPropagates<4> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::CellPropagates<4> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::CellPropagates<4> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::CellPropagates<4> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::CellPropagates<4> > & operator=(VideoExplainer::VisitEventsGuard<exploration::CellPropagates<4> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::CellPropagates<4> & event = static_cast<const exploration::CellPropagates<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<4> *, std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
     
     
+    private: 
+    VideoExplainer<static_cast<unsigned int>(4)> & explainer;
+    std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > events;
     
-    /* First instantiated from: video-explainer.cpp:1446 */
-    #ifdef INSIGHTS_USE_TEMPLATE
-    template<>
-    inline VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<4> >(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > & events_)
+    public: 
+    const Stack<4> & before;
+    const Stack<4> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1336 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::PropagationIsDoneForCell<4> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const exploration::PropagationIsDoneForCell<4> & event)
     : explainer{*explainer_}
-    , events{std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > >()}
+    , events{std::vector<exploration::PropagationIsDoneForCell<4>, std::allocator<exploration::PropagationIsDoneForCell<4> > >()}
+    , before{static_cast<const Stack<4>>(this->explainer.before)}
+    , after{static_cast<const Stack<4>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<exploration::PropagationIsDoneForCell<4>, std::allocator<exploration::PropagationIsDoneForCell<4> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<4> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<4> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<4> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<4> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<4> > & operator=(VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<4> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::PropagationIsDoneForCell<4>, std::allocator<exploration::PropagationIsDoneForCell<4> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::PropagationIsDoneForCell<4> *, std::vector<exploration::PropagationIsDoneForCell<4>, std::allocator<exploration::PropagationIsDoneForCell<4> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::PropagationIsDoneForCell<4> *, std::vector<exploration::PropagationIsDoneForCell<4>, std::allocator<exploration::PropagationIsDoneForCell<4> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationIsDoneForCell<4> *, std::vector<exploration::PropagationIsDoneForCell<4>, std::allocator<exploration::PropagationIsDoneForCell<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationIsDoneForCell<4> *, std::vector<exploration::PropagationIsDoneForCell<4>, std::allocator<exploration::PropagationIsDoneForCell<4> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::PropagationIsDoneForCell<4> & event = static_cast<const exploration::PropagationIsDoneForCell<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationIsDoneForCell<4> *, std::vector<exploration::PropagationIsDoneForCell<4>, std::allocator<exploration::PropagationIsDoneForCell<4> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(4)> & explainer;
+    std::vector<exploration::PropagationIsDoneForCell<4>, std::allocator<exploration::PropagationIsDoneForCell<4> > > events;
+    
+    public: 
+    const Stack<4> & before;
+    const Stack<4> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1434 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<4> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const exploration::CellIsDeducedFromSingleAllowedValue<4> & event);
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > & events_)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > >()}
     , before{static_cast<const Stack<4>>(this->explainer.before)}
     , after{static_cast<const Stack<4>>(this->explainer.after)}
     {
@@ -3068,21 +3147,53 @@ class VideoExplainer<static_cast<unsigned int>(4)>
         for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__end1)); __begin1.operator++()) {
           const exploration::CellIsDeducedFromSingleAllowedValue<4> & event = static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin1).operator*();
           event.apply(&this->explainer.after);
-          this->events.push_back(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event));
+          this->events.push_back(event);
         }
         
       }
     }
-    #endif
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<4> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<4> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<4> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<4> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<4> > & operator=(VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<4> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::CellIsDeducedFromSingleAllowedValue<4> & event = static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
     
     
+    private: 
+    VideoExplainer<static_cast<unsigned int>(4)> & explainer;
+    std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > events;
     
-    /* First instantiated from: video-explainer.cpp:1508 */
-    #ifdef INSIGHTS_USE_TEMPLATE
-    template<>
-    inline VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> >(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > & events_)
+    public: 
+    const Stack<4> & before;
+    const Stack<4> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1496 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event);
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > & events_)
     : explainer{*explainer_}
-    , events{std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > >()}
+    , events{std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > >()}
     , before{static_cast<const Stack<4>>(this->explainer.before)}
     , after{static_cast<const Stack<4>>(this->explainer.after)}
     {
@@ -3093,181 +3204,25 @@ class VideoExplainer<static_cast<unsigned int>(4)>
         for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__end1)); __begin1.operator++()) {
           const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event = static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin1).operator*();
           event.apply(&this->explainer.after);
-          this->events.push_back(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event));
+          this->events.push_back(event);
         }
         
       }
     }
-    #endif
     
-    
-    // inline VisitEventsGuard(const VisitEventsGuard &) = delete;
-    // inline VisitEventsGuard & operator=(const VisitEventsGuard &) = delete;
-    // inline VisitEventsGuard(VisitEventsGuard &&) = delete;
-    // inline VisitEventsGuard & operator=(VisitEventsGuard &&) = delete;
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > & operator=(VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > &&) = delete;
     inline ~VisitEventsGuard() noexcept
     {
       {
-        std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > > & __range0 = this->events;
-        __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > *, std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > > > __begin1 = __range0.begin();
-        __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > *, std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > > > __end1 = __range0.end();
-        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > *, std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > *, std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > > >>(__end1)); __begin1.operator++()) {
-          const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > & event = static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(static_cast<const __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > *, std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > > >>(__begin1).operator*());
-                    
-          class __lambda_5
-          {
-            public: 
-            template<class type_parameter_0_0>
-            inline /*constexpr */ auto operator()(const type_parameter_0_0 & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::CellIsSetInInput<4> >(const exploration::CellIsSetInInput<4> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::InputsAreDone<4> >(const exploration::InputsAreDone<4> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::PropagationStartsForSudoku<4> >(const exploration::PropagationStartsForSudoku<4> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::PropagationStartsForCell<4> >(const exploration::PropagationStartsForCell<4> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::CellPropagates<4> >(const exploration::CellPropagates<4> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::CellIsDeducedFromSingleAllowedValue<4> >(const exploration::CellIsDeducedFromSingleAllowedValue<4> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> >(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::PropagationIsDoneForCell<4> >(const exploration::PropagationIsDoneForCell<4> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::PropagationIsDoneForSudoku<4> >(const exploration::PropagationIsDoneForSudoku<4> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::ExplorationStarts<4> >(const exploration::ExplorationStarts<4> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::HypothesisIsMade<4> >(const exploration::HypothesisIsMade<4> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::HypothesisIsRejected<4> >(const exploration::HypothesisIsRejected<4> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::SudokuIsSolved<4> >(const exploration::SudokuIsSolved<4> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::HypothesisIsAccepted<4> >(const exploration::HypothesisIsAccepted<4> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::ExplorationIsDone<4> >(const exploration::ExplorationIsDone<4> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            private: 
-            VideoExplainer<4>::VisitEventsGuard * __this;
-            
-            public:
-            __lambda_5(VideoExplainer<4>::VisitEventsGuard * _this)
-            : __this{_this}
-            {}
-            
-          };
-          
-          std::visit<__lambda_5, const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > &>(__lambda_5{this}, event);
+        std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event = static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
         }
         
       }
@@ -3276,12 +3231,485 @@ class VideoExplainer<static_cast<unsigned int>(4)>
     
     private: 
     VideoExplainer<static_cast<unsigned int>(4)> & explainer;
-    std::vector<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >, std::allocator<std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> > > > events;
+    std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > events;
     
     public: 
     const Stack<4> & before;
     const Stack<4> & after;
   };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1554 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::PropagationIsDoneForSudoku<4> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const exploration::PropagationIsDoneForSudoku<4> & event)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::PropagationIsDoneForSudoku<4>, std::allocator<exploration::PropagationIsDoneForSudoku<4> > >()}
+    , before{static_cast<const Stack<4>>(this->explainer.before)}
+    , after{static_cast<const Stack<4>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<exploration::PropagationIsDoneForSudoku<4>, std::allocator<exploration::PropagationIsDoneForSudoku<4> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<4> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<4> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<4> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<4> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<4> > & operator=(VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<4> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::PropagationIsDoneForSudoku<4>, std::allocator<exploration::PropagationIsDoneForSudoku<4> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::PropagationIsDoneForSudoku<4> *, std::vector<exploration::PropagationIsDoneForSudoku<4>, std::allocator<exploration::PropagationIsDoneForSudoku<4> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::PropagationIsDoneForSudoku<4> *, std::vector<exploration::PropagationIsDoneForSudoku<4>, std::allocator<exploration::PropagationIsDoneForSudoku<4> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationIsDoneForSudoku<4> *, std::vector<exploration::PropagationIsDoneForSudoku<4>, std::allocator<exploration::PropagationIsDoneForSudoku<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationIsDoneForSudoku<4> *, std::vector<exploration::PropagationIsDoneForSudoku<4>, std::allocator<exploration::PropagationIsDoneForSudoku<4> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::PropagationIsDoneForSudoku<4> & event = static_cast<const exploration::PropagationIsDoneForSudoku<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationIsDoneForSudoku<4> *, std::vector<exploration::PropagationIsDoneForSudoku<4>, std::allocator<exploration::PropagationIsDoneForSudoku<4> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(4)> & explainer;
+    std::vector<exploration::PropagationIsDoneForSudoku<4>, std::allocator<exploration::PropagationIsDoneForSudoku<4> > > events;
+    
+    public: 
+    const Stack<4> & before;
+    const Stack<4> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1561 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::ExplorationStarts<4> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const exploration::ExplorationStarts<4> & event)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::ExplorationStarts<4>, std::allocator<exploration::ExplorationStarts<4> > >()}
+    , before{static_cast<const Stack<4>>(this->explainer.before)}
+    , after{static_cast<const Stack<4>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<exploration::ExplorationStarts<4>, std::allocator<exploration::ExplorationStarts<4> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<4> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<4> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<4> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<4> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<4> > & operator=(VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<4> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::ExplorationStarts<4>, std::allocator<exploration::ExplorationStarts<4> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::ExplorationStarts<4> *, std::vector<exploration::ExplorationStarts<4>, std::allocator<exploration::ExplorationStarts<4> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::ExplorationStarts<4> *, std::vector<exploration::ExplorationStarts<4>, std::allocator<exploration::ExplorationStarts<4> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::ExplorationStarts<4> *, std::vector<exploration::ExplorationStarts<4>, std::allocator<exploration::ExplorationStarts<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::ExplorationStarts<4> *, std::vector<exploration::ExplorationStarts<4>, std::allocator<exploration::ExplorationStarts<4> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::ExplorationStarts<4> & event = static_cast<const exploration::ExplorationStarts<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::ExplorationStarts<4> *, std::vector<exploration::ExplorationStarts<4>, std::allocator<exploration::ExplorationStarts<4> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(4)> & explainer;
+    std::vector<exploration::ExplorationStarts<4>, std::allocator<exploration::ExplorationStarts<4> > > events;
+    
+    public: 
+    const Stack<4> & before;
+    const Stack<4> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1568 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::HypothesisIsMade<4> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const exploration::HypothesisIsMade<4> & event)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::HypothesisIsMade<4>, std::allocator<exploration::HypothesisIsMade<4> > >()}
+    , before{static_cast<const Stack<4>>(this->explainer.before)}
+    , after{static_cast<const Stack<4>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<exploration::HypothesisIsMade<4>, std::allocator<exploration::HypothesisIsMade<4> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<4> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<4> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<4> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<4> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<4> > & operator=(VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<4> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::HypothesisIsMade<4>, std::allocator<exploration::HypothesisIsMade<4> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::HypothesisIsMade<4> *, std::vector<exploration::HypothesisIsMade<4>, std::allocator<exploration::HypothesisIsMade<4> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::HypothesisIsMade<4> *, std::vector<exploration::HypothesisIsMade<4>, std::allocator<exploration::HypothesisIsMade<4> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::HypothesisIsMade<4> *, std::vector<exploration::HypothesisIsMade<4>, std::allocator<exploration::HypothesisIsMade<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::HypothesisIsMade<4> *, std::vector<exploration::HypothesisIsMade<4>, std::allocator<exploration::HypothesisIsMade<4> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::HypothesisIsMade<4> & event = static_cast<const exploration::HypothesisIsMade<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::HypothesisIsMade<4> *, std::vector<exploration::HypothesisIsMade<4>, std::allocator<exploration::HypothesisIsMade<4> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(4)> & explainer;
+    std::vector<exploration::HypothesisIsMade<4>, std::allocator<exploration::HypothesisIsMade<4> > > events;
+    
+    public: 
+    const Stack<4> & before;
+    const Stack<4> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1575 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::HypothesisIsRejected<4> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const exploration::HypothesisIsRejected<4> & event)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::HypothesisIsRejected<4>, std::allocator<exploration::HypothesisIsRejected<4> > >()}
+    , before{static_cast<const Stack<4>>(this->explainer.before)}
+    , after{static_cast<const Stack<4>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<exploration::HypothesisIsRejected<4>, std::allocator<exploration::HypothesisIsRejected<4> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<4> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<4> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<4> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<4> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<4> > & operator=(VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<4> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::HypothesisIsRejected<4>, std::allocator<exploration::HypothesisIsRejected<4> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::HypothesisIsRejected<4> *, std::vector<exploration::HypothesisIsRejected<4>, std::allocator<exploration::HypothesisIsRejected<4> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::HypothesisIsRejected<4> *, std::vector<exploration::HypothesisIsRejected<4>, std::allocator<exploration::HypothesisIsRejected<4> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::HypothesisIsRejected<4> *, std::vector<exploration::HypothesisIsRejected<4>, std::allocator<exploration::HypothesisIsRejected<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::HypothesisIsRejected<4> *, std::vector<exploration::HypothesisIsRejected<4>, std::allocator<exploration::HypothesisIsRejected<4> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::HypothesisIsRejected<4> & event = static_cast<const exploration::HypothesisIsRejected<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::HypothesisIsRejected<4> *, std::vector<exploration::HypothesisIsRejected<4>, std::allocator<exploration::HypothesisIsRejected<4> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(4)> & explainer;
+    std::vector<exploration::HypothesisIsRejected<4>, std::allocator<exploration::HypothesisIsRejected<4> > > events;
+    
+    public: 
+    const Stack<4> & before;
+    const Stack<4> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1582 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::SudokuIsSolved<4> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const exploration::SudokuIsSolved<4> & event)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::SudokuIsSolved<4>, std::allocator<exploration::SudokuIsSolved<4> > >()}
+    , before{static_cast<const Stack<4>>(this->explainer.before)}
+    , after{static_cast<const Stack<4>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<exploration::SudokuIsSolved<4>, std::allocator<exploration::SudokuIsSolved<4> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<4> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<4> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<4> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<4> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<4> > & operator=(VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<4> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::SudokuIsSolved<4>, std::allocator<exploration::SudokuIsSolved<4> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::SudokuIsSolved<4> *, std::vector<exploration::SudokuIsSolved<4>, std::allocator<exploration::SudokuIsSolved<4> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::SudokuIsSolved<4> *, std::vector<exploration::SudokuIsSolved<4>, std::allocator<exploration::SudokuIsSolved<4> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::SudokuIsSolved<4> *, std::vector<exploration::SudokuIsSolved<4>, std::allocator<exploration::SudokuIsSolved<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::SudokuIsSolved<4> *, std::vector<exploration::SudokuIsSolved<4>, std::allocator<exploration::SudokuIsSolved<4> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::SudokuIsSolved<4> & event = static_cast<const exploration::SudokuIsSolved<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::SudokuIsSolved<4> *, std::vector<exploration::SudokuIsSolved<4>, std::allocator<exploration::SudokuIsSolved<4> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(4)> & explainer;
+    std::vector<exploration::SudokuIsSolved<4>, std::allocator<exploration::SudokuIsSolved<4> > > events;
+    
+    public: 
+    const Stack<4> & before;
+    const Stack<4> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1603 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::HypothesisIsAccepted<4> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const exploration::HypothesisIsAccepted<4> & event)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::HypothesisIsAccepted<4>, std::allocator<exploration::HypothesisIsAccepted<4> > >()}
+    , before{static_cast<const Stack<4>>(this->explainer.before)}
+    , after{static_cast<const Stack<4>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<exploration::HypothesisIsAccepted<4>, std::allocator<exploration::HypothesisIsAccepted<4> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<4> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<4> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<4> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<4> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<4> > & operator=(VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<4> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::HypothesisIsAccepted<4>, std::allocator<exploration::HypothesisIsAccepted<4> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::HypothesisIsAccepted<4> *, std::vector<exploration::HypothesisIsAccepted<4>, std::allocator<exploration::HypothesisIsAccepted<4> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::HypothesisIsAccepted<4> *, std::vector<exploration::HypothesisIsAccepted<4>, std::allocator<exploration::HypothesisIsAccepted<4> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::HypothesisIsAccepted<4> *, std::vector<exploration::HypothesisIsAccepted<4>, std::allocator<exploration::HypothesisIsAccepted<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::HypothesisIsAccepted<4> *, std::vector<exploration::HypothesisIsAccepted<4>, std::allocator<exploration::HypothesisIsAccepted<4> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::HypothesisIsAccepted<4> & event = static_cast<const exploration::HypothesisIsAccepted<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::HypothesisIsAccepted<4> *, std::vector<exploration::HypothesisIsAccepted<4>, std::allocator<exploration::HypothesisIsAccepted<4> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(4)> & explainer;
+    std::vector<exploration::HypothesisIsAccepted<4>, std::allocator<exploration::HypothesisIsAccepted<4> > > events;
+    
+    public: 
+    const Stack<4> & before;
+    const Stack<4> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1610 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::ExplorationIsDone<4> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const exploration::ExplorationIsDone<4> & event)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::ExplorationIsDone<4>, std::allocator<exploration::ExplorationIsDone<4> > >()}
+    , before{static_cast<const Stack<4>>(this->explainer.before)}
+    , after{static_cast<const Stack<4>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> * explainer_, const std::vector<exploration::ExplorationIsDone<4>, std::allocator<exploration::ExplorationIsDone<4> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<4> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<4> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<4> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<4> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<4> > & operator=(VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<4> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::ExplorationIsDone<4>, std::allocator<exploration::ExplorationIsDone<4> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::ExplorationIsDone<4> *, std::vector<exploration::ExplorationIsDone<4>, std::allocator<exploration::ExplorationIsDone<4> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::ExplorationIsDone<4> *, std::vector<exploration::ExplorationIsDone<4>, std::allocator<exploration::ExplorationIsDone<4> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::ExplorationIsDone<4> *, std::vector<exploration::ExplorationIsDone<4>, std::allocator<exploration::ExplorationIsDone<4> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::ExplorationIsDone<4> *, std::vector<exploration::ExplorationIsDone<4>, std::allocator<exploration::ExplorationIsDone<4> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::ExplorationIsDone<4> & event = static_cast<const exploration::ExplorationIsDone<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::ExplorationIsDone<4> *, std::vector<exploration::ExplorationIsDone<4>, std::allocator<exploration::ExplorationIsDone<4> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(4)> & explainer;
+    std::vector<exploration::ExplorationIsDone<4>, std::allocator<exploration::ExplorationIsDone<4> > > events;
+    
+    public: 
+    const Stack<4> & before;
+    const Stack<4> & after;
+  };
+  
+  #endif
+  public: 
+  private: 
+  template<typename Event>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const Event &) -> VisitEventsGuard<Event>;
+  
+  /* First instantiated from: video-explainer.cpp:1132 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::CellIsSetInInput<4> &) -> VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<4> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1137 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::InputsAreDone<4> &) -> VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<4> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1203 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::PropagationStartsForSudoku<4> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<4> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1210 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::PropagationStartsForCell<4> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<4> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1243 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::CellPropagates<4> &) -> VideoExplainer::VisitEventsGuard<exploration::CellPropagates<4> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1336 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::PropagationIsDoneForCell<4> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<4> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1554 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::PropagationIsDoneForSudoku<4> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<4> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1561 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::ExplorationStarts<4> &) -> VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<4> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1568 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::HypothesisIsMade<4> &) -> VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<4> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1575 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::HypothesisIsRejected<4> &) -> VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<4> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1582 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::SudokuIsSolved<4> &) -> VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<4> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1603 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::HypothesisIsAccepted<4> &) -> VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<4> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1610 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::ExplorationIsDone<4> &) -> VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<4> >;
+  #endif
+  
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > &) -> VideoExplainer::VisitEventsGuard<std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > >;
+  #endif
+  
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > &) -> VideoExplainer::VisitEventsGuard<std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >;
+  #endif
+  
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > &) -> VideoExplainer::VisitEventsGuard<std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >;
+  #endif
+  
+  template<typename Event>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const std::vector<Event> &) -> VisitEventsGuard<Event>;
+  
+  /* First instantiated from: video-explainer.cpp:1349 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > &) -> VideoExplainer::VisitEventsGuard<exploration::CellPropagates<4> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1434 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > &) -> VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<4> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1496 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > &) -> VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> >;
+  #endif
   
   class FrameGuard
   {
@@ -3363,12 +3791,12 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   public: 
   void operator()(const exploration::CellIsSetInInput<4> & event)
   {
-    VideoExplainer<4>::VisitEventsGuard visit = VideoExplainer<4>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<4> > visit = VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<4> >(this, event);
   }
   
   void operator()(const exploration::InputsAreDone<4> & event)
   {
-    VideoExplainer<4>::VisitEventsGuard visit = VideoExplainer<4>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<4> > visit = VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<4> >(this, event);
     VideoExplainer<4>::Layout title = {std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> >{std::initializer_list<VideoExplainer<4>::Text>{{std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("How to solve this Sudoku?"), static_cast<const std::allocator<char>>(std::allocator<char>())), static_cast<double>(40), Text::Bold}, {std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("An automated explanation by @jacquev6"), static_cast<const std::allocator<char>>(std::allocator<char>())), static_cast<double>(20), 0}, {std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("https://github.com/jacquev6/Sudoku"), static_cast<const std::allocator<char>>(std::allocator<char>())), static_cast<double>(20), 0}}, static_cast<const std::allocator<VideoExplainer<4>::Text>>(std::allocator<VideoExplainer<4>::Text>())}, {std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> >{}}};
     for(unsigned int index = static_cast<unsigned int>(0); index != this->quicken(static_cast<unsigned int>(75)); ++index) {
       VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
@@ -3417,14 +3845,14 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   
   void operator()(const exploration::PropagationStartsForSudoku<4> & event)
   {
-    VideoExplainer<4>::VisitEventsGuard visit = VideoExplainer<4>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<4> > visit = VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<4> >(this, event);
   }
   
   void operator()(const exploration::PropagationStartsForCell<4> & event)
   {
     this->flush_pending_cell_is_deduced_from_single_allowed_value_events();
     this->flush_pending_cell_is_deduced_as_single_place_for_value_in_region_events();
-    VideoExplainer<4>::VisitEventsGuard visit = VideoExplainer<4>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<4> > visit = VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<4> >(this, event);
     VideoExplainer<4>::Layout propagate = {{std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> >{}}, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> >{std::initializer_list<VideoExplainer<4>::Text>{{std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Propagate constraints"), static_cast<const std::allocator<char>>(std::allocator<char>())), static_cast<double>(20), 0}}, static_cast<const std::allocator<VideoExplainer<4>::Text>>(std::allocator<VideoExplainer<4>::Text>())}};
     if(this->cell_propagations_handled < this->quicken(static_cast<unsigned int>(3))) {
       const double widths[5] = {static_cast<const double>(2), static_cast<const double>(4), static_cast<const double>(5), static_cast<const double>(3), static_cast<const double>(2)};
@@ -3449,7 +3877,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
     const double widths[5] = {static_cast<const double>(2), static_cast<const double>(4), static_cast<const double>(5), static_cast<const double>(3), static_cast<const double>(2)};
     const unsigned int widths_count = static_cast<const unsigned int>(sizeof(widths) / sizeof(static_cast<const double *>(widths)[0]));
     if(this->cell_propagations_handled < this->quicken(static_cast<unsigned int>(3))) {
-      VideoExplainer<4>::VisitEventsGuard visit = VideoExplainer<4>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+      VideoExplainer::VisitEventsGuard<exploration::CellPropagates<4> > visit = VideoExplainer::VisitEventsGuard<exploration::CellPropagates<4> >(this, event);
       if(this->single_propagations_handled < this->quicken(static_cast<unsigned int>(6))) {
         for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(3)) * widths_count); ++index) {
           VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
@@ -3514,38 +3942,38 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   void operator()(const exploration::PropagationIsDoneForCell<4> & event)
   {
     this->flush_pending_cell_propagates_events();
-    VideoExplainer<4>::VisitEventsGuard visit = VideoExplainer<4>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<4> > visit = VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<4> >(this, event);
     ++this->cell_propagations_handled;
   }
   
   void operator()(const exploration::PropagationIsDoneForSudoku<4> & event)
   {
     this->flush_pending_events();
-    VideoExplainer<4>::VisitEventsGuard visit = VideoExplainer<4>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<4> > visit = VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<4> >(this, event);
   }
   
   void operator()(const exploration::ExplorationStarts<4> & event)
   {
     this->flush_pending_events();
-    VideoExplainer<4>::VisitEventsGuard visit = VideoExplainer<4>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<4> > visit = VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<4> >(this, event);
   }
   
   void operator()(const exploration::HypothesisIsMade<4> & event)
   {
     this->flush_pending_events();
-    VideoExplainer<4>::VisitEventsGuard visit = VideoExplainer<4>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<4> > visit = VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<4> >(this, event);
   }
   
   void operator()(const exploration::HypothesisIsRejected<4> & event)
   {
     this->flush_pending_events();
-    VideoExplainer<4>::VisitEventsGuard visit = VideoExplainer<4>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<4> > visit = VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<4> >(this, event);
   }
   
   void operator()(const exploration::SudokuIsSolved<4> & event)
   {
     this->flush_pending_events();
-    VideoExplainer<4>::VisitEventsGuard visit = VideoExplainer<4>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<4> > visit = VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<4> >(this, event);
     VideoExplainer<4>::Layout done = {{std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> >{}}, std::vector<VideoExplainer<4>::Text, std::allocator<VideoExplainer<4>::Text> >{std::initializer_list<VideoExplainer<4>::Text>{{std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Solved!"), static_cast<const std::allocator<char>>(std::allocator<char>())), static_cast<double>(20), 0}}, static_cast<const std::allocator<VideoExplainer<4>::Text>>(std::allocator<VideoExplainer<4>::Text>())}};
     for(unsigned int index = static_cast<unsigned int>(0); index != this->quicken(static_cast<unsigned int>(75)); ++index) {
       VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
@@ -3562,13 +3990,13 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   void operator()(const exploration::HypothesisIsAccepted<4> & event)
   {
     this->flush_pending_events();
-    VideoExplainer<4>::VisitEventsGuard visit = VideoExplainer<4>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<4> > visit = VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<4> >(this, event);
   }
   
   void operator()(const exploration::ExplorationIsDone<4> & event)
   {
     this->flush_pending_events();
-    VideoExplainer<4>::VisitEventsGuard visit = VideoExplainer<4>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >>(std::variant<exploration::CellIsSetInInput<4>, exploration::InputsAreDone<4>, exploration::PropagationStartsForSudoku<4>, exploration::PropagationStartsForCell<4>, exploration::CellPropagates<4>, exploration::CellIsDeducedFromSingleAllowedValue<4>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, exploration::PropagationIsDoneForCell<4>, exploration::PropagationIsDoneForSudoku<4>, exploration::ExplorationStarts<4>, exploration::HypothesisIsMade<4>, exploration::HypothesisIsRejected<4>, exploration::SudokuIsSolved<4>, exploration::HypothesisIsAccepted<4>, exploration::ExplorationIsDone<4> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<4> > visit = VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<4> >(this, event);
   }
   
   void flush_pending_cell_propagates_events()
@@ -3577,7 +4005,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
     const double widths[5] = {static_cast<const double>(2), static_cast<const double>(4), static_cast<const double>(5), static_cast<const double>(3), static_cast<const double>(2)};
     const unsigned int widths_count = static_cast<const unsigned int>(sizeof(widths) / sizeof(static_cast<const double *>(widths)[0]));
     if(!static_cast<const std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > >>(this->pending_cell_propagates_events).empty()) {
-      VideoExplainer<4>::VisitEventsGuard visit = VideoExplainer<4>::VisitEventsGuard(this, static_cast<const std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > >>(this->pending_cell_propagates_events));
+      VideoExplainer::VisitEventsGuard<exploration::CellPropagates<4> > visit = VideoExplainer::VisitEventsGuard<exploration::CellPropagates<4> >(this, static_cast<const std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > >>(this->pending_cell_propagates_events));
       for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(1)) * widths_count); ++index) {
         VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
         const std::tuple<double, double, double> __propagate7 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<4>::Layout>(propagate)));
@@ -3649,7 +4077,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
     const double widths[5] = {static_cast<const double>(2), static_cast<const double>(4), static_cast<const double>(5), static_cast<const double>(3), static_cast<const double>(2)};
     const unsigned int widths_count = static_cast<const unsigned int>(sizeof(widths) / sizeof(static_cast<const double *>(widths)[0]));
     if(!static_cast<const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > >>(this->pending_cell_is_deduced_from_single_allowed_value_events).empty()) {
-      VideoExplainer<4>::VisitEventsGuard visit = VideoExplainer<4>::VisitEventsGuard(this, static_cast<const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > >>(this->pending_cell_is_deduced_from_single_allowed_value_events));
+      VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<4> > visit = VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<4> >(this, static_cast<const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > >>(this->pending_cell_is_deduced_from_single_allowed_value_events));
       if(this->deductions_handled < this->quicken(static_cast<unsigned int>(4))) {
         for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(6)) * widths_count); ++index) {
           VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
@@ -3708,7 +4136,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
     const double widths[5] = {static_cast<const double>(2), static_cast<const double>(4), static_cast<const double>(5), static_cast<const double>(3), static_cast<const double>(2)};
     const unsigned int widths_count = static_cast<const unsigned int>(sizeof(widths) / sizeof(static_cast<const double *>(widths)[0]));
     if(!static_cast<const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > >>(this->pending_cell_is_deduced_as_single_place_for_value_in_region_events).empty()) {
-      VideoExplainer<4>::VisitEventsGuard visit = VideoExplainer<4>::VisitEventsGuard(this, static_cast<const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > >>(this->pending_cell_is_deduced_as_single_place_for_value_in_region_events));
+      VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > visit = VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> >(this, static_cast<const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > >>(this->pending_cell_is_deduced_as_single_place_for_value_in_region_events));
       if(this->deductions_handled < this->quicken(static_cast<unsigned int>(4))) {
         for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(6)) * widths_count); ++index) {
           VideoExplainer<4>::FrameGuard frame = VideoExplainer<4>::FrameGuard(this);
@@ -3932,184 +4360,220 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   
   
   private: 
-  class VisitEventsGuard
+  template<typename Event>
+  class VisitEventsGuard;
+  /* First instantiated from: video-explainer.cpp:1132 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::CellIsSetInInput<9> >
   {
     
     public: 
-    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > & event)
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const exploration::CellIsSetInInput<9> & event)
     : explainer{*explainer_}
-    , events{std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > >()}
+    , events{std::vector<exploration::CellIsSetInInput<9>, std::allocator<exploration::CellIsSetInInput<9> > >()}
     , before{static_cast<const Stack<9>>(this->explainer.before)}
     , after{static_cast<const Stack<9>>(this->explainer.after)}
     {
-            
-      class __lambda_4
-      {
-        public: 
-        template<class type_parameter_0_0>
-        inline /*constexpr */ auto operator()(const type_parameter_0_0 & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::CellIsSetInInput<9> >(const exploration::CellIsSetInInput<9> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::InputsAreDone<9> >(const exploration::InputsAreDone<9> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::PropagationStartsForSudoku<9> >(const exploration::PropagationStartsForSudoku<9> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::PropagationStartsForCell<9> >(const exploration::PropagationStartsForCell<9> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::CellPropagates<9> >(const exploration::CellPropagates<9> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::CellIsDeducedFromSingleAllowedValue<9> >(const exploration::CellIsDeducedFromSingleAllowedValue<9> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> >(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::PropagationIsDoneForCell<9> >(const exploration::PropagationIsDoneForCell<9> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::PropagationIsDoneForSudoku<9> >(const exploration::PropagationIsDoneForSudoku<9> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::ExplorationStarts<9> >(const exploration::ExplorationStarts<9> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::HypothesisIsMade<9> >(const exploration::HypothesisIsMade<9> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::HypothesisIsRejected<9> >(const exploration::HypothesisIsRejected<9> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::SudokuIsSolved<9> >(const exploration::SudokuIsSolved<9> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::HypothesisIsAccepted<9> >(const exploration::HypothesisIsAccepted<9> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::ExplorationIsDone<9> >(const exploration::ExplorationIsDone<9> & e) const
-        {
-          e.apply(&__this->explainer.after);
-        }
-        #endif
-        
-        private: 
-        VideoExplainer<9>::VisitEventsGuard * __this;
-        
-        public:
-        __lambda_4(VideoExplainer<9>::VisitEventsGuard * _this)
-        : __this{_this}
-        {}
-        
-      };
-      
-      std::visit<__lambda_4, const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &>(__lambda_4{this}, event);
+      event.apply(&this->explainer.after);
       this->events.push_back(event);
     }
     
-    template<typename T>
-    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<T> & events_);
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<exploration::CellIsSetInInput<9>, std::allocator<exploration::CellIsSetInInput<9> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<9> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<9> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<9> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<9> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<9> > & operator=(VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<9> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::CellIsSetInInput<9>, std::allocator<exploration::CellIsSetInInput<9> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::CellIsSetInInput<9> *, std::vector<exploration::CellIsSetInInput<9>, std::allocator<exploration::CellIsSetInInput<9> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::CellIsSetInInput<9> *, std::vector<exploration::CellIsSetInInput<9>, std::allocator<exploration::CellIsSetInInput<9> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsSetInInput<9> *, std::vector<exploration::CellIsSetInInput<9>, std::allocator<exploration::CellIsSetInInput<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsSetInInput<9> *, std::vector<exploration::CellIsSetInInput<9>, std::allocator<exploration::CellIsSetInInput<9> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::CellIsSetInInput<9> & event = static_cast<const exploration::CellIsSetInInput<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsSetInInput<9> *, std::vector<exploration::CellIsSetInInput<9>, std::allocator<exploration::CellIsSetInInput<9> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
     
     
-    /* First instantiated from: video-explainer.cpp:1361 */
-    #ifdef INSIGHTS_USE_TEMPLATE
-    template<>
-    inline VisitEventsGuard<exploration::CellPropagates<9> >(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > & events_)
+    private: 
+    VideoExplainer<static_cast<unsigned int>(9)> & explainer;
+    std::vector<exploration::CellIsSetInInput<9>, std::allocator<exploration::CellIsSetInInput<9> > > events;
+    
+    public: 
+    const Stack<9> & before;
+    const Stack<9> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1137 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::InputsAreDone<9> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const exploration::InputsAreDone<9> & event)
     : explainer{*explainer_}
-    , events{std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > >()}
+    , events{std::vector<exploration::InputsAreDone<9>, std::allocator<exploration::InputsAreDone<9> > >()}
+    , before{static_cast<const Stack<9>>(this->explainer.before)}
+    , after{static_cast<const Stack<9>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<exploration::InputsAreDone<9>, std::allocator<exploration::InputsAreDone<9> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<9> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<9> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<9> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<9> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<9> > & operator=(VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<9> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::InputsAreDone<9>, std::allocator<exploration::InputsAreDone<9> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::InputsAreDone<9> *, std::vector<exploration::InputsAreDone<9>, std::allocator<exploration::InputsAreDone<9> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::InputsAreDone<9> *, std::vector<exploration::InputsAreDone<9>, std::allocator<exploration::InputsAreDone<9> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::InputsAreDone<9> *, std::vector<exploration::InputsAreDone<9>, std::allocator<exploration::InputsAreDone<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::InputsAreDone<9> *, std::vector<exploration::InputsAreDone<9>, std::allocator<exploration::InputsAreDone<9> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::InputsAreDone<9> & event = static_cast<const exploration::InputsAreDone<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::InputsAreDone<9> *, std::vector<exploration::InputsAreDone<9>, std::allocator<exploration::InputsAreDone<9> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(9)> & explainer;
+    std::vector<exploration::InputsAreDone<9>, std::allocator<exploration::InputsAreDone<9> > > events;
+    
+    public: 
+    const Stack<9> & before;
+    const Stack<9> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1203 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::PropagationStartsForSudoku<9> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const exploration::PropagationStartsForSudoku<9> & event)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::PropagationStartsForSudoku<9>, std::allocator<exploration::PropagationStartsForSudoku<9> > >()}
+    , before{static_cast<const Stack<9>>(this->explainer.before)}
+    , after{static_cast<const Stack<9>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<exploration::PropagationStartsForSudoku<9>, std::allocator<exploration::PropagationStartsForSudoku<9> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<9> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<9> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<9> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<9> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<9> > & operator=(VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<9> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::PropagationStartsForSudoku<9>, std::allocator<exploration::PropagationStartsForSudoku<9> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::PropagationStartsForSudoku<9> *, std::vector<exploration::PropagationStartsForSudoku<9>, std::allocator<exploration::PropagationStartsForSudoku<9> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::PropagationStartsForSudoku<9> *, std::vector<exploration::PropagationStartsForSudoku<9>, std::allocator<exploration::PropagationStartsForSudoku<9> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationStartsForSudoku<9> *, std::vector<exploration::PropagationStartsForSudoku<9>, std::allocator<exploration::PropagationStartsForSudoku<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationStartsForSudoku<9> *, std::vector<exploration::PropagationStartsForSudoku<9>, std::allocator<exploration::PropagationStartsForSudoku<9> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::PropagationStartsForSudoku<9> & event = static_cast<const exploration::PropagationStartsForSudoku<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationStartsForSudoku<9> *, std::vector<exploration::PropagationStartsForSudoku<9>, std::allocator<exploration::PropagationStartsForSudoku<9> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(9)> & explainer;
+    std::vector<exploration::PropagationStartsForSudoku<9>, std::allocator<exploration::PropagationStartsForSudoku<9> > > events;
+    
+    public: 
+    const Stack<9> & before;
+    const Stack<9> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1210 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::PropagationStartsForCell<9> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const exploration::PropagationStartsForCell<9> & event)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::PropagationStartsForCell<9>, std::allocator<exploration::PropagationStartsForCell<9> > >()}
+    , before{static_cast<const Stack<9>>(this->explainer.before)}
+    , after{static_cast<const Stack<9>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<exploration::PropagationStartsForCell<9>, std::allocator<exploration::PropagationStartsForCell<9> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<9> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<9> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<9> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<9> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<9> > & operator=(VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<9> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::PropagationStartsForCell<9>, std::allocator<exploration::PropagationStartsForCell<9> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::PropagationStartsForCell<9> *, std::vector<exploration::PropagationStartsForCell<9>, std::allocator<exploration::PropagationStartsForCell<9> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::PropagationStartsForCell<9> *, std::vector<exploration::PropagationStartsForCell<9>, std::allocator<exploration::PropagationStartsForCell<9> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationStartsForCell<9> *, std::vector<exploration::PropagationStartsForCell<9>, std::allocator<exploration::PropagationStartsForCell<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationStartsForCell<9> *, std::vector<exploration::PropagationStartsForCell<9>, std::allocator<exploration::PropagationStartsForCell<9> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::PropagationStartsForCell<9> & event = static_cast<const exploration::PropagationStartsForCell<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationStartsForCell<9> *, std::vector<exploration::PropagationStartsForCell<9>, std::allocator<exploration::PropagationStartsForCell<9> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(9)> & explainer;
+    std::vector<exploration::PropagationStartsForCell<9>, std::allocator<exploration::PropagationStartsForCell<9> > > events;
+    
+    public: 
+    const Stack<9> & before;
+    const Stack<9> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1243 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::CellPropagates<9> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const exploration::CellPropagates<9> & event)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > >()}
+    , before{static_cast<const Stack<9>>(this->explainer.before)}
+    , after{static_cast<const Stack<9>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > & events_)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > >()}
     , before{static_cast<const Stack<9>>(this->explainer.before)}
     , after{static_cast<const Stack<9>>(this->explainer.after)}
     {
@@ -4120,21 +4584,101 @@ class VideoExplainer<static_cast<unsigned int>(9)>
         for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__end1)); __begin1.operator++()) {
           const exploration::CellPropagates<9> & event = static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__begin1).operator*();
           event.apply(&this->explainer.after);
-          this->events.push_back(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event));
+          this->events.push_back(event);
         }
         
       }
     }
-    #endif
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::CellPropagates<9> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::CellPropagates<9> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::CellPropagates<9> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::CellPropagates<9> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::CellPropagates<9> > & operator=(VideoExplainer::VisitEventsGuard<exploration::CellPropagates<9> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::CellPropagates<9> & event = static_cast<const exploration::CellPropagates<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellPropagates<9> *, std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
     
     
+    private: 
+    VideoExplainer<static_cast<unsigned int>(9)> & explainer;
+    std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > events;
     
-    /* First instantiated from: video-explainer.cpp:1446 */
-    #ifdef INSIGHTS_USE_TEMPLATE
-    template<>
-    inline VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<9> >(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > & events_)
+    public: 
+    const Stack<9> & before;
+    const Stack<9> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1336 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::PropagationIsDoneForCell<9> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const exploration::PropagationIsDoneForCell<9> & event)
     : explainer{*explainer_}
-    , events{std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > >()}
+    , events{std::vector<exploration::PropagationIsDoneForCell<9>, std::allocator<exploration::PropagationIsDoneForCell<9> > >()}
+    , before{static_cast<const Stack<9>>(this->explainer.before)}
+    , after{static_cast<const Stack<9>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<exploration::PropagationIsDoneForCell<9>, std::allocator<exploration::PropagationIsDoneForCell<9> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<9> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<9> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<9> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<9> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<9> > & operator=(VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<9> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::PropagationIsDoneForCell<9>, std::allocator<exploration::PropagationIsDoneForCell<9> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::PropagationIsDoneForCell<9> *, std::vector<exploration::PropagationIsDoneForCell<9>, std::allocator<exploration::PropagationIsDoneForCell<9> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::PropagationIsDoneForCell<9> *, std::vector<exploration::PropagationIsDoneForCell<9>, std::allocator<exploration::PropagationIsDoneForCell<9> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationIsDoneForCell<9> *, std::vector<exploration::PropagationIsDoneForCell<9>, std::allocator<exploration::PropagationIsDoneForCell<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationIsDoneForCell<9> *, std::vector<exploration::PropagationIsDoneForCell<9>, std::allocator<exploration::PropagationIsDoneForCell<9> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::PropagationIsDoneForCell<9> & event = static_cast<const exploration::PropagationIsDoneForCell<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationIsDoneForCell<9> *, std::vector<exploration::PropagationIsDoneForCell<9>, std::allocator<exploration::PropagationIsDoneForCell<9> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(9)> & explainer;
+    std::vector<exploration::PropagationIsDoneForCell<9>, std::allocator<exploration::PropagationIsDoneForCell<9> > > events;
+    
+    public: 
+    const Stack<9> & before;
+    const Stack<9> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1434 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<9> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const exploration::CellIsDeducedFromSingleAllowedValue<9> & event);
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > & events_)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > >()}
     , before{static_cast<const Stack<9>>(this->explainer.before)}
     , after{static_cast<const Stack<9>>(this->explainer.after)}
     {
@@ -4145,21 +4689,53 @@ class VideoExplainer<static_cast<unsigned int>(9)>
         for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__end1)); __begin1.operator++()) {
           const exploration::CellIsDeducedFromSingleAllowedValue<9> & event = static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin1).operator*();
           event.apply(&this->explainer.after);
-          this->events.push_back(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event));
+          this->events.push_back(event);
         }
         
       }
     }
-    #endif
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<9> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<9> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<9> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<9> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<9> > & operator=(VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<9> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::CellIsDeducedFromSingleAllowedValue<9> & event = static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<9> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
     
     
+    private: 
+    VideoExplainer<static_cast<unsigned int>(9)> & explainer;
+    std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > events;
     
-    /* First instantiated from: video-explainer.cpp:1508 */
-    #ifdef INSIGHTS_USE_TEMPLATE
-    template<>
-    inline VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> >(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > & events_)
+    public: 
+    const Stack<9> & before;
+    const Stack<9> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1496 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> & event);
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > & events_)
     : explainer{*explainer_}
-    , events{std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > >()}
+    , events{std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > >()}
     , before{static_cast<const Stack<9>>(this->explainer.before)}
     , after{static_cast<const Stack<9>>(this->explainer.after)}
     {
@@ -4170,181 +4746,25 @@ class VideoExplainer<static_cast<unsigned int>(9)>
         for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__end1)); __begin1.operator++()) {
           const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> & event = static_cast<const __gnu_cxx::__normal_iterator<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin1).operator*();
           event.apply(&this->explainer.after);
-          this->events.push_back(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event));
+          this->events.push_back(event);
         }
         
       }
     }
-    #endif
     
-    
-    // inline VisitEventsGuard(const VisitEventsGuard &) = delete;
-    // inline VisitEventsGuard & operator=(const VisitEventsGuard &) = delete;
-    // inline VisitEventsGuard(VisitEventsGuard &&) = delete;
-    // inline VisitEventsGuard & operator=(VisitEventsGuard &&) = delete;
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > & operator=(VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > &&) = delete;
     inline ~VisitEventsGuard() noexcept
     {
       {
-        std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > > & __range0 = this->events;
-        __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > *, std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > > > __begin1 = __range0.begin();
-        __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > *, std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > > > __end1 = __range0.end();
-        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > *, std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > *, std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > > >>(__end1)); __begin1.operator++()) {
-          const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > & event = static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(static_cast<const __gnu_cxx::__normal_iterator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > *, std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > > >>(__begin1).operator*());
-                    
-          class __lambda_5
-          {
-            public: 
-            template<class type_parameter_0_0>
-            inline /*constexpr */ auto operator()(const type_parameter_0_0 & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::CellIsSetInInput<9> >(const exploration::CellIsSetInInput<9> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::InputsAreDone<9> >(const exploration::InputsAreDone<9> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::PropagationStartsForSudoku<9> >(const exploration::PropagationStartsForSudoku<9> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::PropagationStartsForCell<9> >(const exploration::PropagationStartsForCell<9> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::CellPropagates<9> >(const exploration::CellPropagates<9> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::CellIsDeducedFromSingleAllowedValue<9> >(const exploration::CellIsDeducedFromSingleAllowedValue<9> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> >(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::PropagationIsDoneForCell<9> >(const exploration::PropagationIsDoneForCell<9> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::PropagationIsDoneForSudoku<9> >(const exploration::PropagationIsDoneForSudoku<9> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::ExplorationStarts<9> >(const exploration::ExplorationStarts<9> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::HypothesisIsMade<9> >(const exploration::HypothesisIsMade<9> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::HypothesisIsRejected<9> >(const exploration::HypothesisIsRejected<9> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::SudokuIsSolved<9> >(const exploration::SudokuIsSolved<9> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::HypothesisIsAccepted<9> >(const exploration::HypothesisIsAccepted<9> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            
-            #ifdef INSIGHTS_USE_TEMPLATE
-            template<>
-            inline /*constexpr */ void operator()<exploration::ExplorationIsDone<9> >(const exploration::ExplorationIsDone<9> & e) const
-            {
-              e.apply(&__this->explainer.before);
-            }
-            #endif
-            
-            private: 
-            VideoExplainer<9>::VisitEventsGuard * __this;
-            
-            public:
-            __lambda_5(VideoExplainer<9>::VisitEventsGuard * _this)
-            : __this{_this}
-            {}
-            
-          };
-          
-          std::visit<__lambda_5, const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > &>(__lambda_5{this}, event);
+        std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> & event = static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
         }
         
       }
@@ -4353,12 +4773,485 @@ class VideoExplainer<static_cast<unsigned int>(9)>
     
     private: 
     VideoExplainer<static_cast<unsigned int>(9)> & explainer;
-    std::vector<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >, std::allocator<std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> > > > events;
+    std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > events;
     
     public: 
     const Stack<9> & before;
     const Stack<9> & after;
   };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1554 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::PropagationIsDoneForSudoku<9> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const exploration::PropagationIsDoneForSudoku<9> & event)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::PropagationIsDoneForSudoku<9>, std::allocator<exploration::PropagationIsDoneForSudoku<9> > >()}
+    , before{static_cast<const Stack<9>>(this->explainer.before)}
+    , after{static_cast<const Stack<9>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<exploration::PropagationIsDoneForSudoku<9>, std::allocator<exploration::PropagationIsDoneForSudoku<9> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<9> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<9> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<9> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<9> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<9> > & operator=(VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<9> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::PropagationIsDoneForSudoku<9>, std::allocator<exploration::PropagationIsDoneForSudoku<9> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::PropagationIsDoneForSudoku<9> *, std::vector<exploration::PropagationIsDoneForSudoku<9>, std::allocator<exploration::PropagationIsDoneForSudoku<9> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::PropagationIsDoneForSudoku<9> *, std::vector<exploration::PropagationIsDoneForSudoku<9>, std::allocator<exploration::PropagationIsDoneForSudoku<9> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationIsDoneForSudoku<9> *, std::vector<exploration::PropagationIsDoneForSudoku<9>, std::allocator<exploration::PropagationIsDoneForSudoku<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationIsDoneForSudoku<9> *, std::vector<exploration::PropagationIsDoneForSudoku<9>, std::allocator<exploration::PropagationIsDoneForSudoku<9> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::PropagationIsDoneForSudoku<9> & event = static_cast<const exploration::PropagationIsDoneForSudoku<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::PropagationIsDoneForSudoku<9> *, std::vector<exploration::PropagationIsDoneForSudoku<9>, std::allocator<exploration::PropagationIsDoneForSudoku<9> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(9)> & explainer;
+    std::vector<exploration::PropagationIsDoneForSudoku<9>, std::allocator<exploration::PropagationIsDoneForSudoku<9> > > events;
+    
+    public: 
+    const Stack<9> & before;
+    const Stack<9> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1561 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::ExplorationStarts<9> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const exploration::ExplorationStarts<9> & event)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::ExplorationStarts<9>, std::allocator<exploration::ExplorationStarts<9> > >()}
+    , before{static_cast<const Stack<9>>(this->explainer.before)}
+    , after{static_cast<const Stack<9>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<exploration::ExplorationStarts<9>, std::allocator<exploration::ExplorationStarts<9> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<9> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<9> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<9> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<9> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<9> > & operator=(VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<9> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::ExplorationStarts<9>, std::allocator<exploration::ExplorationStarts<9> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::ExplorationStarts<9> *, std::vector<exploration::ExplorationStarts<9>, std::allocator<exploration::ExplorationStarts<9> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::ExplorationStarts<9> *, std::vector<exploration::ExplorationStarts<9>, std::allocator<exploration::ExplorationStarts<9> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::ExplorationStarts<9> *, std::vector<exploration::ExplorationStarts<9>, std::allocator<exploration::ExplorationStarts<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::ExplorationStarts<9> *, std::vector<exploration::ExplorationStarts<9>, std::allocator<exploration::ExplorationStarts<9> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::ExplorationStarts<9> & event = static_cast<const exploration::ExplorationStarts<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::ExplorationStarts<9> *, std::vector<exploration::ExplorationStarts<9>, std::allocator<exploration::ExplorationStarts<9> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(9)> & explainer;
+    std::vector<exploration::ExplorationStarts<9>, std::allocator<exploration::ExplorationStarts<9> > > events;
+    
+    public: 
+    const Stack<9> & before;
+    const Stack<9> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1568 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::HypothesisIsMade<9> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const exploration::HypothesisIsMade<9> & event)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::HypothesisIsMade<9>, std::allocator<exploration::HypothesisIsMade<9> > >()}
+    , before{static_cast<const Stack<9>>(this->explainer.before)}
+    , after{static_cast<const Stack<9>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<exploration::HypothesisIsMade<9>, std::allocator<exploration::HypothesisIsMade<9> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<9> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<9> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<9> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<9> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<9> > & operator=(VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<9> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::HypothesisIsMade<9>, std::allocator<exploration::HypothesisIsMade<9> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::HypothesisIsMade<9> *, std::vector<exploration::HypothesisIsMade<9>, std::allocator<exploration::HypothesisIsMade<9> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::HypothesisIsMade<9> *, std::vector<exploration::HypothesisIsMade<9>, std::allocator<exploration::HypothesisIsMade<9> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::HypothesisIsMade<9> *, std::vector<exploration::HypothesisIsMade<9>, std::allocator<exploration::HypothesisIsMade<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::HypothesisIsMade<9> *, std::vector<exploration::HypothesisIsMade<9>, std::allocator<exploration::HypothesisIsMade<9> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::HypothesisIsMade<9> & event = static_cast<const exploration::HypothesisIsMade<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::HypothesisIsMade<9> *, std::vector<exploration::HypothesisIsMade<9>, std::allocator<exploration::HypothesisIsMade<9> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(9)> & explainer;
+    std::vector<exploration::HypothesisIsMade<9>, std::allocator<exploration::HypothesisIsMade<9> > > events;
+    
+    public: 
+    const Stack<9> & before;
+    const Stack<9> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1575 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::HypothesisIsRejected<9> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const exploration::HypothesisIsRejected<9> & event)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::HypothesisIsRejected<9>, std::allocator<exploration::HypothesisIsRejected<9> > >()}
+    , before{static_cast<const Stack<9>>(this->explainer.before)}
+    , after{static_cast<const Stack<9>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<exploration::HypothesisIsRejected<9>, std::allocator<exploration::HypothesisIsRejected<9> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<9> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<9> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<9> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<9> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<9> > & operator=(VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<9> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::HypothesisIsRejected<9>, std::allocator<exploration::HypothesisIsRejected<9> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::HypothesisIsRejected<9> *, std::vector<exploration::HypothesisIsRejected<9>, std::allocator<exploration::HypothesisIsRejected<9> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::HypothesisIsRejected<9> *, std::vector<exploration::HypothesisIsRejected<9>, std::allocator<exploration::HypothesisIsRejected<9> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::HypothesisIsRejected<9> *, std::vector<exploration::HypothesisIsRejected<9>, std::allocator<exploration::HypothesisIsRejected<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::HypothesisIsRejected<9> *, std::vector<exploration::HypothesisIsRejected<9>, std::allocator<exploration::HypothesisIsRejected<9> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::HypothesisIsRejected<9> & event = static_cast<const exploration::HypothesisIsRejected<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::HypothesisIsRejected<9> *, std::vector<exploration::HypothesisIsRejected<9>, std::allocator<exploration::HypothesisIsRejected<9> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(9)> & explainer;
+    std::vector<exploration::HypothesisIsRejected<9>, std::allocator<exploration::HypothesisIsRejected<9> > > events;
+    
+    public: 
+    const Stack<9> & before;
+    const Stack<9> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1582 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::SudokuIsSolved<9> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const exploration::SudokuIsSolved<9> & event)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::SudokuIsSolved<9>, std::allocator<exploration::SudokuIsSolved<9> > >()}
+    , before{static_cast<const Stack<9>>(this->explainer.before)}
+    , after{static_cast<const Stack<9>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<exploration::SudokuIsSolved<9>, std::allocator<exploration::SudokuIsSolved<9> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<9> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<9> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<9> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<9> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<9> > & operator=(VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<9> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::SudokuIsSolved<9>, std::allocator<exploration::SudokuIsSolved<9> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::SudokuIsSolved<9> *, std::vector<exploration::SudokuIsSolved<9>, std::allocator<exploration::SudokuIsSolved<9> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::SudokuIsSolved<9> *, std::vector<exploration::SudokuIsSolved<9>, std::allocator<exploration::SudokuIsSolved<9> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::SudokuIsSolved<9> *, std::vector<exploration::SudokuIsSolved<9>, std::allocator<exploration::SudokuIsSolved<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::SudokuIsSolved<9> *, std::vector<exploration::SudokuIsSolved<9>, std::allocator<exploration::SudokuIsSolved<9> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::SudokuIsSolved<9> & event = static_cast<const exploration::SudokuIsSolved<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::SudokuIsSolved<9> *, std::vector<exploration::SudokuIsSolved<9>, std::allocator<exploration::SudokuIsSolved<9> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(9)> & explainer;
+    std::vector<exploration::SudokuIsSolved<9>, std::allocator<exploration::SudokuIsSolved<9> > > events;
+    
+    public: 
+    const Stack<9> & before;
+    const Stack<9> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1603 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::HypothesisIsAccepted<9> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const exploration::HypothesisIsAccepted<9> & event)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::HypothesisIsAccepted<9>, std::allocator<exploration::HypothesisIsAccepted<9> > >()}
+    , before{static_cast<const Stack<9>>(this->explainer.before)}
+    , after{static_cast<const Stack<9>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<exploration::HypothesisIsAccepted<9>, std::allocator<exploration::HypothesisIsAccepted<9> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<9> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<9> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<9> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<9> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<9> > & operator=(VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<9> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::HypothesisIsAccepted<9>, std::allocator<exploration::HypothesisIsAccepted<9> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::HypothesisIsAccepted<9> *, std::vector<exploration::HypothesisIsAccepted<9>, std::allocator<exploration::HypothesisIsAccepted<9> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::HypothesisIsAccepted<9> *, std::vector<exploration::HypothesisIsAccepted<9>, std::allocator<exploration::HypothesisIsAccepted<9> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::HypothesisIsAccepted<9> *, std::vector<exploration::HypothesisIsAccepted<9>, std::allocator<exploration::HypothesisIsAccepted<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::HypothesisIsAccepted<9> *, std::vector<exploration::HypothesisIsAccepted<9>, std::allocator<exploration::HypothesisIsAccepted<9> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::HypothesisIsAccepted<9> & event = static_cast<const exploration::HypothesisIsAccepted<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::HypothesisIsAccepted<9> *, std::vector<exploration::HypothesisIsAccepted<9>, std::allocator<exploration::HypothesisIsAccepted<9> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(9)> & explainer;
+    std::vector<exploration::HypothesisIsAccepted<9>, std::allocator<exploration::HypothesisIsAccepted<9> > > events;
+    
+    public: 
+    const Stack<9> & before;
+    const Stack<9> & after;
+  };
+  
+  #endif
+  /* First instantiated from: video-explainer.cpp:1610 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  class VisitEventsGuard<exploration::ExplorationIsDone<9> >
+  {
+    
+    public: 
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const exploration::ExplorationIsDone<9> & event)
+    : explainer{*explainer_}
+    , events{std::vector<exploration::ExplorationIsDone<9>, std::allocator<exploration::ExplorationIsDone<9> > >()}
+    , before{static_cast<const Stack<9>>(this->explainer.before)}
+    , after{static_cast<const Stack<9>>(this->explainer.after)}
+    {
+      event.apply(&this->explainer.after);
+      this->events.push_back(event);
+    }
+    
+    inline VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> * explainer_, const std::vector<exploration::ExplorationIsDone<9>, std::allocator<exploration::ExplorationIsDone<9> > > & events_);
+    
+    // inline VisitEventsGuard(const VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<9> > &) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<9> > & operator=(const VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<9> > &) = delete;
+    // inline VisitEventsGuard(VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<9> > &&) = delete;
+    // inline VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<9> > & operator=(VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<9> > &&) = delete;
+    inline ~VisitEventsGuard() noexcept
+    {
+      {
+        std::vector<exploration::ExplorationIsDone<9>, std::allocator<exploration::ExplorationIsDone<9> > > & __range1 = this->events;
+        __gnu_cxx::__normal_iterator<exploration::ExplorationIsDone<9> *, std::vector<exploration::ExplorationIsDone<9>, std::allocator<exploration::ExplorationIsDone<9> > > > __begin1 = __range1.begin();
+        __gnu_cxx::__normal_iterator<exploration::ExplorationIsDone<9> *, std::vector<exploration::ExplorationIsDone<9>, std::allocator<exploration::ExplorationIsDone<9> > > > __end1 = __range1.end();
+        for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::ExplorationIsDone<9> *, std::vector<exploration::ExplorationIsDone<9>, std::allocator<exploration::ExplorationIsDone<9> > > >>(__begin1), static_cast<const __gnu_cxx::__normal_iterator<exploration::ExplorationIsDone<9> *, std::vector<exploration::ExplorationIsDone<9>, std::allocator<exploration::ExplorationIsDone<9> > > >>(__end1)); __begin1.operator++()) {
+          const exploration::ExplorationIsDone<9> & event = static_cast<const exploration::ExplorationIsDone<9>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::ExplorationIsDone<9> *, std::vector<exploration::ExplorationIsDone<9>, std::allocator<exploration::ExplorationIsDone<9> > > >>(__begin1).operator*());
+          event.apply(&this->explainer.before);
+        }
+        
+      }
+    }
+    
+    
+    private: 
+    VideoExplainer<static_cast<unsigned int>(9)> & explainer;
+    std::vector<exploration::ExplorationIsDone<9>, std::allocator<exploration::ExplorationIsDone<9> > > events;
+    
+    public: 
+    const Stack<9> & before;
+    const Stack<9> & after;
+  };
+  
+  #endif
+  public: 
+  private: 
+  template<typename Event>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const Event &) -> VisitEventsGuard<Event>;
+  
+  /* First instantiated from: video-explainer.cpp:1132 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::CellIsSetInInput<9> &) -> VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<9> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1137 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::InputsAreDone<9> &) -> VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<9> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1203 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::PropagationStartsForSudoku<9> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<9> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1210 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::PropagationStartsForCell<9> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<9> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1243 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::CellPropagates<9> &) -> VideoExplainer::VisitEventsGuard<exploration::CellPropagates<9> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1336 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::PropagationIsDoneForCell<9> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<9> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1554 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::PropagationIsDoneForSudoku<9> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<9> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1561 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::ExplorationStarts<9> &) -> VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<9> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1568 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::HypothesisIsMade<9> &) -> VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<9> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1575 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::HypothesisIsRejected<9> &) -> VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<9> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1582 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::SudokuIsSolved<9> &) -> VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<9> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1603 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::HypothesisIsAccepted<9> &) -> VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<9> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1610 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::ExplorationIsDone<9> &) -> VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<9> >;
+  #endif
+  
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > &) -> VideoExplainer::VisitEventsGuard<std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > >;
+  #endif
+  
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > &) -> VideoExplainer::VisitEventsGuard<std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > >;
+  #endif
+  
+  
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > &) -> VideoExplainer::VisitEventsGuard<std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > >;
+  #endif
+  
+  template<typename Event>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const std::vector<Event> &) -> VisitEventsGuard<Event>;
+  
+  /* First instantiated from: video-explainer.cpp:1349 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > &) -> VideoExplainer::VisitEventsGuard<exploration::CellPropagates<9> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1434 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > &) -> VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<9> >;
+  #endif
+  
+  
+  /* First instantiated from: video-explainer.cpp:1496 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > &) -> VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> >;
+  #endif
   
   class FrameGuard
   {
@@ -4440,12 +5333,12 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   public: 
   void operator()(const exploration::CellIsSetInInput<9> & event)
   {
-    VideoExplainer<9>::VisitEventsGuard visit = VideoExplainer<9>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<9> > visit = VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<9> >(this, event);
   }
   
   void operator()(const exploration::InputsAreDone<9> & event)
   {
-    VideoExplainer<9>::VisitEventsGuard visit = VideoExplainer<9>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<9> > visit = VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<9> >(this, event);
     VideoExplainer<9>::Layout title = {std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> >{std::initializer_list<VideoExplainer<9>::Text>{{std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("How to solve this Sudoku?"), static_cast<const std::allocator<char>>(std::allocator<char>())), static_cast<double>(40), Text::Bold}, {std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("An automated explanation by @jacquev6"), static_cast<const std::allocator<char>>(std::allocator<char>())), static_cast<double>(20), 0}, {std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("https://github.com/jacquev6/Sudoku"), static_cast<const std::allocator<char>>(std::allocator<char>())), static_cast<double>(20), 0}}, static_cast<const std::allocator<VideoExplainer<9>::Text>>(std::allocator<VideoExplainer<9>::Text>())}, {std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> >{}}};
     for(unsigned int index = static_cast<unsigned int>(0); index != this->quicken(static_cast<unsigned int>(75)); ++index) {
       VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
@@ -4494,14 +5387,14 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   
   void operator()(const exploration::PropagationStartsForSudoku<9> & event)
   {
-    VideoExplainer<9>::VisitEventsGuard visit = VideoExplainer<9>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<9> > visit = VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<9> >(this, event);
   }
   
   void operator()(const exploration::PropagationStartsForCell<9> & event)
   {
     this->flush_pending_cell_is_deduced_from_single_allowed_value_events();
     this->flush_pending_cell_is_deduced_as_single_place_for_value_in_region_events();
-    VideoExplainer<9>::VisitEventsGuard visit = VideoExplainer<9>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<9> > visit = VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<9> >(this, event);
     VideoExplainer<9>::Layout propagate = {{std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> >{}}, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> >{std::initializer_list<VideoExplainer<9>::Text>{{std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Propagate constraints"), static_cast<const std::allocator<char>>(std::allocator<char>())), static_cast<double>(20), 0}}, static_cast<const std::allocator<VideoExplainer<9>::Text>>(std::allocator<VideoExplainer<9>::Text>())}};
     if(this->cell_propagations_handled < this->quicken(static_cast<unsigned int>(3))) {
       const double widths[5] = {static_cast<const double>(2), static_cast<const double>(4), static_cast<const double>(5), static_cast<const double>(3), static_cast<const double>(2)};
@@ -4526,7 +5419,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
     const double widths[5] = {static_cast<const double>(2), static_cast<const double>(4), static_cast<const double>(5), static_cast<const double>(3), static_cast<const double>(2)};
     const unsigned int widths_count = static_cast<const unsigned int>(sizeof(widths) / sizeof(static_cast<const double *>(widths)[0]));
     if(this->cell_propagations_handled < this->quicken(static_cast<unsigned int>(3))) {
-      VideoExplainer<9>::VisitEventsGuard visit = VideoExplainer<9>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+      VideoExplainer::VisitEventsGuard<exploration::CellPropagates<9> > visit = VideoExplainer::VisitEventsGuard<exploration::CellPropagates<9> >(this, event);
       if(this->single_propagations_handled < this->quicken(static_cast<unsigned int>(6))) {
         for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(3)) * widths_count); ++index) {
           VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
@@ -4591,38 +5484,38 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   void operator()(const exploration::PropagationIsDoneForCell<9> & event)
   {
     this->flush_pending_cell_propagates_events();
-    VideoExplainer<9>::VisitEventsGuard visit = VideoExplainer<9>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<9> > visit = VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<9> >(this, event);
     ++this->cell_propagations_handled;
   }
   
   void operator()(const exploration::PropagationIsDoneForSudoku<9> & event)
   {
     this->flush_pending_events();
-    VideoExplainer<9>::VisitEventsGuard visit = VideoExplainer<9>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<9> > visit = VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<9> >(this, event);
   }
   
   void operator()(const exploration::ExplorationStarts<9> & event)
   {
     this->flush_pending_events();
-    VideoExplainer<9>::VisitEventsGuard visit = VideoExplainer<9>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<9> > visit = VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<9> >(this, event);
   }
   
   void operator()(const exploration::HypothesisIsMade<9> & event)
   {
     this->flush_pending_events();
-    VideoExplainer<9>::VisitEventsGuard visit = VideoExplainer<9>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<9> > visit = VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<9> >(this, event);
   }
   
   void operator()(const exploration::HypothesisIsRejected<9> & event)
   {
     this->flush_pending_events();
-    VideoExplainer<9>::VisitEventsGuard visit = VideoExplainer<9>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<9> > visit = VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<9> >(this, event);
   }
   
   void operator()(const exploration::SudokuIsSolved<9> & event)
   {
     this->flush_pending_events();
-    VideoExplainer<9>::VisitEventsGuard visit = VideoExplainer<9>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<9> > visit = VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<9> >(this, event);
     VideoExplainer<9>::Layout done = {{std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> >{}}, std::vector<VideoExplainer<9>::Text, std::allocator<VideoExplainer<9>::Text> >{std::initializer_list<VideoExplainer<9>::Text>{{std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Solved!"), static_cast<const std::allocator<char>>(std::allocator<char>())), static_cast<double>(20), 0}}, static_cast<const std::allocator<VideoExplainer<9>::Text>>(std::allocator<VideoExplainer<9>::Text>())}};
     for(unsigned int index = static_cast<unsigned int>(0); index != this->quicken(static_cast<unsigned int>(75)); ++index) {
       VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
@@ -4639,13 +5532,13 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   void operator()(const exploration::HypothesisIsAccepted<9> & event)
   {
     this->flush_pending_events();
-    VideoExplainer<9>::VisitEventsGuard visit = VideoExplainer<9>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<9> > visit = VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<9> >(this, event);
   }
   
   void operator()(const exploration::ExplorationIsDone<9> & event)
   {
     this->flush_pending_events();
-    VideoExplainer<9>::VisitEventsGuard visit = VideoExplainer<9>::VisitEventsGuard(this, static_cast<const std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >>(std::variant<exploration::CellIsSetInInput<9>, exploration::InputsAreDone<9>, exploration::PropagationStartsForSudoku<9>, exploration::PropagationStartsForCell<9>, exploration::CellPropagates<9>, exploration::CellIsDeducedFromSingleAllowedValue<9>, exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, exploration::PropagationIsDoneForCell<9>, exploration::PropagationIsDoneForSudoku<9>, exploration::ExplorationStarts<9>, exploration::HypothesisIsMade<9>, exploration::HypothesisIsRejected<9>, exploration::SudokuIsSolved<9>, exploration::HypothesisIsAccepted<9>, exploration::ExplorationIsDone<9> >(event)));
+    VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<9> > visit = VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<9> >(this, event);
   }
   
   void flush_pending_cell_propagates_events()
@@ -4654,7 +5547,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
     const double widths[5] = {static_cast<const double>(2), static_cast<const double>(4), static_cast<const double>(5), static_cast<const double>(3), static_cast<const double>(2)};
     const unsigned int widths_count = static_cast<const unsigned int>(sizeof(widths) / sizeof(static_cast<const double *>(widths)[0]));
     if(!static_cast<const std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > >>(this->pending_cell_propagates_events).empty()) {
-      VideoExplainer<9>::VisitEventsGuard visit = VideoExplainer<9>::VisitEventsGuard(this, static_cast<const std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > >>(this->pending_cell_propagates_events));
+      VideoExplainer::VisitEventsGuard<exploration::CellPropagates<9> > visit = VideoExplainer::VisitEventsGuard<exploration::CellPropagates<9> >(this, static_cast<const std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > >>(this->pending_cell_propagates_events));
       for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(1)) * widths_count); ++index) {
         VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
         const std::tuple<double, double, double> __propagate7 = static_cast<const std::tuple<double, double, double>>(this->draw_layout(static_cast<const VideoExplainer<9>::Layout>(propagate)));
@@ -4726,7 +5619,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
     const double widths[5] = {static_cast<const double>(2), static_cast<const double>(4), static_cast<const double>(5), static_cast<const double>(3), static_cast<const double>(2)};
     const unsigned int widths_count = static_cast<const unsigned int>(sizeof(widths) / sizeof(static_cast<const double *>(widths)[0]));
     if(!static_cast<const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > >>(this->pending_cell_is_deduced_from_single_allowed_value_events).empty()) {
-      VideoExplainer<9>::VisitEventsGuard visit = VideoExplainer<9>::VisitEventsGuard(this, static_cast<const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > >>(this->pending_cell_is_deduced_from_single_allowed_value_events));
+      VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<9> > visit = VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<9> >(this, static_cast<const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > >>(this->pending_cell_is_deduced_from_single_allowed_value_events));
       if(this->deductions_handled < this->quicken(static_cast<unsigned int>(4))) {
         for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(6)) * widths_count); ++index) {
           VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);
@@ -4785,7 +5678,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
     const double widths[5] = {static_cast<const double>(2), static_cast<const double>(4), static_cast<const double>(5), static_cast<const double>(3), static_cast<const double>(2)};
     const unsigned int widths_count = static_cast<const unsigned int>(sizeof(widths) / sizeof(static_cast<const double *>(widths)[0]));
     if(!static_cast<const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > >>(this->pending_cell_is_deduced_as_single_place_for_value_in_region_events).empty()) {
-      VideoExplainer<9>::VisitEventsGuard visit = VideoExplainer<9>::VisitEventsGuard(this, static_cast<const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > >>(this->pending_cell_is_deduced_as_single_place_for_value_in_region_events));
+      VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > visit = VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> >(this, static_cast<const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > >>(this->pending_cell_is_deduced_as_single_place_for_value_in_region_events));
       if(this->deductions_handled < this->quicken(static_cast<unsigned int>(4))) {
         for(unsigned int index = static_cast<unsigned int>(0); index != (this->quicken(static_cast<unsigned int>(6)) * widths_count); ++index) {
           VideoExplainer<9>::FrameGuard frame = VideoExplainer<9>::FrameGuard(this);

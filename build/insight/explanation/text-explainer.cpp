@@ -17,7 +17,6 @@
 #ifndef EXPLORATION_EVENTS_HPP_
 #define EXPLORATION_EVENTS_HPP_
 
-#include <variant>
 #include <vector>
 
 # 1 "src/exploration/annotations.hpp"
@@ -769,7 +768,7 @@ class Stack
 
 
 #endif  // EXPLORATION_ANNOTATIONS_HPP_
-# 10 "src/exploration/events.hpp"
+# 9 "src/exploration/events.hpp"
 
 
 namespace exploration
@@ -783,7 +782,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: text-explainer.cpp:740 */
+  /* First instantiated from: text-explainer.cpp:721 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<4>
@@ -795,7 +794,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: text-explainer.cpp:740 */
+  /* First instantiated from: text-explainer.cpp:721 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<9>
@@ -830,7 +829,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: text-explainer.cpp:756 */
+  /* First instantiated from: text-explainer.cpp:737 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForCell<4>
@@ -842,7 +841,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: text-explainer.cpp:756 */
+  /* First instantiated from: text-explainer.cpp:737 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForCell<9>
@@ -864,7 +863,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: text-explainer.cpp:762 */
+  /* First instantiated from: text-explainer.cpp:743 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellPropagates<4>
@@ -877,7 +876,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: text-explainer.cpp:762 */
+  /* First instantiated from: text-explainer.cpp:743 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellPropagates<9>
@@ -899,7 +898,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: text-explainer.cpp:769 */
+  /* First instantiated from: text-explainer.cpp:750 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedFromSingleAllowedValue<4>
@@ -911,7 +910,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: text-explainer.cpp:769 */
+  /* First instantiated from: text-explainer.cpp:750 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedFromSingleAllowedValue<9>
@@ -933,7 +932,7 @@ namespace exploration
     unsigned int region;
   };
   
-  /* First instantiated from: text-explainer.cpp:775 */
+  /* First instantiated from: text-explainer.cpp:756 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedAsSinglePlaceForValueInRegion<4>
@@ -946,7 +945,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: text-explainer.cpp:775 */
+  /* First instantiated from: text-explainer.cpp:756 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedAsSinglePlaceForValueInRegion<9>
@@ -968,7 +967,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: text-explainer.cpp:781 */
+  /* First instantiated from: text-explainer.cpp:762 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForCell<4>
@@ -980,7 +979,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: text-explainer.cpp:781 */
+  /* First instantiated from: text-explainer.cpp:762 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForCell<9>
@@ -1008,7 +1007,7 @@ namespace exploration
     std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
   };
   
-  /* First instantiated from: text-explainer.cpp:792 */
+  /* First instantiated from: text-explainer.cpp:773 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<4>
@@ -1020,7 +1019,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: text-explainer.cpp:792 */
+  /* First instantiated from: text-explainer.cpp:773 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<9>
@@ -1041,7 +1040,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: text-explainer.cpp:799 */
+  /* First instantiated from: text-explainer.cpp:780 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<4>
@@ -1053,7 +1052,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: text-explainer.cpp:799 */
+  /* First instantiated from: text-explainer.cpp:780 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<9>
@@ -1074,7 +1073,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: text-explainer.cpp:807 */
+  /* First instantiated from: text-explainer.cpp:788 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<4>
@@ -1086,7 +1085,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: text-explainer.cpp:807 */
+  /* First instantiated from: text-explainer.cpp:788 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<9>
@@ -1114,7 +1113,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: text-explainer.cpp:820 */
+  /* First instantiated from: text-explainer.cpp:801 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsAccepted<4>
@@ -1126,7 +1125,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: text-explainer.cpp:820 */
+  /* First instantiated from: text-explainer.cpp:801 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsAccepted<9>
@@ -1146,7 +1145,7 @@ namespace exploration
     std::pair<unsigned int, unsigned int> cell;
   };
   
-  /* First instantiated from: text-explainer.cpp:826 */
+  /* First instantiated from: text-explainer.cpp:807 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationIsDone<4>
@@ -1157,7 +1156,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: text-explainer.cpp:826 */
+  /* First instantiated from: text-explainer.cpp:807 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationIsDone<9>
@@ -1168,8 +1167,6 @@ namespace exploration
   };
   
   #endif
-  template<unsigned int size>
-  using Event = std::variant<CellIsSetInInput<size>, InputsAreDone<size>, PropagationStartsForSudoku<size>, PropagationStartsForCell<size>, CellPropagates<size>, CellIsDeducedFromSingleAllowedValue<size>, CellIsDeducedAsSinglePlaceForValueInRegion<size>, PropagationIsDoneForCell<size>, PropagationIsDoneForSudoku<size>, ExplorationStarts<size>, HypothesisIsMade<size>, HypothesisIsRejected<size>, SudokuIsSolved<size>, HypothesisIsAccepted<size>, ExplorationIsDone<size> >;
   
 }  // namespace exploration
 
