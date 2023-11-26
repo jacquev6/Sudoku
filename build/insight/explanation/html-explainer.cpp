@@ -1416,7 +1416,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:939 */
+  /* First instantiated from: html-explainer.cpp:940 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedFromSingleAllowedValue<4>
@@ -1428,7 +1428,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:939 */
+  /* First instantiated from: html-explainer.cpp:940 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedFromSingleAllowedValue<9>
@@ -1450,7 +1450,7 @@ namespace exploration
     unsigned int region;
   };
   
-  /* First instantiated from: html-explainer.cpp:944 */
+  /* First instantiated from: html-explainer.cpp:945 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedAsSinglePlaceForValueInRegion<4>
@@ -1463,7 +1463,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:944 */
+  /* First instantiated from: html-explainer.cpp:945 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedAsSinglePlaceForValueInRegion<9>
@@ -1485,7 +1485,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:949 */
+  /* First instantiated from: html-explainer.cpp:950 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForCell<4>
@@ -1497,7 +1497,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:949 */
+  /* First instantiated from: html-explainer.cpp:950 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForCell<9>
@@ -1516,7 +1516,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: html-explainer.cpp:954 */
+  /* First instantiated from: html-explainer.cpp:955 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForSudoku<4>
@@ -1526,7 +1526,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:954 */
+  /* First instantiated from: html-explainer.cpp:955 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForSudoku<9>
@@ -1545,7 +1545,7 @@ namespace exploration
     std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
   };
   
-  /* First instantiated from: html-explainer.cpp:959 */
+  /* First instantiated from: html-explainer.cpp:960 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<4>
@@ -1557,7 +1557,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:959 */
+  /* First instantiated from: html-explainer.cpp:960 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<9>
@@ -1578,7 +1578,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:964 */
+  /* First instantiated from: html-explainer.cpp:965 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<4>
@@ -1590,7 +1590,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:964 */
+  /* First instantiated from: html-explainer.cpp:965 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<9>
@@ -1611,7 +1611,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:969 */
+  /* First instantiated from: html-explainer.cpp:970 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<4>
@@ -1623,7 +1623,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:969 */
+  /* First instantiated from: html-explainer.cpp:970 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<9>
@@ -1642,7 +1642,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: html-explainer.cpp:974 */
+  /* First instantiated from: html-explainer.cpp:975 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct SudokuIsSolved<4>
@@ -1652,7 +1652,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:974 */
+  /* First instantiated from: html-explainer.cpp:975 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct SudokuIsSolved<9>
@@ -1946,7 +1946,7 @@ void HtmlExplainer<size>::operator()(const exploration::PropagationStartsForSudo
 template<unsigned size>
 void HtmlExplainer<size>::operator()(const exploration::PropagationStartsForCell<size>& event) {
   const auto [row, col] = event.cell;
-  index_file << "<h2>Propagation from (" << row << ", " << col << ")</h2>\n";
+  index_file << "<h2>Propagation from (" << row + 1 << ", " << col + 1 << ")</h2>\n";
 
   event.apply(&stack);
 }
@@ -1958,7 +1958,8 @@ void HtmlExplainer<size>::operator()(const exploration::CellPropagates<size>& ev
   const auto [src_row, src_col] = event.source_cell;
   const auto [tgt_row, tgt_col] = event.target_cell;
   const std::string image_name =
-    str(boost::format("propagation-%1%-%2%--%3%-%4%.png") % src_row % src_col % tgt_row % tgt_col);
+    str(boost::format("propagation-%1%-%2%--%3%-%4%.png")
+    % (src_row + 1) % (src_col + 1) % (tgt_row + 1) % (tgt_col + 1));
   Image propagation = image(image_name);
   const double grid_size = art::round_grid_size<size>(propagation.viewport_height);
   propagation.cr->translate(
@@ -2090,7 +2091,7 @@ class HtmlExplainer<static_cast<unsigned int>(4)>
     const std::pair<unsigned int, unsigned int> __event0 = std::pair<unsigned int, unsigned int>(event.cell);
     const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event0));
     const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event0));
-    std::operator<<(std::operator<<(std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h2>Propagation from (")).operator<<(row), static_cast<const char *>(", ")).operator<<(col), static_cast<const char *>(")</h2>\n"));
+    std::operator<<(std::operator<<(std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h2>Propagation from (")).operator<<(row + static_cast<unsigned int>(1)), static_cast<const char *>(", ")).operator<<(col + static_cast<unsigned int>(1)), static_cast<const char *>(")</h2>\n"));
     event.apply(&this->stack);
   }
   
@@ -2103,7 +2104,7 @@ class HtmlExplainer<static_cast<unsigned int>(4)>
     const std::pair<unsigned int, unsigned int> __event2 = std::pair<unsigned int, unsigned int>(event.target_cell);
     const unsigned int && tgt_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event2));
     const unsigned int && tgt_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event2));
-    const std::basic_string<char, std::char_traits<char>, std::allocator<char> > image_name = static_cast<const std::basic_string<char, std::char_traits<char>, std::allocator<char> >>(boost::str<char, std::char_traits<char>, std::allocator<char> >(static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("propagation-%1%-%2%--%3%-%4%.png"))).operator%(src_row).operator%(src_col).operator%(tgt_row).operator%(tgt_col))));
+    const std::basic_string<char, std::char_traits<char>, std::allocator<char> > image_name = static_cast<const std::basic_string<char, std::char_traits<char>, std::allocator<char> >>(boost::str<char, std::char_traits<char>, std::allocator<char> >(static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("propagation-%1%-%2%--%3%-%4%.png"))).operator%(static_cast<const unsigned int>((src_row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((src_col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((tgt_row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((tgt_col + static_cast<unsigned int>(1)))))));
     HtmlExplainer<4>::Image propagation = static_cast<const HtmlExplainer<static_cast<unsigned int>(4)> *>(this)->image(image_name);
     const double grid_size = art::round_grid_size<4U>(propagation.viewport_height);
     static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(propagation.cr).operator->()->translate((static_cast<double>(propagation.viewport_width) - grid_size) / static_cast<double>(2), (static_cast<double>(propagation.viewport_height) - grid_size) / static_cast<double>(2));
@@ -2283,7 +2284,7 @@ class HtmlExplainer<static_cast<unsigned int>(9)>
     const std::pair<unsigned int, unsigned int> __event0 = std::pair<unsigned int, unsigned int>(event.cell);
     const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event0));
     const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event0));
-    std::operator<<(std::operator<<(std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h2>Propagation from (")).operator<<(row), static_cast<const char *>(", ")).operator<<(col), static_cast<const char *>(")</h2>\n"));
+    std::operator<<(std::operator<<(std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h2>Propagation from (")).operator<<(row + static_cast<unsigned int>(1)), static_cast<const char *>(", ")).operator<<(col + static_cast<unsigned int>(1)), static_cast<const char *>(")</h2>\n"));
     event.apply(&this->stack);
   }
   
@@ -2296,7 +2297,7 @@ class HtmlExplainer<static_cast<unsigned int>(9)>
     const std::pair<unsigned int, unsigned int> __event2 = std::pair<unsigned int, unsigned int>(event.target_cell);
     const unsigned int && tgt_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event2));
     const unsigned int && tgt_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event2));
-    const std::basic_string<char, std::char_traits<char>, std::allocator<char> > image_name = static_cast<const std::basic_string<char, std::char_traits<char>, std::allocator<char> >>(boost::str<char, std::char_traits<char>, std::allocator<char> >(static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("propagation-%1%-%2%--%3%-%4%.png"))).operator%(src_row).operator%(src_col).operator%(tgt_row).operator%(tgt_col))));
+    const std::basic_string<char, std::char_traits<char>, std::allocator<char> > image_name = static_cast<const std::basic_string<char, std::char_traits<char>, std::allocator<char> >>(boost::str<char, std::char_traits<char>, std::allocator<char> >(static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("propagation-%1%-%2%--%3%-%4%.png"))).operator%(static_cast<const unsigned int>((src_row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((src_col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((tgt_row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((tgt_col + static_cast<unsigned int>(1)))))));
     HtmlExplainer<9>::Image propagation = static_cast<const HtmlExplainer<static_cast<unsigned int>(9)> *>(this)->image(image_name);
     const double grid_size = art::round_grid_size<9U>(propagation.viewport_height);
     static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(propagation.cr).operator->()->translate((static_cast<double>(propagation.viewport_width) - grid_size) / static_cast<double>(2), (static_cast<double>(propagation.viewport_height) - grid_size) / static_cast<double>(2));

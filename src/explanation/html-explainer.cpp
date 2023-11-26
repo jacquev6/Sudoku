@@ -90,7 +90,7 @@ void HtmlExplainer<size>::operator()(const exploration::PropagationStartsForSudo
 template<unsigned size>
 void HtmlExplainer<size>::operator()(const exploration::PropagationStartsForCell<size>& event) {
   const auto [row, col] = event.cell;
-  index_file << "<h2>Propagation from (" << row << ", " << col << ")</h2>\n";
+  index_file << "<h2>Propagation from (" << row + 1 << ", " << col + 1 << ")</h2>\n";
 
   event.apply(&stack);
 }
@@ -102,7 +102,8 @@ void HtmlExplainer<size>::operator()(const exploration::CellPropagates<size>& ev
   const auto [src_row, src_col] = event.source_cell;
   const auto [tgt_row, tgt_col] = event.target_cell;
   const std::string image_name =
-    str(boost::format("propagation-%1%-%2%--%3%-%4%.png") % src_row % src_col % tgt_row % tgt_col);
+    str(boost::format("propagation-%1%-%2%--%3%-%4%.png")
+    % (src_row + 1) % (src_col + 1) % (tgt_row + 1) % (tgt_col + 1));
   Image propagation = image(image_name);
   const double grid_size = art::round_grid_size<size>(propagation.viewport_height);
   propagation.cr->translate(
