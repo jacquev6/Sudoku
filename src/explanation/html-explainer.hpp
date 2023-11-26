@@ -5,9 +5,11 @@
 
 #include <filesystem>
 #include <fstream>
+#include <set>
 #include <string>
 
 #include "../exploration/events.hpp"
+#include "art.hpp"
 
 
 template<unsigned size>
@@ -42,9 +44,10 @@ class HtmlExplainer {
   void operator()(const exploration::ExplorationIsDone<size>&);
 
  private:
-  const AnnotatedSudoku<size>& current() const { return stack.current(); }
-  struct Image;
-  Image image(const std::string&) const;
+  struct MakeImageOptions {
+    bool draw_stack = true;
+  };
+  void make_image(const std::string&, art::DrawOptions, const MakeImageOptions& = {}) const;
 
  private:
   std::filesystem::path directory_path;
@@ -52,6 +55,9 @@ class HtmlExplainer {
   unsigned frame_height;
   std::ofstream index_file;
   Stack<size> stack;
+  #ifndef NDEBUG
+  mutable std::set<std::string> generated_image_names;
+  #endif
 };
 
 #endif  // EXPLANATION_HTML_EXPLAINER_HPP_

@@ -1,0 +1,91 @@
+setup: |
+  rm -rf tests/integ/explain/html-only-succes-during-exploration-4
+command: build/bin/sudoku --size 4 explain --text - --html tests/integ/explain/html-only-succes-during-exploration-4 --width 480 --height 320 -
+stdin: |
+  1234
+  34..
+  2.4.
+  4...
+returncode: 0
+stderr: |
+stdout: |
+  (1, 1) is set to 1 in the input
+  (1, 2) is set to 2 in the input
+  (1, 3) is set to 3 in the input
+  (1, 4) is set to 4 in the input
+  (2, 1) is set to 3 in the input
+  (2, 2) is set to 4 in the input
+  (3, 1) is set to 2 in the input
+  (3, 3) is set to 4 in the input
+  (4, 1) is set to 4 in the input
+  All inputs have been set
+  Propagation starts
+  Propagation starts for 1 in (1, 1)
+  1 in (1, 1) has been fully propagated
+  Propagation starts for 2 in (1, 2)
+  2 in (1, 2) forbids 2 in (3, 2)
+  2 in (1, 2) forbids 2 in (4, 2)
+  2 in (1, 2) has been fully propagated
+  Propagation starts for 3 in (1, 3)
+  3 in (1, 3) forbids 3 in (2, 3)
+  3 in (1, 3) forbids 3 in (4, 3)
+  3 in (1, 3) forbids 3 in (2, 4)
+  3 in (1, 3) has been fully propagated
+  Propagation starts for 4 in (1, 4)
+  4 in (1, 4) forbids 4 in (2, 4)
+  4 in (1, 4) forbids 4 in (3, 4)
+  4 in (1, 4) forbids 4 in (4, 4)
+  4 in (1, 4) forbids 4 in (2, 3)
+  4 in (1, 4) has been fully propagated
+  Propagation starts for 3 in (2, 1)
+  3 in (2, 1) has been fully propagated
+  Propagation starts for 4 in (2, 2)
+  4 in (2, 2) forbids 4 in (3, 2)
+  4 in (2, 2) forbids 4 in (4, 2)
+  4 in (2, 2) has been fully propagated
+  Propagation starts for 2 in (3, 1)
+  2 in (3, 1) forbids 2 in (3, 4)
+  2 in (3, 1) has been fully propagated
+  Propagation starts for 4 in (3, 3)
+  4 in (3, 3) forbids 4 in (4, 3)
+  4 in (3, 3) has been fully propagated
+  Propagation starts for 4 in (4, 1)
+  4 in (4, 1) has been fully propagated
+  All cells have been fully propagated
+  Exploration starts for (2, 3) with 2 possible values
+  (2, 3) may be 1
+    Propagation starts
+    Propagation starts for 1 in (2, 3)
+    1 in (2, 3) forbids 1 in (2, 4)
+    (2, 4) can only be 2
+    1 in (2, 3) forbids 1 in (4, 3)
+    (4, 3) can only be 2
+    1 in (2, 3) has been fully propagated
+    Propagation starts for 2 in (2, 4)
+    2 in (2, 4) forbids 2 in (4, 4)
+    2 in (2, 4) has been fully propagated
+    Propagation starts for 2 in (4, 3)
+    2 in (4, 3) has been fully propagated
+    All cells have been fully propagated
+    Exploration starts for (3, 2) with 2 possible values
+    (3, 2) may be 1
+      Propagation starts
+      Propagation starts for 1 in (3, 2)
+      1 in (3, 2) forbids 1 in (3, 4)
+      (3, 4) can only be 3
+      In region 8, only (4, 4) can be 1
+      1 in (3, 2) forbids 1 in (4, 2)
+      (4, 2) can only be 3
+      Sudoku is solved
+      1 in (3, 2) has been fully propagated
+      Propagation starts for 3 in (3, 4)
+      3 in (3, 4) has been fully propagated
+      Propagation starts for 1 in (4, 4)
+      1 in (4, 4) has been fully propagated
+      Propagation starts for 3 in (4, 2)
+      3 in (4, 2) has been fully propagated
+      All cells have been fully propagated
+      (3, 2) can indeed be 1
+    Exploration is done for (3, 2)
+    (2, 3) can indeed be 1
+  Exploration is done for (2, 3)

@@ -172,19 +172,23 @@ class Stack {
     return stack.back();
   }
 
-//  public:
-//   struct Saved {
-//     Saved(const Stack& stack) : begin_(std::next(stack.stack.rbegin())), end_(stack.stack.rend()) {}
+  int height() const {
+    return stack.size();
+  }
 
-//     std::vector<AnnotatedSudoku<size>>::const_reverse_iterator begin() { return begin_; }
-//     std::vector<AnnotatedSudoku<size>>::const_reverse_iterator end() { return end_; }
+ public:
+  struct Saved {
+    explicit Saved(const Stack& stack) : begin_(std::next(stack.stack.rbegin())), end_(stack.stack.rend()) {}
 
-//    private:
-//     const std::vector<AnnotatedSudoku<size>>::const_reverse_iterator begin_;
-//     const std::vector<AnnotatedSudoku<size>>::const_reverse_iterator end_;
-//   };
+    std::vector<AnnotatedSudoku<size>>::const_reverse_iterator begin() { return begin_; }
+    std::vector<AnnotatedSudoku<size>>::const_reverse_iterator end() { return end_; }
 
-//   Saved saved() const;
+   private:
+    const std::vector<AnnotatedSudoku<size>>::const_reverse_iterator begin_;
+    const std::vector<AnnotatedSudoku<size>>::const_reverse_iterator end_;
+  };
+
+  Saved saved() const { return Saved(*this); }
 
  public:
   void push() {

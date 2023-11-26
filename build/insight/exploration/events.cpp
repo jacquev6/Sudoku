@@ -1203,7 +1203,7 @@ class Sudoku : public SudokuBase<Cell, size>
 {
 };
 
-/* First instantiated from: events.cpp:701 */
+/* First instantiated from: events.cpp:705 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<AnnotatedCell<4>, 4> : public SudokuBase<AnnotatedCell<4>, 4>
@@ -1234,7 +1234,7 @@ class Sudoku<AnnotatedCell<4>, 4> : public SudokuBase<AnnotatedCell<4>, 4>
 };
 
 #endif
-/* First instantiated from: events.cpp:701 */
+/* First instantiated from: events.cpp:705 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<AnnotatedCell<9>, 9> : public SudokuBase<AnnotatedCell<9>, 9>
@@ -1725,6 +1725,42 @@ class Stack
     return this->stack.back();
   }
   
+  inline int height() const
+  {
+    return this->stack.size();
+  }
+  
+  
+  public: 
+  struct Saved
+  {
+    inline explicit Saved(const Stack<size> & stack)
+    : begin_{std::next(stack.stack.rbegin())}
+    , end_{stack.stack.rend()}
+    {
+    }
+    
+    inline typename std::vector<AnnotatedSudoku<size> >::const_reverse_iterator begin()
+    {
+      return this->begin_;
+    }
+    
+    inline typename std::vector<AnnotatedSudoku<size> >::const_reverse_iterator end()
+    {
+      return this->end_;
+    }
+    
+    
+    private: 
+    const typename std::vector<AnnotatedSudoku<size> >::const_reverse_iterator begin_;
+    const typename std::vector<AnnotatedSudoku<size> >::const_reverse_iterator end_;
+  };
+  
+  inline Saved saved() const
+  {
+    return Saved(*this);
+  }
+  
   
   public: 
   inline void push()
@@ -1734,7 +1770,7 @@ class Stack
   
   inline void pop()
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 195, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 199, __extension____PRETTY_FUNCTION__));
     this->stack.pop_back();
   }
   
@@ -1743,7 +1779,7 @@ class Stack
   std::vector<AnnotatedSudoku<size> > stack;
 };
 
-/* First instantiated from: events.cpp:701 */
+/* First instantiated from: events.cpp:705 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<4>
@@ -1762,6 +1798,13 @@ class Stack<4>
     return this->stack.back();
   }
   
+  inline int height() const;
+  
+  
+  public: 
+  struct Saved;
+  inline Saved saved() const;
+  
   
   public: 
   inline void push()
@@ -1771,7 +1814,7 @@ class Stack<4>
   
   inline void pop()
   {
-    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(195), static_cast<const char *>(__extension__"void Stack<4>::pop() [size = 4]")));
+    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(199), static_cast<const char *>(__extension__"void Stack<4>::pop() [size = 4]")));
     this->stack.pop_back();
   }
   
@@ -1782,7 +1825,7 @@ class Stack<4>
 };
 
 #endif
-/* First instantiated from: events.cpp:701 */
+/* First instantiated from: events.cpp:705 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<9>
@@ -1801,6 +1844,13 @@ class Stack<9>
     return this->stack.back();
   }
   
+  inline int height() const;
+  
+  
+  public: 
+  struct Saved;
+  inline Saved saved() const;
+  
   
   public: 
   inline void push()
@@ -1810,7 +1860,7 @@ class Stack<9>
   
   inline void pop()
   {
-    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(195), static_cast<const char *>(__extension__"void Stack<9>::pop() [size = 9]")));
+    (static_cast<bool>(!static_cast<const std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > >>(this->stack).empty()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.empty()"), static_cast<const char *>("src/exploration/annotations.hpp"), static_cast<unsigned int>(199), static_cast<const char *>(__extension__"void Stack<9>::pop() [size = 9]")));
     this->stack.pop_back();
   }
   

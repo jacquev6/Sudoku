@@ -9,6 +9,7 @@
 
 #include <filesystem>
 #include <fstream>
+#include <set>
 #include <string>
 
 # 1 "src/exploration/events.hpp"
@@ -497,7 +498,7 @@ class SudokuBase
   CellsArray _cells;
 };
 
-/* First instantiated from: html-explainer.cpp:525 */
+/* First instantiated from: html-explainer.cpp:526 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<4>, 4>
@@ -561,7 +562,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 4>, 4> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: html-explainer.cpp:257 */
+  /* First instantiated from: html-explainer.cpp:258 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 4>, 4> make_cells<0, 1, 2, 3>(const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -573,7 +574,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...col>
   inline std::array<Cell, 4> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: html-explainer.cpp:262 */
+  /* First instantiated from: html-explainer.cpp:263 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 4> make_row<0, 1, 2, 3>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -616,7 +617,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
 };
 
 #endif
-/* First instantiated from: html-explainer.cpp:525 */
+/* First instantiated from: html-explainer.cpp:526 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<9>, 9>
@@ -680,7 +681,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 9>, 9> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: html-explainer.cpp:257 */
+  /* First instantiated from: html-explainer.cpp:258 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 9>, 9> make_cells<0, 1, 2, 3, 4, 5, 6, 7, 8>(const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -692,7 +693,7 @@ class SudokuBase<AnnotatedCell<9>, 9>
   template<unsigned int ...col>
   inline std::array<Cell, 9> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: html-explainer.cpp:262 */
+  /* First instantiated from: html-explainer.cpp:263 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 9> make_row<0, 1, 2, 3, 4, 5, 6, 7, 8>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3, 4, 5, 6, 7, 8> &)
@@ -1153,6 +1154,42 @@ class Stack
     return this->stack.back();
   }
   
+  inline int height() const
+  {
+    return this->stack.size();
+  }
+  
+  
+  public: 
+  struct Saved
+  {
+    inline explicit Saved(const Stack<size> & stack)
+    : begin_{std::next(stack.stack.rbegin())}
+    , end_{stack.stack.rend()}
+    {
+    }
+    
+    inline typename std::vector<AnnotatedSudoku<size> >::const_reverse_iterator begin()
+    {
+      return this->begin_;
+    }
+    
+    inline typename std::vector<AnnotatedSudoku<size> >::const_reverse_iterator end()
+    {
+      return this->end_;
+    }
+    
+    
+    private: 
+    const typename std::vector<AnnotatedSudoku<size> >::const_reverse_iterator begin_;
+    const typename std::vector<AnnotatedSudoku<size> >::const_reverse_iterator end_;
+  };
+  
+  inline Saved saved() const
+  {
+    return Saved(*this);
+  }
+  
   
   public: 
   inline void push()
@@ -1162,7 +1199,7 @@ class Stack
   
   inline void pop()
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 195, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 199, __extension____PRETTY_FUNCTION__));
     this->stack.pop_back();
   }
   
@@ -1171,7 +1208,7 @@ class Stack
   std::vector<AnnotatedSudoku<size> > stack;
 };
 
-/* First instantiated from: html-explainer.cpp:749 */
+/* First instantiated from: html-explainer.cpp:818 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<4>
@@ -1193,6 +1230,45 @@ class Stack<4>
   
   inline Sudoku<AnnotatedCell<4>, 4> & current();
   
+  inline int height() const
+  {
+    return static_cast<int>(this->stack.size());
+  }
+  
+  
+  public: 
+  struct Saved
+  {
+    inline explicit Saved(const Stack<4> & stack)
+    : begin_{static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<4>, 4> *, std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > > > >>(std::next<std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<4>, 4> *, std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > > > > >(stack.stack.rbegin(), static_cast<long>(1)))}
+    , end_{static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<4>, 4> *, std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > > > >>(stack.stack.rend())}
+    {
+    }
+    
+    inline std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<4>, 4> *, std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > > > > begin()
+    {
+      return std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<4>, 4> *, std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > > > >(this->begin_);
+    }
+    
+    inline std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<4>, 4> *, std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > > > > end()
+    {
+      return std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<4>, 4> *, std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > > > >(this->end_);
+    }
+    
+    
+    private: 
+    const std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<4>, 4> *, std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > > > > begin_;
+    const std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<4>, 4> *, std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > > > > end_;
+    public: 
+    // inline Saved & operator=(const Saved &) /* noexcept */ = delete;
+    // inline Saved & operator=(Saved &&) /* noexcept */ = delete;
+  };
+  
+  inline Saved saved() const
+  {
+    return Saved(*this);
+  }
+  
   
   public: 
   inline void push();
@@ -1207,7 +1283,7 @@ class Stack<4>
 };
 
 #endif
-/* First instantiated from: html-explainer.cpp:749 */
+/* First instantiated from: html-explainer.cpp:818 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<9>
@@ -1228,6 +1304,45 @@ class Stack<9>
   }
   
   inline Sudoku<AnnotatedCell<9>, 9> & current();
+  
+  inline int height() const
+  {
+    return static_cast<int>(this->stack.size());
+  }
+  
+  
+  public: 
+  struct Saved
+  {
+    inline explicit Saved(const Stack<9> & stack)
+    : begin_{static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<9>, 9> *, std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > > > >>(std::next<std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<9>, 9> *, std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > > > > >(stack.stack.rbegin(), static_cast<long>(1)))}
+    , end_{static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<9>, 9> *, std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > > > >>(stack.stack.rend())}
+    {
+    }
+    
+    inline std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<9>, 9> *, std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > > > > begin()
+    {
+      return std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<9>, 9> *, std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > > > >(this->begin_);
+    }
+    
+    inline std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<9>, 9> *, std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > > > > end()
+    {
+      return std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<9>, 9> *, std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > > > >(this->end_);
+    }
+    
+    
+    private: 
+    const std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<9>, 9> *, std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > > > > begin_;
+    const std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<9>, 9> *, std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > > > > end_;
+    public: 
+    // inline Saved & operator=(const Saved &) /* noexcept */ = delete;
+    // inline Saved & operator=(Saved &&) /* noexcept */ = delete;
+  };
+  
+  inline Saved saved() const
+  {
+    return Saved(*this);
+  }
   
   
   public: 
@@ -1260,7 +1375,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:873 */
+  /* First instantiated from: html-explainer.cpp:890 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<4>
@@ -1272,7 +1387,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:873 */
+  /* First instantiated from: html-explainer.cpp:890 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<9>
@@ -1291,7 +1406,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: html-explainer.cpp:878 */
+  /* First instantiated from: html-explainer.cpp:895 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct InputsAreDone<4>
@@ -1301,7 +1416,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:878 */
+  /* First instantiated from: html-explainer.cpp:895 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct InputsAreDone<9>
@@ -1318,7 +1433,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: html-explainer.cpp:899 */
+  /* First instantiated from: html-explainer.cpp:909 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForSudoku<4>
@@ -1328,7 +1443,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:899 */
+  /* First instantiated from: html-explainer.cpp:909 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForSudoku<9>
@@ -1347,7 +1462,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:904 */
+  /* First instantiated from: html-explainer.cpp:916 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForCell<4>
@@ -1359,7 +1474,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:904 */
+  /* First instantiated from: html-explainer.cpp:916 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForCell<9>
@@ -1381,7 +1496,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:912 */
+  /* First instantiated from: html-explainer.cpp:924 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellPropagates<4>
@@ -1394,7 +1509,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:912 */
+  /* First instantiated from: html-explainer.cpp:924 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellPropagates<9>
@@ -1416,7 +1531,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:940 */
+  /* First instantiated from: html-explainer.cpp:945 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedFromSingleAllowedValue<4>
@@ -1428,7 +1543,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:940 */
+  /* First instantiated from: html-explainer.cpp:945 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedFromSingleAllowedValue<9>
@@ -1450,7 +1565,7 @@ namespace exploration
     unsigned int region;
   };
   
-  /* First instantiated from: html-explainer.cpp:945 */
+  /* First instantiated from: html-explainer.cpp:950 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedAsSinglePlaceForValueInRegion<4>
@@ -1463,7 +1578,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:945 */
+  /* First instantiated from: html-explainer.cpp:950 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedAsSinglePlaceForValueInRegion<9>
@@ -1485,7 +1600,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:950 */
+  /* First instantiated from: html-explainer.cpp:955 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForCell<4>
@@ -1497,7 +1612,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:950 */
+  /* First instantiated from: html-explainer.cpp:955 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForCell<9>
@@ -1516,7 +1631,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: html-explainer.cpp:955 */
+  /* First instantiated from: html-explainer.cpp:960 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForSudoku<4>
@@ -1526,7 +1641,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:955 */
+  /* First instantiated from: html-explainer.cpp:960 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForSudoku<9>
@@ -1545,7 +1660,7 @@ namespace exploration
     std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
   };
   
-  /* First instantiated from: html-explainer.cpp:960 */
+  /* First instantiated from: html-explainer.cpp:965 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<4>
@@ -1557,7 +1672,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:960 */
+  /* First instantiated from: html-explainer.cpp:965 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<9>
@@ -1578,7 +1693,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:965 */
+  /* First instantiated from: html-explainer.cpp:973 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<4>
@@ -1590,7 +1705,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:965 */
+  /* First instantiated from: html-explainer.cpp:973 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<9>
@@ -1611,7 +1726,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: html-explainer.cpp:970 */
+  /* First instantiated from: html-explainer.cpp:992 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<4>
@@ -1623,7 +1738,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:970 */
+  /* First instantiated from: html-explainer.cpp:992 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<9>
@@ -1642,7 +1757,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: html-explainer.cpp:975 */
+  /* First instantiated from: html-explainer.cpp:997 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct SudokuIsSolved<4>
@@ -1652,7 +1767,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: html-explainer.cpp:975 */
+  /* First instantiated from: html-explainer.cpp:997 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct SudokuIsSolved<9>
@@ -1683,7 +1798,107 @@ namespace exploration
 }  // namespace exploration
 
 #endif  // EXPLORATION_EVENTS_HPP_
-# 11 "src/explanation/html-explainer.hpp"
+# 12 "src/explanation/html-explainer.hpp"
+# 1 "src/explanation/art.hpp"
+// Copyright 2023 Vincent Jacques
+
+#ifndef EXPLANATION_ART_HPP_
+#define EXPLANATION_ART_HPP_
+
+#include <cairomm/cairomm.h>
+
+#include <tuple>
+#include <vector>
+
+# 12 "src/explanation/art.hpp"
+
+
+namespace Cairo
+{
+  class SaveGuard
+  {
+    
+    public: 
+    inline explicit SaveGuard(const std::shared_ptr<Context> & cr_)
+    : cr{std::shared_ptr<Context>(cr_)}
+    {
+      static_cast<const std::__shared_ptr_access<Context, 2, false, false>&>(this->cr).operator->()->save();
+    }
+    
+    inline ~SaveGuard() noexcept
+    {
+      static_cast<const std::__shared_ptr_access<Context, 2, false, false>&>(this->cr).operator->()->restore();
+    }
+    
+    
+    private: 
+    std::shared_ptr<Context> cr;
+    public: 
+  };
+  
+  
+}  // namespace Cairo
+
+
+namespace art
+{
+  template<unsigned int size>
+  double round_grid_size(unsigned int);
+  
+  /* First instantiated from: html-explainer.cpp:856 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  double round_grid_size<4>(unsigned int);
+  #endif
+  
+  
+  /* First instantiated from: html-explainer.cpp:856 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  double round_grid_size<9>(unsigned int);
+  #endif
+  
+  struct DrawOptions
+  {
+    double grid_size;
+    bool possible = false;
+    bool bold_todo = false;
+    std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > circled_cells;
+    double circled_cells_line_width = static_cast<double>(2);
+    std::tuple<double, double, double> circled_cells_color = std::tuple<double, double, double>{1, 0, 0};
+    std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > boxed_cells;
+    double boxed_cells_line_width = static_cast<double>(2);
+    std::tuple<double, double, double> boxed_cells_color = std::tuple<double, double, double>{1, 0, 0};
+    std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > circled_values;
+    double circled_values_line_width = static_cast<double>(2);
+    std::tuple<double, double, double> circled_values_color = std::tuple<double, double, double>{1, 0, 0};
+    std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > links_from_cell_to_value;
+    double links_from_cell_to_value_line_width = static_cast<double>(2);
+    std::tuple<double, double, double> links_from_cell_to_value_color = std::tuple<double, double, double>{1, 0, 0};
+    // inline constexpr ~DrawOptions() noexcept = default;
+  };
+  
+  template<unsigned int size>
+  void draw(std::shared_ptr<Cairo::Context>, const AnnotatedSudoku<size> &, const DrawOptions &);
+  
+  /* First instantiated from: html-explainer.cpp:862 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  void draw<4>(std::shared_ptr<Cairo::Context>, const Sudoku<AnnotatedCell<4>, 4> &, const DrawOptions &);
+  #endif
+  
+  
+  /* First instantiated from: html-explainer.cpp:862 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  void draw<9>(std::shared_ptr<Cairo::Context>, const Sudoku<AnnotatedCell<9>, 9> &, const DrawOptions &);
+  #endif
+  
+  
+}  // namespace art
+
+#endif  // EXPLANATION_ART_HPP_
+# 13 "src/explanation/html-explainer.hpp"
 
 
 template<unsigned int size>
@@ -1736,13 +1951,12 @@ class HtmlExplainer
   
   
   private: 
-  inline const AnnotatedSudoku<size> & current() const
+  struct MakeImageOptions
   {
-    return this->stack.current();
-  }
+    bool draw_stack = true;
+  };
   
-  struct Image;
-  Image image(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > &) const;
+  void make_image(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > &, art::DrawOptions, const MakeImageOptions &) const;
   
   
   private: 
@@ -1751,6 +1965,7 @@ class HtmlExplainer
   unsigned int frame_height;
   std::basic_ofstream<char> index_file;
   Stack<size> stack;
+  mutable std::set<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::basic_string<char, std::char_traits<char>, std::allocator<char> > > > generated_image_names;
 };
 
 
@@ -1764,152 +1979,59 @@ class HtmlExplainer
 
 #include <boost/format.hpp>
 
-# 1 "src/explanation/art.hpp"
-// Copyright 2023 Vincent Jacques
-
-#ifndef EXPLANATION_ART_HPP_
-#define EXPLANATION_ART_HPP_
-
-#include <cairomm/cairomm.h>
-
-#include <tuple>
-#include <vector>
-
-# 12 "src/explanation/art.hpp"
-
-
-namespace Cairo
-{
-  class SaveGuard
-  {
-    
-    public: 
-    inline explicit SaveGuard(const std::shared_ptr<Context> & cr_)
-    : cr{std::shared_ptr<Context>(cr_)}
-    {
-      static_cast<const std::__shared_ptr_access<Context, 2, false, false>&>(this->cr).operator->()->save();
-    }
-    
-    inline ~SaveGuard() noexcept
-    {
-      static_cast<const std::__shared_ptr_access<Context, 2, false, false>&>(this->cr).operator->()->restore();
-    }
-    
-    
-    private: 
-    std::shared_ptr<Context> cr;
-    public: 
-  };
-  
-  
-}  // namespace Cairo
-
-
-namespace art
-{
-  template<unsigned int size>
-  double round_grid_size(unsigned int);
-  
-  /* First instantiated from: html-explainer.cpp:883 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  double round_grid_size<4>(unsigned int);
-  #endif
-  
-  
-  /* First instantiated from: html-explainer.cpp:883 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  double round_grid_size<9>(unsigned int);
-  #endif
-  
-  struct DrawOptions
-  {
-    double grid_size;
-    bool possible = false;
-    bool bold_todo = false;
-    std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > circled_cells;
-    double circled_cells_line_width = static_cast<double>(2);
-    std::tuple<double, double, double> circled_cells_color = std::tuple<double, double, double>{1, 0, 0};
-    std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > boxed_cells;
-    double boxed_cells_line_width = static_cast<double>(2);
-    std::tuple<double, double, double> boxed_cells_color = std::tuple<double, double, double>{1, 0, 0};
-    std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > circled_values;
-    double circled_values_line_width = static_cast<double>(2);
-    std::tuple<double, double, double> circled_values_color = std::tuple<double, double, double>{1, 0, 0};
-    std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > links_from_cell_to_value;
-    double links_from_cell_to_value_line_width = static_cast<double>(2);
-    std::tuple<double, double, double> links_from_cell_to_value_color = std::tuple<double, double, double>{1, 0, 0};
-    // inline constexpr ~DrawOptions() noexcept = default;
-  };
-  
-  template<unsigned int size>
-  void draw(std::shared_ptr<Cairo::Context>, const AnnotatedSudoku<size> &, const DrawOptions &);
-  
-  /* First instantiated from: html-explainer.cpp:885 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  void draw<4>(std::shared_ptr<Cairo::Context>, const Sudoku<AnnotatedCell<4>, 4> &, const DrawOptions &);
-  #endif
-  
-  
-  /* First instantiated from: html-explainer.cpp:885 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  void draw<9>(std::shared_ptr<Cairo::Context>, const Sudoku<AnnotatedCell<9>, 9> &, const DrawOptions &);
-  #endif
-  
-  
-}  // namespace art
-
-#endif  // EXPLANATION_ART_HPP_
-# 12 "src/explanation/html-explainer.cpp"
-
-
-template<unsigned int size>
-struct HtmlExplainer<size>::Image
-{
-  inline static constexpr const unsigned int margin = static_cast<const unsigned int>(10);
-  inline explicit HtmlExplainer<size>::Image(const std::filesystem::path & path_, unsigned int frame_width_, unsigned int frame_height_)
-  : path{std::filesystem::path(path_)}
-  , frame_width{frame_width_}
-  , frame_height{frame_height_}
-  , viewport_width{this->frame_width - (static_cast<unsigned int>(2) * HtmlExplainer::Image::margin)}
-  , viewport_height{this->frame_height - (static_cast<unsigned int>(2) * HtmlExplainer::Image::margin)}
-  , surface{Cairo::ImageSurface::create(Cairo::Surface::Format::ARGB32, static_cast<int>(this->frame_width), static_cast<int>(this->frame_height))}
-  , cr{Cairo::Context::create(static_cast<const std::shared_ptr<Cairo::Surface>>(std::shared_ptr<Cairo::Surface>(static_cast<const std::shared_ptr<Cairo::ImageSurface>>(this->surface))))}
-  {
-    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->set_source_rgb(static_cast<double>(1), static_cast<double>(1), static_cast<double>(1));
-    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->paint();
-    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->save();
-    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->translate(static_cast<double>(HtmlExplainer::Image::margin), static_cast<double>(HtmlExplainer::Image::margin));
-  }
-  
-  inline ~HtmlExplainer<size>::Image()
-  {
-    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->restore();
-    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->rectangle(static_cast<double>(0), static_cast<double>(0), static_cast<double>(this->frame_width), static_cast<double>(this->frame_height));
-    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->rectangle(static_cast<double>(HtmlExplainer::Image::margin), static_cast<double>(HtmlExplainer::Image::margin), static_cast<double>(this->viewport_width), static_cast<double>(this->viewport_height));
-    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->set_fill_rule(Cairo::Context::FillRule::EVEN_ODD);
-    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->set_source_rgba(static_cast<double>(1), 0.5, 0.5, 0.5);
-    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->fill();
-    static_cast<Cairo::Surface *>(static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(this->surface).operator->())->write_to_png(static_cast<const std::basic_string<char, std::char_traits<char>, std::allocator<char> >>(static_cast<const std::filesystem::path>(this->path).string()));
-  }
-  
-  std::filesystem::path path;
-  unsigned int frame_width;
-  unsigned int frame_height;
-  unsigned int viewport_width;
-  unsigned int viewport_height;
-  std::shared_ptr<Cairo::ImageSurface> surface;
-  std::shared_ptr<Cairo::Context> cr;
-};
-
-
 
 template<unsigned size>
-HtmlExplainer<size>::Image HtmlExplainer<size>::image(const std::string& name) const {
-  return Image(directory_path / name, frame_width, frame_height);
+void HtmlExplainer<size>::make_image(
+  const std::string& name,
+  art::DrawOptions draw_options,
+  const MakeImageOptions& options
+) const {
+  #ifndef NDEBUG
+  assert(generated_image_names.count(name) == 0);
+  generated_image_names.insert(name);
+  #endif
+
+  auto surface = Cairo::ImageSurface::create(Cairo::Surface::Format::ARGB32, frame_width, frame_height);
+  auto cr = Cairo::Context::create(surface);
+  const unsigned margin = 10;
+  const unsigned viewport_width = frame_width - 2 * margin;
+  const unsigned viewport_height = frame_height - 2 * margin;
+
+  cr->set_source_rgb(1, 1, 1);
+  cr->paint();
+  cr->save();
+  cr->translate(margin, margin);
+
+  const double grid_size = art::round_grid_size<size>(viewport_height);
+  if (options.draw_stack && stack.height() > 1) {
+    {
+      Cairo::SaveGuard guard(cr);
+      const double small_grid_size = art::round_grid_size<size>(viewport_width - grid_size - margin);
+      for (const auto& saved : stack.saved()) {
+        art::draw(cr, saved, {.grid_size = small_grid_size});
+        cr->translate(0, small_grid_size + margin);
+      }
+    }
+    cr->translate(
+      (viewport_width - grid_size),
+      (viewport_height - grid_size) / 2);
+  } else {
+    cr->translate(
+      (viewport_width - grid_size) / 2,
+      (viewport_height - grid_size) / 2);
+  }
+  draw_options.grid_size = grid_size;
+  art::draw(cr, stack.current(), draw_options);
+
+  cr->restore();
+  // @todo Remove the margin visualisation
+  cr->rectangle(0, 0, frame_width, frame_height);
+  cr->rectangle(margin, margin, viewport_width, viewport_height);
+  cr->set_fill_rule(Cairo::Context::FillRule::EVEN_ODD);
+  cr->set_source_rgba(1, 0.5, 0.5, 0.5);
+  cr->fill();
+
+  surface->write_to_png((directory_path / name).string());
 }
 
 template<unsigned size>
@@ -1923,32 +2045,27 @@ void HtmlExplainer<size>::operator()(const exploration::InputsAreDone<size>& eve
 
   index_file << "<html><head><title>jacquev6/Sudoku - Solving explanation</title></head><body>\n";
   index_file << "<h1>Input grid</h1>\n";
-  Image input = image("input.png");
-  const double grid_size = art::round_grid_size<size>(input.viewport_height);
-  input.cr->translate((input.viewport_width - grid_size) / 2, (input.viewport_height - grid_size) / 2);
-  art::draw(input.cr, current(), {.grid_size = grid_size});
+  make_image("input.png", {});
   index_file << "<p><img src=\"input.png\"/></p>\n";
 
   index_file << "<h1>Possible values</h1>\n";
-  Image possible = image("initial-possible.png");
-  possible.cr->translate((possible.viewport_width - grid_size) / 2, (possible.viewport_height - grid_size) / 2);
-  art::draw(possible.cr, current(), {.grid_size = grid_size, .possible = true});
+  make_image("initial-possible.png", { .possible = true});
   index_file << "<p><img src=\"initial-possible.png\"/></p>\n";
 }
 
 template<unsigned size>
 void HtmlExplainer<size>::operator()(const exploration::PropagationStartsForSudoku<size>& event) {
-  index_file << "<h1>Propagation</h1>\n";
-
   event.apply(&stack);
+
+  index_file << "<h1>Propagation</h1>\n";
 }
 
 template<unsigned size>
 void HtmlExplainer<size>::operator()(const exploration::PropagationStartsForCell<size>& event) {
+  event.apply(&stack);
+
   const auto [row, col] = event.cell;
   index_file << "<h2>Propagation from (" << row + 1 << ", " << col + 1 << ")</h2>\n";
-
-  event.apply(&stack);
 }
 
 template<unsigned size>
@@ -1960,16 +2077,9 @@ void HtmlExplainer<size>::operator()(const exploration::CellPropagates<size>& ev
   const std::string image_name =
     str(boost::format("propagation-%1%-%2%--%3%-%4%.png")
     % (src_row + 1) % (src_col + 1) % (tgt_row + 1) % (tgt_col + 1));
-  Image propagation = image(image_name);
-  const double grid_size = art::round_grid_size<size>(propagation.viewport_height);
-  propagation.cr->translate(
-    (propagation.viewport_width - grid_size) / 2,
-    (propagation.viewport_height - grid_size) / 2);
-  art::draw(
-    propagation.cr,
-    current(),
+  make_image(
+    image_name,
     {
-      .grid_size = grid_size,
       .possible = true,
       .bold_todo = true,
       .circled_cells = {event.source_cell},
@@ -2002,11 +2112,28 @@ void HtmlExplainer<size>::operator()(const exploration::PropagationIsDoneForSudo
 template<unsigned size>
 void HtmlExplainer<size>::operator()(const exploration::ExplorationStarts<size>& event) {
   event.apply(&stack);
+
+  const auto [row, col] = event.cell;
+  index_file << "<h1>Exploration for (" << row + 1 << ", " << col + 1 << ")</h1>\n";
 }
 
 template<unsigned size>
 void HtmlExplainer<size>::operator()(const exploration::HypothesisIsMade<size>& event) {
   event.apply(&stack);
+
+  const auto [row, col] = event.cell;
+  index_file << "<h2>Trying " << event.value + 1 << " for (" << row + 1 << ", " << col + 1 << ")</h2>\n";
+
+  const std::string image_name =
+    str(boost::format("exploration-%1%-%2%--%3%.png") % (row + 1) % (col + 1) % (event.value + 1));
+  make_image(
+    image_name,
+    {
+      .possible = true,
+      .bold_todo = true,
+      .circled_cells = {event.cell},
+    });
+  index_file << "<p><img src=\"" << image_name << "\"/></p>\n";
 }
 
 template<unsigned size>
@@ -2019,15 +2146,7 @@ void HtmlExplainer<size>::operator()(const exploration::SudokuIsSolved<size>& ev
   event.apply(&stack);
 
   index_file << "<h1>Solved grid</h1>\n";
-  Image solved = image("solved.png");
-  const double grid_size = art::round_grid_size<size>(solved.viewport_height);
-  solved.cr->translate((solved.viewport_width - grid_size) / 2, (solved.viewport_height - grid_size) / 2);
-  art::draw(
-    solved.cr,
-    current(),
-    {
-      .grid_size = grid_size,
-    });
+  make_image("solved.png", {}, { .draw_stack = false });
   index_file << "<p><img src=\"solved.png\"/></p>\n";
   index_file << "</body></html>\n";
 }
@@ -2051,6 +2170,7 @@ class HtmlExplainer<static_cast<unsigned int>(4)>
   , frame_height{frame_height_}
   , index_file{std::basic_ofstream<char>()}
   , stack{Stack<4>()}
+  , generated_image_names{std::set<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::basic_string<char, std::char_traits<char>, std::allocator<char> > > >()}
   {
     std::filesystem::create_directories(static_cast<const std::filesystem::path>(this->directory_path));
     this->index_file.open<std::filesystem::path>(static_cast<const std::filesystem::path>(operator/(static_cast<const std::filesystem::path>(this->directory_path), std::filesystem::path("index.html", std::filesystem::path::auto_format))), std::ios_base::out);
@@ -2068,31 +2188,26 @@ class HtmlExplainer<static_cast<unsigned int>(4)>
     event.apply(&this->stack);
     std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<html><head><title>jacquev6/Sudoku - Solving explanation</title></head><body>\n"));
     std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h1>Input grid</h1>\n"));
-    HtmlExplainer<4>::Image input = static_cast<const HtmlExplainer<static_cast<unsigned int>(4)> *>(this)->image(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("input.png"), static_cast<const std::allocator<char>>(std::allocator<char>())));
-    const double grid_size = art::round_grid_size<4U>(input.viewport_height);
-    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(input.cr).operator->()->translate((static_cast<double>(input.viewport_width) - grid_size) / static_cast<double>(2), (static_cast<double>(input.viewport_height) - grid_size) / static_cast<double>(2));
-    art::draw<4>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(input.cr)), static_cast<const HtmlExplainer<static_cast<unsigned int>(4)> *>(this)->current(), {grid_size, {false}, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
+    static_cast<const HtmlExplainer<static_cast<unsigned int>(4)> *>(this)->make_image(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("input.png"), static_cast<const std::allocator<char>>(std::allocator<char>())), {0.0, {false}, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}}, {{true}});
     std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<p><img src=\"input.png\"/></p>\n"));
     std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h1>Possible values</h1>\n"));
-    HtmlExplainer<4>::Image possible = static_cast<const HtmlExplainer<static_cast<unsigned int>(4)> *>(this)->image(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("initial-possible.png"), static_cast<const std::allocator<char>>(std::allocator<char>())));
-    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(possible.cr).operator->()->translate((static_cast<double>(possible.viewport_width) - grid_size) / static_cast<double>(2), (static_cast<double>(possible.viewport_height) - grid_size) / static_cast<double>(2));
-    art::draw<4>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(possible.cr)), static_cast<const HtmlExplainer<static_cast<unsigned int>(4)> *>(this)->current(), {grid_size, true, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
+    static_cast<const HtmlExplainer<static_cast<unsigned int>(4)> *>(this)->make_image(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("initial-possible.png"), static_cast<const std::allocator<char>>(std::allocator<char>())), {0.0, true, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}}, {{true}});
     std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<p><img src=\"initial-possible.png\"/></p>\n"));
   }
   
   void operator()(const exploration::PropagationStartsForSudoku<4> & event)
   {
-    std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h1>Propagation</h1>\n"));
     event.apply(&this->stack);
+    std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h1>Propagation</h1>\n"));
   }
   
   void operator()(const exploration::PropagationStartsForCell<4> & event)
   {
+    event.apply(&this->stack);
     const std::pair<unsigned int, unsigned int> __event0 = std::pair<unsigned int, unsigned int>(event.cell);
     const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event0));
     const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event0));
     std::operator<<(std::operator<<(std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h2>Propagation from (")).operator<<(row + static_cast<unsigned int>(1)), static_cast<const char *>(", ")).operator<<(col + static_cast<unsigned int>(1)), static_cast<const char *>(")</h2>\n"));
-    event.apply(&this->stack);
   }
   
   void operator()(const exploration::CellPropagates<4> & event)
@@ -2105,10 +2220,7 @@ class HtmlExplainer<static_cast<unsigned int>(4)>
     const unsigned int && tgt_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event2));
     const unsigned int && tgt_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event2));
     const std::basic_string<char, std::char_traits<char>, std::allocator<char> > image_name = static_cast<const std::basic_string<char, std::char_traits<char>, std::allocator<char> >>(boost::str<char, std::char_traits<char>, std::allocator<char> >(static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("propagation-%1%-%2%--%3%-%4%.png"))).operator%(static_cast<const unsigned int>((src_row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((src_col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((tgt_row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((tgt_col + static_cast<unsigned int>(1)))))));
-    HtmlExplainer<4>::Image propagation = static_cast<const HtmlExplainer<static_cast<unsigned int>(4)> *>(this)->image(image_name);
-    const double grid_size = art::round_grid_size<4U>(propagation.viewport_height);
-    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(propagation.cr).operator->()->translate((static_cast<double>(propagation.viewport_width) - grid_size) / static_cast<double>(2), (static_cast<double>(propagation.viewport_height) - grid_size) / static_cast<double>(2));
-    art::draw<4>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(propagation.cr)), static_cast<const HtmlExplainer<static_cast<unsigned int>(4)> *>(this)->current(), {grid_size, true, true, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(event.source_cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{std::initializer_list<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >{std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>{event.target_cell, event.value}}, static_cast<const std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >>(std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{std::initializer_list<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >{std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>{event.source_cell, event.target_cell, event.value}}, static_cast<const std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >>(std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
+    static_cast<const HtmlExplainer<static_cast<unsigned int>(4)> *>(this)->make_image(image_name, {0.0, true, true, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(event.source_cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{std::initializer_list<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >{std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>{event.target_cell, event.value}}, static_cast<const std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >>(std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{std::initializer_list<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >{std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>{event.source_cell, event.target_cell, event.value}}, static_cast<const std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >>(std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}}, {{true}});
     std::operator<<(std::operator<<(std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<p><img src=\"")), image_name), static_cast<const char *>("\"/></p>\n"));
   }
   
@@ -2135,11 +2247,22 @@ class HtmlExplainer<static_cast<unsigned int>(4)>
   void operator()(const exploration::ExplorationStarts<4> & event)
   {
     event.apply(&this->stack);
+    const std::pair<unsigned int, unsigned int> __event3 = std::pair<unsigned int, unsigned int>(event.cell);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event3));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event3));
+    std::operator<<(std::operator<<(std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h1>Exploration for (")).operator<<(row + static_cast<unsigned int>(1)), static_cast<const char *>(", ")).operator<<(col + static_cast<unsigned int>(1)), static_cast<const char *>(")</h1>\n"));
   }
   
   void operator()(const exploration::HypothesisIsMade<4> & event)
   {
     event.apply(&this->stack);
+    const std::pair<unsigned int, unsigned int> __event4 = std::pair<unsigned int, unsigned int>(event.cell);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event4));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event4));
+    std::operator<<(std::operator<<(std::operator<<(std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h2>Trying ")).operator<<(event.value + static_cast<unsigned int>(1)), static_cast<const char *>(" for (")).operator<<(row + static_cast<unsigned int>(1)), static_cast<const char *>(", ")).operator<<(col + static_cast<unsigned int>(1)), static_cast<const char *>(")</h2>\n"));
+    const std::basic_string<char, std::char_traits<char>, std::allocator<char> > image_name = static_cast<const std::basic_string<char, std::char_traits<char>, std::allocator<char> >>(boost::str<char, std::char_traits<char>, std::allocator<char> >(static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("exploration-%1%-%2%--%3%.png"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1)))))));
+    static_cast<const HtmlExplainer<static_cast<unsigned int>(4)> *>(this)->make_image(image_name, {0.0, true, true, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(event.cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}}, {{true}});
+    std::operator<<(std::operator<<(std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<p><img src=\"")), image_name), static_cast<const char *>("\"/></p>\n"));
   }
   
   void operator()(const exploration::HypothesisIsRejected<4> & event)
@@ -2151,10 +2274,7 @@ class HtmlExplainer<static_cast<unsigned int>(4)>
   {
     event.apply(&this->stack);
     std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h1>Solved grid</h1>\n"));
-    HtmlExplainer<4>::Image solved = static_cast<const HtmlExplainer<static_cast<unsigned int>(4)> *>(this)->image(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("solved.png"), static_cast<const std::allocator<char>>(std::allocator<char>())));
-    const double grid_size = art::round_grid_size<4U>(solved.viewport_height);
-    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(solved.cr).operator->()->translate((static_cast<double>(solved.viewport_width) - grid_size) / static_cast<double>(2), (static_cast<double>(solved.viewport_height) - grid_size) / static_cast<double>(2));
-    art::draw<4>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(solved.cr)), static_cast<const HtmlExplainer<static_cast<unsigned int>(4)> *>(this)->current(), {grid_size, {false}, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
+    static_cast<const HtmlExplainer<static_cast<unsigned int>(4)> *>(this)->make_image(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("solved.png"), static_cast<const std::allocator<char>>(std::allocator<char>())), {0.0, {false}, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}}, {false});
     std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<p><img src=\"solved.png\"/></p>\n"));
     std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("</body></html>\n"));
   }
@@ -2169,52 +2289,55 @@ class HtmlExplainer<static_cast<unsigned int>(4)>
   
   
   private: 
-  inline const Sudoku<AnnotatedCell<4>, 4> & current() const
+  struct MakeImageOptions
   {
-    return this->stack.current();
-  }
-  
-  struct Image
-  {
-    inline static constexpr const unsigned int margin = static_cast<const unsigned int>(10);
-    inline explicit Image(const std::filesystem::path & path_, unsigned int frame_width_, unsigned int frame_height_)
-    : path{std::filesystem::path(path_)}
-    , frame_width{frame_width_}
-    , frame_height{frame_height_}
-    , viewport_width{this->frame_width - (static_cast<unsigned int>(2) * margin)}
-    , viewport_height{this->frame_height - (static_cast<unsigned int>(2) * margin)}
-    , surface{Cairo::ImageSurface::create(Cairo::Surface::Format::ARGB32, static_cast<int>(this->frame_width), static_cast<int>(this->frame_height))}
-    , cr{Cairo::Context::create(static_cast<const std::shared_ptr<Cairo::Surface>>(std::shared_ptr<Cairo::Surface>(static_cast<const std::shared_ptr<Cairo::ImageSurface>>(this->surface))))}
-    {
-      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->set_source_rgb(static_cast<double>(1), static_cast<double>(1), static_cast<double>(1));
-      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->paint();
-      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->save();
-      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->translate(static_cast<double>(margin), static_cast<double>(margin));
-    }
-    
-    inline ~Image() noexcept
-    {
-      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->restore();
-      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->rectangle(static_cast<double>(0), static_cast<double>(0), static_cast<double>(this->frame_width), static_cast<double>(this->frame_height));
-      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->rectangle(static_cast<double>(margin), static_cast<double>(margin), static_cast<double>(this->viewport_width), static_cast<double>(this->viewport_height));
-      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->set_fill_rule(Cairo::Context::FillRule::EVEN_ODD);
-      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->set_source_rgba(static_cast<double>(1), 0.5, 0.5, 0.5);
-      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->fill();
-      static_cast<Cairo::Surface *>(static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(this->surface).operator->())->write_to_png(static_cast<const std::basic_string<char, std::char_traits<char>, std::allocator<char> >>(static_cast<const std::filesystem::path>(this->path).string()));
-    }
-    
-    std::filesystem::path path;
-    unsigned int frame_width;
-    unsigned int frame_height;
-    unsigned int viewport_width;
-    unsigned int viewport_height;
-    std::shared_ptr<Cairo::ImageSurface> surface;
-    std::shared_ptr<Cairo::Context> cr;
+    bool draw_stack = true;
   };
   
-  HtmlExplainer<4>::Image image(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & name) const
+  void make_image(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & name, art::DrawOptions draw_options, const MakeImageOptions & options) const
   {
-    return HtmlExplainer<4>::Image(static_cast<const std::filesystem::path>(operator/(this->directory_path, static_cast<const std::filesystem::path>(std::filesystem::path(name, std::filesystem::path::auto_format)))), this->frame_width, this->frame_height);
+    (static_cast<bool>(static_cast<const std::set<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::basic_string<char, std::char_traits<char>, std::allocator<char> > > >>(this->generated_image_names).count(name) == static_cast<unsigned long>(0)) ? void(0) : __assert_fail(static_cast<const char *>("generated_image_names.count(name) == 0"), static_cast<const char *>("src/explanation/html-explainer.cpp"), static_cast<unsigned int>(19), static_cast<const char *>(__extension__"void HtmlExplainer<4>::make_image(const std::string &, art::DrawOptions, const MakeImageOptions &) const [size = 4]")));
+    this->generated_image_names.insert(name);
+    std::shared_ptr<Cairo::ImageSurface> surface = Cairo::ImageSurface::create(Cairo::Surface::Format::ARGB32, static_cast<int>(this->frame_width), static_cast<int>(this->frame_height));
+    std::shared_ptr<Cairo::Context> cr = Cairo::Context::create(static_cast<const std::shared_ptr<Cairo::Surface>>(std::shared_ptr<Cairo::Surface>(static_cast<const std::shared_ptr<Cairo::ImageSurface>>(surface))));
+    const unsigned int margin = static_cast<const unsigned int>(10);
+    const unsigned int viewport_width = this->frame_width - (static_cast<unsigned int>(2) * margin);
+    const unsigned int viewport_height = this->frame_height - (static_cast<unsigned int>(2) * margin);
+    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->set_source_rgb(static_cast<double>(1), static_cast<double>(1), static_cast<double>(1));
+    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->paint();
+    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->save();
+    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->translate(static_cast<double>(margin), static_cast<double>(margin));
+    const double grid_size = art::round_grid_size<4U>(viewport_height);
+    if(options.draw_stack && (this->stack.height() > 1)) {
+      {
+        Cairo::SaveGuard guard = Cairo::SaveGuard(static_cast<const std::shared_ptr<Cairo::Context>>(cr));
+        const double small_grid_size = art::round_grid_size<4U>(static_cast<unsigned int>((static_cast<double>(viewport_width) - grid_size) - static_cast<double>(margin)));
+        {
+          Saved && __range1 = this->stack.saved();
+          std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<4>, 4> *, std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > > > > __begin0 = __range1.begin();
+          std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<4>, 4> *, std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > > > > __end0 = __range1.end();
+          for(; !std::operator==(static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<4>, 4> *, std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > > > >>(__begin0), static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<4>, 4> *, std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > > > >>(__end0)); __begin0.operator++()) {
+            const Sudoku<AnnotatedCell<4>, 4> & saved = static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<4>, 4> *, std::vector<Sudoku<AnnotatedCell<4>, 4>, std::allocator<Sudoku<AnnotatedCell<4>, 4> > > > >>(__begin0).operator*();
+            art::draw<4>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(cr)), saved, {small_grid_size, {false}, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
+            static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->translate(static_cast<double>(0), small_grid_size + static_cast<double>(margin));
+          }
+          
+        }
+      };
+      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->translate((static_cast<double>(viewport_width) - grid_size), (static_cast<double>(viewport_height) - grid_size) / static_cast<double>(2));
+    } else {
+      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->translate((static_cast<double>(viewport_width) - grid_size) / static_cast<double>(2), (static_cast<double>(viewport_height) - grid_size) / static_cast<double>(2));
+    } 
+    
+    draw_options.grid_size = grid_size;
+    art::draw<4>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(cr)), this->stack.current(), static_cast<const art::DrawOptions>(draw_options));
+    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->restore();
+    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->rectangle(static_cast<double>(0), static_cast<double>(0), static_cast<double>(this->frame_width), static_cast<double>(this->frame_height));
+    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->rectangle(static_cast<double>(margin), static_cast<double>(margin), static_cast<double>(viewport_width), static_cast<double>(viewport_height));
+    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->set_fill_rule(Cairo::Context::FillRule::EVEN_ODD);
+    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->set_source_rgba(static_cast<double>(1), 0.5, 0.5, 0.5);
+    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->fill();
+    static_cast<Cairo::Surface *>(static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(surface).operator->())->write_to_png(static_cast<const std::basic_string<char, std::char_traits<char>, std::allocator<char> >>(static_cast<const std::filesystem::path &&>((operator/(this->directory_path, static_cast<const std::filesystem::path>(std::filesystem::path(name, std::filesystem::path::auto_format))))).string()));
   }
   
   
@@ -2224,6 +2347,7 @@ class HtmlExplainer<static_cast<unsigned int>(4)>
   unsigned int frame_height;
   std::basic_ofstream<char> index_file;
   Stack<4> stack;
+  mutable std::set<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::basic_string<char, std::char_traits<char>, std::allocator<char> > > > generated_image_names;
   public: 
   // inline HtmlExplainer(const HtmlExplainer<static_cast<unsigned int>(4)> &) /* noexcept */ = delete;
   // inline HtmlExplainer<static_cast<unsigned int>(4)> & operator=(const HtmlExplainer<static_cast<unsigned int>(4)> &) /* noexcept */ = delete;
@@ -2244,6 +2368,7 @@ class HtmlExplainer<static_cast<unsigned int>(9)>
   , frame_height{frame_height_}
   , index_file{std::basic_ofstream<char>()}
   , stack{Stack<9>()}
+  , generated_image_names{std::set<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::basic_string<char, std::char_traits<char>, std::allocator<char> > > >()}
   {
     std::filesystem::create_directories(static_cast<const std::filesystem::path>(this->directory_path));
     this->index_file.open<std::filesystem::path>(static_cast<const std::filesystem::path>(operator/(static_cast<const std::filesystem::path>(this->directory_path), std::filesystem::path("index.html", std::filesystem::path::auto_format))), std::ios_base::out);
@@ -2261,31 +2386,26 @@ class HtmlExplainer<static_cast<unsigned int>(9)>
     event.apply(&this->stack);
     std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<html><head><title>jacquev6/Sudoku - Solving explanation</title></head><body>\n"));
     std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h1>Input grid</h1>\n"));
-    HtmlExplainer<9>::Image input = static_cast<const HtmlExplainer<static_cast<unsigned int>(9)> *>(this)->image(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("input.png"), static_cast<const std::allocator<char>>(std::allocator<char>())));
-    const double grid_size = art::round_grid_size<9U>(input.viewport_height);
-    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(input.cr).operator->()->translate((static_cast<double>(input.viewport_width) - grid_size) / static_cast<double>(2), (static_cast<double>(input.viewport_height) - grid_size) / static_cast<double>(2));
-    art::draw<9>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(input.cr)), static_cast<const HtmlExplainer<static_cast<unsigned int>(9)> *>(this)->current(), {grid_size, {false}, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
+    static_cast<const HtmlExplainer<static_cast<unsigned int>(9)> *>(this)->make_image(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("input.png"), static_cast<const std::allocator<char>>(std::allocator<char>())), {0.0, {false}, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}}, {{true}});
     std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<p><img src=\"input.png\"/></p>\n"));
     std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h1>Possible values</h1>\n"));
-    HtmlExplainer<9>::Image possible = static_cast<const HtmlExplainer<static_cast<unsigned int>(9)> *>(this)->image(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("initial-possible.png"), static_cast<const std::allocator<char>>(std::allocator<char>())));
-    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(possible.cr).operator->()->translate((static_cast<double>(possible.viewport_width) - grid_size) / static_cast<double>(2), (static_cast<double>(possible.viewport_height) - grid_size) / static_cast<double>(2));
-    art::draw<9>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(possible.cr)), static_cast<const HtmlExplainer<static_cast<unsigned int>(9)> *>(this)->current(), {grid_size, true, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
+    static_cast<const HtmlExplainer<static_cast<unsigned int>(9)> *>(this)->make_image(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("initial-possible.png"), static_cast<const std::allocator<char>>(std::allocator<char>())), {0.0, true, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}}, {{true}});
     std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<p><img src=\"initial-possible.png\"/></p>\n"));
   }
   
   void operator()(const exploration::PropagationStartsForSudoku<9> & event)
   {
-    std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h1>Propagation</h1>\n"));
     event.apply(&this->stack);
+    std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h1>Propagation</h1>\n"));
   }
   
   void operator()(const exploration::PropagationStartsForCell<9> & event)
   {
+    event.apply(&this->stack);
     const std::pair<unsigned int, unsigned int> __event0 = std::pair<unsigned int, unsigned int>(event.cell);
     const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event0));
     const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event0));
     std::operator<<(std::operator<<(std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h2>Propagation from (")).operator<<(row + static_cast<unsigned int>(1)), static_cast<const char *>(", ")).operator<<(col + static_cast<unsigned int>(1)), static_cast<const char *>(")</h2>\n"));
-    event.apply(&this->stack);
   }
   
   void operator()(const exploration::CellPropagates<9> & event)
@@ -2298,10 +2418,7 @@ class HtmlExplainer<static_cast<unsigned int>(9)>
     const unsigned int && tgt_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event2));
     const unsigned int && tgt_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event2));
     const std::basic_string<char, std::char_traits<char>, std::allocator<char> > image_name = static_cast<const std::basic_string<char, std::char_traits<char>, std::allocator<char> >>(boost::str<char, std::char_traits<char>, std::allocator<char> >(static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("propagation-%1%-%2%--%3%-%4%.png"))).operator%(static_cast<const unsigned int>((src_row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((src_col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((tgt_row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((tgt_col + static_cast<unsigned int>(1)))))));
-    HtmlExplainer<9>::Image propagation = static_cast<const HtmlExplainer<static_cast<unsigned int>(9)> *>(this)->image(image_name);
-    const double grid_size = art::round_grid_size<9U>(propagation.viewport_height);
-    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(propagation.cr).operator->()->translate((static_cast<double>(propagation.viewport_width) - grid_size) / static_cast<double>(2), (static_cast<double>(propagation.viewport_height) - grid_size) / static_cast<double>(2));
-    art::draw<9>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(propagation.cr)), static_cast<const HtmlExplainer<static_cast<unsigned int>(9)> *>(this)->current(), {grid_size, true, true, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(event.source_cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{std::initializer_list<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >{std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>{event.target_cell, event.value}}, static_cast<const std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >>(std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{std::initializer_list<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >{std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>{event.source_cell, event.target_cell, event.value}}, static_cast<const std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >>(std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
+    static_cast<const HtmlExplainer<static_cast<unsigned int>(9)> *>(this)->make_image(image_name, {0.0, true, true, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(event.source_cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{std::initializer_list<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >{std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>{event.target_cell, event.value}}, static_cast<const std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >>(std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{std::initializer_list<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >{std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>{event.source_cell, event.target_cell, event.value}}, static_cast<const std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >>(std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}}, {{true}});
     std::operator<<(std::operator<<(std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<p><img src=\"")), image_name), static_cast<const char *>("\"/></p>\n"));
   }
   
@@ -2328,11 +2445,22 @@ class HtmlExplainer<static_cast<unsigned int>(9)>
   void operator()(const exploration::ExplorationStarts<9> & event)
   {
     event.apply(&this->stack);
+    const std::pair<unsigned int, unsigned int> __event3 = std::pair<unsigned int, unsigned int>(event.cell);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event3));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event3));
+    std::operator<<(std::operator<<(std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h1>Exploration for (")).operator<<(row + static_cast<unsigned int>(1)), static_cast<const char *>(", ")).operator<<(col + static_cast<unsigned int>(1)), static_cast<const char *>(")</h1>\n"));
   }
   
   void operator()(const exploration::HypothesisIsMade<9> & event)
   {
     event.apply(&this->stack);
+    const std::pair<unsigned int, unsigned int> __event4 = std::pair<unsigned int, unsigned int>(event.cell);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event4));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__event4));
+    std::operator<<(std::operator<<(std::operator<<(std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h2>Trying ")).operator<<(event.value + static_cast<unsigned int>(1)), static_cast<const char *>(" for (")).operator<<(row + static_cast<unsigned int>(1)), static_cast<const char *>(", ")).operator<<(col + static_cast<unsigned int>(1)), static_cast<const char *>(")</h2>\n"));
+    const std::basic_string<char, std::char_traits<char>, std::allocator<char> > image_name = static_cast<const std::basic_string<char, std::char_traits<char>, std::allocator<char> >>(boost::str<char, std::char_traits<char>, std::allocator<char> >(static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("exploration-%1%-%2%--%3%.png"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1)))))));
+    static_cast<const HtmlExplainer<static_cast<unsigned int>(9)> *>(this)->make_image(image_name, {0.0, true, true, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(event.cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}}, {{true}});
+    std::operator<<(std::operator<<(std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<p><img src=\"")), image_name), static_cast<const char *>("\"/></p>\n"));
   }
   
   void operator()(const exploration::HypothesisIsRejected<9> & event)
@@ -2344,10 +2472,7 @@ class HtmlExplainer<static_cast<unsigned int>(9)>
   {
     event.apply(&this->stack);
     std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<h1>Solved grid</h1>\n"));
-    HtmlExplainer<9>::Image solved = static_cast<const HtmlExplainer<static_cast<unsigned int>(9)> *>(this)->image(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("solved.png"), static_cast<const std::allocator<char>>(std::allocator<char>())));
-    const double grid_size = art::round_grid_size<9U>(solved.viewport_height);
-    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(solved.cr).operator->()->translate((static_cast<double>(solved.viewport_width) - grid_size) / static_cast<double>(2), (static_cast<double>(solved.viewport_height) - grid_size) / static_cast<double>(2));
-    art::draw<9>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(solved.cr)), static_cast<const HtmlExplainer<static_cast<unsigned int>(9)> *>(this)->current(), {grid_size, {false}, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
+    static_cast<const HtmlExplainer<static_cast<unsigned int>(9)> *>(this)->make_image(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("solved.png"), static_cast<const std::allocator<char>>(std::allocator<char>())), {0.0, {false}, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}}, {false});
     std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("<p><img src=\"solved.png\"/></p>\n"));
     std::operator<<(static_cast<std::basic_ostream<char>&>(this->index_file), static_cast<const char *>("</body></html>\n"));
   }
@@ -2362,52 +2487,55 @@ class HtmlExplainer<static_cast<unsigned int>(9)>
   
   
   private: 
-  inline const Sudoku<AnnotatedCell<9>, 9> & current() const
+  struct MakeImageOptions
   {
-    return this->stack.current();
-  }
-  
-  struct Image
-  {
-    inline static constexpr const unsigned int margin = static_cast<const unsigned int>(10);
-    inline explicit Image(const std::filesystem::path & path_, unsigned int frame_width_, unsigned int frame_height_)
-    : path{std::filesystem::path(path_)}
-    , frame_width{frame_width_}
-    , frame_height{frame_height_}
-    , viewport_width{this->frame_width - (static_cast<unsigned int>(2) * margin)}
-    , viewport_height{this->frame_height - (static_cast<unsigned int>(2) * margin)}
-    , surface{Cairo::ImageSurface::create(Cairo::Surface::Format::ARGB32, static_cast<int>(this->frame_width), static_cast<int>(this->frame_height))}
-    , cr{Cairo::Context::create(static_cast<const std::shared_ptr<Cairo::Surface>>(std::shared_ptr<Cairo::Surface>(static_cast<const std::shared_ptr<Cairo::ImageSurface>>(this->surface))))}
-    {
-      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->set_source_rgb(static_cast<double>(1), static_cast<double>(1), static_cast<double>(1));
-      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->paint();
-      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->save();
-      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->translate(static_cast<double>(margin), static_cast<double>(margin));
-    }
-    
-    inline ~Image() noexcept
-    {
-      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->restore();
-      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->rectangle(static_cast<double>(0), static_cast<double>(0), static_cast<double>(this->frame_width), static_cast<double>(this->frame_height));
-      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->rectangle(static_cast<double>(margin), static_cast<double>(margin), static_cast<double>(this->viewport_width), static_cast<double>(this->viewport_height));
-      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->set_fill_rule(Cairo::Context::FillRule::EVEN_ODD);
-      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->set_source_rgba(static_cast<double>(1), 0.5, 0.5, 0.5);
-      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->cr).operator->()->fill();
-      static_cast<Cairo::Surface *>(static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(this->surface).operator->())->write_to_png(static_cast<const std::basic_string<char, std::char_traits<char>, std::allocator<char> >>(static_cast<const std::filesystem::path>(this->path).string()));
-    }
-    
-    std::filesystem::path path;
-    unsigned int frame_width;
-    unsigned int frame_height;
-    unsigned int viewport_width;
-    unsigned int viewport_height;
-    std::shared_ptr<Cairo::ImageSurface> surface;
-    std::shared_ptr<Cairo::Context> cr;
+    bool draw_stack = true;
   };
   
-  HtmlExplainer<9>::Image image(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & name) const
+  void make_image(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & name, art::DrawOptions draw_options, const MakeImageOptions & options) const
   {
-    return HtmlExplainer<9>::Image(static_cast<const std::filesystem::path>(operator/(this->directory_path, static_cast<const std::filesystem::path>(std::filesystem::path(name, std::filesystem::path::auto_format)))), this->frame_width, this->frame_height);
+    (static_cast<bool>(static_cast<const std::set<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::basic_string<char, std::char_traits<char>, std::allocator<char> > > >>(this->generated_image_names).count(name) == static_cast<unsigned long>(0)) ? void(0) : __assert_fail(static_cast<const char *>("generated_image_names.count(name) == 0"), static_cast<const char *>("src/explanation/html-explainer.cpp"), static_cast<unsigned int>(19), static_cast<const char *>(__extension__"void HtmlExplainer<9>::make_image(const std::string &, art::DrawOptions, const MakeImageOptions &) const [size = 9]")));
+    this->generated_image_names.insert(name);
+    std::shared_ptr<Cairo::ImageSurface> surface = Cairo::ImageSurface::create(Cairo::Surface::Format::ARGB32, static_cast<int>(this->frame_width), static_cast<int>(this->frame_height));
+    std::shared_ptr<Cairo::Context> cr = Cairo::Context::create(static_cast<const std::shared_ptr<Cairo::Surface>>(std::shared_ptr<Cairo::Surface>(static_cast<const std::shared_ptr<Cairo::ImageSurface>>(surface))));
+    const unsigned int margin = static_cast<const unsigned int>(10);
+    const unsigned int viewport_width = this->frame_width - (static_cast<unsigned int>(2) * margin);
+    const unsigned int viewport_height = this->frame_height - (static_cast<unsigned int>(2) * margin);
+    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->set_source_rgb(static_cast<double>(1), static_cast<double>(1), static_cast<double>(1));
+    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->paint();
+    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->save();
+    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->translate(static_cast<double>(margin), static_cast<double>(margin));
+    const double grid_size = art::round_grid_size<9U>(viewport_height);
+    if(options.draw_stack && (this->stack.height() > 1)) {
+      {
+        Cairo::SaveGuard guard = Cairo::SaveGuard(static_cast<const std::shared_ptr<Cairo::Context>>(cr));
+        const double small_grid_size = art::round_grid_size<9U>(static_cast<unsigned int>((static_cast<double>(viewport_width) - grid_size) - static_cast<double>(margin)));
+        {
+          Saved && __range1 = this->stack.saved();
+          std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<9>, 9> *, std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > > > > __begin0 = __range1.begin();
+          std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<9>, 9> *, std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > > > > __end0 = __range1.end();
+          for(; !std::operator==(static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<9>, 9> *, std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > > > >>(__begin0), static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<9>, 9> *, std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > > > >>(__end0)); __begin0.operator++()) {
+            const Sudoku<AnnotatedCell<9>, 9> & saved = static_cast<const std::reverse_iterator<__gnu_cxx::__normal_iterator<const Sudoku<AnnotatedCell<9>, 9> *, std::vector<Sudoku<AnnotatedCell<9>, 9>, std::allocator<Sudoku<AnnotatedCell<9>, 9> > > > >>(__begin0).operator*();
+            art::draw<9>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(cr)), saved, {small_grid_size, {false}, {false}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}, std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > >{}, {static_cast<double>(2)}, {std::tuple<double, double, double>{1, 0, 0}}});
+            static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->translate(static_cast<double>(0), small_grid_size + static_cast<double>(margin));
+          }
+          
+        }
+      };
+      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->translate((static_cast<double>(viewport_width) - grid_size), (static_cast<double>(viewport_height) - grid_size) / static_cast<double>(2));
+    } else {
+      static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->translate((static_cast<double>(viewport_width) - grid_size) / static_cast<double>(2), (static_cast<double>(viewport_height) - grid_size) / static_cast<double>(2));
+    } 
+    
+    draw_options.grid_size = grid_size;
+    art::draw<9>(std::shared_ptr<Cairo::Context>(static_cast<const std::shared_ptr<Cairo::Context>>(cr)), this->stack.current(), static_cast<const art::DrawOptions>(draw_options));
+    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->restore();
+    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->rectangle(static_cast<double>(0), static_cast<double>(0), static_cast<double>(this->frame_width), static_cast<double>(this->frame_height));
+    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->rectangle(static_cast<double>(margin), static_cast<double>(margin), static_cast<double>(viewport_width), static_cast<double>(viewport_height));
+    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->set_fill_rule(Cairo::Context::FillRule::EVEN_ODD);
+    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->set_source_rgba(static_cast<double>(1), 0.5, 0.5, 0.5);
+    static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(cr).operator->()->fill();
+    static_cast<Cairo::Surface *>(static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(surface).operator->())->write_to_png(static_cast<const std::basic_string<char, std::char_traits<char>, std::allocator<char> >>(static_cast<const std::filesystem::path &&>((operator/(this->directory_path, static_cast<const std::filesystem::path>(std::filesystem::path(name, std::filesystem::path::auto_format))))).string()));
   }
   
   
@@ -2417,6 +2545,7 @@ class HtmlExplainer<static_cast<unsigned int>(9)>
   unsigned int frame_height;
   std::basic_ofstream<char> index_file;
   Stack<9> stack;
+  mutable std::set<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::basic_string<char, std::char_traits<char>, std::allocator<char> > > > generated_image_names;
   public: 
   // inline HtmlExplainer(const HtmlExplainer<static_cast<unsigned int>(9)> &) /* noexcept */ = delete;
   // inline HtmlExplainer<static_cast<unsigned int>(9)> & operator=(const HtmlExplainer<static_cast<unsigned int>(9)> &) /* noexcept */ = delete;

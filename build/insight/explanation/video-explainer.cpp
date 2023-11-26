@@ -1158,6 +1158,42 @@ class Stack
     return this->stack.back();
   }
   
+  inline int height() const
+  {
+    return this->stack.size();
+  }
+  
+  
+  public: 
+  struct Saved
+  {
+    inline explicit Saved(const Stack<size> & stack)
+    : begin_{std::next(stack.stack.rbegin())}
+    , end_{stack.stack.rend()}
+    {
+    }
+    
+    inline typename std::vector<AnnotatedSudoku<size> >::const_reverse_iterator begin()
+    {
+      return this->begin_;
+    }
+    
+    inline typename std::vector<AnnotatedSudoku<size> >::const_reverse_iterator end()
+    {
+      return this->end_;
+    }
+    
+    
+    private: 
+    const typename std::vector<AnnotatedSudoku<size> >::const_reverse_iterator begin_;
+    const typename std::vector<AnnotatedSudoku<size> >::const_reverse_iterator end_;
+  };
+  
+  inline Saved saved() const
+  {
+    return Saved(*this);
+  }
+  
   
   public: 
   inline void push()
@@ -1167,7 +1203,7 @@ class Stack
   
   inline void pop()
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 195, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 199, __extension____PRETTY_FUNCTION__));
     this->stack.pop_back();
   }
   
@@ -1176,7 +1212,7 @@ class Stack
   std::vector<AnnotatedSudoku<size> > stack;
 };
 
-/* First instantiated from: video-explainer.cpp:1036 */
+/* First instantiated from: video-explainer.cpp:1040 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<4>
@@ -1198,6 +1234,13 @@ class Stack<4>
   
   inline Sudoku<AnnotatedCell<4>, 4> & current();
   
+  inline int height() const;
+  
+  
+  public: 
+  struct Saved;
+  inline Saved saved() const;
+  
   
   public: 
   inline void push();
@@ -1212,7 +1255,7 @@ class Stack<4>
 };
 
 #endif
-/* First instantiated from: video-explainer.cpp:1036 */
+/* First instantiated from: video-explainer.cpp:1040 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<9>
@@ -1233,6 +1276,13 @@ class Stack<9>
   }
   
   inline Sudoku<AnnotatedCell<9>, 9> & current();
+  
+  inline int height() const;
+  
+  
+  public: 
+  struct Saved;
+  inline Saved saved() const;
   
   
   public: 
@@ -1265,7 +1315,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: video-explainer.cpp:1132 */
+  /* First instantiated from: video-explainer.cpp:1136 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<4>
@@ -1279,7 +1329,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1132 */
+  /* First instantiated from: video-explainer.cpp:1136 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<9>
@@ -1300,7 +1350,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: video-explainer.cpp:1137 */
+  /* First instantiated from: video-explainer.cpp:1141 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct InputsAreDone<4>
@@ -1312,7 +1362,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1137 */
+  /* First instantiated from: video-explainer.cpp:1141 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct InputsAreDone<9>
@@ -1331,7 +1381,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: video-explainer.cpp:1203 */
+  /* First instantiated from: video-explainer.cpp:1207 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForSudoku<4>
@@ -1343,7 +1393,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1203 */
+  /* First instantiated from: video-explainer.cpp:1207 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForSudoku<9>
@@ -1364,7 +1414,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: video-explainer.cpp:1210 */
+  /* First instantiated from: video-explainer.cpp:1214 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForCell<4>
@@ -1378,7 +1428,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1210 */
+  /* First instantiated from: video-explainer.cpp:1214 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForCell<9>
@@ -1518,7 +1568,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: video-explainer.cpp:1336 */
+  /* First instantiated from: video-explainer.cpp:1340 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForCell<4>
@@ -1532,7 +1582,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1336 */
+  /* First instantiated from: video-explainer.cpp:1340 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForCell<9>
@@ -1553,7 +1603,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: video-explainer.cpp:1554 */
+  /* First instantiated from: video-explainer.cpp:1558 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForSudoku<4>
@@ -1565,7 +1615,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1554 */
+  /* First instantiated from: video-explainer.cpp:1558 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForSudoku<9>
@@ -1586,7 +1636,7 @@ namespace exploration
     std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
   };
   
-  /* First instantiated from: video-explainer.cpp:1561 */
+  /* First instantiated from: video-explainer.cpp:1565 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<4>
@@ -1601,7 +1651,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1561 */
+  /* First instantiated from: video-explainer.cpp:1565 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<9>
@@ -1625,7 +1675,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: video-explainer.cpp:1568 */
+  /* First instantiated from: video-explainer.cpp:1572 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<4>
@@ -1639,7 +1689,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1568 */
+  /* First instantiated from: video-explainer.cpp:1572 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<9>
@@ -1662,7 +1712,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: video-explainer.cpp:1575 */
+  /* First instantiated from: video-explainer.cpp:1579 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<4>
@@ -1676,7 +1726,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1575 */
+  /* First instantiated from: video-explainer.cpp:1579 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<9>
@@ -1697,7 +1747,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: video-explainer.cpp:1582 */
+  /* First instantiated from: video-explainer.cpp:1586 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct SudokuIsSolved<4>
@@ -1709,7 +1759,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1582 */
+  /* First instantiated from: video-explainer.cpp:1586 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct SudokuIsSolved<9>
@@ -1730,7 +1780,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: video-explainer.cpp:1603 */
+  /* First instantiated from: video-explainer.cpp:1607 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsAccepted<4>
@@ -1744,7 +1794,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1603 */
+  /* First instantiated from: video-explainer.cpp:1607 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsAccepted<9>
@@ -1766,7 +1816,7 @@ namespace exploration
     std::pair<unsigned int, unsigned int> cell;
   };
   
-  /* First instantiated from: video-explainer.cpp:1610 */
+  /* First instantiated from: video-explainer.cpp:1614 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationIsDone<4>
@@ -1779,7 +1829,7 @@ namespace exploration
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1610 */
+  /* First instantiated from: video-explainer.cpp:1614 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationIsDone<9>
@@ -2275,14 +2325,14 @@ namespace art
   template<unsigned int size>
   void draw(std::shared_ptr<Cairo::Context>, const AnnotatedSudoku<size> &, const DrawOptions &);
   
-  /* First instantiated from: video-explainer.cpp:1149 */
+  /* First instantiated from: video-explainer.cpp:1153 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   void draw<4>(std::shared_ptr<Cairo::Context>, const Sudoku<AnnotatedCell<4>, 4> &, const DrawOptions &);
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1149 */
+  /* First instantiated from: video-explainer.cpp:1153 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   void draw<9>(std::shared_ptr<Cairo::Context>, const Sudoku<AnnotatedCell<9>, 9> &, const DrawOptions &);
@@ -2820,7 +2870,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   private: 
   template<typename Event>
   class VisitEventsGuard;
-  /* First instantiated from: video-explainer.cpp:1132 */
+  /* First instantiated from: video-explainer.cpp:1136 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::CellIsSetInInput<4> >
@@ -2868,7 +2918,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1137 */
+  /* First instantiated from: video-explainer.cpp:1141 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::InputsAreDone<4> >
@@ -2916,7 +2966,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1203 */
+  /* First instantiated from: video-explainer.cpp:1207 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::PropagationStartsForSudoku<4> >
@@ -2964,7 +3014,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1210 */
+  /* First instantiated from: video-explainer.cpp:1214 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::PropagationStartsForCell<4> >
@@ -3012,7 +3062,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1243 */
+  /* First instantiated from: video-explainer.cpp:1247 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::CellPropagates<4> >
@@ -3077,7 +3127,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1336 */
+  /* First instantiated from: video-explainer.cpp:1340 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::PropagationIsDoneForCell<4> >
@@ -3125,7 +3175,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1434 */
+  /* First instantiated from: video-explainer.cpp:1438 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<4> >
@@ -3182,7 +3232,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1496 */
+  /* First instantiated from: video-explainer.cpp:1500 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> >
@@ -3239,7 +3289,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1554 */
+  /* First instantiated from: video-explainer.cpp:1558 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::PropagationIsDoneForSudoku<4> >
@@ -3287,7 +3337,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1561 */
+  /* First instantiated from: video-explainer.cpp:1565 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::ExplorationStarts<4> >
@@ -3335,7 +3385,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1568 */
+  /* First instantiated from: video-explainer.cpp:1572 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::HypothesisIsMade<4> >
@@ -3383,7 +3433,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1575 */
+  /* First instantiated from: video-explainer.cpp:1579 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::HypothesisIsRejected<4> >
@@ -3431,7 +3481,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1582 */
+  /* First instantiated from: video-explainer.cpp:1586 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::SudokuIsSolved<4> >
@@ -3479,7 +3529,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1603 */
+  /* First instantiated from: video-explainer.cpp:1607 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::HypothesisIsAccepted<4> >
@@ -3527,7 +3577,7 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1610 */
+  /* First instantiated from: video-explainer.cpp:1614 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::ExplorationIsDone<4> >
@@ -3580,91 +3630,91 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   template<typename Event>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const Event &) -> VisitEventsGuard<Event>;
   
-  /* First instantiated from: video-explainer.cpp:1132 */
+  /* First instantiated from: video-explainer.cpp:1136 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::CellIsSetInInput<4> &) -> VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1137 */
+  /* First instantiated from: video-explainer.cpp:1141 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::InputsAreDone<4> &) -> VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1203 */
+  /* First instantiated from: video-explainer.cpp:1207 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::PropagationStartsForSudoku<4> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1210 */
+  /* First instantiated from: video-explainer.cpp:1214 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::PropagationStartsForCell<4> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1243 */
+  /* First instantiated from: video-explainer.cpp:1247 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::CellPropagates<4> &) -> VideoExplainer::VisitEventsGuard<exploration::CellPropagates<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1336 */
+  /* First instantiated from: video-explainer.cpp:1340 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::PropagationIsDoneForCell<4> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1554 */
+  /* First instantiated from: video-explainer.cpp:1558 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::PropagationIsDoneForSudoku<4> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1561 */
+  /* First instantiated from: video-explainer.cpp:1565 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::ExplorationStarts<4> &) -> VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1568 */
+  /* First instantiated from: video-explainer.cpp:1572 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::HypothesisIsMade<4> &) -> VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1575 */
+  /* First instantiated from: video-explainer.cpp:1579 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::HypothesisIsRejected<4> &) -> VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1582 */
+  /* First instantiated from: video-explainer.cpp:1586 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::SudokuIsSolved<4> &) -> VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1603 */
+  /* First instantiated from: video-explainer.cpp:1607 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::HypothesisIsAccepted<4> &) -> VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1610 */
+  /* First instantiated from: video-explainer.cpp:1614 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const exploration::ExplorationIsDone<4> &) -> VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<4> >;
@@ -3691,21 +3741,21 @@ class VideoExplainer<static_cast<unsigned int>(4)>
   template<typename Event>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const std::vector<Event> &) -> VisitEventsGuard<Event>;
   
-  /* First instantiated from: video-explainer.cpp:1349 */
+  /* First instantiated from: video-explainer.cpp:1353 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > &) -> VideoExplainer::VisitEventsGuard<exploration::CellPropagates<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1434 */
+  /* First instantiated from: video-explainer.cpp:1438 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > &) -> VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<4> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1496 */
+  /* First instantiated from: video-explainer.cpp:1500 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(4)> *, const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > &) -> VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> >;
@@ -4362,7 +4412,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   private: 
   template<typename Event>
   class VisitEventsGuard;
-  /* First instantiated from: video-explainer.cpp:1132 */
+  /* First instantiated from: video-explainer.cpp:1136 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::CellIsSetInInput<9> >
@@ -4410,7 +4460,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1137 */
+  /* First instantiated from: video-explainer.cpp:1141 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::InputsAreDone<9> >
@@ -4458,7 +4508,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1203 */
+  /* First instantiated from: video-explainer.cpp:1207 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::PropagationStartsForSudoku<9> >
@@ -4506,7 +4556,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1210 */
+  /* First instantiated from: video-explainer.cpp:1214 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::PropagationStartsForCell<9> >
@@ -4554,7 +4604,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1243 */
+  /* First instantiated from: video-explainer.cpp:1247 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::CellPropagates<9> >
@@ -4619,7 +4669,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1336 */
+  /* First instantiated from: video-explainer.cpp:1340 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::PropagationIsDoneForCell<9> >
@@ -4667,7 +4717,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1434 */
+  /* First instantiated from: video-explainer.cpp:1438 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<9> >
@@ -4724,7 +4774,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1496 */
+  /* First instantiated from: video-explainer.cpp:1500 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> >
@@ -4781,7 +4831,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1554 */
+  /* First instantiated from: video-explainer.cpp:1558 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::PropagationIsDoneForSudoku<9> >
@@ -4829,7 +4879,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1561 */
+  /* First instantiated from: video-explainer.cpp:1565 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::ExplorationStarts<9> >
@@ -4877,7 +4927,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1568 */
+  /* First instantiated from: video-explainer.cpp:1572 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::HypothesisIsMade<9> >
@@ -4925,7 +4975,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1575 */
+  /* First instantiated from: video-explainer.cpp:1579 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::HypothesisIsRejected<9> >
@@ -4973,7 +5023,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1582 */
+  /* First instantiated from: video-explainer.cpp:1586 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::SudokuIsSolved<9> >
@@ -5021,7 +5071,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1603 */
+  /* First instantiated from: video-explainer.cpp:1607 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::HypothesisIsAccepted<9> >
@@ -5069,7 +5119,7 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   };
   
   #endif
-  /* First instantiated from: video-explainer.cpp:1610 */
+  /* First instantiated from: video-explainer.cpp:1614 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   class VisitEventsGuard<exploration::ExplorationIsDone<9> >
@@ -5122,91 +5172,91 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   template<typename Event>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const Event &) -> VisitEventsGuard<Event>;
   
-  /* First instantiated from: video-explainer.cpp:1132 */
+  /* First instantiated from: video-explainer.cpp:1136 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::CellIsSetInInput<9> &) -> VideoExplainer::VisitEventsGuard<exploration::CellIsSetInInput<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1137 */
+  /* First instantiated from: video-explainer.cpp:1141 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::InputsAreDone<9> &) -> VideoExplainer::VisitEventsGuard<exploration::InputsAreDone<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1203 */
+  /* First instantiated from: video-explainer.cpp:1207 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::PropagationStartsForSudoku<9> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForSudoku<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1210 */
+  /* First instantiated from: video-explainer.cpp:1214 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::PropagationStartsForCell<9> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationStartsForCell<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1243 */
+  /* First instantiated from: video-explainer.cpp:1247 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::CellPropagates<9> &) -> VideoExplainer::VisitEventsGuard<exploration::CellPropagates<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1336 */
+  /* First instantiated from: video-explainer.cpp:1340 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::PropagationIsDoneForCell<9> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForCell<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1554 */
+  /* First instantiated from: video-explainer.cpp:1558 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::PropagationIsDoneForSudoku<9> &) -> VideoExplainer::VisitEventsGuard<exploration::PropagationIsDoneForSudoku<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1561 */
+  /* First instantiated from: video-explainer.cpp:1565 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::ExplorationStarts<9> &) -> VideoExplainer::VisitEventsGuard<exploration::ExplorationStarts<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1568 */
+  /* First instantiated from: video-explainer.cpp:1572 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::HypothesisIsMade<9> &) -> VideoExplainer::VisitEventsGuard<exploration::HypothesisIsMade<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1575 */
+  /* First instantiated from: video-explainer.cpp:1579 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::HypothesisIsRejected<9> &) -> VideoExplainer::VisitEventsGuard<exploration::HypothesisIsRejected<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1582 */
+  /* First instantiated from: video-explainer.cpp:1586 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::SudokuIsSolved<9> &) -> VideoExplainer::VisitEventsGuard<exploration::SudokuIsSolved<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1603 */
+  /* First instantiated from: video-explainer.cpp:1607 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::HypothesisIsAccepted<9> &) -> VideoExplainer::VisitEventsGuard<exploration::HypothesisIsAccepted<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1610 */
+  /* First instantiated from: video-explainer.cpp:1614 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const exploration::ExplorationIsDone<9> &) -> VideoExplainer::VisitEventsGuard<exploration::ExplorationIsDone<9> >;
@@ -5233,21 +5283,21 @@ class VideoExplainer<static_cast<unsigned int>(9)>
   template<typename Event>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const std::vector<Event> &) -> VisitEventsGuard<Event>;
   
-  /* First instantiated from: video-explainer.cpp:1349 */
+  /* First instantiated from: video-explainer.cpp:1353 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const std::vector<exploration::CellPropagates<9>, std::allocator<exploration::CellPropagates<9> > > &) -> VideoExplainer::VisitEventsGuard<exploration::CellPropagates<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1434 */
+  /* First instantiated from: video-explainer.cpp:1438 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const std::vector<exploration::CellIsDeducedFromSingleAllowedValue<9>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<9> > > &) -> VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedFromSingleAllowedValue<9> >;
   #endif
   
   
-  /* First instantiated from: video-explainer.cpp:1496 */
+  /* First instantiated from: video-explainer.cpp:1500 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   VisitEventsGuard(VideoExplainer<static_cast<unsigned int>(9)> *, const std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> > > &) -> VideoExplainer::VisitEventsGuard<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> >;

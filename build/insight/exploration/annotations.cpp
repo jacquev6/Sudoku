@@ -729,6 +729,42 @@ class Stack
     return this->stack.back();
   }
   
+  inline int height() const
+  {
+    return this->stack.size();
+  }
+  
+  
+  public: 
+  struct Saved
+  {
+    inline explicit Saved(const Stack<size> & stack)
+    : begin_{std::next(stack.stack.rbegin())}
+    , end_{stack.stack.rend()}
+    {
+    }
+    
+    inline typename std::vector<AnnotatedSudoku<size> >::const_reverse_iterator begin()
+    {
+      return this->begin_;
+    }
+    
+    inline typename std::vector<AnnotatedSudoku<size> >::const_reverse_iterator end()
+    {
+      return this->end_;
+    }
+    
+    
+    private: 
+    const typename std::vector<AnnotatedSudoku<size> >::const_reverse_iterator begin_;
+    const typename std::vector<AnnotatedSudoku<size> >::const_reverse_iterator end_;
+  };
+  
+  inline Saved saved() const
+  {
+    return Saved(*this);
+  }
+  
   
   public: 
   inline void push()
@@ -738,7 +774,7 @@ class Stack
   
   inline void pop()
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 195, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 199, __extension____PRETTY_FUNCTION__));
     this->stack.pop_back();
   }
   

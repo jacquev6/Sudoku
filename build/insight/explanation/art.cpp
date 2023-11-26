@@ -218,7 +218,7 @@ class SudokuConstants
   /* PASSED: static_assert((sqrt_size * sqrt_size) == size, "'size' must be a perfect square"); */
 };
 
-/* First instantiated from: art.cpp:667 */
+/* First instantiated from: art.cpp:671 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuConstants<4>
@@ -402,7 +402,7 @@ class SudokuConstants<4>
 };
 
 #endif
-/* First instantiated from: art.cpp:667 */
+/* First instantiated from: art.cpp:671 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuConstants<9>
@@ -1272,7 +1272,7 @@ class Sudoku : public SudokuBase<Cell, size>
 {
 };
 
-/* First instantiated from: art.cpp:677 */
+/* First instantiated from: art.cpp:681 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<AnnotatedCell<4>, 4> : public SudokuBase<AnnotatedCell<4>, 4>
@@ -1287,7 +1287,7 @@ class Sudoku<AnnotatedCell<4>, 4> : public SudokuBase<AnnotatedCell<4>, 4>
 };
 
 #endif
-/* First instantiated from: art.cpp:677 */
+/* First instantiated from: art.cpp:681 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<AnnotatedCell<9>, 9> : public SudokuBase<AnnotatedCell<9>, 9>
@@ -1760,6 +1760,42 @@ class Stack
     return this->stack.back();
   }
   
+  inline int height() const
+  {
+    return this->stack.size();
+  }
+  
+  
+  public: 
+  struct Saved
+  {
+    inline explicit Saved(const Stack<size> & stack)
+    : begin_{std::next(stack.stack.rbegin())}
+    , end_{stack.stack.rend()}
+    {
+    }
+    
+    inline typename std::vector<AnnotatedSudoku<size> >::const_reverse_iterator begin()
+    {
+      return this->begin_;
+    }
+    
+    inline typename std::vector<AnnotatedSudoku<size> >::const_reverse_iterator end()
+    {
+      return this->end_;
+    }
+    
+    
+    private: 
+    const typename std::vector<AnnotatedSudoku<size> >::const_reverse_iterator begin_;
+    const typename std::vector<AnnotatedSudoku<size> >::const_reverse_iterator end_;
+  };
+  
+  inline Saved saved() const
+  {
+    return Saved(*this);
+  }
+  
   
   public: 
   inline void push()
@@ -1769,7 +1805,7 @@ class Stack
   
   inline void pop()
   {
-    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 195, __extension____PRETTY_FUNCTION__));
+    (static_cast<bool>(!this->stack.empty()) ? void(0) : __assert_fail("!stack.empty()", "src/exploration/annotations.hpp", 199, __extension____PRETTY_FUNCTION__));
     this->stack.pop_back();
   }
   
@@ -1816,7 +1852,7 @@ namespace art
   template<unsigned int size>
   double round_grid_size(unsigned int);
   
-  /* First instantiated from: art.cpp:826 */
+  /* First instantiated from: art.cpp:830 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   double round_grid_size<4>(unsigned int available_size)
@@ -1826,7 +1862,7 @@ namespace art
   #endif
   
   
-  /* First instantiated from: art.cpp:827 */
+  /* First instantiated from: art.cpp:831 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   double round_grid_size<9>(unsigned int available_size)
@@ -1858,7 +1894,7 @@ namespace art
   template<unsigned int size>
   void draw(std::shared_ptr<Cairo::Context>, const AnnotatedSudoku<size> &, const DrawOptions &);
   
-  /* First instantiated from: art.cpp:829 */
+  /* First instantiated from: art.cpp:833 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   void draw<4>(std::shared_ptr<Cairo::Context> cr, const Sudoku<AnnotatedCell<4>, 4> & sudoku, const DrawOptions & options)
@@ -2138,7 +2174,7 @@ namespace art
   #endif
   
   
-  /* First instantiated from: art.cpp:830 */
+  /* First instantiated from: art.cpp:834 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   void draw<9>(std::shared_ptr<Cairo::Context> cr, const Sudoku<AnnotatedCell<9>, 9> & sudoku, const DrawOptions & options)
@@ -2442,7 +2478,7 @@ namespace art
     return static_cast<double>((((available_size - thick_line_width) / size) * size) + thick_line_width);
   }
   
-  /* First instantiated from: art.cpp:826 */
+  /* First instantiated from: art.cpp:830 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   double round_grid_size<4>(unsigned int available_size)
@@ -2452,7 +2488,7 @@ namespace art
   #endif
   
   
-  /* First instantiated from: art.cpp:827 */
+  /* First instantiated from: art.cpp:831 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   double round_grid_size<9>(unsigned int available_size)
@@ -2715,7 +2751,7 @@ namespace art
     };
   }
   
-  /* First instantiated from: art.cpp:829 */
+  /* First instantiated from: art.cpp:833 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   void draw<4>(std::shared_ptr<Cairo::Context> cr, const Sudoku<AnnotatedCell<4>, 4> & sudoku, const DrawOptions & options)
@@ -2995,7 +3031,7 @@ namespace art
   #endif
   
   
-  /* First instantiated from: art.cpp:830 */
+  /* First instantiated from: art.cpp:834 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   void draw<9>(std::shared_ptr<Cairo::Context> cr, const Sudoku<AnnotatedCell<9>, 9> & sudoku, const DrawOptions & options)
@@ -3328,7 +3364,7 @@ namespace art
     std::array<std::array<Cairo::RefPtr<Cairo::Context>, rows>, cols> crs;
   };
   
-  /* First instantiated from: art.cpp:888 */
+  /* First instantiated from: art.cpp:892 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct TestImage<2, 1>
@@ -3385,7 +3421,7 @@ namespace art
   };
   
   #endif
-  /* First instantiated from: art.cpp:908 */
+  /* First instantiated from: art.cpp:912 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct TestImage<3, 2>
