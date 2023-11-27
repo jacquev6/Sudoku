@@ -74,11 +74,11 @@ void HtmlExplainer<size>::operator()(const exploration::InputsAreDone<size>& eve
 
   index_file << "<html><head><title>jacquev6/Sudoku - Solving explanation</title></head><body>\n";
   index_file << "<h1>Input grid</h1>\n";
-  make_image("input.png", {});
+  make_image("input.png", { .inputs = false });
   index_file << "<p><img src=\"input.png\"/></p>\n";
 
   index_file << "<h1>Possible values</h1>\n";
-  make_image("initial-possible.png", { .possible = true});
+  make_image("initial-possible.png", { .possible = true });
   index_file << "<p><img src=\"initial-possible.png\"/></p>\n";
 }
 

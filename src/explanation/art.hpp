@@ -34,6 +34,8 @@ struct DrawOptions {
   double grid_size;
   bool possible = false;
   bool bold_todo = false;
+  bool inputs = true;
+  bool hypotheses = true;
 
   std::vector<Coordinates> circled_cells;
   double circled_cells_line_width = 2;
