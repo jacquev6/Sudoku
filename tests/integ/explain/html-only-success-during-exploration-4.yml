@@ -1,6 +1,6 @@
 setup: |
-  rm -rf tests/integ/explain/html-only-succes-during-exploration-4
-command: build/bin/sudoku --size 4 explain --text - --html tests/integ/explain/html-only-succes-during-exploration-4 --width 480 --height 320 -
+  rm -rf tests/integ/explain/html-only-success-during-exploration-4
+command: build/bin/sudoku --size 4 explain --text - --html tests/integ/explain/html-only-success-during-exploration-4 --width 480 --height 320 -
 stdin: |
   1234
   34..
