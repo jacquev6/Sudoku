@@ -7,9 +7,18 @@
 #ifndef EXPLANATION_TEXT_EXPLAINER_HPP_
 #define EXPLANATION_TEXT_EXPLAINER_HPP_
 
-#include <string>
+#include <iostream>
 
-#include <boost/format.hpp>
+# 1 "src/explanation/explanation.hpp"
+// Copyright 2023 Vincent Jacques
+
+#ifndef EXPLANATION_EXPLANATION_HPP_
+#define EXPLANATION_EXPLANATION_HPP_
+
+#include <optional>
+#include <tuple>
+#include <utility>
+#include <vector>
 
 # 1 "src/exploration/events.hpp"
 // Copyright 2023 Vincent Jacques
@@ -225,6 +234,374 @@ class SudokuConstants
   /* PASSED: static_assert((sqrt_size * sqrt_size) == size, "'size' must be a perfect square"); */
 };
 
+/* First instantiated from: text-explainer.cpp:328 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class SudokuConstants<4>
+{
+  
+  private: 
+  static inline constexpr unsigned int sqrt(unsigned int res, unsigned int l, unsigned int r)
+  {
+    if(l == r) {
+      return r;
+    } else {
+      const unsigned int mid = (r + l) / static_cast<unsigned int>(2);
+      if((mid * mid) >= res) {
+        return sqrt(res, l, mid);
+      } else {
+        return sqrt(res, mid + static_cast<unsigned int>(1), r);
+      } 
+      
+    } 
+    
+  }
+  
+  static inline constexpr unsigned int sqrt(unsigned int res)
+  {
+    return sqrt(res, static_cast<unsigned int>(1), res);
+  }
+  
+  
+  private: 
+  static inline constexpr std::array<unsigned int, 4> make_values()
+  {
+    std::array<unsigned int, 4> values;
+    for(unsigned int i = static_cast<unsigned int>(0); i != 4U; ++i) {
+      values.operator[](static_cast<unsigned long>(i)) = i;
+    }
+    
+    return std::array<unsigned int, 4>(static_cast<std::array<unsigned int, 4> &&>(values));
+  }
+  
+  static inline constexpr std::array<std::pair<unsigned int, unsigned int>, 16> make_cells()
+  {
+    std::array<std::pair<unsigned int, unsigned int>, 16> cells = std::array<std::pair<unsigned int, unsigned int>, 16>();
+    {
+      const std::array<unsigned int, 4> & __range0 = values;
+      const unsigned int * __begin0 = __range0.begin();
+      const unsigned int * __end0 = __range0.end();
+      for(; __begin0 != __end0; ++__begin0) {
+        unsigned int row = *__begin0;
+        {
+          const std::array<unsigned int, 4> & __range1 = values;
+          const unsigned int * __begin0 = __range1.begin();
+          const unsigned int * __end0 = __range1.end();
+          for(; __begin0 != __end0; ++__begin0) {
+            unsigned int col = *__begin0;
+            cells.operator[](static_cast<unsigned long>((row * 4U) + col)).operator=(std::pair<unsigned int, unsigned int>{row, col});
+          }
+          
+        }
+      }
+      
+    }
+    return std::array<std::pair<unsigned int, unsigned int>, 16>(static_cast<std::array<std::pair<unsigned int, unsigned int>, 16> &&>(cells));
+  }
+  
+  static inline constexpr std::array<unsigned int, 12> make_region_indexes()
+  {
+    std::array<unsigned int, 12> region_indexes;
+    for(unsigned int i = static_cast<unsigned int>(0); i != (static_cast<unsigned int>(3) * 4U); ++i) {
+      region_indexes.operator[](static_cast<unsigned long>(i)) = i;
+    }
+    
+    return std::array<unsigned int, 12>(static_cast<std::array<unsigned int, 12> &&>(region_indexes));
+  }
+  
+  static inline constexpr std::array<std::array<std::pair<unsigned int, unsigned int>, 4>, 12> make_regions()
+  {
+    std::array<std::array<std::pair<unsigned int, unsigned int>, 4>, 12> regions = std::array<std::array<std::pair<unsigned int, unsigned int>, 4>, 12>();
+    {
+      const std::array<unsigned int, 4> & __range0 = values;
+      const unsigned int * __begin0 = __range0.begin();
+      const unsigned int * __end0 = __range0.end();
+      for(; __begin0 != __end0; ++__begin0) {
+        unsigned int row = *__begin0;
+        {
+          const std::array<unsigned int, 4> & __range1 = values;
+          const unsigned int * __begin0 = __range1.begin();
+          const unsigned int * __end0 = __range1.end();
+          for(; __begin0 != __end0; ++__begin0) {
+            unsigned int col = *__begin0;
+            regions.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col)).operator=(std::pair<unsigned int, unsigned int>{row, col});
+          }
+          
+        }
+      }
+      
+    }
+    {
+      const std::array<unsigned int, 4> & __range0 = values;
+      const unsigned int * __begin0 = __range0.begin();
+      const unsigned int * __end0 = __range0.end();
+      for(; __begin0 != __end0; ++__begin0) {
+        unsigned int col = *__begin0;
+        {
+          const std::array<unsigned int, 4> & __range1 = values;
+          const unsigned int * __begin0 = __range1.begin();
+          const unsigned int * __end0 = __range1.end();
+          for(; __begin0 != __end0; ++__begin0) {
+            unsigned int row = *__begin0;
+            regions.operator[](static_cast<unsigned long>(4U + col)).operator[](static_cast<unsigned long>(row)).operator=(std::pair<unsigned int, unsigned int>{row, col});
+          }
+          
+        }
+      }
+      
+    }
+    {
+      const std::array<unsigned int, 4> & __range0 = values;
+      const unsigned int * __begin0 = __range0.begin();
+      const unsigned int * __end0 = __range0.end();
+      for(; __begin0 != __end0; ++__begin0) {
+        unsigned int square = *__begin0;
+        const unsigned int top_row = (square / sqrt_size) * sqrt_size;
+        const unsigned int left_col = (square % sqrt_size) * sqrt_size;
+        {
+          const std::array<unsigned int, 4> & __range1 = values;
+          const unsigned int * __begin0 = __range1.begin();
+          const unsigned int * __end0 = __range1.end();
+          for(; __begin0 != __end0; ++__begin0) {
+            unsigned int cell = *__begin0;
+            const unsigned int delta_row = cell / sqrt_size;
+            const unsigned int delta_col = cell % sqrt_size;
+            const unsigned int row = top_row + delta_row;
+            const unsigned int col = left_col + delta_col;
+            regions.operator[](static_cast<unsigned long>((static_cast<unsigned int>(2) * 4U) + square)).operator[](static_cast<unsigned long>(cell)).operator=(std::pair<unsigned int, unsigned int>{row, col});
+          }
+          
+        }
+      }
+      
+    }
+    return std::array<std::array<std::pair<unsigned int, unsigned int>, 4>, 12>(static_cast<std::array<std::array<std::pair<unsigned int, unsigned int>, 4>, 12> &&>(regions));
+  }
+  
+  static inline constexpr std::array<std::array<std::array<unsigned int, 3>, 4>, 4> make_regions_of()
+  {
+    std::array<std::array<std::array<unsigned int, 3>, 4>, 4> regions_of;
+    {
+      const std::array<unsigned int, 4> & __range0 = values;
+      const unsigned int * __begin0 = __range0.begin();
+      const unsigned int * __end0 = __range0.end();
+      for(; __begin0 != __end0; ++__begin0) {
+        unsigned int row = *__begin0;
+        {
+          const std::array<unsigned int, 4> & __range1 = values;
+          const unsigned int * __begin0 = __range1.begin();
+          const unsigned int * __end0 = __range1.end();
+          for(; __begin0 != __end0; ++__begin0) {
+            unsigned int col = *__begin0;
+            regions_of.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col)).operator=({{row, 4U + col, ((static_cast<unsigned int>(2) * 4U) + ((row / sqrt_size) * sqrt_size)) + (col / sqrt_size)}});
+          }
+          
+        }
+      }
+      
+    }
+    return std::array<std::array<std::array<unsigned int, 3>, 4>, 4>(static_cast<std::array<std::array<std::array<unsigned int, 3>, 4>, 4> &&>(regions_of));
+  }
+  
+  
+  public: 
+  inline static constexpr const unsigned int sqrt_size = sqrt(4U);
+  inline static constexpr const std::array<unsigned int, 4> values = static_cast<const std::array<unsigned int, 4>>(make_values());
+  inline static constexpr const std::array<std::pair<unsigned int, unsigned int>, 16> cells = static_cast<const std::array<std::pair<unsigned int, unsigned int>, 16>>(make_cells());
+  inline static constexpr const std::array<unsigned int, 12> region_indexes = static_cast<const std::array<unsigned int, 12>>(make_region_indexes());
+  inline static constexpr const std::array<std::array<std::pair<unsigned int, unsigned int>, 4>, 12> regions = static_cast<const std::array<std::array<std::pair<unsigned int, unsigned int>, 4>, 12>>(make_regions());
+  inline static constexpr const std::array<std::array<std::array<unsigned int, 3>, 4>, 4> regions_of = static_cast<const std::array<std::array<std::array<unsigned int, 3>, 4>, 4>>(make_regions_of());
+  
+  private: 
+  
+  /* PASSED: static_assert((sqrt_size * sqrt_size) == 4U, "'size' must be a perfect square"); */
+};
+
+#endif
+/* First instantiated from: text-explainer.cpp:328 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class SudokuConstants<9>
+{
+  
+  private: 
+  static inline constexpr unsigned int sqrt(unsigned int res, unsigned int l, unsigned int r)
+  {
+    if(l == r) {
+      return r;
+    } else {
+      const unsigned int mid = (r + l) / static_cast<unsigned int>(2);
+      if((mid * mid) >= res) {
+        return sqrt(res, l, mid);
+      } else {
+        return sqrt(res, mid + static_cast<unsigned int>(1), r);
+      } 
+      
+    } 
+    
+  }
+  
+  static inline constexpr unsigned int sqrt(unsigned int res)
+  {
+    return sqrt(res, static_cast<unsigned int>(1), res);
+  }
+  
+  
+  private: 
+  static inline constexpr std::array<unsigned int, 9> make_values()
+  {
+    std::array<unsigned int, 9> values;
+    for(unsigned int i = static_cast<unsigned int>(0); i != 9U; ++i) {
+      values.operator[](static_cast<unsigned long>(i)) = i;
+    }
+    
+    return std::array<unsigned int, 9>(static_cast<std::array<unsigned int, 9> &&>(values));
+  }
+  
+  static inline constexpr std::array<std::pair<unsigned int, unsigned int>, 81> make_cells()
+  {
+    std::array<std::pair<unsigned int, unsigned int>, 81> cells = std::array<std::pair<unsigned int, unsigned int>, 81>();
+    {
+      const std::array<unsigned int, 9> & __range0 = values;
+      const unsigned int * __begin0 = __range0.begin();
+      const unsigned int * __end0 = __range0.end();
+      for(; __begin0 != __end0; ++__begin0) {
+        unsigned int row = *__begin0;
+        {
+          const std::array<unsigned int, 9> & __range1 = values;
+          const unsigned int * __begin0 = __range1.begin();
+          const unsigned int * __end0 = __range1.end();
+          for(; __begin0 != __end0; ++__begin0) {
+            unsigned int col = *__begin0;
+            cells.operator[](static_cast<unsigned long>((row * 9U) + col)).operator=(std::pair<unsigned int, unsigned int>{row, col});
+          }
+          
+        }
+      }
+      
+    }
+    return std::array<std::pair<unsigned int, unsigned int>, 81>(static_cast<std::array<std::pair<unsigned int, unsigned int>, 81> &&>(cells));
+  }
+  
+  static inline constexpr std::array<unsigned int, 27> make_region_indexes()
+  {
+    std::array<unsigned int, 27> region_indexes;
+    for(unsigned int i = static_cast<unsigned int>(0); i != (static_cast<unsigned int>(3) * 9U); ++i) {
+      region_indexes.operator[](static_cast<unsigned long>(i)) = i;
+    }
+    
+    return std::array<unsigned int, 27>(static_cast<std::array<unsigned int, 27> &&>(region_indexes));
+  }
+  
+  static inline constexpr std::array<std::array<std::pair<unsigned int, unsigned int>, 9>, 27> make_regions()
+  {
+    std::array<std::array<std::pair<unsigned int, unsigned int>, 9>, 27> regions = std::array<std::array<std::pair<unsigned int, unsigned int>, 9>, 27>();
+    {
+      const std::array<unsigned int, 9> & __range0 = values;
+      const unsigned int * __begin0 = __range0.begin();
+      const unsigned int * __end0 = __range0.end();
+      for(; __begin0 != __end0; ++__begin0) {
+        unsigned int row = *__begin0;
+        {
+          const std::array<unsigned int, 9> & __range1 = values;
+          const unsigned int * __begin0 = __range1.begin();
+          const unsigned int * __end0 = __range1.end();
+          for(; __begin0 != __end0; ++__begin0) {
+            unsigned int col = *__begin0;
+            regions.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col)).operator=(std::pair<unsigned int, unsigned int>{row, col});
+          }
+          
+        }
+      }
+      
+    }
+    {
+      const std::array<unsigned int, 9> & __range0 = values;
+      const unsigned int * __begin0 = __range0.begin();
+      const unsigned int * __end0 = __range0.end();
+      for(; __begin0 != __end0; ++__begin0) {
+        unsigned int col = *__begin0;
+        {
+          const std::array<unsigned int, 9> & __range1 = values;
+          const unsigned int * __begin0 = __range1.begin();
+          const unsigned int * __end0 = __range1.end();
+          for(; __begin0 != __end0; ++__begin0) {
+            unsigned int row = *__begin0;
+            regions.operator[](static_cast<unsigned long>(9U + col)).operator[](static_cast<unsigned long>(row)).operator=(std::pair<unsigned int, unsigned int>{row, col});
+          }
+          
+        }
+      }
+      
+    }
+    {
+      const std::array<unsigned int, 9> & __range0 = values;
+      const unsigned int * __begin0 = __range0.begin();
+      const unsigned int * __end0 = __range0.end();
+      for(; __begin0 != __end0; ++__begin0) {
+        unsigned int square = *__begin0;
+        const unsigned int top_row = (square / sqrt_size) * sqrt_size;
+        const unsigned int left_col = (square % sqrt_size) * sqrt_size;
+        {
+          const std::array<unsigned int, 9> & __range1 = values;
+          const unsigned int * __begin0 = __range1.begin();
+          const unsigned int * __end0 = __range1.end();
+          for(; __begin0 != __end0; ++__begin0) {
+            unsigned int cell = *__begin0;
+            const unsigned int delta_row = cell / sqrt_size;
+            const unsigned int delta_col = cell % sqrt_size;
+            const unsigned int row = top_row + delta_row;
+            const unsigned int col = left_col + delta_col;
+            regions.operator[](static_cast<unsigned long>((static_cast<unsigned int>(2) * 9U) + square)).operator[](static_cast<unsigned long>(cell)).operator=(std::pair<unsigned int, unsigned int>{row, col});
+          }
+          
+        }
+      }
+      
+    }
+    return std::array<std::array<std::pair<unsigned int, unsigned int>, 9>, 27>(static_cast<std::array<std::array<std::pair<unsigned int, unsigned int>, 9>, 27> &&>(regions));
+  }
+  
+  static inline constexpr std::array<std::array<std::array<unsigned int, 3>, 9>, 9> make_regions_of()
+  {
+    std::array<std::array<std::array<unsigned int, 3>, 9>, 9> regions_of;
+    {
+      const std::array<unsigned int, 9> & __range0 = values;
+      const unsigned int * __begin0 = __range0.begin();
+      const unsigned int * __end0 = __range0.end();
+      for(; __begin0 != __end0; ++__begin0) {
+        unsigned int row = *__begin0;
+        {
+          const std::array<unsigned int, 9> & __range1 = values;
+          const unsigned int * __begin0 = __range1.begin();
+          const unsigned int * __end0 = __range1.end();
+          for(; __begin0 != __end0; ++__begin0) {
+            unsigned int col = *__begin0;
+            regions_of.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col)).operator=({{row, 9U + col, ((static_cast<unsigned int>(2) * 9U) + ((row / sqrt_size) * sqrt_size)) + (col / sqrt_size)}});
+          }
+          
+        }
+      }
+      
+    }
+    return std::array<std::array<std::array<unsigned int, 3>, 9>, 9>(static_cast<std::array<std::array<std::array<unsigned int, 3>, 9>, 9> &&>(regions_of));
+  }
+  
+  
+  public: 
+  inline static constexpr const unsigned int sqrt_size = sqrt(9U);
+  inline static constexpr const std::array<unsigned int, 9> values = static_cast<const std::array<unsigned int, 9>>(make_values());
+  inline static constexpr const std::array<std::pair<unsigned int, unsigned int>, 81> cells = static_cast<const std::array<std::pair<unsigned int, unsigned int>, 81>>(make_cells());
+  inline static constexpr const std::array<unsigned int, 27> region_indexes = static_cast<const std::array<unsigned int, 27>>(make_region_indexes());
+  inline static constexpr const std::array<std::array<std::pair<unsigned int, unsigned int>, 9>, 27> regions = static_cast<const std::array<std::array<std::pair<unsigned int, unsigned int>, 9>, 27>>(make_regions());
+  inline static constexpr const std::array<std::array<std::array<unsigned int, 3>, 9>, 9> regions_of = static_cast<const std::array<std::array<std::array<unsigned int, 3>, 9>, 9>>(make_regions_of());
+  
+  private: 
+  
+  /* PASSED: static_assert((sqrt_size * sqrt_size) == 9U, "'size' must be a perfect square"); */
+};
+
+#endif
 
 
 #endif  // PUZZLE_SUDOKU_CONSTANTS_HPP_
@@ -497,6 +874,258 @@ class SudokuBase
   CellsArray _cells;
 };
 
+/* First instantiated from: text-explainer.cpp:395 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class SudokuBase<ValueCell, 4>
+{
+  
+  public: 
+  class Cell : public ValueCell
+  {
+    
+    public: 
+    inline Cell(const SudokuBase<ValueCell, 4> * sudoku_, const std::pair<unsigned int, unsigned int> & coords_);
+    
+    inline Cell(const SudokuBase<ValueCell, 4> * sudoku_, const Cell & other);
+    
+    // inline Cell(const Cell &) = delete;
+    // inline Cell & operator=(const Cell &) = delete;
+    // inline Cell(Cell &&) = delete;
+    // inline Cell & operator=(Cell &&) = delete;
+    
+    public: 
+    inline bool operator==(const Cell & other) const;
+    
+    inline std::pair<unsigned int, unsigned int> coordinates() const
+    {
+      return std::pair<unsigned int, unsigned int>(this->coords);
+    }
+    
+    auto regions() const;
+    
+    
+    private: 
+    const SudokuBase<ValueCell, 4> * sudoku;
+    const std::pair<unsigned int, unsigned int> coords;
+    public: 
+  };
+  
+  class Region;
+  
+  public: 
+  inline SudokuBase();
+  
+  inline SudokuBase(const SudokuBase<ValueCell, 4> & other);
+  
+  SudokuBase<ValueCell, 4> & operator=(const SudokuBase<ValueCell, 4> &);
+  
+  // inline SudokuBase(SudokuBase<ValueCell, 4> &&) = delete;
+  // inline SudokuBase<ValueCell, 4> & operator=(SudokuBase<ValueCell, 4> &&) = delete;
+  
+  private: 
+  using CellsArray = std::array<std::array<Cell, 4>, 4>;
+  inline std::array<std::array<Cell, 4>, 4> make_cells();
+  
+  template<unsigned int ...row>
+  inline std::array<std::array<Cell, 4>, 4> make_cells(const std::integer_sequence<unsigned int, row...> &);
+  template<unsigned int ...col>
+  inline std::array<Cell, 4> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
+  inline Cell make_cell(unsigned int row, unsigned int col) const;
+  
+  
+  private: 
+  inline std::array<std::array<Cell, 4>, 4> copy_cells(const std::array<std::array<Cell, 4>, 4> & other_cells);
+  
+  template<unsigned int ...row>
+  inline std::array<std::array<Cell, 4>, 4> copy_cells(const std::integer_sequence<unsigned int, row...> &, const std::array<std::array<Cell, 4>, 4> & other_cells);
+  template<unsigned int ...col>
+  inline std::array<Cell, 4> copy_row(unsigned int row, const std::array<std::array<Cell, 4>, 4> & other_cells, const std::integer_sequence<unsigned int, col...> &);
+  inline Cell copy_cell(unsigned int row, unsigned int col, const std::array<std::array<Cell, 4>, 4> & other_cells) const;
+  
+  
+  public: 
+  inline Cell & cell(const std::pair<unsigned int, unsigned int> & coords);
+  
+  inline const Cell & cell(const std::pair<unsigned int, unsigned int> & coords) const;
+  
+  inline boost::iterator_range<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > cells() const
+  {
+        
+    class __lambda_1
+    {
+      public: 
+      template<class type_parameter_0_0>
+      inline /*constexpr */ const Cell & operator()(const type_parameter_0_0 & cell) const
+      {
+        const auto __cell0 = cell;
+        return __this->_cells[row][col];
+      }
+      
+      /* First instantiated from: transform_iterator.hpp:126 */
+      #ifdef INSIGHTS_USE_TEMPLATE
+      template<>
+      inline /*constexpr */ const Cell & operator()<std::pair<unsigned int, unsigned int> >(const std::pair<unsigned int, unsigned int> & cell) const
+      {
+        const std::pair<unsigned int, unsigned int> __cell0 = std::pair<unsigned int, unsigned int>(cell);
+        const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell0));
+        const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell0));
+        return __this->_cells.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col));
+      }
+      #endif
+      
+      private: 
+      const SudokuBase<ValueCell, 4> * __this;
+      public: 
+      // inline /*constexpr */ __lambda_1 & operator=(const __lambda_1 &) /* noexcept */ = delete;
+      // inline /*constexpr */ __lambda_1(const __lambda_1 &) noexcept = default;
+      __lambda_1(const SudokuBase<ValueCell, 4> * _this)
+      : __this{_this}
+      {}
+      
+    };
+    
+    const __lambda_1 convert = static_cast<const __lambda_1>(__lambda_1{this});
+    return boost::make_iterator_range<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> >(boost::iterators::make_transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<4>::cells.begin(), __lambda_1(convert)), boost::iterators::make_transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<4>::cells.end(), __lambda_1(convert)));
+  }
+  
+  inline auto cells();
+  
+  inline auto regions() const;
+  
+  
+  protected: 
+  std::array<std::array<Cell, 4>, 4> _cells;
+  public: 
+};
+
+#endif
+/* First instantiated from: text-explainer.cpp:395 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class SudokuBase<ValueCell, 9>
+{
+  
+  public: 
+  class Cell : public ValueCell
+  {
+    
+    public: 
+    inline Cell(const SudokuBase<ValueCell, 9> * sudoku_, const std::pair<unsigned int, unsigned int> & coords_);
+    
+    inline Cell(const SudokuBase<ValueCell, 9> * sudoku_, const Cell & other);
+    
+    // inline Cell(const Cell &) = delete;
+    // inline Cell & operator=(const Cell &) = delete;
+    // inline Cell(Cell &&) = delete;
+    // inline Cell & operator=(Cell &&) = delete;
+    
+    public: 
+    inline bool operator==(const Cell & other) const;
+    
+    inline std::pair<unsigned int, unsigned int> coordinates() const
+    {
+      return std::pair<unsigned int, unsigned int>(this->coords);
+    }
+    
+    auto regions() const;
+    
+    
+    private: 
+    const SudokuBase<ValueCell, 9> * sudoku;
+    const std::pair<unsigned int, unsigned int> coords;
+    public: 
+  };
+  
+  class Region;
+  
+  public: 
+  inline SudokuBase();
+  
+  inline SudokuBase(const SudokuBase<ValueCell, 9> & other);
+  
+  SudokuBase<ValueCell, 9> & operator=(const SudokuBase<ValueCell, 9> &);
+  
+  // inline SudokuBase(SudokuBase<ValueCell, 9> &&) = delete;
+  // inline SudokuBase<ValueCell, 9> & operator=(SudokuBase<ValueCell, 9> &&) = delete;
+  
+  private: 
+  using CellsArray = std::array<std::array<Cell, 9>, 9>;
+  inline std::array<std::array<Cell, 9>, 9> make_cells();
+  
+  template<unsigned int ...row>
+  inline std::array<std::array<Cell, 9>, 9> make_cells(const std::integer_sequence<unsigned int, row...> &);
+  template<unsigned int ...col>
+  inline std::array<Cell, 9> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
+  inline Cell make_cell(unsigned int row, unsigned int col) const;
+  
+  
+  private: 
+  inline std::array<std::array<Cell, 9>, 9> copy_cells(const std::array<std::array<Cell, 9>, 9> & other_cells);
+  
+  template<unsigned int ...row>
+  inline std::array<std::array<Cell, 9>, 9> copy_cells(const std::integer_sequence<unsigned int, row...> &, const std::array<std::array<Cell, 9>, 9> & other_cells);
+  template<unsigned int ...col>
+  inline std::array<Cell, 9> copy_row(unsigned int row, const std::array<std::array<Cell, 9>, 9> & other_cells, const std::integer_sequence<unsigned int, col...> &);
+  inline Cell copy_cell(unsigned int row, unsigned int col, const std::array<std::array<Cell, 9>, 9> & other_cells) const;
+  
+  
+  public: 
+  inline Cell & cell(const std::pair<unsigned int, unsigned int> & coords);
+  
+  inline const Cell & cell(const std::pair<unsigned int, unsigned int> & coords) const;
+  
+  inline boost::iterator_range<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > cells() const
+  {
+        
+    class __lambda_1
+    {
+      public: 
+      template<class type_parameter_0_0>
+      inline /*constexpr */ const Cell & operator()(const type_parameter_0_0 & cell) const
+      {
+        const auto __cell0 = cell;
+        return __this->_cells[row][col];
+      }
+      
+      /* First instantiated from: transform_iterator.hpp:126 */
+      #ifdef INSIGHTS_USE_TEMPLATE
+      template<>
+      inline /*constexpr */ const Cell & operator()<std::pair<unsigned int, unsigned int> >(const std::pair<unsigned int, unsigned int> & cell) const
+      {
+        const std::pair<unsigned int, unsigned int> __cell0 = std::pair<unsigned int, unsigned int>(cell);
+        const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell0));
+        const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell0));
+        return __this->_cells.operator[](static_cast<unsigned long>(row)).operator[](static_cast<unsigned long>(col));
+      }
+      #endif
+      
+      private: 
+      const SudokuBase<ValueCell, 9> * __this;
+      public: 
+      // inline /*constexpr */ __lambda_1 & operator=(const __lambda_1 &) /* noexcept */ = delete;
+      // inline /*constexpr */ __lambda_1(const __lambda_1 &) noexcept = default;
+      __lambda_1(const SudokuBase<ValueCell, 9> * _this)
+      : __this{_this}
+      {}
+      
+    };
+    
+    const __lambda_1 convert = static_cast<const __lambda_1>(__lambda_1{this});
+    return boost::make_iterator_range<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> >(boost::iterators::make_transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<9>::cells.begin(), __lambda_1(convert)), boost::iterators::make_transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *>(SudokuConstants<9>::cells.end(), __lambda_1(convert)));
+  }
+  
+  inline auto cells();
+  
+  inline auto regions() const;
+  
+  
+  protected: 
+  std::array<std::array<Cell, 9>, 9> _cells;
+  public: 
+};
+
+#endif
 
 
 template<typename CellBase, unsigned size>
@@ -515,6 +1144,46 @@ class Sudoku : public SudokuBase<Cell, size>
 {
 };
 
+/* First instantiated from: text-explainer.cpp:785 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class Sudoku<ValueCell, 4> : public SudokuBase<ValueCell, 4>
+{
+  
+  public: 
+  static Sudoku<ValueCell, 4> load(std::basic_istream<char> &);
+  
+  void dump(std::basic_ostream<char> &) const;
+  
+  static Sudoku<ValueCell, 4> from_string(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > &);
+  
+  std::basic_string<char, std::char_traits<char>, std::allocator<char> > to_string() const;
+  
+  // inline Sudoku(Sudoku<ValueCell, 4> &&) /* noexcept */ = delete;
+  // inline Sudoku<ValueCell, 4> & operator=(Sudoku<ValueCell, 4> &&) /* noexcept */ = delete;
+};
+
+#endif
+/* First instantiated from: text-explainer.cpp:785 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+class Sudoku<ValueCell, 9> : public SudokuBase<ValueCell, 9>
+{
+  
+  public: 
+  static Sudoku<ValueCell, 9> load(std::basic_istream<char> &);
+  
+  void dump(std::basic_ostream<char> &) const;
+  
+  static Sudoku<ValueCell, 9> from_string(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > &);
+  
+  std::basic_string<char, std::char_traits<char>, std::allocator<char> > to_string() const;
+  
+  // inline Sudoku(Sudoku<ValueCell, 9> &&) /* noexcept */ = delete;
+  // inline Sudoku<ValueCell, 9> & operator=(Sudoku<ValueCell, 9> &&) /* noexcept */ = delete;
+};
+
+#endif
 
 
 class ValueCell
@@ -542,6 +1211,7 @@ class ValueCell
   
   private: 
   std::optional<unsigned int> value;
+  public: 
 };
 
 
@@ -839,30 +1509,6 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: text-explainer.cpp:746 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct CellIsSetInInput<4>
-  {
-    void apply(Stack<4> *) const;
-    
-    std::pair<unsigned int, unsigned int> cell;
-    unsigned int value;
-  };
-  
-  #endif
-  /* First instantiated from: text-explainer.cpp:746 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct CellIsSetInInput<9>
-  {
-    void apply(Stack<9> *) const;
-    
-    std::pair<unsigned int, unsigned int> cell;
-    unsigned int value;
-  };
-  
-  #endif
   template<unsigned int size>
   struct InputsAreDone
   {
@@ -886,30 +1532,6 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: text-explainer.cpp:762 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct PropagationStartsForCell<4>
-  {
-    void apply(Stack<4> *) const;
-    
-    std::pair<unsigned int, unsigned int> cell;
-    unsigned int value;
-  };
-  
-  #endif
-  /* First instantiated from: text-explainer.cpp:762 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct PropagationStartsForCell<9>
-  {
-    void apply(Stack<9> *) const;
-    
-    std::pair<unsigned int, unsigned int> cell;
-    unsigned int value;
-  };
-  
-  #endif
   template<unsigned int size>
   struct CellPropagates
   {
@@ -920,32 +1542,6 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: text-explainer.cpp:768 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct CellPropagates<4>
-  {
-    void apply(Stack<4> *) const;
-    
-    std::pair<unsigned int, unsigned int> source_cell;
-    std::pair<unsigned int, unsigned int> target_cell;
-    unsigned int value;
-  };
-  
-  #endif
-  /* First instantiated from: text-explainer.cpp:768 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct CellPropagates<9>
-  {
-    void apply(Stack<9> *) const;
-    
-    std::pair<unsigned int, unsigned int> source_cell;
-    std::pair<unsigned int, unsigned int> target_cell;
-    unsigned int value;
-  };
-  
-  #endif
   template<unsigned int size>
   struct CellIsDeducedFromSingleAllowedValue
   {
@@ -955,30 +1551,6 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: text-explainer.cpp:775 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct CellIsDeducedFromSingleAllowedValue<4>
-  {
-    void apply(Stack<4> *) const;
-    
-    std::pair<unsigned int, unsigned int> cell;
-    unsigned int value;
-  };
-  
-  #endif
-  /* First instantiated from: text-explainer.cpp:775 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct CellIsDeducedFromSingleAllowedValue<9>
-  {
-    void apply(Stack<9> *) const;
-    
-    std::pair<unsigned int, unsigned int> cell;
-    unsigned int value;
-  };
-  
-  #endif
   template<unsigned int size>
   struct CellIsDeducedAsSinglePlaceForValueInRegion
   {
@@ -989,32 +1561,6 @@ namespace exploration
     unsigned int region;
   };
   
-  /* First instantiated from: text-explainer.cpp:781 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct CellIsDeducedAsSinglePlaceForValueInRegion<4>
-  {
-    void apply(Stack<4> *) const;
-    
-    std::pair<unsigned int, unsigned int> cell;
-    unsigned int value;
-    unsigned int region;
-  };
-  
-  #endif
-  /* First instantiated from: text-explainer.cpp:781 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct CellIsDeducedAsSinglePlaceForValueInRegion<9>
-  {
-    void apply(Stack<9> *) const;
-    
-    std::pair<unsigned int, unsigned int> cell;
-    unsigned int value;
-    unsigned int region;
-  };
-  
-  #endif
   template<unsigned int size>
   struct PropagationIsDoneForCell
   {
@@ -1024,30 +1570,6 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: text-explainer.cpp:787 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct PropagationIsDoneForCell<4>
-  {
-    void apply(Stack<4> *) const;
-    
-    std::pair<unsigned int, unsigned int> cell;
-    unsigned int value;
-  };
-  
-  #endif
-  /* First instantiated from: text-explainer.cpp:787 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct PropagationIsDoneForCell<9>
-  {
-    void apply(Stack<9> *) const;
-    
-    std::pair<unsigned int, unsigned int> cell;
-    unsigned int value;
-  };
-  
-  #endif
   template<unsigned int size>
   struct PropagationIsDoneForSudoku
   {
@@ -1064,30 +1586,6 @@ namespace exploration
     std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
   };
   
-  /* First instantiated from: text-explainer.cpp:798 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct ExplorationStarts<4>
-  {
-    void apply(Stack<4> *) const;
-    
-    std::pair<unsigned int, unsigned int> cell;
-    std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
-  };
-  
-  #endif
-  /* First instantiated from: text-explainer.cpp:798 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct ExplorationStarts<9>
-  {
-    void apply(Stack<9> *) const;
-    
-    std::pair<unsigned int, unsigned int> cell;
-    std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
-  };
-  
-  #endif
   template<unsigned int size>
   struct HypothesisIsMade
   {
@@ -1097,30 +1595,6 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: text-explainer.cpp:805 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct HypothesisIsMade<4>
-  {
-    void apply(Stack<4> *) const;
-    
-    std::pair<unsigned int, unsigned int> cell;
-    unsigned int value;
-  };
-  
-  #endif
-  /* First instantiated from: text-explainer.cpp:805 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct HypothesisIsMade<9>
-  {
-    void apply(Stack<9> *) const;
-    
-    std::pair<unsigned int, unsigned int> cell;
-    unsigned int value;
-  };
-  
-  #endif
   template<unsigned int size>
   struct HypothesisIsRejected
   {
@@ -1130,30 +1604,6 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: text-explainer.cpp:813 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct HypothesisIsRejected<4>
-  {
-    void apply(Stack<4> *) const;
-    
-    std::pair<unsigned int, unsigned int> cell;
-    unsigned int value;
-  };
-  
-  #endif
-  /* First instantiated from: text-explainer.cpp:813 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct HypothesisIsRejected<9>
-  {
-    void apply(Stack<9> *) const;
-    
-    std::pair<unsigned int, unsigned int> cell;
-    unsigned int value;
-  };
-  
-  #endif
   template<unsigned int size>
   struct SudokuIsSolved
   {
@@ -1170,30 +1620,6 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: text-explainer.cpp:826 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct HypothesisIsAccepted<4>
-  {
-    void apply(Stack<4> *) const;
-    
-    std::pair<unsigned int, unsigned int> cell;
-    unsigned int value;
-  };
-  
-  #endif
-  /* First instantiated from: text-explainer.cpp:826 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct HypothesisIsAccepted<9>
-  {
-    void apply(Stack<9> *) const;
-    
-    std::pair<unsigned int, unsigned int> cell;
-    unsigned int value;
-  };
-  
-  #endif
   template<unsigned int size>
   struct ExplorationIsDone
   {
@@ -1202,33 +1628,292 @@ namespace exploration
     std::pair<unsigned int, unsigned int> cell;
   };
   
-  /* First instantiated from: text-explainer.cpp:832 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct ExplorationIsDone<4>
-  {
-    void apply(Stack<4> *) const;
-    
-    std::pair<unsigned int, unsigned int> cell;
-  };
-  
-  #endif
-  /* First instantiated from: text-explainer.cpp:832 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  struct ExplorationIsDone<9>
-  {
-    void apply(Stack<9> *) const;
-    
-    std::pair<unsigned int, unsigned int> cell;
-  };
-  
-  #endif
   
 }  // namespace exploration
 
 #endif  // EXPLORATION_EVENTS_HPP_
-# 11 "src/explanation/text-explainer.hpp"
+# 12 "src/explanation/explanation.hpp"
+# 13 "src/explanation/explanation.hpp"
+
+
+template<unsigned int size>
+struct Explanation
+{
+  struct SingleValueDeduction
+  {
+    std::pair<unsigned int, unsigned int> cell;
+    unsigned int value;
+    bool solved;
+  };
+  
+  struct SinglePlaceDeduction
+  {
+    unsigned int region;
+    std::pair<unsigned int, unsigned int> cell;
+    unsigned int value;
+    bool solved;
+  };
+  
+  struct PropagationTarget
+  {
+    std::pair<unsigned int, unsigned int> cell;
+    std::vector<SingleValueDeduction> single_value_deductions;
+    std::vector<SinglePlaceDeduction> single_place_deductions;
+  };
+  
+  struct Propagation
+  {
+    std::pair<unsigned int, unsigned int> source;
+    unsigned int value;
+    std::vector<PropagationTarget> targets;
+  };
+  
+  struct Exploration;
+  struct Hypothesis
+  {
+    unsigned int value;
+    std::vector<Propagation> propagations;
+    std::optional<Exploration> exploration;
+    bool successful;
+  };
+  
+  struct Exploration
+  {
+    std::pair<unsigned int, unsigned int> cell;
+    std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
+    std::vector<Hypothesis> explored_hypotheses;
+  };
+  
+  Sudoku<ValueCell, size> inputs;
+  std::vector<Propagation> propagations;
+  std::optional<Exploration> exploration;
+  
+  public: 
+  class Builder
+  {
+    
+    private: 
+    struct Frame
+    {
+      inline Frame(std::vector<Propagation> * propagations_, std::optional<Exploration> * exploration_, Explanation::Hypothesis * hypothesis_)
+      : propagations{propagations_}
+      , exploration{exploration_}
+      , hypothesis{hypothesis_}
+      , sudoku_is_solved{static_cast<bool *>(nullptr)}
+      {
+        (static_cast<bool>(this->propagations) ? void(0) : __assert_fail("propagations", "src/explanation/explanation.hpp", 78, __extension____PRETTY_FUNCTION__));
+        (static_cast<bool>(this->exploration) ? void(0) : __assert_fail("exploration", "src/explanation/explanation.hpp", 79, __extension____PRETTY_FUNCTION__));
+        (static_cast<bool>(this->hypothesis) ? void(0) : __assert_fail("hypothesis", "src/explanation/explanation.hpp", 80, __extension____PRETTY_FUNCTION__));
+      }
+      
+      inline Frame(std::vector<Propagation> * propagations_, std::optional<Exploration> * exploration_)
+      : propagations{propagations_}
+      , exploration{exploration_}
+      , hypothesis{nullptr}
+      , sudoku_is_solved{static_cast<bool *>(nullptr)}
+      {
+        (static_cast<bool>(this->propagations) ? void(0) : __assert_fail("propagations", "src/explanation/explanation.hpp", 92, __extension____PRETTY_FUNCTION__));
+        (static_cast<bool>(this->exploration) ? void(0) : __assert_fail("exploration", "src/explanation/explanation.hpp", 93, __extension____PRETTY_FUNCTION__));
+      }
+      
+      std::vector<Propagation> * propagations;
+      std::optional<Exploration> * exploration;
+      Explanation::Hypothesis * hypothesis;
+      bool * sudoku_is_solved;
+    };
+    
+    
+    public: 
+    inline Builder()
+    : explanation{}
+    , stack{1, {&this->explanation.propagations, &this->explanation.exploration}}
+    {
+    }
+    
+    
+    public: 
+    void operator()(const exploration::CellIsSetInInput<size> &);
+    
+    void operator()(const exploration::InputsAreDone<size> &);
+    
+    void operator()(const exploration::PropagationStartsForSudoku<size> &);
+    
+    void operator()(const exploration::PropagationStartsForCell<size> &);
+    
+    void operator()(const exploration::CellPropagates<size> &);
+    
+    void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<size> &);
+    
+    void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size> &);
+    
+    void operator()(const exploration::PropagationIsDoneForCell<size> &);
+    
+    void operator()(const exploration::PropagationIsDoneForSudoku<size> &);
+    
+    void operator()(const exploration::ExplorationStarts<size> &);
+    
+    void operator()(const exploration::HypothesisIsMade<size> &);
+    
+    void operator()(const exploration::HypothesisIsRejected<size> &);
+    
+    void operator()(const exploration::SudokuIsSolved<size> &);
+    
+    void operator()(const exploration::HypothesisIsAccepted<size> &);
+    
+    void operator()(const exploration::ExplorationIsDone<size> &);
+    
+    
+    public: 
+    inline Explanation<size> get()
+    {
+      (static_cast<bool>(this->stack.size() == 1) ? void(0) : __assert_fail("stack.size() == 1", "src/explanation/explanation.hpp", 124, __extension____PRETTY_FUNCTION__));
+      return std::move(this->explanation);
+    }
+    
+    
+    private: 
+    Explanation<size> explanation;
+    std::vector<Frame> stack;
+  };
+  
+};
+
+/* First instantiated from: text-explainer.cpp:901 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct Explanation<4>
+{
+  struct SingleValueDeduction
+  {
+    std::pair<unsigned int, unsigned int> cell;
+    unsigned int value;
+    bool solved;
+  };
+  
+  struct SinglePlaceDeduction
+  {
+    unsigned int region;
+    std::pair<unsigned int, unsigned int> cell;
+    unsigned int value;
+    bool solved;
+  };
+  
+  struct PropagationTarget
+  {
+    std::pair<unsigned int, unsigned int> cell;
+    std::vector<SingleValueDeduction, std::allocator<SingleValueDeduction> > single_value_deductions;
+    std::vector<SinglePlaceDeduction, std::allocator<SinglePlaceDeduction> > single_place_deductions;
+  };
+  
+  struct Propagation
+  {
+    std::pair<unsigned int, unsigned int> source;
+    unsigned int value;
+    std::vector<PropagationTarget, std::allocator<PropagationTarget> > targets;
+  };
+  
+  struct Exploration
+  {
+    std::pair<unsigned int, unsigned int> cell;
+    std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
+    std::vector<Hypothesis, std::allocator<Hypothesis> > explored_hypotheses;
+  };
+  
+  struct Hypothesis
+  {
+    unsigned int value;
+    std::vector<Propagation, std::allocator<Propagation> > propagations;
+    std::optional<Exploration> exploration;
+    bool successful;
+  };
+  
+  struct Exploration;
+  Sudoku<ValueCell, 4> inputs;
+  std::vector<Propagation, std::allocator<Propagation> > propagations;
+  std::optional<Exploration> exploration;
+  
+  public: 
+  class Builder;
+};
+
+#endif
+/* First instantiated from: text-explainer.cpp:901 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct Explanation<9>
+{
+  struct SingleValueDeduction
+  {
+    std::pair<unsigned int, unsigned int> cell;
+    unsigned int value;
+    bool solved;
+  };
+  
+  struct SinglePlaceDeduction
+  {
+    unsigned int region;
+    std::pair<unsigned int, unsigned int> cell;
+    unsigned int value;
+    bool solved;
+  };
+  
+  struct PropagationTarget
+  {
+    std::pair<unsigned int, unsigned int> cell;
+    std::vector<SingleValueDeduction, std::allocator<SingleValueDeduction> > single_value_deductions;
+    std::vector<SinglePlaceDeduction, std::allocator<SinglePlaceDeduction> > single_place_deductions;
+  };
+  
+  struct Propagation
+  {
+    std::pair<unsigned int, unsigned int> source;
+    unsigned int value;
+    std::vector<PropagationTarget, std::allocator<PropagationTarget> > targets;
+  };
+  
+  struct Exploration
+  {
+    std::pair<unsigned int, unsigned int> cell;
+    std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
+    std::vector<Hypothesis, std::allocator<Hypothesis> > explored_hypotheses;
+  };
+  
+  struct Hypothesis
+  {
+    unsigned int value;
+    std::vector<Propagation, std::allocator<Propagation> > propagations;
+    std::optional<Exploration> exploration;
+    bool successful;
+  };
+  
+  struct Exploration;
+  Sudoku<ValueCell, 9> inputs;
+  std::vector<Propagation, std::allocator<Propagation> > propagations;
+  std::optional<Exploration> exploration;
+  
+  public: 
+  class Builder;
+};
+
+#endif
+
+
+
+#endif  // EXPLANATION_EXPLANATION_HPP_
+# 9 "src/explanation/text-explainer.hpp"
+
+
+template<unsigned int size>
+void explain_as_text(const Explanation<size> &, std::basic_ostream<char> &, bool);
+;
+
+#endif  // EXPLANATION_TEXT_EXPLAINER_HPP_
+# 4 "src/explanation/text-explainer.cpp"
+
+#include <algorithm>
+#include <vector>
+
+#include <boost/format.hpp>
 
 
 template<unsigned int size>
@@ -1236,399 +1921,837 @@ class TextExplainer
 {
   
   public: 
-  inline explicit TextExplainer(std::basic_ostream<char> & os_)
-  : os{os_}
-  , hypotheses_count{static_cast<unsigned int>(0)}
+  inline TextExplainer(const Explanation<size> & explanation_, std::basic_ostream<char> & os_, const bool reordered_)
+  : explanation{explanation_}
+  , os{os_}
+  , reordered{reordered_}
   {
-  }
-  
-  inline ~TextExplainer()
-  {
-    (static_cast<bool>(this->hypotheses_count == static_cast<unsigned int>(0)) ? void(0) : __assert_fail("hypotheses_count == 0", "src/explanation/text-explainer.hpp", 19, __extension____PRETTY_FUNCTION__));
   }
   
   
   public: 
-  inline void operator()(const exploration::CellIsSetInInput<size> & event)
+  inline void explain()
   {
-    this->print_prefix();
-    this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%2%, %3%) is set to %1% in the input\n"))) % (event.value + 1)) % (event.cell.first + 1)) % (event.cell.second + 1));
-  }
-  
-  inline void operator()(const exploration::InputsAreDone<size> &)
-  {
-    this->print_prefix();
-    std::operator<<(this->os, static_cast<const char *>("All inputs have been set\n"));
-  }
-  
-  inline void operator()(const exploration::PropagationStartsForSudoku<size> &)
-  {
-    this->print_prefix();
-    std::operator<<(this->os, static_cast<const char *>("Propagation starts\n"));
-  }
-  
-  inline void operator()(const exploration::PropagationStartsForCell<size> & event)
-  {
-    this->print_prefix();
-    this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Propagation starts for %1% in (%2%, %3%)\n"))) % (event.value + 1)) % (event.cell.first + 1)) % (event.cell.second + 1));
-  }
-  
-  inline void operator()(const exploration::CellPropagates<size> & event)
-  {
-    this->print_prefix();
-    this->os << (((((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("%1% in (%2%, %3%) forbids %1% in (%4%, %5%)\n"))) % (event.value + 1)) % (event.source_cell.first + 1)) % (event.source_cell.second + 1)) % (event.target_cell.first + 1)) % (event.target_cell.second + 1));
-  }
-  
-  inline void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<size> & event)
-  {
-    this->print_prefix();
-    this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can only be %3%\n"))) % (event.cell.first + 1)) % (event.cell.second + 1)) % (event.value + 1));
-  }
-  
-  inline void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size> & event)
-  {
-    this->print_prefix();
-    this->os << ((((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("In region %4%, only (%1%, %2%) can be %3%\n"))) % (event.cell.first + 1)) % (event.cell.second + 1)) % (event.value + 1)) % (event.region + 1));
-  }
-  
-  inline void operator()(const exploration::PropagationIsDoneForCell<size> & event)
-  {
-    this->print_prefix();
-    this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("%1% in (%2%, %3%) has been fully propagated\n"))) % (event.value + 1)) % (event.cell.first + 1)) % (event.cell.second + 1));
-  }
-  
-  inline void operator()(const exploration::PropagationIsDoneForSudoku<size> &)
-  {
-    this->print_prefix();
-    std::operator<<(this->os, static_cast<const char *>("All cells have been fully propagated\n"));
-  }
-  
-  inline void operator()(const exploration::ExplorationStarts<size> & event)
-  {
-    this->print_prefix();
-    this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Exploration starts for (%1%, %2%) with %3% possible values\n"))) % (event.cell.first + 1)) % (event.cell.second + 1)) % event.allowed_values.size());
-  }
-  
-  inline void operator()(const exploration::HypothesisIsMade<size> & event)
-  {
-    this->print_prefix();
-    ++this->hypotheses_count;
-    this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) may be %3%\n"))) % (event.cell.first + 1)) % (event.cell.second + 1)) % (event.value + 1));
-  }
-  
-  inline void operator()(const exploration::HypothesisIsRejected<size> & event)
-  {
-    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail("hypotheses_count > 0", "src/explanation/text-explainer.hpp", 89, __extension____PRETTY_FUNCTION__));
-    this->print_prefix();
-    --this->hypotheses_count;
-    this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Hypothesis that (%1%, %2%) may have been %3% must be back-tracked\n"))) % (event.cell.first + 1)) % (event.cell.second + 1)) % (event.value + 1));
-  }
-  
-  inline void operator()(const exploration::SudokuIsSolved<size> &)
-  {
-    this->print_prefix();
-    std::operator<<(this->os, static_cast<const char *>("Sudoku is solved\n"));
-  }
-  
-  inline void operator()(const exploration::HypothesisIsAccepted<size> & event)
-  {
-    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail("hypotheses_count > 0", "src/explanation/text-explainer.hpp", 102, __extension____PRETTY_FUNCTION__));
-    this->print_prefix();
-    --this->hypotheses_count;
-    this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can indeed be %3%\n"))) % (event.cell.first + 1)) % (event.cell.second + 1)) % (event.value + 1));
-  }
-  
-  inline void operator()(const exploration::ExplorationIsDone<size> & event)
-  {
-    this->print_prefix();
-    this->os << ((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Exploration is done for (%1%, %2%)\n"))) % (event.cell.first + 1)) % (event.cell.second + 1));
+    {
+      auto && __range0 = this->explanation.inputs.cells();
+      for(; ; ) {
+        const auto & cell;
+        const std::optional<unsigned int> value = cell.get();
+        if(static_cast<bool>(value.operator bool())) {
+          const auto __cell2 = cell.coordinates();
+          this->prefix() << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) is set to %3% in the input\n"))) % (row + 1)) % (col + 1)) % (value.operator*() + static_cast<unsigned int>(1)));
+        } 
+        
+      }
+      
+    }
+    this->prefix() << "All inputs have been set\n";
+    explain(this->explanation.propagations);
+    explain(this->explanation.exploration);
   }
   
   
   private: 
-  inline void print_prefix()
+  inline void explain(const std::vector<typename Explanation<size>::Propagation> & propagations)
+  {
+    this->prefix() << "Propagation starts\n";
+    {
+      auto && __range0 = propagations;
+      for(; ; ) {
+        const auto & propagation;
+        const auto __propagation0 = propagation.source;
+        this->prefix() << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Propagation starts for %1% in (%2%, %3%)\n"))) % (propagation.value + 1)) % (src_row + 1)) % (src_col + 1));
+        bool solved = false;
+        {
+          auto && __range1 = propagation.targets;
+          for(; ; ) {
+            const auto & target;
+            const auto __target0 = target.cell;
+            this->prefix() << (((((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("%1% in (%2%, %3%) forbids %1% in (%4%, %5%)\n"))) % (propagation.value + 1)) % (src_row + 1)) % (src_col + 1)) % (tgt_row + 1)) % (tgt_col + 1));
+                                    
+            class __lambda_4
+            {
+              public: 
+              template<class type_parameter_1_0>
+              inline auto operator()(const type_parameter_1_0 & deduction) const
+              {
+                return deduction.solved;
+              }
+              private: 
+              template<class type_parameter_1_0>
+              static inline auto __invoke(const type_parameter_1_0 & deduction)
+              {
+                return __lambda_4{}.operator()<type_parameter_1_0>(deduction);
+              }
+              
+              public:
+              // /*constexpr */ __lambda_4() = default;
+              
+            };
+            
+            solved = static_cast<bool>(static_cast<<dependent type>>(solved) | std::any_of(target.single_value_deductions.begin(), target.single_value_deductions.end(), __lambda_4{}));
+                                    
+            class __lambda_5
+            {
+              public: 
+              template<class type_parameter_1_0>
+              inline auto operator()(const type_parameter_1_0 & deduction) const
+              {
+                return deduction.solved;
+              }
+              private: 
+              template<class type_parameter_1_0>
+              static inline auto __invoke(const type_parameter_1_0 & deduction)
+              {
+                return __lambda_5{}.operator()<type_parameter_1_0>(deduction);
+              }
+              
+              public:
+              // /*constexpr */ __lambda_5() = default;
+              
+            };
+            
+            solved = static_cast<bool>(static_cast<<dependent type>>(solved) | std::any_of(target.single_place_deductions.begin(), target.single_place_deductions.end(), __lambda_5{}));
+            if(!this->reordered || solved) {
+              {
+                auto && __range2 = target.single_value_deductions;
+                for(; ; ) {
+                  const auto & deduction;
+                  const auto __deduction0 = deduction.cell;
+                  this->prefix() << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can only be %3%\n"))) % (row + 1)) % (col + 1)) % (deduction.value + 1));
+                  if(deduction.solved) {
+                    this->prefix() << "Sudoku is solved\n";
+                  } 
+                  
+                }
+                
+              }
+              {
+                auto && __range2 = target.single_place_deductions;
+                for(; ; ) {
+                  const auto & deduction;
+                  const auto __deduction1 = deduction.cell;
+                  this->prefix() << ((((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("In region %4%, only (%1%, %2%) can be %3%\n"))) % (row + 1)) % (col + 1)) % (deduction.value + 1)) % (deduction.region + 1));
+                  if(deduction.solved) {
+                    this->prefix() << "Sudoku is solved\n";
+                  } 
+                  
+                }
+                
+              }
+            } 
+            
+          }
+          
+        }
+        this->prefix() << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("%1% in (%2%, %3%) has been fully propagated\n"))) % (propagation.value + 1)) % (src_row + 1)) % (src_col + 1));
+        if(this->reordered && !solved) {
+          {
+            auto && __range3 = propagation.targets;
+            for(; ; ) {
+              const auto & target;
+              {
+                auto && __range2 = target.single_value_deductions;
+                for(; ; ) {
+                  const auto & deduction;
+                  (static_cast<bool>(!deduction.solved) ? void(0) : __assert_fail("!deduction.solved", "src/explanation/text-explainer.cpp", 75, __extension____PRETTY_FUNCTION__));
+                  const auto __deduction2 = deduction.cell;
+                  this->prefix() << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can only be %3%\n"))) % (row + 1)) % (col + 1)) % (deduction.value + 1));
+                }
+                
+              }
+            }
+            
+          }
+          {
+            auto && __range3 = propagation.targets;
+            for(; ; ) {
+              const auto & target;
+              {
+                auto && __range2 = target.single_place_deductions;
+                for(; ; ) {
+                  const auto & deduction;
+                  (static_cast<bool>(!deduction.solved) ? void(0) : __assert_fail("!deduction.solved", "src/explanation/text-explainer.cpp", 82, __extension____PRETTY_FUNCTION__));
+                  const auto __deduction3 = deduction.cell;
+                  this->prefix() << ((((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("In region %4%, only (%1%, %2%) can be %3%\n"))) % (row + 1)) % (col + 1)) % (deduction.value + 1)) % (deduction.region + 1));
+                }
+                
+              }
+            }
+            
+          }
+        } 
+        
+      }
+      
+    }
+    this->prefix() << "All cells have been fully propagated\n";
+  }
+  
+  inline void explain(const std::optional<typename Explanation<size>::Exploration> & exploration)
+  {
+    if(exploration.has_value()) {
+      explain(*exploration);
+    } 
+    
+  }
+  
+  inline void explain(const typename Explanation<size>::Exploration & exploration)
+  {
+    const auto __exploration0 = exploration.cell;
+    this->prefix() << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Exploration starts for (%1%, %2%) with %3% possible values\n"))) % (row + 1)) % (col + 1)) % exploration.allowed_values.size());
+    {
+      auto && __range0 = exploration.explored_hypotheses;
+      for(; ; ) {
+        const auto & hypothesis;
+        this->prefix() << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) may be %3%\n"))) % (row + 1)) % (col + 1)) % (hypothesis.value + 1));
+        ++this->hypotheses_count;
+        explain(hypothesis.propagations);
+        explain(hypothesis.exploration);
+        if(hypothesis.successful) {
+          this->prefix() << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can indeed be %3%\n"))) % (row + 1)) % (col + 1)) % (hypothesis.value + 1));
+        } else {
+          this->prefix() << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Hypothesis that (%1%, %2%) may have been %3% must be back-tracked\n"))) % (row + 1)) % (col + 1)) % (hypothesis.value + 1));
+        } 
+        
+        --this->hypotheses_count;
+      }
+      
+    }
+    this->prefix() << ((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Exploration is done for (%1%, %2%)\n"))) % (row + 1)) % (col + 1));
+  }
+  
+  
+  private: 
+  inline std::basic_ostream<char> & prefix()
   {
     for(unsigned int i = static_cast<unsigned int>(0); i < this->hypotheses_count; ++i) {
       std::operator<<(this->os, static_cast<const char *>("  "));
     }
     
+    return this->os;
   }
   
   
   private: 
+  const Explanation<size> & explanation;
   std::basic_ostream<char> & os;
+  const bool reordered;
   unsigned int hypotheses_count;
 };
 
-
-
-#endif  // EXPLANATION_TEXT_EXPLAINER_HPP_
-# 4 "src/explanation/text-explainer.cpp"
-
-
-
-
+/* First instantiated from: text-explainer.cpp:1007 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
-class TextExplainer<static_cast<unsigned int>(4)>
+class TextExplainer<4>
 {
   
   public: 
-  inline explicit TextExplainer(std::basic_ostream<char> & os_)
-  : os{os_}
+  inline TextExplainer(const Explanation<4> & explanation_, std::basic_ostream<char> & os_, const bool reordered_)
+  : explanation{explanation_}
+  , os{os_}
+  , reordered{reordered_}
   , hypotheses_count{static_cast<unsigned int>(0)}
   {
   }
   
-  inline ~TextExplainer() noexcept
-  {
-    (static_cast<bool>(this->hypotheses_count == static_cast<unsigned int>(0)) ? void(0) : __assert_fail(static_cast<const char *>("hypotheses_count == 0"), static_cast<const char *>("src/explanation/text-explainer.hpp"), static_cast<unsigned int>(19), static_cast<const char *>(__extension__"TextExplainer<4>::~TextExplainer() [size = 4]")));
-  }
-  
   
   public: 
-  inline void operator()(const exploration::CellIsSetInInput<4> & event)
+  inline void explain()
   {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%2%, %3%) is set to %1% in the input\n"))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::InputsAreDone<4> &)
-  {
-    this->print_prefix();
-    std::operator<<(this->os, static_cast<const char *>("All inputs have been set\n"));
-  }
-  
-  inline void operator()(const exploration::PropagationStartsForSudoku<4> &)
-  {
-    this->print_prefix();
-    std::operator<<(this->os, static_cast<const char *>("Propagation starts\n"));
-  }
-  
-  inline void operator()(const exploration::PropagationStartsForCell<4> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Propagation starts for %1% in (%2%, %3%)\n"))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::CellPropagates<4> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("%1% in (%2%, %3%) forbids %1% in (%4%, %5%)\n"))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.source_cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.source_cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.target_cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.target_cell.second + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<4> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can only be %3%\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("In region %4%, only (%1%, %2%) can be %3%\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.region + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::PropagationIsDoneForCell<4> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("%1% in (%2%, %3%) has been fully propagated\n"))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::PropagationIsDoneForSudoku<4> &)
-  {
-    this->print_prefix();
-    std::operator<<(this->os, static_cast<const char *>("All cells have been fully propagated\n"));
-  }
-  
-  inline void operator()(const exploration::ExplorationStarts<4> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Exploration starts for (%1%, %2%) with %3% possible values\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned long>(event.allowed_values.size()))));
-  }
-  
-  inline void operator()(const exploration::HypothesisIsMade<4> & event)
-  {
-    this->print_prefix();
-    ++this->hypotheses_count;
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) may be %3%\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::HypothesisIsRejected<4> & event)
-  {
-    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail(static_cast<const char *>("hypotheses_count > 0"), static_cast<const char *>("src/explanation/text-explainer.hpp"), static_cast<unsigned int>(89), static_cast<const char *>(__extension__"void TextExplainer<4>::operator()(const exploration::HypothesisIsRejected<size> &) [size = 4]")));
-    this->print_prefix();
-    --this->hypotheses_count;
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Hypothesis that (%1%, %2%) may have been %3% must be back-tracked\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::SudokuIsSolved<4> &)
-  {
-    this->print_prefix();
-    std::operator<<(this->os, static_cast<const char *>("Sudoku is solved\n"));
-  }
-  
-  inline void operator()(const exploration::HypothesisIsAccepted<4> & event)
-  {
-    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail(static_cast<const char *>("hypotheses_count > 0"), static_cast<const char *>("src/explanation/text-explainer.hpp"), static_cast<unsigned int>(102), static_cast<const char *>(__extension__"void TextExplainer<4>::operator()(const exploration::HypothesisIsAccepted<size> &) [size = 4]")));
-    this->print_prefix();
-    --this->hypotheses_count;
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can indeed be %3%\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::ExplorationIsDone<4> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Exploration is done for (%1%, %2%)\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1))))));
+    {
+      boost::iterator_range<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > && __range0 = static_cast<const SudokuBase<ValueCell, 4>&>(this->explanation.inputs).cells();
+      boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __begin0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range0).begin();
+      boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __end0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range0).end();
+      for(; boost::iterators::operator!=(static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__begin0)), static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__end0))); static_cast<boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Cell &, long, false, false>&>(__begin0).operator++()) {
+        const SudokuBase<ValueCell, 4>::Cell & cell = static_cast<const boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 4>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 4>::Cell &, long, false, false>&>(__begin0).operator*();
+        const std::optional<unsigned int> value = static_cast<const std::optional<unsigned int>>(static_cast<const ValueCell&>(cell).get());
+        if(static_cast<bool>(value.operator bool())) {
+          const std::pair<unsigned int, unsigned int> __cell2 = static_cast<const std::pair<unsigned int, unsigned int>>(cell.coordinates());
+          const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell2));
+          const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell2));
+          boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) is set to %3% in the input\n"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((value.operator*() + static_cast<unsigned int>(1))))));
+        } 
+        
+      }
+      
+    }
+    std::operator<<(this->prefix(), static_cast<const char *>("All inputs have been set\n"));
+    this->explain(this->explanation.propagations);
+    this->explain(this->explanation.exploration);
   }
   
   
   private: 
-  inline void print_prefix()
+  inline void explain(const std::vector<Explanation<4>::Propagation, std::allocator<Explanation<4>::Propagation> > & propagations)
+  {
+    std::operator<<(this->prefix(), static_cast<const char *>("Propagation starts\n"));
+    {
+      const std::vector<Explanation<4>::Propagation, std::allocator<Explanation<4>::Propagation> > & __range0 = propagations;
+      __gnu_cxx::__normal_iterator<const Explanation<4>::Propagation *, std::vector<Explanation<4>::Propagation, std::allocator<Explanation<4>::Propagation> > > __begin0 = __range0.begin();
+      __gnu_cxx::__normal_iterator<const Explanation<4>::Propagation *, std::vector<Explanation<4>::Propagation, std::allocator<Explanation<4>::Propagation> > > __end0 = __range0.end();
+      for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::Propagation *, std::vector<Explanation<4>::Propagation, std::allocator<Explanation<4>::Propagation> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::Propagation *, std::vector<Explanation<4>::Propagation, std::allocator<Explanation<4>::Propagation> > >>(__end0)); __begin0.operator++()) {
+        const Explanation<4>::Propagation & propagation = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::Propagation *, std::vector<Explanation<4>::Propagation, std::allocator<Explanation<4>::Propagation> > >>(__begin0).operator*();
+        const std::pair<unsigned int, unsigned int> __propagation0 = std::pair<unsigned int, unsigned int>(propagation.source);
+        const unsigned int && src_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__propagation0));
+        const unsigned int && src_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__propagation0));
+        boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Propagation starts for %1% in (%2%, %3%)\n"))).operator%(static_cast<const unsigned int>((propagation.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((src_row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((src_col + static_cast<unsigned int>(1))))));
+        bool solved = false;
+        {
+          const std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > & __range1 = propagation.targets;
+          __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > > __begin0 = __range1.begin();
+          __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > > __end0 = __range1.end();
+          for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > >>(__end0)); __begin0.operator++()) {
+            const Explanation<4>::PropagationTarget & target = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > >>(__begin0).operator*();
+            const std::pair<unsigned int, unsigned int> __target0 = std::pair<unsigned int, unsigned int>(target.cell);
+            const unsigned int && tgt_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__target0));
+            const unsigned int && tgt_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__target0));
+            boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("%1% in (%2%, %3%) forbids %1% in (%4%, %5%)\n"))).operator%(static_cast<const unsigned int>((propagation.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((src_row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((src_col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((tgt_row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((tgt_col + static_cast<unsigned int>(1))))));
+                                    
+            class __lambda_4
+            {
+              public: 
+              template<class type_parameter_0_0>
+              inline /*constexpr */ auto operator()(const type_parameter_0_0 & deduction) const
+              {
+                return deduction.solved;
+              }
+              
+              #ifdef INSIGHTS_USE_TEMPLATE
+              template<>
+              inline /*constexpr */ bool operator()<Explanation<4>::SingleValueDeduction>(const Explanation<4>::SingleValueDeduction & deduction) const
+              {
+                return deduction.solved;
+              }
+              #endif
+              
+              private: 
+              template<class type_parameter_0_0>
+              static inline /*constexpr */ auto __invoke(const type_parameter_0_0 & deduction)
+              {
+                return __lambda_4{}.operator()<type_parameter_0_0>(deduction);
+              }
+              public: 
+              // inline /*constexpr */ __lambda_4(const __lambda_4 &) noexcept = default;
+              // inline /*constexpr */ __lambda_4(__lambda_4 &&) noexcept = default;
+              // /*constexpr */ __lambda_4() = default;
+              
+            };
+            
+            solved = static_cast<bool>(static_cast<int>(solved) | static_cast<int>(std::any_of<__gnu_cxx::__normal_iterator<const Explanation<4>::SingleValueDeduction *, std::vector<Explanation<4>::SingleValueDeduction, std::allocator<Explanation<4>::SingleValueDeduction> > >, __lambda_4>(target.single_value_deductions.begin(), target.single_value_deductions.end(), __lambda_4{})));
+                                    
+            class __lambda_5
+            {
+              public: 
+              template<class type_parameter_0_0>
+              inline /*constexpr */ auto operator()(const type_parameter_0_0 & deduction) const
+              {
+                return deduction.solved;
+              }
+              
+              #ifdef INSIGHTS_USE_TEMPLATE
+              template<>
+              inline /*constexpr */ bool operator()<Explanation<4>::SinglePlaceDeduction>(const Explanation<4>::SinglePlaceDeduction & deduction) const
+              {
+                return deduction.solved;
+              }
+              #endif
+              
+              private: 
+              template<class type_parameter_0_0>
+              static inline /*constexpr */ auto __invoke(const type_parameter_0_0 & deduction)
+              {
+                return __lambda_5{}.operator()<type_parameter_0_0>(deduction);
+              }
+              public: 
+              // inline /*constexpr */ __lambda_5(const __lambda_5 &) noexcept = default;
+              // inline /*constexpr */ __lambda_5(__lambda_5 &&) noexcept = default;
+              // /*constexpr */ __lambda_5() = default;
+              
+            };
+            
+            solved = static_cast<bool>(static_cast<int>(solved) | static_cast<int>(std::any_of<__gnu_cxx::__normal_iterator<const Explanation<4>::SinglePlaceDeduction *, std::vector<Explanation<4>::SinglePlaceDeduction, std::allocator<Explanation<4>::SinglePlaceDeduction> > >, __lambda_5>(target.single_place_deductions.begin(), target.single_place_deductions.end(), __lambda_5{})));
+            if(!this->reordered || solved) {
+              {
+                const std::vector<Explanation<4>::SingleValueDeduction, std::allocator<Explanation<4>::SingleValueDeduction> > & __range2 = target.single_value_deductions;
+                __gnu_cxx::__normal_iterator<const Explanation<4>::SingleValueDeduction *, std::vector<Explanation<4>::SingleValueDeduction, std::allocator<Explanation<4>::SingleValueDeduction> > > __begin0 = __range2.begin();
+                __gnu_cxx::__normal_iterator<const Explanation<4>::SingleValueDeduction *, std::vector<Explanation<4>::SingleValueDeduction, std::allocator<Explanation<4>::SingleValueDeduction> > > __end0 = __range2.end();
+                for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::SingleValueDeduction *, std::vector<Explanation<4>::SingleValueDeduction, std::allocator<Explanation<4>::SingleValueDeduction> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::SingleValueDeduction *, std::vector<Explanation<4>::SingleValueDeduction, std::allocator<Explanation<4>::SingleValueDeduction> > >>(__end0)); __begin0.operator++()) {
+                  const Explanation<4>::SingleValueDeduction & deduction = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::SingleValueDeduction *, std::vector<Explanation<4>::SingleValueDeduction, std::allocator<Explanation<4>::SingleValueDeduction> > >>(__begin0).operator*();
+                  const std::pair<unsigned int, unsigned int> __deduction0 = std::pair<unsigned int, unsigned int>(deduction.cell);
+                  const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__deduction0));
+                  const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__deduction0));
+                  boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can only be %3%\n"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((deduction.value + static_cast<unsigned int>(1))))));
+                  if(deduction.solved) {
+                    std::operator<<(this->prefix(), static_cast<const char *>("Sudoku is solved\n"));
+                  } 
+                  
+                }
+                
+              }
+              {
+                const std::vector<Explanation<4>::SinglePlaceDeduction, std::allocator<Explanation<4>::SinglePlaceDeduction> > & __range2 = target.single_place_deductions;
+                __gnu_cxx::__normal_iterator<const Explanation<4>::SinglePlaceDeduction *, std::vector<Explanation<4>::SinglePlaceDeduction, std::allocator<Explanation<4>::SinglePlaceDeduction> > > __begin0 = __range2.begin();
+                __gnu_cxx::__normal_iterator<const Explanation<4>::SinglePlaceDeduction *, std::vector<Explanation<4>::SinglePlaceDeduction, std::allocator<Explanation<4>::SinglePlaceDeduction> > > __end0 = __range2.end();
+                for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::SinglePlaceDeduction *, std::vector<Explanation<4>::SinglePlaceDeduction, std::allocator<Explanation<4>::SinglePlaceDeduction> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::SinglePlaceDeduction *, std::vector<Explanation<4>::SinglePlaceDeduction, std::allocator<Explanation<4>::SinglePlaceDeduction> > >>(__end0)); __begin0.operator++()) {
+                  const Explanation<4>::SinglePlaceDeduction & deduction = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::SinglePlaceDeduction *, std::vector<Explanation<4>::SinglePlaceDeduction, std::allocator<Explanation<4>::SinglePlaceDeduction> > >>(__begin0).operator*();
+                  const std::pair<unsigned int, unsigned int> __deduction1 = std::pair<unsigned int, unsigned int>(deduction.cell);
+                  const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__deduction1));
+                  const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__deduction1));
+                  boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("In region %4%, only (%1%, %2%) can be %3%\n"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((deduction.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((deduction.region + static_cast<unsigned int>(1))))));
+                  if(deduction.solved) {
+                    std::operator<<(this->prefix(), static_cast<const char *>("Sudoku is solved\n"));
+                  } 
+                  
+                }
+                
+              }
+            } 
+            
+          }
+          
+        }
+        boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("%1% in (%2%, %3%) has been fully propagated\n"))).operator%(static_cast<const unsigned int>((propagation.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((src_row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((src_col + static_cast<unsigned int>(1))))));
+        if(this->reordered && !solved) {
+          {
+            const std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > & __range3 = propagation.targets;
+            __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > > __begin0 = __range3.begin();
+            __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > > __end0 = __range3.end();
+            for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > >>(__end0)); __begin0.operator++()) {
+              const Explanation<4>::PropagationTarget & target = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > >>(__begin0).operator*();
+              {
+                const std::vector<Explanation<4>::SingleValueDeduction, std::allocator<Explanation<4>::SingleValueDeduction> > & __range2 = target.single_value_deductions;
+                __gnu_cxx::__normal_iterator<const Explanation<4>::SingleValueDeduction *, std::vector<Explanation<4>::SingleValueDeduction, std::allocator<Explanation<4>::SingleValueDeduction> > > __begin0 = __range2.begin();
+                __gnu_cxx::__normal_iterator<const Explanation<4>::SingleValueDeduction *, std::vector<Explanation<4>::SingleValueDeduction, std::allocator<Explanation<4>::SingleValueDeduction> > > __end0 = __range2.end();
+                for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::SingleValueDeduction *, std::vector<Explanation<4>::SingleValueDeduction, std::allocator<Explanation<4>::SingleValueDeduction> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::SingleValueDeduction *, std::vector<Explanation<4>::SingleValueDeduction, std::allocator<Explanation<4>::SingleValueDeduction> > >>(__end0)); __begin0.operator++()) {
+                  const Explanation<4>::SingleValueDeduction & deduction = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::SingleValueDeduction *, std::vector<Explanation<4>::SingleValueDeduction, std::allocator<Explanation<4>::SingleValueDeduction> > >>(__begin0).operator*();
+                  (static_cast<bool>(!deduction.solved) ? void(0) : __assert_fail(static_cast<const char *>("!deduction.solved"), static_cast<const char *>("src/explanation/text-explainer.cpp"), static_cast<unsigned int>(75), static_cast<const char *>(__extension__"void TextExplainer<4>::explain(const std::vector<typename Explanation<size>::Propagation> &) [size = 4]")));
+                  const std::pair<unsigned int, unsigned int> __deduction2 = std::pair<unsigned int, unsigned int>(deduction.cell);
+                  const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__deduction2));
+                  const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__deduction2));
+                  boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can only be %3%\n"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((deduction.value + static_cast<unsigned int>(1))))));
+                }
+                
+              }
+            }
+            
+          }
+          {
+            const std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > & __range3 = propagation.targets;
+            __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > > __begin0 = __range3.begin();
+            __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > > __end0 = __range3.end();
+            for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > >>(__end0)); __begin0.operator++()) {
+              const Explanation<4>::PropagationTarget & target = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > >>(__begin0).operator*();
+              {
+                const std::vector<Explanation<4>::SinglePlaceDeduction, std::allocator<Explanation<4>::SinglePlaceDeduction> > & __range2 = target.single_place_deductions;
+                __gnu_cxx::__normal_iterator<const Explanation<4>::SinglePlaceDeduction *, std::vector<Explanation<4>::SinglePlaceDeduction, std::allocator<Explanation<4>::SinglePlaceDeduction> > > __begin0 = __range2.begin();
+                __gnu_cxx::__normal_iterator<const Explanation<4>::SinglePlaceDeduction *, std::vector<Explanation<4>::SinglePlaceDeduction, std::allocator<Explanation<4>::SinglePlaceDeduction> > > __end0 = __range2.end();
+                for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::SinglePlaceDeduction *, std::vector<Explanation<4>::SinglePlaceDeduction, std::allocator<Explanation<4>::SinglePlaceDeduction> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::SinglePlaceDeduction *, std::vector<Explanation<4>::SinglePlaceDeduction, std::allocator<Explanation<4>::SinglePlaceDeduction> > >>(__end0)); __begin0.operator++()) {
+                  const Explanation<4>::SinglePlaceDeduction & deduction = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::SinglePlaceDeduction *, std::vector<Explanation<4>::SinglePlaceDeduction, std::allocator<Explanation<4>::SinglePlaceDeduction> > >>(__begin0).operator*();
+                  (static_cast<bool>(!deduction.solved) ? void(0) : __assert_fail(static_cast<const char *>("!deduction.solved"), static_cast<const char *>("src/explanation/text-explainer.cpp"), static_cast<unsigned int>(82), static_cast<const char *>(__extension__"void TextExplainer<4>::explain(const std::vector<typename Explanation<size>::Propagation> &) [size = 4]")));
+                  const std::pair<unsigned int, unsigned int> __deduction3 = std::pair<unsigned int, unsigned int>(deduction.cell);
+                  const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__deduction3));
+                  const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__deduction3));
+                  boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("In region %4%, only (%1%, %2%) can be %3%\n"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((deduction.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((deduction.region + static_cast<unsigned int>(1))))));
+                }
+                
+              }
+            }
+            
+          }
+        } 
+        
+      }
+      
+    }
+    std::operator<<(this->prefix(), static_cast<const char *>("All cells have been fully propagated\n"));
+  }
+  
+  inline void explain(const std::optional<Explanation<4>::Exploration> & exploration)
+  {
+    if(exploration.has_value()) {
+      this->explain(exploration.operator*());
+    } 
+    
+  }
+  
+  inline void explain(const typename Explanation<4U>::Exploration & exploration)
+  {
+    const std::pair<unsigned int, unsigned int> __exploration0 = std::pair<unsigned int, unsigned int>(exploration.cell);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__exploration0));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__exploration0));
+    boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Exploration starts for (%1%, %2%) with %3% possible values\n"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned long>(exploration.allowed_values.size()))));
+    {
+      const std::vector<Explanation<4>::Hypothesis, std::allocator<Explanation<4>::Hypothesis> > & __range0 = exploration.explored_hypotheses;
+      __gnu_cxx::__normal_iterator<const Explanation<4>::Hypothesis *, std::vector<Explanation<4>::Hypothesis, std::allocator<Explanation<4>::Hypothesis> > > __begin0 = __range0.begin();
+      __gnu_cxx::__normal_iterator<const Explanation<4>::Hypothesis *, std::vector<Explanation<4>::Hypothesis, std::allocator<Explanation<4>::Hypothesis> > > __end0 = __range0.end();
+      for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::Hypothesis *, std::vector<Explanation<4>::Hypothesis, std::allocator<Explanation<4>::Hypothesis> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::Hypothesis *, std::vector<Explanation<4>::Hypothesis, std::allocator<Explanation<4>::Hypothesis> > >>(__end0)); __begin0.operator++()) {
+        const Explanation<4>::Hypothesis & hypothesis = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::Hypothesis *, std::vector<Explanation<4>::Hypothesis, std::allocator<Explanation<4>::Hypothesis> > >>(__begin0).operator*();
+        boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) may be %3%\n"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((hypothesis.value + static_cast<unsigned int>(1))))));
+        ++this->hypotheses_count;
+        this->explain(hypothesis.propagations);
+        this->explain(hypothesis.exploration);
+        if(hypothesis.successful) {
+          boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can indeed be %3%\n"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((hypothesis.value + static_cast<unsigned int>(1))))));
+        } else {
+          boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Hypothesis that (%1%, %2%) may have been %3% must be back-tracked\n"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((hypothesis.value + static_cast<unsigned int>(1))))));
+        } 
+        
+        --this->hypotheses_count;
+      }
+      
+    }
+    boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Exploration is done for (%1%, %2%)\n"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1))))));
+  }
+  
+  
+  private: 
+  inline std::basic_ostream<char> & prefix()
   {
     for(unsigned int i = static_cast<unsigned int>(0); i < this->hypotheses_count; ++i) {
       std::operator<<(this->os, static_cast<const char *>("  "));
     }
     
+    return this->os;
   }
   
   
   private: 
+  const Explanation<4> & explanation;
   std::basic_ostream<char> & os;
+  const bool reordered;
   unsigned int hypotheses_count;
+  public: 
 };
 
-
-
-
-
+#endif
+/* First instantiated from: text-explainer.cpp:1007 */
+#ifdef INSIGHTS_USE_TEMPLATE
 template<>
-class TextExplainer<static_cast<unsigned int>(9)>
+class TextExplainer<9>
 {
   
   public: 
-  inline explicit TextExplainer(std::basic_ostream<char> & os_)
-  : os{os_}
+  inline TextExplainer(const Explanation<9> & explanation_, std::basic_ostream<char> & os_, const bool reordered_)
+  : explanation{explanation_}
+  , os{os_}
+  , reordered{reordered_}
   , hypotheses_count{static_cast<unsigned int>(0)}
   {
   }
   
-  inline ~TextExplainer() noexcept
-  {
-    (static_cast<bool>(this->hypotheses_count == static_cast<unsigned int>(0)) ? void(0) : __assert_fail(static_cast<const char *>("hypotheses_count == 0"), static_cast<const char *>("src/explanation/text-explainer.hpp"), static_cast<unsigned int>(19), static_cast<const char *>(__extension__"TextExplainer<9>::~TextExplainer() [size = 9]")));
-  }
-  
   
   public: 
-  inline void operator()(const exploration::CellIsSetInInput<9> & event)
+  inline void explain()
   {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%2%, %3%) is set to %1% in the input\n"))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::InputsAreDone<9> &)
-  {
-    this->print_prefix();
-    std::operator<<(this->os, static_cast<const char *>("All inputs have been set\n"));
-  }
-  
-  inline void operator()(const exploration::PropagationStartsForSudoku<9> &)
-  {
-    this->print_prefix();
-    std::operator<<(this->os, static_cast<const char *>("Propagation starts\n"));
-  }
-  
-  inline void operator()(const exploration::PropagationStartsForCell<9> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Propagation starts for %1% in (%2%, %3%)\n"))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::CellPropagates<9> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("%1% in (%2%, %3%) forbids %1% in (%4%, %5%)\n"))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.source_cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.source_cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.target_cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.target_cell.second + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<9> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can only be %3%\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<9> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("In region %4%, only (%1%, %2%) can be %3%\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.region + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::PropagationIsDoneForCell<9> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("%1% in (%2%, %3%) has been fully propagated\n"))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::PropagationIsDoneForSudoku<9> &)
-  {
-    this->print_prefix();
-    std::operator<<(this->os, static_cast<const char *>("All cells have been fully propagated\n"));
-  }
-  
-  inline void operator()(const exploration::ExplorationStarts<9> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Exploration starts for (%1%, %2%) with %3% possible values\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned long>(event.allowed_values.size()))));
-  }
-  
-  inline void operator()(const exploration::HypothesisIsMade<9> & event)
-  {
-    this->print_prefix();
-    ++this->hypotheses_count;
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) may be %3%\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::HypothesisIsRejected<9> & event)
-  {
-    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail(static_cast<const char *>("hypotheses_count > 0"), static_cast<const char *>("src/explanation/text-explainer.hpp"), static_cast<unsigned int>(89), static_cast<const char *>(__extension__"void TextExplainer<9>::operator()(const exploration::HypothesisIsRejected<size> &) [size = 9]")));
-    this->print_prefix();
-    --this->hypotheses_count;
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Hypothesis that (%1%, %2%) may have been %3% must be back-tracked\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::SudokuIsSolved<9> &)
-  {
-    this->print_prefix();
-    std::operator<<(this->os, static_cast<const char *>("Sudoku is solved\n"));
-  }
-  
-  inline void operator()(const exploration::HypothesisIsAccepted<9> & event)
-  {
-    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail(static_cast<const char *>("hypotheses_count > 0"), static_cast<const char *>("src/explanation/text-explainer.hpp"), static_cast<unsigned int>(102), static_cast<const char *>(__extension__"void TextExplainer<9>::operator()(const exploration::HypothesisIsAccepted<size> &) [size = 9]")));
-    this->print_prefix();
-    --this->hypotheses_count;
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can indeed be %3%\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::ExplorationIsDone<9> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Exploration is done for (%1%, %2%)\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1))))));
+    {
+      boost::iterator_range<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> > && __range0 = static_cast<const SudokuBase<ValueCell, 9>&>(this->explanation.inputs).cells();
+      boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __begin0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range0).begin();
+      boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default> __end0 = static_cast<const boost::iterator_range_detail::iterator_range_base<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, boost::iterators::incrementable_traversal_tag>&>(__range0).end();
+      for(; boost::iterators::operator!=(static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__begin0)), static_cast<const boost::iterators::iterator_facade<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Cell &, long>&>(static_cast<const boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>>(__end0))); static_cast<boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Cell &, long, false, false>&>(__begin0).operator++()) {
+        const SudokuBase<ValueCell, 9>::Cell & cell = static_cast<const boost::iterators::detail::iterator_facade_base<boost::iterators::transform_iterator<__lambda_1, const std::pair<unsigned int, unsigned int> *, boost::use_default, boost::use_default>, const SudokuBase<ValueCell, 9>::Cell, boost::iterators::random_access_traversal_tag, const SudokuBase<ValueCell, 9>::Cell &, long, false, false>&>(__begin0).operator*();
+        const std::optional<unsigned int> value = static_cast<const std::optional<unsigned int>>(static_cast<const ValueCell&>(cell).get());
+        if(static_cast<bool>(value.operator bool())) {
+          const std::pair<unsigned int, unsigned int> __cell2 = static_cast<const std::pair<unsigned int, unsigned int>>(cell.coordinates());
+          const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell2));
+          const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__cell2));
+          boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) is set to %3% in the input\n"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((value.operator*() + static_cast<unsigned int>(1))))));
+        } 
+        
+      }
+      
+    }
+    std::operator<<(this->prefix(), static_cast<const char *>("All inputs have been set\n"));
+    this->explain(this->explanation.propagations);
+    this->explain(this->explanation.exploration);
   }
   
   
   private: 
-  inline void print_prefix()
+  inline void explain(const std::vector<Explanation<9>::Propagation, std::allocator<Explanation<9>::Propagation> > & propagations)
+  {
+    std::operator<<(this->prefix(), static_cast<const char *>("Propagation starts\n"));
+    {
+      const std::vector<Explanation<9>::Propagation, std::allocator<Explanation<9>::Propagation> > & __range0 = propagations;
+      __gnu_cxx::__normal_iterator<const Explanation<9>::Propagation *, std::vector<Explanation<9>::Propagation, std::allocator<Explanation<9>::Propagation> > > __begin0 = __range0.begin();
+      __gnu_cxx::__normal_iterator<const Explanation<9>::Propagation *, std::vector<Explanation<9>::Propagation, std::allocator<Explanation<9>::Propagation> > > __end0 = __range0.end();
+      for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::Propagation *, std::vector<Explanation<9>::Propagation, std::allocator<Explanation<9>::Propagation> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::Propagation *, std::vector<Explanation<9>::Propagation, std::allocator<Explanation<9>::Propagation> > >>(__end0)); __begin0.operator++()) {
+        const Explanation<9>::Propagation & propagation = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::Propagation *, std::vector<Explanation<9>::Propagation, std::allocator<Explanation<9>::Propagation> > >>(__begin0).operator*();
+        const std::pair<unsigned int, unsigned int> __propagation0 = std::pair<unsigned int, unsigned int>(propagation.source);
+        const unsigned int && src_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__propagation0));
+        const unsigned int && src_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__propagation0));
+        boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Propagation starts for %1% in (%2%, %3%)\n"))).operator%(static_cast<const unsigned int>((propagation.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((src_row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((src_col + static_cast<unsigned int>(1))))));
+        bool solved = false;
+        {
+          const std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > & __range1 = propagation.targets;
+          __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > > __begin0 = __range1.begin();
+          __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > > __end0 = __range1.end();
+          for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > >>(__end0)); __begin0.operator++()) {
+            const Explanation<9>::PropagationTarget & target = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > >>(__begin0).operator*();
+            const std::pair<unsigned int, unsigned int> __target0 = std::pair<unsigned int, unsigned int>(target.cell);
+            const unsigned int && tgt_row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__target0));
+            const unsigned int && tgt_col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__target0));
+            boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("%1% in (%2%, %3%) forbids %1% in (%4%, %5%)\n"))).operator%(static_cast<const unsigned int>((propagation.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((src_row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((src_col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((tgt_row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((tgt_col + static_cast<unsigned int>(1))))));
+                                    
+            class __lambda_4
+            {
+              public: 
+              template<class type_parameter_0_0>
+              inline /*constexpr */ auto operator()(const type_parameter_0_0 & deduction) const
+              {
+                return deduction.solved;
+              }
+              
+              #ifdef INSIGHTS_USE_TEMPLATE
+              template<>
+              inline /*constexpr */ bool operator()<Explanation<9>::SingleValueDeduction>(const Explanation<9>::SingleValueDeduction & deduction) const
+              {
+                return deduction.solved;
+              }
+              #endif
+              
+              private: 
+              template<class type_parameter_0_0>
+              static inline /*constexpr */ auto __invoke(const type_parameter_0_0 & deduction)
+              {
+                return __lambda_4{}.operator()<type_parameter_0_0>(deduction);
+              }
+              public: 
+              // inline /*constexpr */ __lambda_4(const __lambda_4 &) noexcept = default;
+              // inline /*constexpr */ __lambda_4(__lambda_4 &&) noexcept = default;
+              // /*constexpr */ __lambda_4() = default;
+              
+            };
+            
+            solved = static_cast<bool>(static_cast<int>(solved) | static_cast<int>(std::any_of<__gnu_cxx::__normal_iterator<const Explanation<9>::SingleValueDeduction *, std::vector<Explanation<9>::SingleValueDeduction, std::allocator<Explanation<9>::SingleValueDeduction> > >, __lambda_4>(target.single_value_deductions.begin(), target.single_value_deductions.end(), __lambda_4{})));
+                                    
+            class __lambda_5
+            {
+              public: 
+              template<class type_parameter_0_0>
+              inline /*constexpr */ auto operator()(const type_parameter_0_0 & deduction) const
+              {
+                return deduction.solved;
+              }
+              
+              #ifdef INSIGHTS_USE_TEMPLATE
+              template<>
+              inline /*constexpr */ bool operator()<Explanation<9>::SinglePlaceDeduction>(const Explanation<9>::SinglePlaceDeduction & deduction) const
+              {
+                return deduction.solved;
+              }
+              #endif
+              
+              private: 
+              template<class type_parameter_0_0>
+              static inline /*constexpr */ auto __invoke(const type_parameter_0_0 & deduction)
+              {
+                return __lambda_5{}.operator()<type_parameter_0_0>(deduction);
+              }
+              public: 
+              // inline /*constexpr */ __lambda_5(const __lambda_5 &) noexcept = default;
+              // inline /*constexpr */ __lambda_5(__lambda_5 &&) noexcept = default;
+              // /*constexpr */ __lambda_5() = default;
+              
+            };
+            
+            solved = static_cast<bool>(static_cast<int>(solved) | static_cast<int>(std::any_of<__gnu_cxx::__normal_iterator<const Explanation<9>::SinglePlaceDeduction *, std::vector<Explanation<9>::SinglePlaceDeduction, std::allocator<Explanation<9>::SinglePlaceDeduction> > >, __lambda_5>(target.single_place_deductions.begin(), target.single_place_deductions.end(), __lambda_5{})));
+            if(!this->reordered || solved) {
+              {
+                const std::vector<Explanation<9>::SingleValueDeduction, std::allocator<Explanation<9>::SingleValueDeduction> > & __range2 = target.single_value_deductions;
+                __gnu_cxx::__normal_iterator<const Explanation<9>::SingleValueDeduction *, std::vector<Explanation<9>::SingleValueDeduction, std::allocator<Explanation<9>::SingleValueDeduction> > > __begin0 = __range2.begin();
+                __gnu_cxx::__normal_iterator<const Explanation<9>::SingleValueDeduction *, std::vector<Explanation<9>::SingleValueDeduction, std::allocator<Explanation<9>::SingleValueDeduction> > > __end0 = __range2.end();
+                for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::SingleValueDeduction *, std::vector<Explanation<9>::SingleValueDeduction, std::allocator<Explanation<9>::SingleValueDeduction> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::SingleValueDeduction *, std::vector<Explanation<9>::SingleValueDeduction, std::allocator<Explanation<9>::SingleValueDeduction> > >>(__end0)); __begin0.operator++()) {
+                  const Explanation<9>::SingleValueDeduction & deduction = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::SingleValueDeduction *, std::vector<Explanation<9>::SingleValueDeduction, std::allocator<Explanation<9>::SingleValueDeduction> > >>(__begin0).operator*();
+                  const std::pair<unsigned int, unsigned int> __deduction0 = std::pair<unsigned int, unsigned int>(deduction.cell);
+                  const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__deduction0));
+                  const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__deduction0));
+                  boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can only be %3%\n"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((deduction.value + static_cast<unsigned int>(1))))));
+                  if(deduction.solved) {
+                    std::operator<<(this->prefix(), static_cast<const char *>("Sudoku is solved\n"));
+                  } 
+                  
+                }
+                
+              }
+              {
+                const std::vector<Explanation<9>::SinglePlaceDeduction, std::allocator<Explanation<9>::SinglePlaceDeduction> > & __range2 = target.single_place_deductions;
+                __gnu_cxx::__normal_iterator<const Explanation<9>::SinglePlaceDeduction *, std::vector<Explanation<9>::SinglePlaceDeduction, std::allocator<Explanation<9>::SinglePlaceDeduction> > > __begin0 = __range2.begin();
+                __gnu_cxx::__normal_iterator<const Explanation<9>::SinglePlaceDeduction *, std::vector<Explanation<9>::SinglePlaceDeduction, std::allocator<Explanation<9>::SinglePlaceDeduction> > > __end0 = __range2.end();
+                for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::SinglePlaceDeduction *, std::vector<Explanation<9>::SinglePlaceDeduction, std::allocator<Explanation<9>::SinglePlaceDeduction> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::SinglePlaceDeduction *, std::vector<Explanation<9>::SinglePlaceDeduction, std::allocator<Explanation<9>::SinglePlaceDeduction> > >>(__end0)); __begin0.operator++()) {
+                  const Explanation<9>::SinglePlaceDeduction & deduction = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::SinglePlaceDeduction *, std::vector<Explanation<9>::SinglePlaceDeduction, std::allocator<Explanation<9>::SinglePlaceDeduction> > >>(__begin0).operator*();
+                  const std::pair<unsigned int, unsigned int> __deduction1 = std::pair<unsigned int, unsigned int>(deduction.cell);
+                  const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__deduction1));
+                  const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__deduction1));
+                  boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("In region %4%, only (%1%, %2%) can be %3%\n"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((deduction.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((deduction.region + static_cast<unsigned int>(1))))));
+                  if(deduction.solved) {
+                    std::operator<<(this->prefix(), static_cast<const char *>("Sudoku is solved\n"));
+                  } 
+                  
+                }
+                
+              }
+            } 
+            
+          }
+          
+        }
+        boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("%1% in (%2%, %3%) has been fully propagated\n"))).operator%(static_cast<const unsigned int>((propagation.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((src_row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((src_col + static_cast<unsigned int>(1))))));
+        if(this->reordered && !solved) {
+          {
+            const std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > & __range3 = propagation.targets;
+            __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > > __begin0 = __range3.begin();
+            __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > > __end0 = __range3.end();
+            for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > >>(__end0)); __begin0.operator++()) {
+              const Explanation<9>::PropagationTarget & target = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > >>(__begin0).operator*();
+              {
+                const std::vector<Explanation<9>::SingleValueDeduction, std::allocator<Explanation<9>::SingleValueDeduction> > & __range2 = target.single_value_deductions;
+                __gnu_cxx::__normal_iterator<const Explanation<9>::SingleValueDeduction *, std::vector<Explanation<9>::SingleValueDeduction, std::allocator<Explanation<9>::SingleValueDeduction> > > __begin0 = __range2.begin();
+                __gnu_cxx::__normal_iterator<const Explanation<9>::SingleValueDeduction *, std::vector<Explanation<9>::SingleValueDeduction, std::allocator<Explanation<9>::SingleValueDeduction> > > __end0 = __range2.end();
+                for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::SingleValueDeduction *, std::vector<Explanation<9>::SingleValueDeduction, std::allocator<Explanation<9>::SingleValueDeduction> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::SingleValueDeduction *, std::vector<Explanation<9>::SingleValueDeduction, std::allocator<Explanation<9>::SingleValueDeduction> > >>(__end0)); __begin0.operator++()) {
+                  const Explanation<9>::SingleValueDeduction & deduction = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::SingleValueDeduction *, std::vector<Explanation<9>::SingleValueDeduction, std::allocator<Explanation<9>::SingleValueDeduction> > >>(__begin0).operator*();
+                  (static_cast<bool>(!deduction.solved) ? void(0) : __assert_fail(static_cast<const char *>("!deduction.solved"), static_cast<const char *>("src/explanation/text-explainer.cpp"), static_cast<unsigned int>(75), static_cast<const char *>(__extension__"void TextExplainer<9>::explain(const std::vector<typename Explanation<size>::Propagation> &) [size = 9]")));
+                  const std::pair<unsigned int, unsigned int> __deduction2 = std::pair<unsigned int, unsigned int>(deduction.cell);
+                  const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__deduction2));
+                  const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__deduction2));
+                  boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can only be %3%\n"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((deduction.value + static_cast<unsigned int>(1))))));
+                }
+                
+              }
+            }
+            
+          }
+          {
+            const std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > & __range3 = propagation.targets;
+            __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > > __begin0 = __range3.begin();
+            __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > > __end0 = __range3.end();
+            for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > >>(__end0)); __begin0.operator++()) {
+              const Explanation<9>::PropagationTarget & target = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > >>(__begin0).operator*();
+              {
+                const std::vector<Explanation<9>::SinglePlaceDeduction, std::allocator<Explanation<9>::SinglePlaceDeduction> > & __range2 = target.single_place_deductions;
+                __gnu_cxx::__normal_iterator<const Explanation<9>::SinglePlaceDeduction *, std::vector<Explanation<9>::SinglePlaceDeduction, std::allocator<Explanation<9>::SinglePlaceDeduction> > > __begin0 = __range2.begin();
+                __gnu_cxx::__normal_iterator<const Explanation<9>::SinglePlaceDeduction *, std::vector<Explanation<9>::SinglePlaceDeduction, std::allocator<Explanation<9>::SinglePlaceDeduction> > > __end0 = __range2.end();
+                for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::SinglePlaceDeduction *, std::vector<Explanation<9>::SinglePlaceDeduction, std::allocator<Explanation<9>::SinglePlaceDeduction> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::SinglePlaceDeduction *, std::vector<Explanation<9>::SinglePlaceDeduction, std::allocator<Explanation<9>::SinglePlaceDeduction> > >>(__end0)); __begin0.operator++()) {
+                  const Explanation<9>::SinglePlaceDeduction & deduction = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::SinglePlaceDeduction *, std::vector<Explanation<9>::SinglePlaceDeduction, std::allocator<Explanation<9>::SinglePlaceDeduction> > >>(__begin0).operator*();
+                  (static_cast<bool>(!deduction.solved) ? void(0) : __assert_fail(static_cast<const char *>("!deduction.solved"), static_cast<const char *>("src/explanation/text-explainer.cpp"), static_cast<unsigned int>(82), static_cast<const char *>(__extension__"void TextExplainer<9>::explain(const std::vector<typename Explanation<size>::Propagation> &) [size = 9]")));
+                  const std::pair<unsigned int, unsigned int> __deduction3 = std::pair<unsigned int, unsigned int>(deduction.cell);
+                  const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__deduction3));
+                  const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__deduction3));
+                  boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("In region %4%, only (%1%, %2%) can be %3%\n"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((deduction.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((deduction.region + static_cast<unsigned int>(1))))));
+                }
+                
+              }
+            }
+            
+          }
+        } 
+        
+      }
+      
+    }
+    std::operator<<(this->prefix(), static_cast<const char *>("All cells have been fully propagated\n"));
+  }
+  
+  inline void explain(const std::optional<Explanation<9>::Exploration> & exploration)
+  {
+    if(exploration.has_value()) {
+      this->explain(exploration.operator*());
+    } 
+    
+  }
+  
+  inline void explain(const typename Explanation<9U>::Exploration & exploration)
+  {
+    const std::pair<unsigned int, unsigned int> __exploration0 = std::pair<unsigned int, unsigned int>(exploration.cell);
+    const unsigned int && row = std::get<0UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__exploration0));
+    const unsigned int && col = std::get<1UL>(static_cast<const std::pair<unsigned int, unsigned int> &&>(__exploration0));
+    boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Exploration starts for (%1%, %2%) with %3% possible values\n"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned long>(exploration.allowed_values.size()))));
+    {
+      const std::vector<Explanation<9>::Hypothesis, std::allocator<Explanation<9>::Hypothesis> > & __range0 = exploration.explored_hypotheses;
+      __gnu_cxx::__normal_iterator<const Explanation<9>::Hypothesis *, std::vector<Explanation<9>::Hypothesis, std::allocator<Explanation<9>::Hypothesis> > > __begin0 = __range0.begin();
+      __gnu_cxx::__normal_iterator<const Explanation<9>::Hypothesis *, std::vector<Explanation<9>::Hypothesis, std::allocator<Explanation<9>::Hypothesis> > > __end0 = __range0.end();
+      for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::Hypothesis *, std::vector<Explanation<9>::Hypothesis, std::allocator<Explanation<9>::Hypothesis> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::Hypothesis *, std::vector<Explanation<9>::Hypothesis, std::allocator<Explanation<9>::Hypothesis> > >>(__end0)); __begin0.operator++()) {
+        const Explanation<9>::Hypothesis & hypothesis = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::Hypothesis *, std::vector<Explanation<9>::Hypothesis, std::allocator<Explanation<9>::Hypothesis> > >>(__begin0).operator*();
+        boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) may be %3%\n"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((hypothesis.value + static_cast<unsigned int>(1))))));
+        ++this->hypotheses_count;
+        this->explain(hypothesis.propagations);
+        this->explain(hypothesis.exploration);
+        if(hypothesis.successful) {
+          boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can indeed be %3%\n"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((hypothesis.value + static_cast<unsigned int>(1))))));
+        } else {
+          boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Hypothesis that (%1%, %2%) may have been %3% must be back-tracked\n"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((hypothesis.value + static_cast<unsigned int>(1))))));
+        } 
+        
+        --this->hypotheses_count;
+      }
+      
+    }
+    boost::operator<<(this->prefix(), static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Exploration is done for (%1%, %2%)\n"))).operator%(static_cast<const unsigned int>((row + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((col + static_cast<unsigned int>(1))))));
+  }
+  
+  
+  private: 
+  inline std::basic_ostream<char> & prefix()
   {
     for(unsigned int i = static_cast<unsigned int>(0); i < this->hypotheses_count; ++i) {
       std::operator<<(this->os, static_cast<const char *>("  "));
     }
     
+    return this->os;
   }
   
   
   private: 
+  const Explanation<9> & explanation;
   std::basic_ostream<char> & os;
+  const bool reordered;
   unsigned int hypotheses_count;
+  public: 
 };
 
+#endif
 
 
+
+/* First instantiated from: text-explainer.cpp:1007 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+TextExplainer(const Explanation<4> & explanation_, std::basic_ostream<char> & os_, const bool reordered_) -> TextExplainer<4>;
+#endif
+
+
+/* First instantiated from: text-explainer.cpp:1007 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+TextExplainer(const Explanation<9> & explanation_, std::basic_ostream<char> & os_, const bool reordered_) -> TextExplainer<9>;
+#endif
+
+template<unsigned int size>
+void explain_as_text(const Explanation<size> & explanation, std::basic_ostream<char> & os, const bool reordered)
+{
+  TextExplainer(explanation, os, reordered).explain();
+}
+
+
+/* First instantiated from: text-explainer.cpp:1010 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+void explain_as_text<4>(const Explanation<4> & explanation, std::basic_ostream<char> & os, const bool reordered)
+{
+  TextExplainer<4>(explanation, os, reordered).explain();
+}
+#endif
+
+
+/* First instantiated from: text-explainer.cpp:1011 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+void explain_as_text<9>(const Explanation<9> & explanation, std::basic_ostream<char> & os, const bool reordered)
+{
+  TextExplainer<9>(explanation, os, reordered).explain();
+}
+#endif
+
+
+template void explain_as_text<4>(const Explanation<4>&, std::ostream&, bool);
+template void explain_as_text<9>(const Explanation<9>&, std::ostream&, bool);

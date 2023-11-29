@@ -5,11 +5,12 @@
 
 #include "main.hpp"
 
+#include <fstream>
 #include <memory>
 #include <vector>
 
+#include "explanation/explanation.hpp"
 #include "explanation/html-explainer.hpp"
-#include "explanation/reorder.hpp"
 #include "explanation/text-explainer.hpp"
 #include "explanation/video/frames-serializer.hpp"
 #include "explanation/video-explainer.hpp"
@@ -57,44 +58,47 @@ int main_(const Options& options) {
   } else if (options.explain) {
     unsigned stdout_users = 0;
 
-    std::optional<std::ofstream> text_output;
-    std::optional<TextExplainer<size>> text_explainer;
+    typename Explanation<size>::Builder explanation_builder;
+
+    const auto solved = solve_using_exploration<size>(
+      sudoku,
+      [&](const auto& event) {
+        explanation_builder(event);
+      });
+
+    const Explanation<size> explanation = explanation_builder.get();
+
     if (options.text_path == "-") {
       ++stdout_users;
-      text_explainer.emplace(std::cout);
+      explain_as_text(explanation, std::cout, false);
     } else if (options.text_path) {
-      text_output.emplace(*options.text_path);
-      assert(text_output->is_open());
-      text_explainer.emplace(*text_output);
-    }
-
-    std::optional<HtmlExplainer<size>> html_explainer;
-    if (options.html_path) {
-      html_explainer.emplace(*options.html_path, options.width, options.height);
+      std::ofstream out(*options.text_path);
+      assert(out.is_open());
+      explain_as_text(explanation, out, false);
     }
 
     if (options.html_text_path == "-") {
       ++stdout_users;
     }
 
-    std::optional<std::ofstream> video_text_output;
-    std::optional<TextExplainer<size>> video_text_explainer_;
-    std::optional<Reorder<size, TextExplainer<size>>> video_text_explainer;
-    if (options.video_text_path) {
-      if (options.video_text_path == "-") {
-        ++stdout_users;
-        video_text_explainer_.emplace(std::cout);
-      } else {
-        video_text_output.emplace(*options.video_text_path);
-        assert(video_text_output->is_open());
-        video_text_explainer_.emplace(*video_text_output);
-      }
-      video_text_explainer.emplace(&*video_text_explainer_);
+    if (options.video_text_path == "-") {
+      ++stdout_users;
+      explain_as_text(explanation, std::cout, true);
+    } else if (options.video_text_path) {
+      std::ofstream out(*options.video_text_path);
+      assert(out.is_open());
+      explain_as_text(explanation, out, true);
+    }
+
+    if (stdout_users > 1) {
+      std::cerr << "WARNING: several explanations are interleaved on stdout." << std::endl;
+    }
+
+    if (options.html_path) {
+      explain_as_html(explanation, *options.html_path, options.width, options.height);
     }
 
     std::vector<std::unique_ptr<video::Serializer>> video_serializers;
-    std::optional<VideoExplainer<size>> video_explainer_;
-    std::optional<Reorder<size, VideoExplainer<size>>> video_explainer;
     if (options.video_frames_path) {
       video_serializers.push_back(std::make_unique<video::FramesSerializer>(*options.video_frames_path));
     }
@@ -108,22 +112,8 @@ int main_(const Options& options) {
         std::vector<video::Serializer*>{video_serializers[0].get(), video_serializers[1].get()}));
     }
     if (!video_serializers.empty()) {
-      video_explainer_.emplace(video_serializers.back().get(), options.quick_video, options.width, options.height);
-      video_explainer.emplace(&*video_explainer_);
+      explain_as_video(explanation, video_serializers.back().get(), options.quick_video, options.width, options.height);
     }
-
-    if (stdout_users > 1) {
-      std::cerr << "WARNING: several explanations are interleaved on stdout." << std::endl;
-    }
-
-    const auto solved = solve_using_exploration<size>(
-      sudoku,
-      [&](const auto& event) {
-        if (text_explainer) (*text_explainer)(event);
-        if (html_explainer) (*html_explainer)(event);
-        if (video_text_explainer) (*video_text_explainer)(event);
-        if (video_explainer) (*video_explainer)(event);
-      });
 
     if (is_solved(solved)) {
       return 0;

@@ -43,19 +43,20 @@ int main_(const Options & options);
 #endif  // MAIN_HPP_
 # 7 "src/main.impl.hpp"
 
+#include <fstream>
 #include <memory>
 #include <vector>
 
-# 1 "src/explanation/html-explainer.hpp"
+# 1 "src/explanation/explanation.hpp"
 // Copyright 2023 Vincent Jacques
 
-#ifndef EXPLANATION_HTML_EXPLAINER_HPP_
-#define EXPLANATION_HTML_EXPLAINER_HPP_
+#ifndef EXPLANATION_EXPLANATION_HPP_
+#define EXPLANATION_EXPLANATION_HPP_
 
-#include <filesystem>
-#include <fstream>
-#include <set>
-#include <string>
+#include <optional>
+#include <tuple>
+#include <utility>
+#include <vector>
 
 # 1 "src/exploration/events.hpp"
 // Copyright 2023 Vincent Jacques
@@ -271,7 +272,7 @@ class SudokuConstants
   /* PASSED: static_assert((sqrt_size * sqrt_size) == size, "'size' must be a perfect square"); */
 };
 
-/* First instantiated from: main-4.cpp:373 */
+/* First instantiated from: main-4.cpp:374 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuConstants<4>
@@ -727,7 +728,7 @@ class SudokuBase
   CellsArray _cells;
 };
 
-/* First instantiated from: main-4.cpp:429 */
+/* First instantiated from: main-4.cpp:430 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<ValueCell, 4>
@@ -738,7 +739,12 @@ class SudokuBase<ValueCell, 4>
   {
     
     public: 
-    inline Cell(const SudokuBase<ValueCell, 4> * sudoku_, const std::pair<unsigned int, unsigned int> & coords_);
+    inline Cell(const SudokuBase<ValueCell, 4> * sudoku_, const std::pair<unsigned int, unsigned int> & coords_)
+    : ValueCell()
+    , sudoku{sudoku_}
+    , coords{std::pair<unsigned int, unsigned int>(coords_)}
+    {
+    }
     
     inline Cell(const SudokuBase<ValueCell, 4> * sudoku_, const Cell & other)
     : ValueCell(static_cast<const ValueCell&>(other))
@@ -772,7 +778,10 @@ class SudokuBase<ValueCell, 4>
   class Region;
   
   public: 
-  inline SudokuBase();
+  inline SudokuBase()
+  : _cells{this->make_cells()}
+  {
+  }
   
   inline SudokuBase(const SudokuBase<ValueCell, 4> & other)
   : _cells{this->copy_cells(other._cells)}
@@ -786,13 +795,39 @@ class SudokuBase<ValueCell, 4>
   
   private: 
   using CellsArray = std::array<std::array<Cell, 4>, 4>;
-  inline std::array<std::array<Cell, 4>, 4> make_cells();
+  inline std::array<std::array<Cell, 4>, 4> make_cells()
+  {
+    return this->make_cells<0, 1, 2, 3>(static_cast<const std::integer_sequence<unsigned int, 0, 1, 2, 3>>(std::integer_sequence<unsigned int, 0, 1, 2, 3>()));
+  }
   
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 4>, 4> make_cells(const std::integer_sequence<unsigned int, row...> &);
+  
+  /* First instantiated from: main-4.cpp:301 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline std::array<std::array<Cell, 4>, 4> make_cells<0, 1, 2, 3>(const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
+  {
+    return {{this->make_row<0, 1, 2, 3>(0U, static_cast<const std::integer_sequence<unsigned int, 0, 1, 2, 3>>(std::integer_sequence<unsigned int, 0, 1, 2, 3>())), this->make_row<0, 1, 2, 3>(1U, static_cast<const std::integer_sequence<unsigned int, 0, 1, 2, 3>>(std::integer_sequence<unsigned int, 0, 1, 2, 3>())), this->make_row<0, 1, 2, 3>(2U, static_cast<const std::integer_sequence<unsigned int, 0, 1, 2, 3>>(std::integer_sequence<unsigned int, 0, 1, 2, 3>())), this->make_row<0, 1, 2, 3>(3U, static_cast<const std::integer_sequence<unsigned int, 0, 1, 2, 3>>(std::integer_sequence<unsigned int, 0, 1, 2, 3>()))}};
+  }
+  #endif
+  
   template<unsigned int ...col>
   inline std::array<Cell, 4> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
-  inline Cell make_cell(unsigned int row, unsigned int col) const;
+  
+  /* First instantiated from: main-4.cpp:306 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline std::array<Cell, 4> make_row<0, 1, 2, 3>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
+  {
+    return {{static_cast<const SudokuBase<ValueCell, 4> *>(this)->make_cell(row, 0U), static_cast<const SudokuBase<ValueCell, 4> *>(this)->make_cell(row, 1U), static_cast<const SudokuBase<ValueCell, 4> *>(this)->make_cell(row, 2U), static_cast<const SudokuBase<ValueCell, 4> *>(this)->make_cell(row, 3U)}};
+  }
+  #endif
+  
+  inline Cell make_cell(unsigned int row, unsigned int col) const
+  {
+    return Cell(this, std::pair<unsigned int, unsigned int>{row, col});
+  }
   
   
   private: 
@@ -804,7 +839,7 @@ class SudokuBase<ValueCell, 4>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 4>, 4> copy_cells(const std::integer_sequence<unsigned int, row...> &, const std::array<std::array<Cell, 4>, 4> & other_cells);
   
-  /* First instantiated from: main-4.cpp:319 */
+  /* First instantiated from: main-4.cpp:320 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 4>, 4> copy_cells<0, 1, 2, 3>(const std::integer_sequence<unsigned int, 0, 1, 2, 3> &, const std::array<std::array<Cell, 4>, 4> & other_cells)
@@ -816,7 +851,7 @@ class SudokuBase<ValueCell, 4>
   template<unsigned int ...col>
   inline std::array<Cell, 4> copy_row(unsigned int row, const std::array<std::array<Cell, 4>, 4> & other_cells, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: main-4.cpp:324 */
+  /* First instantiated from: main-4.cpp:325 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 4> copy_row<0, 1, 2, 3>(unsigned int row, const std::array<std::array<Cell, 4>, 4> & other_cells, const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -895,7 +930,7 @@ class SudokuBase<ValueCell, 4>
 };
 
 #endif
-/* First instantiated from: main-4.cpp:589 */
+/* First instantiated from: main-4.cpp:590 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class SudokuBase<AnnotatedCell<4>, 4>
@@ -1057,7 +1092,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...row>
   inline std::array<std::array<Cell, 4>, 4> make_cells(const std::integer_sequence<unsigned int, row...> &);
   
-  /* First instantiated from: main-4.cpp:300 */
+  /* First instantiated from: main-4.cpp:301 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<std::array<Cell, 4>, 4> make_cells<0, 1, 2, 3>(const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -1069,7 +1104,7 @@ class SudokuBase<AnnotatedCell<4>, 4>
   template<unsigned int ...col>
   inline std::array<Cell, 4> make_row(unsigned int row, const std::integer_sequence<unsigned int, col...> &);
   
-  /* First instantiated from: main-4.cpp:305 */
+  /* First instantiated from: main-4.cpp:306 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline std::array<Cell, 4> make_row<0, 1, 2, 3>(unsigned int row, const std::integer_sequence<unsigned int, 0, 1, 2, 3> &)
@@ -1214,7 +1249,7 @@ class Sudoku : public SudokuBase<Cell, size>
 {
 };
 
-/* First instantiated from: main-4.cpp:1995 */
+/* First instantiated from: main-4.cpp:1494 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<ValueCell, 4> : public SudokuBase<ValueCell, 4>
@@ -1232,6 +1267,7 @@ class Sudoku<ValueCell, 4> : public SudokuBase<ValueCell, 4>
   // inline Sudoku(const Sudoku<ValueCell, 4> &) noexcept(false) = default;
   // inline Sudoku(Sudoku<ValueCell, 4> &&) /* noexcept */ = delete;
   // inline Sudoku<ValueCell, 4> & operator=(Sudoku<ValueCell, 4> &&) /* noexcept */ = delete;
+  // inline Sudoku() noexcept(false) = default;
 };
 
 #endif
@@ -1272,7 +1308,7 @@ class ValueCell
 {
   
   public: 
-  inline constexpr ValueCell() /* noexcept */ = default;
+  inline constexpr ValueCell() noexcept = default;
   inline constexpr ValueCell(const ValueCell &) noexcept = default;
   inline constexpr ValueCell & operator=(const ValueCell &) /* noexcept */ = default;
   inline constexpr ValueCell(ValueCell &&) /* noexcept */ = default;
@@ -1667,7 +1703,7 @@ class Stack
   std::vector<AnnotatedSudoku<size> > stack;
 };
 
-/* First instantiated from: main-4.cpp:883 */
+/* First instantiated from: main-4.cpp:1430 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<4>
@@ -1731,7 +1767,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-4.cpp:1938 */
+  /* First instantiated from: main-4.cpp:1437 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<4>
@@ -1750,7 +1786,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: main-4.cpp:1943 */
+  /* First instantiated from: main-4.cpp:1442 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct InputsAreDone<4>
@@ -1767,7 +1803,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: main-4.cpp:1766 */
+  /* First instantiated from: main-4.cpp:1259 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForSudoku<4>
@@ -1786,7 +1822,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-4.cpp:1778 */
+  /* First instantiated from: main-4.cpp:1271 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForCell<4>
@@ -1808,7 +1844,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: alloc_traits.h:850 */
+  /* First instantiated from: main-4.cpp:1285 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellPropagates<4>
@@ -1830,7 +1866,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: alloc_traits.h:850 */
+  /* First instantiated from: main-4.cpp:1290 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedFromSingleAllowedValue<4>
@@ -1839,8 +1875,6 @@ namespace exploration
     
     std::pair<unsigned int, unsigned int> cell;
     unsigned int value;
-    // inline constexpr CellIsDeducedFromSingleAllowedValue(const CellIsDeducedFromSingleAllowedValue<4> &) noexcept = default;
-    // inline constexpr CellIsDeducedFromSingleAllowedValue(CellIsDeducedFromSingleAllowedValue<4> &&) noexcept = default;
   };
   
   #endif
@@ -1854,7 +1888,7 @@ namespace exploration
     unsigned int region;
   };
   
-  /* First instantiated from: alloc_traits.h:850 */
+  /* First instantiated from: main-4.cpp:1319 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedAsSinglePlaceForValueInRegion<4>
@@ -1864,8 +1898,6 @@ namespace exploration
     std::pair<unsigned int, unsigned int> cell;
     unsigned int value;
     unsigned int region;
-    // inline constexpr CellIsDeducedAsSinglePlaceForValueInRegion(const CellIsDeducedAsSinglePlaceForValueInRegion<4> &) noexcept = default;
-    // inline constexpr CellIsDeducedAsSinglePlaceForValueInRegion(CellIsDeducedAsSinglePlaceForValueInRegion<4> &&) noexcept = default;
   };
   
   #endif
@@ -1878,7 +1910,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-4.cpp:1779 */
+  /* First instantiated from: main-4.cpp:1272 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForCell<4>
@@ -1898,7 +1930,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: main-4.cpp:1767 */
+  /* First instantiated from: main-4.cpp:1260 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForSudoku<4>
@@ -1918,7 +1950,7 @@ namespace exploration
     std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
   };
   
-  /* First instantiated from: main-4.cpp:1890 */
+  /* First instantiated from: main-4.cpp:1389 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<4>
@@ -1939,7 +1971,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-4.cpp:1895 */
+  /* First instantiated from: main-4.cpp:1394 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<4>
@@ -1960,7 +1992,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-4.cpp:1900 */
+  /* First instantiated from: main-4.cpp:1399 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<4>
@@ -1979,7 +2011,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: main-4.cpp:1829 */
+  /* First instantiated from: main-4.cpp:1297 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct SudokuIsSolved<4>
@@ -1998,7 +2030,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-4.cpp:1897 */
+  /* First instantiated from: main-4.cpp:1396 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsAccepted<4>
@@ -2018,7 +2050,7 @@ namespace exploration
     std::pair<unsigned int, unsigned int> cell;
   };
   
-  /* First instantiated from: main-4.cpp:1891 */
+  /* First instantiated from: main-4.cpp:1390 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationIsDone<4>
@@ -2034,906 +2066,338 @@ namespace exploration
 }  // namespace exploration
 
 #endif  // EXPLORATION_EVENTS_HPP_
-# 12 "src/explanation/html-explainer.hpp"
-# 1 "src/explanation/art.hpp"
-// Copyright 2023 Vincent Jacques
-
-#ifndef EXPLANATION_ART_HPP_
-#define EXPLANATION_ART_HPP_
-
-#include <cairomm/cairomm.h>
-
-#include <tuple>
-#include <vector>
-
-# 12 "src/explanation/art.hpp"
+# 12 "src/explanation/explanation.hpp"
+# 13 "src/explanation/explanation.hpp"
 
 
-namespace Cairo
+template<unsigned int size>
+struct Explanation
 {
-  class SaveGuard
+  struct SingleValueDeduction
+  {
+    std::pair<unsigned int, unsigned int> cell;
+    unsigned int value;
+    bool solved;
+  };
+  
+  struct SinglePlaceDeduction
+  {
+    unsigned int region;
+    std::pair<unsigned int, unsigned int> cell;
+    unsigned int value;
+    bool solved;
+  };
+  
+  struct PropagationTarget
+  {
+    std::pair<unsigned int, unsigned int> cell;
+    std::vector<SingleValueDeduction> single_value_deductions;
+    std::vector<SinglePlaceDeduction> single_place_deductions;
+  };
+  
+  struct Propagation
+  {
+    std::pair<unsigned int, unsigned int> source;
+    unsigned int value;
+    std::vector<PropagationTarget> targets;
+  };
+  
+  struct Exploration;
+  struct Hypothesis
+  {
+    unsigned int value;
+    std::vector<Propagation> propagations;
+    std::optional<Exploration> exploration;
+    bool successful;
+  };
+  
+  struct Exploration
+  {
+    std::pair<unsigned int, unsigned int> cell;
+    std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
+    std::vector<Hypothesis> explored_hypotheses;
+  };
+  
+  Sudoku<ValueCell, size> inputs;
+  std::vector<Propagation> propagations;
+  std::optional<Exploration> exploration;
+  
+  public: 
+  class Builder
   {
     
-    public: 
-    inline explicit SaveGuard(const std::shared_ptr<Context> & cr_)
-    : cr{std::shared_ptr<Context>(cr_)}
+    private: 
+    struct Frame
     {
-      static_cast<const std::__shared_ptr_access<Context, 2, false, false>&>(this->cr).operator->()->save();
+      inline Frame(std::vector<Propagation> * propagations_, std::optional<Exploration> * exploration_, Explanation::Hypothesis * hypothesis_)
+      : propagations{propagations_}
+      , exploration{exploration_}
+      , hypothesis{hypothesis_}
+      , sudoku_is_solved{static_cast<bool *>(nullptr)}
+      {
+        (static_cast<bool>(this->propagations) ? void(0) : __assert_fail("propagations", "src/explanation/explanation.hpp", 78, __extension____PRETTY_FUNCTION__));
+        (static_cast<bool>(this->exploration) ? void(0) : __assert_fail("exploration", "src/explanation/explanation.hpp", 79, __extension____PRETTY_FUNCTION__));
+        (static_cast<bool>(this->hypothesis) ? void(0) : __assert_fail("hypothesis", "src/explanation/explanation.hpp", 80, __extension____PRETTY_FUNCTION__));
+      }
+      
+      inline Frame(std::vector<Propagation> * propagations_, std::optional<Exploration> * exploration_)
+      : propagations{propagations_}
+      , exploration{exploration_}
+      , hypothesis{nullptr}
+      , sudoku_is_solved{static_cast<bool *>(nullptr)}
+      {
+        (static_cast<bool>(this->propagations) ? void(0) : __assert_fail("propagations", "src/explanation/explanation.hpp", 92, __extension____PRETTY_FUNCTION__));
+        (static_cast<bool>(this->exploration) ? void(0) : __assert_fail("exploration", "src/explanation/explanation.hpp", 93, __extension____PRETTY_FUNCTION__));
+      }
+      
+      std::vector<Propagation> * propagations;
+      std::optional<Exploration> * exploration;
+      Explanation::Hypothesis * hypothesis;
+      bool * sudoku_is_solved;
+    };
+    
+    
+    public: 
+    inline Builder()
+    : explanation{}
+    , stack{1, {&this->explanation.propagations, &this->explanation.exploration}}
+    {
     }
     
-    inline ~SaveGuard() noexcept
+    
+    public: 
+    void operator()(const exploration::CellIsSetInInput<size> &);
+    
+    void operator()(const exploration::InputsAreDone<size> &);
+    
+    void operator()(const exploration::PropagationStartsForSudoku<size> &);
+    
+    void operator()(const exploration::PropagationStartsForCell<size> &);
+    
+    void operator()(const exploration::CellPropagates<size> &);
+    
+    void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<size> &);
+    
+    void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size> &);
+    
+    void operator()(const exploration::PropagationIsDoneForCell<size> &);
+    
+    void operator()(const exploration::PropagationIsDoneForSudoku<size> &);
+    
+    void operator()(const exploration::ExplorationStarts<size> &);
+    
+    void operator()(const exploration::HypothesisIsMade<size> &);
+    
+    void operator()(const exploration::HypothesisIsRejected<size> &);
+    
+    void operator()(const exploration::SudokuIsSolved<size> &);
+    
+    void operator()(const exploration::HypothesisIsAccepted<size> &);
+    
+    void operator()(const exploration::ExplorationIsDone<size> &);
+    
+    
+    public: 
+    inline Explanation<size> get()
     {
-      static_cast<const std::__shared_ptr_access<Context, 2, false, false>&>(this->cr).operator->()->restore();
+      (static_cast<bool>(this->stack.size() == 1) ? void(0) : __assert_fail("stack.size() == 1", "src/explanation/explanation.hpp", 124, __extension____PRETTY_FUNCTION__));
+      return std::move(this->explanation);
     }
     
     
     private: 
-    std::shared_ptr<Context> cr;
-    public: 
+    Explanation<size> explanation;
+    std::vector<Frame> stack;
   };
   
-  
-}  // namespace Cairo
+};
 
-
-namespace art
+/* First instantiated from: main-4.cpp:1528 */
+#ifdef INSIGHTS_USE_TEMPLATE
+template<>
+struct Explanation<4>
 {
-  template<unsigned int size>
-  double round_grid_size(unsigned int);
-  struct DrawOptions
+  struct SingleValueDeduction
   {
-    double grid_size;
-    bool possible = false;
-    bool bold_todo = false;
-    bool inputs = true;
-    bool hypotheses = true;
-    std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > circled_cells;
-    double circled_cells_line_width = static_cast<double>(2);
-    std::tuple<double, double, double> circled_cells_color = std::tuple<double, double, double>{1, 0, 0};
-    std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > boxed_cells;
-    double boxed_cells_line_width = static_cast<double>(2);
-    std::tuple<double, double, double> boxed_cells_color = std::tuple<double, double, double>{1, 0, 0};
-    std::vector<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, unsigned int> > > circled_values;
-    double circled_values_line_width = static_cast<double>(2);
-    std::tuple<double, double, double> circled_values_color = std::tuple<double, double, double>{1, 0, 0};
-    std::vector<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int>, std::allocator<std::tuple<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int>, unsigned int> > > links_from_cell_to_value;
-    double links_from_cell_to_value_line_width = static_cast<double>(2);
-    std::tuple<double, double, double> links_from_cell_to_value_color = std::tuple<double, double, double>{1, 0, 0};
+    std::pair<unsigned int, unsigned int> cell;
+    unsigned int value;
+    bool solved;
   };
   
-  template<unsigned int size>
-  void draw(std::shared_ptr<Cairo::Context>, const AnnotatedSudoku<size> &, const DrawOptions &);
+  struct SinglePlaceDeduction
+  {
+    unsigned int region;
+    std::pair<unsigned int, unsigned int> cell;
+    unsigned int value;
+    bool solved;
+  };
   
-}  // namespace art
+  struct PropagationTarget
+  {
+    std::pair<unsigned int, unsigned int> cell;
+    std::vector<SingleValueDeduction, std::allocator<SingleValueDeduction> > single_value_deductions;
+    std::vector<SinglePlaceDeduction, std::allocator<SinglePlaceDeduction> > single_place_deductions;
+    // inline constexpr ~PropagationTarget() noexcept = default;
+  };
+  
+  struct Propagation
+  {
+    std::pair<unsigned int, unsigned int> source;
+    unsigned int value;
+    std::vector<PropagationTarget, std::allocator<PropagationTarget> > targets;
+    // inline constexpr ~Propagation() noexcept = default;
+  };
+  
+  struct Exploration
+  {
+    std::pair<unsigned int, unsigned int> cell;
+    std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
+    std::vector<Hypothesis, std::allocator<Hypothesis> > explored_hypotheses;
+    // inline constexpr Exploration(Exploration &&) noexcept = default;
+    // inline constexpr ~Exploration() noexcept = default;
+  };
+  
+  struct Hypothesis
+  {
+    unsigned int value;
+    std::vector<Propagation, std::allocator<Propagation> > propagations;
+    std::optional<Exploration> exploration;
+    bool successful;
+    // inline constexpr ~Hypothesis() noexcept = default;
+  };
+  
+  struct Exploration;
+  Sudoku<ValueCell, 4> inputs;
+  std::vector<Propagation, std::allocator<Propagation> > propagations;
+  std::optional<Exploration> exploration;
+  
+  public: 
+  class Builder
+  {
+    
+    private: 
+    struct Frame
+    {
+      inline Frame(std::vector<Explanation<4>::Propagation, std::allocator<Explanation<4>::Propagation> > * propagations_, std::optional<Explanation<4>::Exploration> * exploration_, Hypothesis * hypothesis_);
+      
+      inline Frame(std::vector<Explanation<4>::Propagation, std::allocator<Explanation<4>::Propagation> > * propagations_, std::optional<Explanation<4>::Exploration> * exploration_)
+      : propagations{propagations_}
+      , exploration{exploration_}
+      , hypothesis{static_cast<Explanation<4>::Hypothesis *>(nullptr)}
+      , sudoku_is_solved{static_cast<bool *>(nullptr)}
+      {
+        (static_cast<bool>(this->propagations) ? void(0) : __assert_fail(static_cast<const char *>("propagations"), static_cast<const char *>("src/explanation/explanation.hpp"), static_cast<unsigned int>(92), static_cast<const char *>(__extension__"Explanation<4>::Builder::Frame::Frame(std::vector<Propagation> *, std::optional<Exploration> *) [size = 4]")));
+        (static_cast<bool>(this->exploration) ? void(0) : __assert_fail(static_cast<const char *>("exploration"), static_cast<const char *>("src/explanation/explanation.hpp"), static_cast<unsigned int>(93), static_cast<const char *>(__extension__"Explanation<4>::Builder::Frame::Frame(std::vector<Propagation> *, std::optional<Exploration> *) [size = 4]")));
+      }
+      
+      std::vector<Explanation<4>::Propagation, std::allocator<Explanation<4>::Propagation> > * propagations;
+      std::optional<Explanation<4>::Exploration> * exploration;
+      Hypothesis * hypothesis;
+      bool * sudoku_is_solved;
+      // inline constexpr Frame(const Frame &) noexcept = default;
+    };
+    
+    
+    public: 
+    inline Builder()
+    : explanation{Explanation<4>()}
+    , stack{std::vector<Frame, std::allocator<Frame> >(static_cast<unsigned long>(1), std::vector<Frame>::value_type{&this->explanation.propagations, &this->explanation.exploration}, static_cast<const std::allocator<Frame>>(std::allocator<Frame>()))}
+    {
+    }
+    
+    
+    public: 
+    void operator()(const exploration::CellIsSetInInput<4> &);
+    
+    void operator()(const exploration::InputsAreDone<4> &);
+    
+    void operator()(const exploration::PropagationStartsForSudoku<4> &);
+    
+    void operator()(const exploration::PropagationStartsForCell<4> &);
+    
+    void operator()(const exploration::CellPropagates<4> &);
+    
+    void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<4> &);
+    
+    void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> &);
+    
+    void operator()(const exploration::PropagationIsDoneForCell<4> &);
+    
+    void operator()(const exploration::PropagationIsDoneForSudoku<4> &);
+    
+    void operator()(const exploration::ExplorationStarts<4> &);
+    
+    void operator()(const exploration::HypothesisIsMade<4> &);
+    
+    void operator()(const exploration::HypothesisIsRejected<4> &);
+    
+    void operator()(const exploration::SudokuIsSolved<4> &);
+    
+    void operator()(const exploration::HypothesisIsAccepted<4> &);
+    
+    void operator()(const exploration::ExplorationIsDone<4> &);
+    
+    
+    public: 
+    inline Explanation<4> get()
+    {
+      (static_cast<bool>(static_cast<const std::vector<Frame, std::allocator<Frame> >>(this->stack).size() == static_cast<unsigned long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("stack.size() == 1"), static_cast<const char *>("src/explanation/explanation.hpp"), static_cast<unsigned int>(124), static_cast<const char *>(__extension__"Explanation<size> Explanation<4>::Builder::get() [size = 4]")));
+      return Explanation<4>(std::move<Explanation<4> &>(this->explanation));
+    }
+    
+    
+    private: 
+    Explanation<4> explanation;
+    std::vector<Frame, std::allocator<Frame> > stack;
+    public: 
+    // inline constexpr ~Builder() noexcept = default;
+  };
+  
+  // inline Explanation(Explanation<4> &&) noexcept(false) = default;
+  // inline constexpr ~Explanation() noexcept = default;
+  // inline Explanation() noexcept(false) = default;
+};
 
-#endif  // EXPLANATION_ART_HPP_
-# 13 "src/explanation/html-explainer.hpp"
+#endif
+
+
+
+#endif  // EXPLANATION_EXPLANATION_HPP_
+# 13 "src/main.impl.hpp"
+# 1 "src/explanation/html-explainer.hpp"
+// Copyright 2023 Vincent Jacques
+
+#ifndef EXPLANATION_HTML_EXPLAINER_HPP_
+#define EXPLANATION_HTML_EXPLAINER_HPP_
+
+#include <filesystem>
+
+# 9 "src/explanation/html-explainer.hpp"
 
 
 template<unsigned int size>
-class HtmlExplainer
-{
-  
-  public: 
-  inline explicit HtmlExplainer(const std::filesystem::path & directory_path_, unsigned int frame_width_, unsigned int frame_height_)
-  : directory_path{std::filesystem::path(directory_path_)}
-  , frame_width{frame_width_}
-  , frame_height{frame_height_}
-  , index_file{std::basic_ofstream<char>()}
-  , stack{}
-  {
-    std::filesystem::create_directories(static_cast<const std::filesystem::path>(this->directory_path));
-    this->index_file.open<std::filesystem::path>(static_cast<const std::filesystem::path>(operator/(static_cast<const std::filesystem::path>(this->directory_path), std::filesystem::path("index.html", std::filesystem::path::auto_format))), std::ios_base::out);
-  }
-  
-  
-  public: 
-  void operator()(const exploration::CellIsSetInInput<size> &);
-  
-  void operator()(const exploration::InputsAreDone<size> &);
-  
-  void operator()(const exploration::PropagationStartsForSudoku<size> &);
-  
-  void operator()(const exploration::PropagationStartsForCell<size> &);
-  
-  void operator()(const exploration::CellPropagates<size> &);
-  
-  void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<size> &);
-  
-  void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size> &);
-  
-  void operator()(const exploration::PropagationIsDoneForCell<size> &);
-  
-  void operator()(const exploration::PropagationIsDoneForSudoku<size> &);
-  
-  void operator()(const exploration::ExplorationStarts<size> &);
-  
-  void operator()(const exploration::HypothesisIsMade<size> &);
-  
-  void operator()(const exploration::HypothesisIsRejected<size> &);
-  
-  void operator()(const exploration::SudokuIsSolved<size> &);
-  
-  void operator()(const exploration::HypothesisIsAccepted<size> &);
-  
-  void operator()(const exploration::ExplorationIsDone<size> &);
-  
-  
-  private: 
-  struct MakeImageOptions
-  {
-    bool draw_stack = true;
-  };
-  
-  void make_image(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > &, art::DrawOptions, const MakeImageOptions &) const;
-  
-  
-  private: 
-  std::filesystem::path directory_path;
-  unsigned int frame_width;
-  unsigned int frame_height;
-  std::basic_ofstream<char> index_file;
-  Stack<size> stack;
-  mutable std::set<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::basic_string<char, std::char_traits<char>, std::allocator<char> > > > generated_image_names;
-};
-
-/* First instantiated from: type_traits:1274 */
-#ifdef INSIGHTS_USE_TEMPLATE
-template<>
-class HtmlExplainer<4>
-{
-  
-  public: 
-  inline explicit HtmlExplainer(const std::filesystem::path & directory_path_, unsigned int frame_width_, unsigned int frame_height_)
-  : directory_path{std::filesystem::path(directory_path_)}
-  , frame_width{frame_width_}
-  , frame_height{frame_height_}
-  , index_file{std::basic_ofstream<char>()}
-  , stack{Stack<4>()}
-  , generated_image_names{std::set<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::basic_string<char, std::char_traits<char>, std::allocator<char> > > >()}
-  {
-    std::filesystem::create_directories(static_cast<const std::filesystem::path>(this->directory_path));
-    this->index_file.open<std::filesystem::path>(static_cast<const std::filesystem::path>(operator/(static_cast<const std::filesystem::path>(this->directory_path), std::filesystem::path("index.html", std::filesystem::path::auto_format))), std::ios_base::out);
-  }
-  
-  
-  public: 
-  void operator()(const exploration::CellIsSetInInput<4> &);
-  
-  void operator()(const exploration::InputsAreDone<4> &);
-  
-  void operator()(const exploration::PropagationStartsForSudoku<4> &);
-  
-  void operator()(const exploration::PropagationStartsForCell<4> &);
-  
-  void operator()(const exploration::CellPropagates<4> &);
-  
-  void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<4> &);
-  
-  void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> &);
-  
-  void operator()(const exploration::PropagationIsDoneForCell<4> &);
-  
-  void operator()(const exploration::PropagationIsDoneForSudoku<4> &);
-  
-  void operator()(const exploration::ExplorationStarts<4> &);
-  
-  void operator()(const exploration::HypothesisIsMade<4> &);
-  
-  void operator()(const exploration::HypothesisIsRejected<4> &);
-  
-  void operator()(const exploration::SudokuIsSolved<4> &);
-  
-  void operator()(const exploration::HypothesisIsAccepted<4> &);
-  
-  void operator()(const exploration::ExplorationIsDone<4> &);
-  
-  
-  private: 
-  struct MakeImageOptions;
-  void make_image(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > &, art::DrawOptions, const MakeImageOptions &) const;
-  
-  
-  private: 
-  std::filesystem::path directory_path;
-  unsigned int frame_width;
-  unsigned int frame_height;
-  std::basic_ofstream<char> index_file;
-  Stack<4> stack;
-  mutable std::set<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::basic_string<char, std::char_traits<char>, std::allocator<char> > > > generated_image_names;
-  public: 
-  // inline HtmlExplainer(const HtmlExplainer<4> &) /* noexcept */ = delete;
-  // inline HtmlExplainer<4> & operator=(const HtmlExplainer<4> &) /* noexcept */ = delete;
-  // inline ~HtmlExplainer() = default;
-};
-
-#endif
-
+void explain_as_html(const Explanation<size> &, const std::filesystem::path &, unsigned int width, unsigned int height);
+;
 
 #endif  // EXPLANATION_HTML_EXPLAINER_HPP_
-# 12 "src/main.impl.hpp"
-# 1 "src/explanation/reorder.hpp"
-// Copyright 2023 Vincent Jacques
-
-#ifndef EXPLANATION_REORDER_HPP_
-#define EXPLANATION_REORDER_HPP_
-
-#include <functional>
-#include <vector>
-
-# 10 "src/explanation/reorder.hpp"
-
-
-template<unsigned int size, typename ProcessEvent>
-class Reorder
-{
-  
-  public: 
-  inline explicit Reorder(ProcessEvent * process_event_)
-  : process_event{*process_event_}
-  {
-  }
-  
-  
-  public: 
-  inline void operator()(const exploration::CellIsSetInInput<size> & event)
-  {
-    this->process_event(event);
-  }
-  
-  inline void operator()(const exploration::InputsAreDone<size> & event)
-  {
-    this->process_event(event);
-  }
-  
-  inline void operator()(const exploration::PropagationStartsForSudoku<size> & event)
-  {
-    this->process_event(event);
-  }
-  
-  inline void operator()(const exploration::PropagationStartsForCell<size> & event)
-  {
-    this->process_event(event);
-  }
-  
-  inline void operator()(const exploration::CellPropagates<size> & event)
-  {
-    this->process_event(event);
-  }
-  
-  inline void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<size> & event)
-  {
-    this->pending_cell_is_deduced_from_single_allowed_value_events.push_back(event);
-  }
-  
-  inline void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size> & event)
-  {
-    this->pending_cell_is_deduced_as_single_place_for_value_in_region_events.push_back(event);
-  }
-  
-  inline void operator()(const exploration::PropagationIsDoneForCell<size> & event)
-  {
-    this->process_event(event);
-    this->flush_pending_events();
-  }
-  
-  inline void operator()(const exploration::PropagationIsDoneForSudoku<size> & event)
-  {
-    this->process_event(event);
-  }
-  
-  inline void operator()(const exploration::ExplorationStarts<size> & event)
-  {
-    this->process_event(event);
-  }
-  
-  inline void operator()(const exploration::HypothesisIsMade<size> & event)
-  {
-    this->process_event(event);
-  }
-  
-  inline void operator()(const exploration::HypothesisIsRejected<size> & event)
-  {
-    this->process_event(event);
-  }
-  
-  inline void operator()(const exploration::SudokuIsSolved<size> & event)
-  {
-    this->flush_pending_events();
-    this->process_event(event);
-  }
-  
-  inline void operator()(const exploration::HypothesisIsAccepted<size> & event)
-  {
-    this->process_event(event);
-  }
-  
-  inline void operator()(const exploration::ExplorationIsDone<size> & event)
-  {
-    this->process_event(event);
-  }
-  
-  
-  private: 
-  inline void flush_pending_events()
-  {
-    {
-      auto && __range0 = this->pending_cell_is_deduced_from_single_allowed_value_events;
-      for(; ; ) {
-        const auto & event;
-        this->process_event(event);
-      }
-      
-    }
-    {
-      auto && __range0 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
-      for(; ; ) {
-        const auto & event;
-        this->process_event(event);
-      }
-      
-    }
-    this->pending_cell_is_deduced_from_single_allowed_value_events.clear();
-    this->pending_cell_is_deduced_as_single_place_for_value_in_region_events.clear();
-  }
-  
-  
-  private: 
-  ProcessEvent & process_event;
-  std::vector<exploration::CellIsDeducedFromSingleAllowedValue<size> > pending_cell_is_deduced_from_single_allowed_value_events;
-  std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size> > pending_cell_is_deduced_as_single_place_for_value_in_region_events;
-};
-
-/* First instantiated from: type_traits:1274 */
-#ifdef INSIGHTS_USE_TEMPLATE
-template<>
-class Reorder<4, TextExplainer<4> >
-{
-  
-  public: 
-  inline explicit Reorder(TextExplainer<4> * process_event_)
-  : process_event{*process_event_}
-  , pending_cell_is_deduced_from_single_allowed_value_events{std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > >()}
-  , pending_cell_is_deduced_as_single_place_for_value_in_region_events{std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > >()}
-  {
-  }
-  
-  
-  public: 
-  inline void operator()(const exploration::CellIsSetInInput<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::InputsAreDone<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::PropagationStartsForSudoku<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::PropagationStartsForCell<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::CellPropagates<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<4> & event)
-  {
-    this->pending_cell_is_deduced_from_single_allowed_value_events.push_back(event);
-  }
-  
-  inline void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event)
-  {
-    this->pending_cell_is_deduced_as_single_place_for_value_in_region_events.push_back(event);
-  }
-  
-  inline void operator()(const exploration::PropagationIsDoneForCell<4> & event)
-  {
-    this->process_event.operator()(event);
-    this->flush_pending_events();
-  }
-  
-  inline void operator()(const exploration::PropagationIsDoneForSudoku<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::ExplorationStarts<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::HypothesisIsMade<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::HypothesisIsRejected<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::SudokuIsSolved<4> & event)
-  {
-    this->flush_pending_events();
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::HypothesisIsAccepted<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::ExplorationIsDone<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  
-  private: 
-  inline void flush_pending_events()
-  {
-    {
-      std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > & __range0 = this->pending_cell_is_deduced_from_single_allowed_value_events;
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __begin0 = __range0.begin();
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __end0 = __range0.end();
-      for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__end0)); __begin0.operator++()) {
-        const exploration::CellIsDeducedFromSingleAllowedValue<4> & event = static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin0).operator*());
-        this->process_event.operator()(event);
-      }
-      
-    }
-    {
-      std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > & __range0 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __begin0 = __range0.begin();
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __end0 = __range0.end();
-      for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__end0)); __begin0.operator++()) {
-        const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event = static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin0).operator*());
-        this->process_event.operator()(event);
-      }
-      
-    }
-    this->pending_cell_is_deduced_from_single_allowed_value_events.clear();
-    this->pending_cell_is_deduced_as_single_place_for_value_in_region_events.clear();
-  }
-  
-  
-  private: 
-  TextExplainer<4> & process_event;
-  std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > pending_cell_is_deduced_from_single_allowed_value_events;
-  std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > pending_cell_is_deduced_as_single_place_for_value_in_region_events;
-  public: 
-  // inline Reorder<4, TextExplainer<4> > & operator=(const Reorder<4, TextExplainer<4> > &) /* noexcept */ = delete;
-  // inline Reorder<4, TextExplainer<4> > & operator=(Reorder<4, TextExplainer<4> > &&) /* noexcept */ = delete;
-  // inline constexpr ~Reorder() noexcept = default;
-};
-
-#endif
-/* First instantiated from: type_traits:1274 */
-#ifdef INSIGHTS_USE_TEMPLATE
-template<>
-class Reorder<4, VideoExplainer<4> >
-{
-  
-  public: 
-  inline explicit Reorder(VideoExplainer<4> * process_event_)
-  : process_event{*process_event_}
-  , pending_cell_is_deduced_from_single_allowed_value_events{std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > >()}
-  , pending_cell_is_deduced_as_single_place_for_value_in_region_events{std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > >()}
-  {
-  }
-  
-  
-  public: 
-  inline void operator()(const exploration::CellIsSetInInput<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::InputsAreDone<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::PropagationStartsForSudoku<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::PropagationStartsForCell<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::CellPropagates<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<4> & event)
-  {
-    this->pending_cell_is_deduced_from_single_allowed_value_events.push_back(event);
-  }
-  
-  inline void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event)
-  {
-    this->pending_cell_is_deduced_as_single_place_for_value_in_region_events.push_back(event);
-  }
-  
-  inline void operator()(const exploration::PropagationIsDoneForCell<4> & event)
-  {
-    this->process_event.operator()(event);
-    this->flush_pending_events();
-  }
-  
-  inline void operator()(const exploration::PropagationIsDoneForSudoku<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::ExplorationStarts<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::HypothesisIsMade<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::HypothesisIsRejected<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::SudokuIsSolved<4> & event)
-  {
-    this->flush_pending_events();
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::HypothesisIsAccepted<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  inline void operator()(const exploration::ExplorationIsDone<4> & event)
-  {
-    this->process_event.operator()(event);
-  }
-  
-  
-  private: 
-  inline void flush_pending_events()
-  {
-    {
-      std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > & __range0 = this->pending_cell_is_deduced_from_single_allowed_value_events;
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __begin0 = __range0.begin();
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > > __end0 = __range0.end();
-      for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__end0)); __begin0.operator++()) {
-        const exploration::CellIsDeducedFromSingleAllowedValue<4> & event = static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedFromSingleAllowedValue<4> *, std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > >>(__begin0).operator*());
-        this->process_event.operator()(event);
-      }
-      
-    }
-    {
-      std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > & __range0 = this->pending_cell_is_deduced_as_single_place_for_value_in_region_events;
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __begin0 = __range0.begin();
-      __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > > __end0 = __range0.end();
-      for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__end0)); __begin0.operator++()) {
-        const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event = static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>>(static_cast<const __gnu_cxx::__normal_iterator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> *, std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > >>(__begin0).operator*());
-        this->process_event.operator()(event);
-      }
-      
-    }
-    this->pending_cell_is_deduced_from_single_allowed_value_events.clear();
-    this->pending_cell_is_deduced_as_single_place_for_value_in_region_events.clear();
-  }
-  
-  
-  private: 
-  VideoExplainer<4> & process_event;
-  std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > pending_cell_is_deduced_from_single_allowed_value_events;
-  std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > pending_cell_is_deduced_as_single_place_for_value_in_region_events;
-  public: 
-  // inline Reorder<4, VideoExplainer<4> > & operator=(const Reorder<4, VideoExplainer<4> > &) /* noexcept */ = delete;
-  // inline Reorder<4, VideoExplainer<4> > & operator=(Reorder<4, VideoExplainer<4> > &&) /* noexcept */ = delete;
-  // inline constexpr ~Reorder() noexcept = default;
-};
-
-#endif
-
-
-#endif  // EXPLANATION_REORDER_HPP_
-# 13 "src/main.impl.hpp"
+# 14 "src/main.impl.hpp"
 # 1 "src/explanation/text-explainer.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLANATION_TEXT_EXPLAINER_HPP_
 #define EXPLANATION_TEXT_EXPLAINER_HPP_
 
-#include <string>
+#include <iostream>
 
-#include <boost/format.hpp>
-
-# 11 "src/explanation/text-explainer.hpp"
+# 9 "src/explanation/text-explainer.hpp"
 
 
 template<unsigned int size>
-class TextExplainer
-{
-  
-  public: 
-  inline explicit TextExplainer(std::basic_ostream<char> & os_)
-  : os{os_}
-  , hypotheses_count{static_cast<unsigned int>(0)}
-  {
-  }
-  
-  inline ~TextExplainer()
-  {
-    (static_cast<bool>(this->hypotheses_count == static_cast<unsigned int>(0)) ? void(0) : __assert_fail("hypotheses_count == 0", "src/explanation/text-explainer.hpp", 19, __extension____PRETTY_FUNCTION__));
-  }
-  
-  
-  public: 
-  inline void operator()(const exploration::CellIsSetInInput<size> & event)
-  {
-    this->print_prefix();
-    this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%2%, %3%) is set to %1% in the input\n"))) % (event.value + 1)) % (event.cell.first + 1)) % (event.cell.second + 1));
-  }
-  
-  inline void operator()(const exploration::InputsAreDone<size> &)
-  {
-    this->print_prefix();
-    std::operator<<(this->os, static_cast<const char *>("All inputs have been set\n"));
-  }
-  
-  inline void operator()(const exploration::PropagationStartsForSudoku<size> &)
-  {
-    this->print_prefix();
-    std::operator<<(this->os, static_cast<const char *>("Propagation starts\n"));
-  }
-  
-  inline void operator()(const exploration::PropagationStartsForCell<size> & event)
-  {
-    this->print_prefix();
-    this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Propagation starts for %1% in (%2%, %3%)\n"))) % (event.value + 1)) % (event.cell.first + 1)) % (event.cell.second + 1));
-  }
-  
-  inline void operator()(const exploration::CellPropagates<size> & event)
-  {
-    this->print_prefix();
-    this->os << (((((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("%1% in (%2%, %3%) forbids %1% in (%4%, %5%)\n"))) % (event.value + 1)) % (event.source_cell.first + 1)) % (event.source_cell.second + 1)) % (event.target_cell.first + 1)) % (event.target_cell.second + 1));
-  }
-  
-  inline void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<size> & event)
-  {
-    this->print_prefix();
-    this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can only be %3%\n"))) % (event.cell.first + 1)) % (event.cell.second + 1)) % (event.value + 1));
-  }
-  
-  inline void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size> & event)
-  {
-    this->print_prefix();
-    this->os << ((((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("In region %4%, only (%1%, %2%) can be %3%\n"))) % (event.cell.first + 1)) % (event.cell.second + 1)) % (event.value + 1)) % (event.region + 1));
-  }
-  
-  inline void operator()(const exploration::PropagationIsDoneForCell<size> & event)
-  {
-    this->print_prefix();
-    this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("%1% in (%2%, %3%) has been fully propagated\n"))) % (event.value + 1)) % (event.cell.first + 1)) % (event.cell.second + 1));
-  }
-  
-  inline void operator()(const exploration::PropagationIsDoneForSudoku<size> &)
-  {
-    this->print_prefix();
-    std::operator<<(this->os, static_cast<const char *>("All cells have been fully propagated\n"));
-  }
-  
-  inline void operator()(const exploration::ExplorationStarts<size> & event)
-  {
-    this->print_prefix();
-    this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Exploration starts for (%1%, %2%) with %3% possible values\n"))) % (event.cell.first + 1)) % (event.cell.second + 1)) % event.allowed_values.size());
-  }
-  
-  inline void operator()(const exploration::HypothesisIsMade<size> & event)
-  {
-    this->print_prefix();
-    ++this->hypotheses_count;
-    this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) may be %3%\n"))) % (event.cell.first + 1)) % (event.cell.second + 1)) % (event.value + 1));
-  }
-  
-  inline void operator()(const exploration::HypothesisIsRejected<size> & event)
-  {
-    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail("hypotheses_count > 0", "src/explanation/text-explainer.hpp", 89, __extension____PRETTY_FUNCTION__));
-    this->print_prefix();
-    --this->hypotheses_count;
-    this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Hypothesis that (%1%, %2%) may have been %3% must be back-tracked\n"))) % (event.cell.first + 1)) % (event.cell.second + 1)) % (event.value + 1));
-  }
-  
-  inline void operator()(const exploration::SudokuIsSolved<size> &)
-  {
-    this->print_prefix();
-    std::operator<<(this->os, static_cast<const char *>("Sudoku is solved\n"));
-  }
-  
-  inline void operator()(const exploration::HypothesisIsAccepted<size> & event)
-  {
-    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail("hypotheses_count > 0", "src/explanation/text-explainer.hpp", 102, __extension____PRETTY_FUNCTION__));
-    this->print_prefix();
-    --this->hypotheses_count;
-    this->os << (((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can indeed be %3%\n"))) % (event.cell.first + 1)) % (event.cell.second + 1)) % (event.value + 1));
-  }
-  
-  inline void operator()(const exploration::ExplorationIsDone<size> & event)
-  {
-    this->print_prefix();
-    this->os << ((boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Exploration is done for (%1%, %2%)\n"))) % (event.cell.first + 1)) % (event.cell.second + 1));
-  }
-  
-  
-  private: 
-  inline void print_prefix()
-  {
-    for(unsigned int i = static_cast<unsigned int>(0); i < this->hypotheses_count; ++i) {
-      std::operator<<(this->os, static_cast<const char *>("  "));
-    }
-    
-  }
-  
-  
-  private: 
-  std::basic_ostream<char> & os;
-  unsigned int hypotheses_count;
-};
-
-/* First instantiated from: type_traits:1274 */
-#ifdef INSIGHTS_USE_TEMPLATE
-template<>
-class TextExplainer<4>
-{
-  
-  public: 
-  inline explicit TextExplainer(std::basic_ostream<char> & os_)
-  : os{os_}
-  , hypotheses_count{static_cast<unsigned int>(0)}
-  {
-  }
-  
-  inline ~TextExplainer() noexcept
-  {
-    (static_cast<bool>(this->hypotheses_count == static_cast<unsigned int>(0)) ? void(0) : __assert_fail(static_cast<const char *>("hypotheses_count == 0"), static_cast<const char *>("src/explanation/text-explainer.hpp"), static_cast<unsigned int>(19), static_cast<const char *>(__extension__"TextExplainer<4>::~TextExplainer() [size = 4]")));
-  }
-  
-  
-  public: 
-  inline void operator()(const exploration::CellIsSetInInput<4> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%2%, %3%) is set to %1% in the input\n"))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::InputsAreDone<4> &)
-  {
-    this->print_prefix();
-    std::operator<<(this->os, static_cast<const char *>("All inputs have been set\n"));
-  }
-  
-  inline void operator()(const exploration::PropagationStartsForSudoku<4> &)
-  {
-    this->print_prefix();
-    std::operator<<(this->os, static_cast<const char *>("Propagation starts\n"));
-  }
-  
-  inline void operator()(const exploration::PropagationStartsForCell<4> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Propagation starts for %1% in (%2%, %3%)\n"))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::CellPropagates<4> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("%1% in (%2%, %3%) forbids %1% in (%4%, %5%)\n"))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.source_cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.source_cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.target_cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.target_cell.second + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<4> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can only be %3%\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("In region %4%, only (%1%, %2%) can be %3%\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.region + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::PropagationIsDoneForCell<4> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("%1% in (%2%, %3%) has been fully propagated\n"))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::PropagationIsDoneForSudoku<4> &)
-  {
-    this->print_prefix();
-    std::operator<<(this->os, static_cast<const char *>("All cells have been fully propagated\n"));
-  }
-  
-  inline void operator()(const exploration::ExplorationStarts<4> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Exploration starts for (%1%, %2%) with %3% possible values\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned long>(event.allowed_values.size()))));
-  }
-  
-  inline void operator()(const exploration::HypothesisIsMade<4> & event)
-  {
-    this->print_prefix();
-    ++this->hypotheses_count;
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) may be %3%\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::HypothesisIsRejected<4> & event)
-  {
-    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail(static_cast<const char *>("hypotheses_count > 0"), static_cast<const char *>("src/explanation/text-explainer.hpp"), static_cast<unsigned int>(89), static_cast<const char *>(__extension__"void TextExplainer<4>::operator()(const exploration::HypothesisIsRejected<size> &) [size = 4]")));
-    this->print_prefix();
-    --this->hypotheses_count;
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Hypothesis that (%1%, %2%) may have been %3% must be back-tracked\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::SudokuIsSolved<4> &)
-  {
-    this->print_prefix();
-    std::operator<<(this->os, static_cast<const char *>("Sudoku is solved\n"));
-  }
-  
-  inline void operator()(const exploration::HypothesisIsAccepted<4> & event)
-  {
-    (static_cast<bool>(this->hypotheses_count > static_cast<unsigned int>(0)) ? void(0) : __assert_fail(static_cast<const char *>("hypotheses_count > 0"), static_cast<const char *>("src/explanation/text-explainer.hpp"), static_cast<unsigned int>(102), static_cast<const char *>(__extension__"void TextExplainer<4>::operator()(const exploration::HypothesisIsAccepted<size> &) [size = 4]")));
-    this->print_prefix();
-    --this->hypotheses_count;
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("(%1%, %2%) can indeed be %3%\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.value + static_cast<unsigned int>(1))))));
-  }
-  
-  inline void operator()(const exploration::ExplorationIsDone<4> & event)
-  {
-    this->print_prefix();
-    boost::operator<<(this->os, static_cast<const boost::basic_format<char, std::char_traits<char>, std::allocator<char> >>(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(boost::basic_format<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Exploration is done for (%1%, %2%)\n"))).operator%(static_cast<const unsigned int>((event.cell.first + static_cast<unsigned int>(1)))).operator%(static_cast<const unsigned int>((event.cell.second + static_cast<unsigned int>(1))))));
-  }
-  
-  
-  private: 
-  inline void print_prefix()
-  {
-    for(unsigned int i = static_cast<unsigned int>(0); i < this->hypotheses_count; ++i) {
-      std::operator<<(this->os, static_cast<const char *>("  "));
-    }
-    
-  }
-  
-  
-  private: 
-  std::basic_ostream<char> & os;
-  unsigned int hypotheses_count;
-  public: 
-  // inline TextExplainer<4> & operator=(const TextExplainer<4> &) /* noexcept */ = delete;
-};
-
-#endif
-
+void explain_as_text(const Explanation<size> &, std::basic_ostream<char> &, bool);
+;
 
 #endif  // EXPLANATION_TEXT_EXPLAINER_HPP_
-# 14 "src/main.impl.hpp"
+# 15 "src/main.impl.hpp"
 # 1 "src/explanation/video/frames-serializer.hpp"
 // Copyright 2023 Vincent Jacques
 
@@ -3039,498 +2503,23 @@ namespace video
 }  // namespace video
 
 #endif  // EXPLANATION_VIDEO_FRAMES_SERIALIZER_HPP_
-# 15 "src/main.impl.hpp"
+# 16 "src/main.impl.hpp"
 # 1 "src/explanation/video-explainer.hpp"
 // Copyright 2023 Vincent Jacques
 
 #ifndef EXPLANATION_VIDEO_EXPLAINER_HPP_
 #define EXPLANATION_VIDEO_EXPLAINER_HPP_
 
-#include <cairomm/cairomm.h>
-
-#include <filesystem>
-#include <iomanip>
-#include <ranges>  // NOLINT(build/include_order)
-#include <string>
-#include <tuple>
-#include <vector>
-
-# 16 "src/explanation/video-explainer.hpp"
-# 17 "src/explanation/video-explainer.hpp"
-
-
-// Like Cairo::SaveGuard
-class CairoSaveGuard
-{
-  
-  public: 
-  inline explicit CairoSaveGuard(Cairo::Context & cr_)
-  : cr{cr_}
-  {
-    this->cr.save();
-  }
-  
-  inline ~CairoSaveGuard() noexcept
-  {
-    this->cr.restore();
-  }
-  
-  
-  private: 
-  Cairo::Context & cr;
-  public: 
-};
-
+# 7 "src/explanation/video-explainer.hpp"
+# 8 "src/explanation/video-explainer.hpp"
 
 
 template<unsigned int size>
-class VideoExplainer
-{
-  inline static constexpr const unsigned int margin_pixels = static_cast<const unsigned int>(10);
-  inline static constexpr const unsigned int thick_line_width = static_cast<const unsigned int>(4);
-  inline static constexpr const unsigned int thin_line_width = static_cast<const unsigned int>(2);
-  
-  public: 
-  inline VideoExplainer(video::Serializer * video_serializer_, const bool quick_, unsigned int frame_width_, unsigned int frame_height_)
-  : before{}
-  , after{}
-  , frame_width_pixels{frame_width_}
-  , frame_height_pixels{frame_height_}
-  , viewport_height_pixels{this->frame_height_pixels - (static_cast<unsigned int>(2) * margin_pixels)}
-  , viewport_width_pixels{this->frame_width_pixels - (static_cast<unsigned int>(2) * margin_pixels)}
-  , surface{Cairo::ImageSurface::create(Cairo::Surface::Format::ARGB32, static_cast<int>(this->frame_width_pixels), static_cast<int>(this->frame_height_pixels))}
-  , context{Cairo::Context::create(static_cast<const std::shared_ptr<Cairo::Surface>>(std::shared_ptr<Cairo::Surface>(static_cast<const std::shared_ptr<Cairo::ImageSurface>>(this->surface))))}
-  , cr{static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->context).operator*()}
-  , video_serializer{video_serializer_}
-  , quick{quick_}
-  {
-  }
-  
-  
-  private: 
-  template<typename Event>
-  class VisitEventsGuard
-  {
-    
-    public: 
-    inline VisitEventsGuard(VideoExplainer<size> * explainer_, const Event & event)
-    : explainer{*explainer_}
-    , events{}
-    , before{this->explainer.before}
-    , after{this->explainer.after}
-    {
-      event.apply(&this->explainer.after);
-      this->events.push_back(event);
-    }
-    
-    inline VisitEventsGuard(VideoExplainer<size> * explainer_, const std::vector<Event> & events_)
-    : explainer{*explainer_}
-    , events{}
-    , before{this->explainer.before}
-    , after{this->explainer.after}
-    {
-      {
-        auto && __range1 = events_;
-        for(; ; ) {
-          const auto & event;
-          event.apply(&this->explainer.after);
-          this->events.push_back(event);
-        }
-        
-      }
-    }
-    
-    // inline VisitEventsGuard(const VisitEventsGuard<Event> &) = delete;
-    // inline VisitEventsGuard<Event> & operator=(const VisitEventsGuard<Event> &) = delete;
-    // inline VisitEventsGuard(VisitEventsGuard<Event> &&) = delete;
-    // inline VisitEventsGuard<Event> & operator=(VisitEventsGuard<Event> &&) = delete;
-    inline ~VisitEventsGuard()
-    {
-      {
-        auto && __range1 = this->events;
-        for(; ; ) {
-          const auto & event;
-          event.apply(&this->explainer.before);
-        }
-        
-      }
-    }
-    
-    
-    private: 
-    VideoExplainer<size> & explainer;
-    std::vector<Event> events;
-    
-    public: 
-    const Stack<size> & before;
-    const Stack<size> & after;
-  };
-  
-  template<typename Event>
-  VisitEventsGuard(VideoExplainer<size> *, const Event &) -> VisitEventsGuard<Event>;
-  template<typename Event>
-  VisitEventsGuard(VideoExplainer<size> *, const std::vector<Event> &) -> VisitEventsGuard<Event>;
-  class FrameGuard
-  {
-    
-    public: 
-    inline explicit FrameGuard(VideoExplainer<size> * explainer_)
-    : explainer{*explainer_}
-    , cr{this->explainer.cr}
-    {
-      {
-        CairoSaveGuard saver = CairoSaveGuard(this->cr);
-        this->cr.set_source_rgb(1.0, 0.80000000000000004, 0.80000000000000004);
-        this->cr.paint();
-        this->cr.set_source_rgb(1.0, 1.0, 1.0);
-        this->cr.rectangle(this->explainer.margin_pixels, this->explainer.margin_pixels, this->explainer.viewport_width_pixels, this->explainer.viewport_height_pixels);
-        this->cr.fill();
-      };
-      this->cr.save();
-      this->cr.translate(this->explainer.margin_pixels, this->explainer.margin_pixels);
-    }
-    
-    // inline FrameGuard(const FrameGuard &) = delete;
-    // inline FrameGuard & operator=(const FrameGuard &) = delete;
-    // inline FrameGuard(FrameGuard &&) = delete;
-    // inline FrameGuard & operator=(FrameGuard &&) = delete;
-    inline ~FrameGuard()
-    {
-      this->cr.restore();
-      CairoSaveGuard saver = CairoSaveGuard(this->cr);
-      this->cr.rectangle(0, 0, this->explainer.frame_width_pixels, this->explainer.frame_height_pixels);
-      this->cr.rectangle(this->explainer.margin_pixels, this->explainer.margin_pixels, this->explainer.viewport_width_pixels, this->explainer.viewport_height_pixels);
-      this->cr.set_source_rgba(0.5, 0.5, 0.5, 0.5);
-      this->cr.set_fill_rule(Cairo::Context::FillRule::EVEN_ODD);
-      this->cr.fill();
-      this->explainer.video_serializer->serialize(this->explainer.surface);
-    }
-    
-    
-    private: 
-    VideoExplainer<size> & explainer;
-    Cairo::Context & cr;
-  };
-  
-  struct Text
-  {
-    std::basic_string<char, std::char_traits<char>, std::allocator<char> > text;
-    double font_size;
-    enum 
-    {
-      Normal, 
-      Bold
-    };
-    
-    enum (unnamed) weight;
-  };
-  
-  struct Layout
-  {
-    std::vector<Text> above = {};
-    std::vector<Text> below = {};
-  };
-  
-  
-  private: 
-  inline unsigned int quicken(unsigned int n)
-  {
-    if(this->quick) {
-      return static_cast<unsigned int>(1);
-    } else {
-      return n;
-    } 
-    
-  }
-  
-  
-  public: 
-  void operator()(const exploration::CellIsSetInInput<size> &);
-  
-  void operator()(const exploration::InputsAreDone<size> &);
-  
-  void operator()(const exploration::PropagationStartsForSudoku<size> &);
-  
-  void operator()(const exploration::PropagationStartsForCell<size> &);
-  
-  void operator()(const exploration::CellPropagates<size> &);
-  
-  void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<size> &);
-  
-  void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size> &);
-  
-  void operator()(const exploration::PropagationIsDoneForCell<size> &);
-  
-  void operator()(const exploration::PropagationIsDoneForSudoku<size> &);
-  
-  void operator()(const exploration::ExplorationStarts<size> &);
-  
-  void operator()(const exploration::HypothesisIsMade<size> &);
-  
-  void operator()(const exploration::HypothesisIsRejected<size> &);
-  
-  void operator()(const exploration::SudokuIsSolved<size> &);
-  
-  void operator()(const exploration::HypothesisIsAccepted<size> &);
-  
-  void operator()(const exploration::ExplorationIsDone<size> &);
-  
-  void flush_pending_cell_propagates_events();
-  
-  void flush_pending_cell_is_deduced_from_single_allowed_value_events();
-  
-  void flush_pending_cell_is_deduced_as_single_place_for_value_in_region_events();
-  
-  void flush_pending_events();
-  
-  
-  private: 
-  inline std::tuple<double, double, double> draw_layout(const Layout & layout)
-  {
-    CairoSaveGuard saver = CairoSaveGuard(this->cr);
-    double above_height = static_cast<double>(0);
-    {
-      auto && __range0 = layout.above;
-      for(; ; ) {
-        const auto & text;
-        this->cr.set_font_size(text.font_size);
-        switch(text.weight) {
-          case Text::Normal: this->cr.select_font_face(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("sans"), static_cast<const std::allocator<char>>(std::allocator<char>())), Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::NORMAL);
-          break;
-          case Text::Bold: this->cr.select_font_face(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("sans"), static_cast<const std::allocator<char>>(std::allocator<char>())), Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::BOLD);
-          break;
-        }
-        __anon_1193_9 extents;
-        this->cr.get_text_extents(text.text, extents);
-        this->cr.move_to(((static_cast<double>(this->viewport_width_pixels) - extents.width) / static_cast<double>(2)) - extents.x_bearing, above_height - extents.y_bearing);
-        this->cr.show_text(text.text);
-        above_height = above_height + extents.height;
-      }
-      
-    }
-    double below_height = static_cast<double>(0);
-    {
-      auto && __range0 = layout.below | std::ranges::views::reverse;
-      for(; ; ) {
-        const auto & text;
-        this->cr.set_font_size(text.font_size);
-        switch(text.weight) {
-          case Text::Normal: this->cr.select_font_face(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("sans"), static_cast<const std::allocator<char>>(std::allocator<char>())), Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::NORMAL);
-          break;
-          case Text::Bold: this->cr.select_font_face(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("sans"), static_cast<const std::allocator<char>>(std::allocator<char>())), Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::BOLD);
-          break;
-        }
-        __anon_1193_9 extents;
-        this->cr.get_text_extents(text.text, extents);
-        below_height = below_height + extents.height;
-        this->cr.move_to(((static_cast<double>(this->viewport_width_pixels) - extents.width) / static_cast<double>(2)) - extents.x_bearing, (static_cast<double>(this->viewport_height_pixels) - below_height) - extents.y_bearing);
-        this->cr.show_text(text.text);
-      }
-      
-    }
-    const unsigned int available_height = static_cast<const unsigned int>((static_cast<double>(this->viewport_height_pixels) - above_height) - below_height);
-    const unsigned int grid_size = (((available_height - thick_line_width) / size) * size) + thick_line_width;
-    const unsigned int grid_x = (this->viewport_width_pixels - grid_size) / static_cast<unsigned int>(2);
-    const unsigned int grid_y = static_cast<const unsigned int>(above_height + (static_cast<double>((available_height - grid_size) / static_cast<unsigned int>(2))));
-    return std::tuple<double, double, double>(std::make_tuple<const unsigned int &, const unsigned int &, const unsigned int &>(grid_x, grid_y, grid_size));
-  }
-  
-  inline std::tuple<double, double, double> draw_layout_transition(const Layout & before, const Layout & after, const double ratio)
-  {
-    CairoSaveGuard saver = CairoSaveGuard(this->cr);
-    const double above_height_before = this->compute_text_height(before.above);
-    const double below_height_before = this->compute_text_height(before.below);
-    const unsigned int available_height_before = static_cast<const unsigned int>((static_cast<double>(this->viewport_height_pixels) - above_height_before) - below_height_before);
-    const unsigned int grid_size_before = (((available_height_before - thick_line_width) / size) * size) + thick_line_width;
-    const double grid_x_before = static_cast<const double>((this->viewport_width_pixels - grid_size_before) / static_cast<unsigned int>(2));
-    const double grid_y_before = above_height_before + (static_cast<double>((available_height_before - grid_size_before) / static_cast<unsigned int>(2)));
-    const double above_height_after = this->compute_text_height(after.above);
-    const double below_height_after = this->compute_text_height(after.below);
-    const unsigned int available_height_after = static_cast<const unsigned int>((static_cast<double>(this->viewport_height_pixels) - above_height_after) - below_height_after);
-    const unsigned int grid_size_after = (((available_height_after - thick_line_width) / size) * size) + thick_line_width;
-    const double grid_x_after = static_cast<const double>((this->viewport_width_pixels - grid_size_after) / static_cast<unsigned int>(2));
-    const double grid_y_after = above_height_after + (static_cast<double>((available_height_after - grid_size_after) / static_cast<unsigned int>(2)));
-    const double grid_size = static_cast<double>(grid_size_before) + (ratio * static_cast<double>((grid_size_after - grid_size_before)));
-    const double grid_x = grid_x_before + (ratio * (grid_x_after - grid_x_before));
-    const double grid_y = grid_y_before + (ratio * (grid_y_after - grid_y_before));
-    return std::make_tuple<const double &, const double &, const double &>(grid_x, grid_y, grid_size);
-  }
-  
-  inline double compute_text_height(const std::vector<Text> & texts) const
-  {
-    CairoSaveGuard saver = CairoSaveGuard(this->cr);
-    double height = static_cast<double>(0);
-    {
-      auto && __range0 = texts;
-      for(; ; ) {
-        const auto & text;
-        this->cr.set_font_size(text.font_size);
-        switch(text.weight) {
-          case Text::Normal: this->cr.select_font_face(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("sans"), static_cast<const std::allocator<char>>(std::allocator<char>())), Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::NORMAL);
-          break;
-          case Text::Bold: this->cr.select_font_face(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("sans"), static_cast<const std::allocator<char>>(std::allocator<char>())), Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::BOLD);
-          break;
-        }
-        __anon_1193_9 extents;
-        this->cr.get_text_extents(text.text, extents);
-        height = height + extents.height;
-      }
-      
-    }
-    return height;
-  }
-  
-  
-  private: 
-  Stack<size> before;
-  Stack<size> after;
-  unsigned int frame_width_pixels;
-  unsigned int frame_height_pixels;
-  unsigned int viewport_height_pixels;
-  unsigned int viewport_width_pixels;
-  std::shared_ptr<Cairo::ImageSurface> surface;
-  std::shared_ptr<Cairo::Context> context;
-  Cairo::Context & cr;
-  video::Serializer * video_serializer;
-  const bool quick;
-  
-  private: 
-  unsigned int single_propagations_handled;
-  unsigned int cell_propagations_handled;
-  unsigned int deductions_handled;
-  std::vector<exploration::CellPropagates<size> > pending_cell_propagates_events;
-  std::vector<exploration::CellIsDeducedFromSingleAllowedValue<size> > pending_cell_is_deduced_from_single_allowed_value_events;
-  std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size> > pending_cell_is_deduced_as_single_place_for_value_in_region_events;
-};
-
-/* First instantiated from: type_traits:1274 */
-#ifdef INSIGHTS_USE_TEMPLATE
-template<>
-class VideoExplainer<4>
-{
-  inline static constexpr const unsigned int margin_pixels = static_cast<const unsigned int>(10);
-  static constexpr const unsigned int thick_line_width;
-  static constexpr const unsigned int thin_line_width;
-  
-  public: 
-  inline VideoExplainer(video::Serializer * video_serializer_, const bool quick_, unsigned int frame_width_, unsigned int frame_height_)
-  : before{Stack<4>()}
-  , after{Stack<4>()}
-  , frame_width_pixels{frame_width_}
-  , frame_height_pixels{frame_height_}
-  , viewport_height_pixels{this->frame_height_pixels - (static_cast<unsigned int>(2) * margin_pixels)}
-  , viewport_width_pixels{this->frame_width_pixels - (static_cast<unsigned int>(2) * margin_pixels)}
-  , surface{Cairo::ImageSurface::create(Cairo::Surface::Format::ARGB32, static_cast<int>(this->frame_width_pixels), static_cast<int>(this->frame_height_pixels))}
-  , context{Cairo::Context::create(static_cast<const std::shared_ptr<Cairo::Surface>>(std::shared_ptr<Cairo::Surface>(static_cast<const std::shared_ptr<Cairo::ImageSurface>>(this->surface))))}
-  , cr{static_cast<const std::__shared_ptr_access<Cairo::Context, 2, false, false>&>(this->context).operator*()}
-  , video_serializer{video_serializer_}
-  , quick{quick_}
-  , single_propagations_handled{static_cast<unsigned int>(0)}
-  , cell_propagations_handled{static_cast<unsigned int>(0)}
-  , deductions_handled{static_cast<unsigned int>(0)}
-  , pending_cell_propagates_events{std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > >()}
-  , pending_cell_is_deduced_from_single_allowed_value_events{std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > >()}
-  , pending_cell_is_deduced_as_single_place_for_value_in_region_events{std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > >()}
-  {
-  }
-  
-  
-  private: 
-  template<typename Event>
-  class VisitEventsGuard;
-  public: 
-  private: 
-  template<typename Event>
-  VisitEventsGuard(VideoExplainer<4> *, const Event &) -> VisitEventsGuard<Event>;
-  template<typename Event>
-  VisitEventsGuard(VideoExplainer<4> *, const std::vector<Event> &) -> VisitEventsGuard<Event>;
-  class FrameGuard;
-  struct Text;
-  struct Layout;
-  
-  private: 
-  inline unsigned int quicken(unsigned int n);
-  
-  
-  public: 
-  void operator()(const exploration::CellIsSetInInput<4> &);
-  
-  void operator()(const exploration::InputsAreDone<4> &);
-  
-  void operator()(const exploration::PropagationStartsForSudoku<4> &);
-  
-  void operator()(const exploration::PropagationStartsForCell<4> &);
-  
-  void operator()(const exploration::CellPropagates<4> &);
-  
-  void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<4> &);
-  
-  void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> &);
-  
-  void operator()(const exploration::PropagationIsDoneForCell<4> &);
-  
-  void operator()(const exploration::PropagationIsDoneForSudoku<4> &);
-  
-  void operator()(const exploration::ExplorationStarts<4> &);
-  
-  void operator()(const exploration::HypothesisIsMade<4> &);
-  
-  void operator()(const exploration::HypothesisIsRejected<4> &);
-  
-  void operator()(const exploration::SudokuIsSolved<4> &);
-  
-  void operator()(const exploration::HypothesisIsAccepted<4> &);
-  
-  void operator()(const exploration::ExplorationIsDone<4> &);
-  
-  void flush_pending_cell_propagates_events();
-  
-  void flush_pending_cell_is_deduced_from_single_allowed_value_events();
-  
-  void flush_pending_cell_is_deduced_as_single_place_for_value_in_region_events();
-  
-  void flush_pending_events();
-  
-  
-  private: 
-  inline std::tuple<double, double, double> draw_layout(const Layout & layout);
-  
-  inline std::tuple<double, double, double> draw_layout_transition(const Layout & before, const Layout & after, const double ratio);
-  
-  inline double compute_text_height(const std::vector<Text, std::allocator<Text> > & texts) const;
-  
-  
-  private: 
-  Stack<4> before;
-  Stack<4> after;
-  unsigned int frame_width_pixels;
-  unsigned int frame_height_pixels;
-  unsigned int viewport_height_pixels;
-  unsigned int viewport_width_pixels;
-  std::shared_ptr<Cairo::ImageSurface> surface;
-  std::shared_ptr<Cairo::Context> context;
-  Cairo::Context & cr;
-  video::Serializer * video_serializer;
-  const bool quick;
-  
-  private: 
-  unsigned int single_propagations_handled;
-  unsigned int cell_propagations_handled;
-  unsigned int deductions_handled;
-  std::vector<exploration::CellPropagates<4>, std::allocator<exploration::CellPropagates<4> > > pending_cell_propagates_events;
-  std::vector<exploration::CellIsDeducedFromSingleAllowedValue<4>, std::allocator<exploration::CellIsDeducedFromSingleAllowedValue<4> > > pending_cell_is_deduced_from_single_allowed_value_events;
-  std::vector<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>, std::allocator<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> > > pending_cell_is_deduced_as_single_place_for_value_in_region_events;
-  public: 
-  // inline VideoExplainer<4> & operator=(const VideoExplainer<4> &) /* noexcept */ = delete;
-  // inline VideoExplainer<4> & operator=(VideoExplainer<4> &&) /* noexcept */ = delete;
-  // inline ~VideoExplainer() noexcept = default;
-};
-
-#endif
-
+void explain_as_video(const Explanation<size> &, video::Serializer *, bool quick, unsigned int width, unsigned int height);
+;
 
 #endif  // EXPLANATION_VIDEO_EXPLAINER_HPP_
-# 16 "src/main.impl.hpp"
+# 17 "src/main.impl.hpp"
 # 1 "src/explanation/video/video-serializer.hpp"
 // Copyright 2023 Vincent Jacques
 
@@ -3667,7 +2656,7 @@ namespace video
 }  // namespace video
 
 #endif  // EXPLANATION_VIDEO_VIDEO_SERIALIZER_HPP_
-# 17 "src/main.impl.hpp"
+# 18 "src/main.impl.hpp"
 # 1 "src/exploration/sudoku-solver.hpp"
 // Copyright 2023 Vincent Jacques
 
@@ -3709,7 +2698,7 @@ struct EventAdder
   const AddEvent & add_event;
 };
 
-/* First instantiated from: main-4.cpp:1932 */
+/* First instantiated from: main-4.cpp:1431 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventAdder<4, __lambda_5>
@@ -3723,7 +2712,7 @@ struct EventAdder<4, __lambda_5>
   template<typename Event>
   inline void operator()(const Event & event) const;
   
-  /* First instantiated from: main-4.cpp:1938 */
+  /* First instantiated from: main-4.cpp:1437 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsSetInInput<4> >(const exploration::CellIsSetInInput<4> & event) const
@@ -3734,7 +2723,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1943 */
+  /* First instantiated from: main-4.cpp:1442 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::InputsAreDone<4> >(const exploration::InputsAreDone<4> & event) const
@@ -3745,7 +2734,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1792 */
+  /* First instantiated from: main-4.cpp:1285 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellPropagates<4> >(const exploration::CellPropagates<4> & event) const
@@ -3756,7 +2745,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1797 */
+  /* First instantiated from: main-4.cpp:1290 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsDeducedFromSingleAllowedValue<4> >(const exploration::CellIsDeducedFromSingleAllowedValue<4> & event) const
@@ -3767,18 +2756,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1817 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  inline void operator()<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> >(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event) const
-  {
-    event.apply(this->stack);
-    this->add_event.operator()(event);
-  }
-  #endif
-  
-  
-  /* First instantiated from: main-4.cpp:1829 */
+  /* First instantiated from: main-4.cpp:1297 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::SudokuIsSolved<4> >(const exploration::SudokuIsSolved<4> & event) const
@@ -3789,7 +2767,18 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1742 */
+  /* First instantiated from: main-4.cpp:1319 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline void operator()<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> >(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event) const
+  {
+    event.apply(this->stack);
+    this->add_event.operator()(event);
+  }
+  #endif
+  
+  
+  /* First instantiated from: main-4.cpp:1235 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationStartsForSudoku<4> >(const exploration::PropagationStartsForSudoku<4> & event) const
@@ -3800,7 +2789,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1746 */
+  /* First instantiated from: main-4.cpp:1239 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationIsDoneForSudoku<4> >(const exploration::PropagationIsDoneForSudoku<4> & event) const
@@ -3811,7 +2800,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1742 */
+  /* First instantiated from: main-4.cpp:1235 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationStartsForCell<4> >(const exploration::PropagationStartsForCell<4> & event) const
@@ -3822,7 +2811,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1746 */
+  /* First instantiated from: main-4.cpp:1239 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationIsDoneForCell<4> >(const exploration::PropagationIsDoneForCell<4> & event) const
@@ -3833,7 +2822,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1895 */
+  /* First instantiated from: main-4.cpp:1394 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsMade<4> >(const exploration::HypothesisIsMade<4> & event) const
@@ -3844,7 +2833,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1897 */
+  /* First instantiated from: main-4.cpp:1396 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsAccepted<4> >(const exploration::HypothesisIsAccepted<4> & event) const
@@ -3855,7 +2844,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1900 */
+  /* First instantiated from: main-4.cpp:1399 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsRejected<4> >(const exploration::HypothesisIsRejected<4> & event) const
@@ -3866,7 +2855,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1742 */
+  /* First instantiated from: main-4.cpp:1235 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::ExplorationStarts<4> >(const exploration::ExplorationStarts<4> & event) const
@@ -3877,7 +2866,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1746 */
+  /* First instantiated from: main-4.cpp:1239 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::ExplorationIsDone<4> >(const exploration::ExplorationIsDone<4> & event) const
@@ -3895,7 +2884,7 @@ struct EventAdder<4, __lambda_5>
 };
 
 #endif
-/* First instantiated from: main-4.cpp:1932 */
+/* First instantiated from: main-4.cpp:1431 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventAdder<4, __lambda_6>
@@ -3909,7 +2898,7 @@ struct EventAdder<4, __lambda_6>
   template<typename Event>
   inline void operator()(const Event & event) const;
   
-  /* First instantiated from: main-4.cpp:1938 */
+  /* First instantiated from: main-4.cpp:1437 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsSetInInput<4> >(const exploration::CellIsSetInInput<4> & event) const
@@ -3920,7 +2909,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1943 */
+  /* First instantiated from: main-4.cpp:1442 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::InputsAreDone<4> >(const exploration::InputsAreDone<4> & event) const
@@ -3931,7 +2920,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1792 */
+  /* First instantiated from: main-4.cpp:1285 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellPropagates<4> >(const exploration::CellPropagates<4> & event) const
@@ -3942,7 +2931,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1797 */
+  /* First instantiated from: main-4.cpp:1290 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsDeducedFromSingleAllowedValue<4> >(const exploration::CellIsDeducedFromSingleAllowedValue<4> & event) const
@@ -3953,18 +2942,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1817 */
-  #ifdef INSIGHTS_USE_TEMPLATE
-  template<>
-  inline void operator()<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> >(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event) const
-  {
-    event.apply(this->stack);
-    this->add_event.operator()(event);
-  }
-  #endif
-  
-  
-  /* First instantiated from: main-4.cpp:1829 */
+  /* First instantiated from: main-4.cpp:1297 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::SudokuIsSolved<4> >(const exploration::SudokuIsSolved<4> & event) const
@@ -3975,7 +2953,18 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1742 */
+  /* First instantiated from: main-4.cpp:1319 */
+  #ifdef INSIGHTS_USE_TEMPLATE
+  template<>
+  inline void operator()<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> >(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event) const
+  {
+    event.apply(this->stack);
+    this->add_event.operator()(event);
+  }
+  #endif
+  
+  
+  /* First instantiated from: main-4.cpp:1235 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationStartsForSudoku<4> >(const exploration::PropagationStartsForSudoku<4> & event) const
@@ -3986,7 +2975,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1746 */
+  /* First instantiated from: main-4.cpp:1239 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationIsDoneForSudoku<4> >(const exploration::PropagationIsDoneForSudoku<4> & event) const
@@ -3997,7 +2986,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1742 */
+  /* First instantiated from: main-4.cpp:1235 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationStartsForCell<4> >(const exploration::PropagationStartsForCell<4> & event) const
@@ -4008,7 +2997,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1746 */
+  /* First instantiated from: main-4.cpp:1239 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationIsDoneForCell<4> >(const exploration::PropagationIsDoneForCell<4> & event) const
@@ -4019,7 +3008,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1895 */
+  /* First instantiated from: main-4.cpp:1394 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsMade<4> >(const exploration::HypothesisIsMade<4> & event) const
@@ -4030,7 +3019,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1897 */
+  /* First instantiated from: main-4.cpp:1396 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsAccepted<4> >(const exploration::HypothesisIsAccepted<4> & event) const
@@ -4041,7 +3030,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1900 */
+  /* First instantiated from: main-4.cpp:1399 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsRejected<4> >(const exploration::HypothesisIsRejected<4> & event) const
@@ -4052,7 +3041,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1742 */
+  /* First instantiated from: main-4.cpp:1235 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::ExplorationStarts<4> >(const exploration::ExplorationStarts<4> & event) const
@@ -4063,7 +3052,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1746 */
+  /* First instantiated from: main-4.cpp:1239 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::ExplorationIsDone<4> >(const exploration::ExplorationIsDone<4> & event) const
@@ -4104,7 +3093,7 @@ struct EventsPairGuard
   EventOut out;
 };
 
-/* First instantiated from: main-4.cpp:1764 */
+/* First instantiated from: main-4.cpp:1257 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<4, __lambda_5, exploration::PropagationStartsForSudoku<4>, exploration::PropagationIsDoneForSudoku<4> >
@@ -4126,7 +3115,7 @@ struct EventsPairGuard<4, __lambda_5, exploration::PropagationStartsForSudoku<4>
 };
 
 #endif
-/* First instantiated from: main-4.cpp:1764 */
+/* First instantiated from: main-4.cpp:1257 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<4, __lambda_6, exploration::PropagationStartsForSudoku<4>, exploration::PropagationIsDoneForSudoku<4> >
@@ -4148,7 +3137,7 @@ struct EventsPairGuard<4, __lambda_6, exploration::PropagationStartsForSudoku<4>
 };
 
 #endif
-/* First instantiated from: main-4.cpp:1776 */
+/* First instantiated from: main-4.cpp:1269 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<4, __lambda_5, exploration::PropagationStartsForCell<4>, exploration::PropagationIsDoneForCell<4> >
@@ -4170,7 +3159,7 @@ struct EventsPairGuard<4, __lambda_5, exploration::PropagationStartsForCell<4>, 
 };
 
 #endif
-/* First instantiated from: main-4.cpp:1776 */
+/* First instantiated from: main-4.cpp:1269 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<4, __lambda_6, exploration::PropagationStartsForCell<4>, exploration::PropagationIsDoneForCell<4> >
@@ -4192,7 +3181,7 @@ struct EventsPairGuard<4, __lambda_6, exploration::PropagationStartsForCell<4>, 
 };
 
 #endif
-/* First instantiated from: main-4.cpp:1888 */
+/* First instantiated from: main-4.cpp:1387 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<4, __lambda_5, exploration::ExplorationStarts<4>, exploration::ExplorationIsDone<4> >
@@ -4214,7 +3203,7 @@ struct EventsPairGuard<4, __lambda_5, exploration::ExplorationStarts<4>, explora
 };
 
 #endif
-/* First instantiated from: main-4.cpp:1888 */
+/* First instantiated from: main-4.cpp:1387 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<4, __lambda_6, exploration::ExplorationStarts<4>, exploration::ExplorationIsDone<4> >
@@ -4239,42 +3228,42 @@ struct EventsPairGuard<4, __lambda_6, exploration::ExplorationStarts<4>, explora
 
 
 
-/* First instantiated from: main-4.cpp:1764 */
+/* First instantiated from: main-4.cpp:1257 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 EventsPairGuard(const EventAdder<4, __lambda_5> & add_event_, const exploration::PropagationStartsForSudoku<4> & in, const exploration::PropagationIsDoneForSudoku<4> & out_) -> EventsPairGuard<4, __lambda_5, exploration::PropagationStartsForSudoku<4>, exploration::PropagationIsDoneForSudoku<4> >;
 #endif
 
 
-/* First instantiated from: main-4.cpp:1776 */
+/* First instantiated from: main-4.cpp:1269 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 EventsPairGuard(const EventAdder<4, __lambda_5> & add_event_, const exploration::PropagationStartsForCell<4> & in, const exploration::PropagationIsDoneForCell<4> & out_) -> EventsPairGuard<4, __lambda_5, exploration::PropagationStartsForCell<4>, exploration::PropagationIsDoneForCell<4> >;
 #endif
 
 
-/* First instantiated from: main-4.cpp:1888 */
+/* First instantiated from: main-4.cpp:1387 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 EventsPairGuard(const EventAdder<4, __lambda_5> & add_event_, const exploration::ExplorationStarts<4> & in, const exploration::ExplorationIsDone<4> & out_) -> EventsPairGuard<4, __lambda_5, exploration::ExplorationStarts<4>, exploration::ExplorationIsDone<4> >;
 #endif
 
 
-/* First instantiated from: main-4.cpp:1764 */
+/* First instantiated from: main-4.cpp:1257 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 EventsPairGuard(const EventAdder<4, __lambda_6> & add_event_, const exploration::PropagationStartsForSudoku<4> & in, const exploration::PropagationIsDoneForSudoku<4> & out_) -> EventsPairGuard<4, __lambda_6, exploration::PropagationStartsForSudoku<4>, exploration::PropagationIsDoneForSudoku<4> >;
 #endif
 
 
-/* First instantiated from: main-4.cpp:1776 */
+/* First instantiated from: main-4.cpp:1269 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 EventsPairGuard(const EventAdder<4, __lambda_6> & add_event_, const exploration::PropagationStartsForCell<4> & in, const exploration::PropagationIsDoneForCell<4> & out_) -> EventsPairGuard<4, __lambda_6, exploration::PropagationStartsForCell<4>, exploration::PropagationIsDoneForCell<4> >;
 #endif
 
 
-/* First instantiated from: main-4.cpp:1888 */
+/* First instantiated from: main-4.cpp:1387 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 EventsPairGuard(const EventAdder<4, __lambda_6> & add_event_, const exploration::ExplorationStarts<4> & in, const exploration::ExplorationIsDone<4> & out_) -> EventsPairGuard<4, __lambda_6, exploration::ExplorationStarts<4>, exploration::ExplorationIsDone<4> >;
@@ -4328,7 +3317,11 @@ bool propagate(const Stack<size> & stack, std::deque<std::pair<unsigned int, uns
                         unsigned int value;
                         if(target_cell.is_allowed(value)) {
                           add_event(exploration::CellIsDeducedFromSingleAllowedValue<size>(target_coords, value));
-                          (static_cast<bool>(std::count(todo.begin(), todo.end(), target_coords) == 0) ? void(0) : __assert_fail("std::count(todo.begin(), todo.end(), target_coords) == 0", "src/exploration/sudoku-solver.hpp", 105, __extension____PRETTY_FUNCTION__));
+                          if(stack.current().is_solved()) {
+                            add_event(exploration::SudokuIsSolved<size>());
+                          } 
+                          
+                          (static_cast<bool>(std::count(todo.begin(), todo.end(), target_coords) == 0) ? void(0) : __assert_fail("std::count(todo.begin(), todo.end(), target_coords) == 0", "src/exploration/sudoku-solver.hpp", 113, __extension____PRETTY_FUNCTION__));
                           push_back(target_coords);
                           break;
                         } 
@@ -4359,17 +3352,17 @@ bool propagate(const Stack<size> & stack, std::deque<std::pair<unsigned int, uns
                       if((count == static_cast<unsigned int>(1)) && !single_cell->is_set()) {
                         const std::pair<unsigned int, unsigned int> single_coords = single_cell->coordinates();
                         add_event(exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>(single_coords, value, target_region.index()));
-                        (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), single_coords) == static_cast<long>(0)) ? void(0) : __assert_fail("std::count(todo.begin(), todo.end(), single_coords) == 0", "src/exploration/sudoku-solver.hpp", 125, __extension____PRETTY_FUNCTION__));
+                        if(stack.current().is_solved()) {
+                          add_event(exploration::SudokuIsSolved<size>());
+                        } 
+                        
+                        (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), single_coords) == static_cast<long>(0)) ? void(0) : __assert_fail("std::count(todo.begin(), todo.end(), single_coords) == 0", "src/exploration/sudoku-solver.hpp", 139, __extension____PRETTY_FUNCTION__));
                         todo.push_back(single_coords);
                       } 
                       
                     }
                     
                   }
-                  if(stack.current().is_solved()) {
-                    add_event(exploration::SudokuIsSolved<size>());
-                  } 
-                  
                 } else {
                 } 
                 
@@ -4389,7 +3382,7 @@ bool propagate(const Stack<size> & stack, std::deque<std::pair<unsigned int, uns
 }
 
 
-/* First instantiated from: main-4.cpp:1914 */
+/* First instantiated from: main-4.cpp:1413 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool propagate<4, __lambda_5>(const Stack<4> & stack, std::deque<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > todo, const EventAdder<4, __lambda_5> & add_event)
@@ -4400,7 +3393,7 @@ bool propagate<4, __lambda_5>(const Stack<4> & stack, std::deque<std::pair<unsig
     std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *> __end2 = __range2.end();
     for(; !operator==(static_cast<const std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>>(__begin2), static_cast<const std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>>(__end2)); __begin2.operator++()) {
       const std::pair<unsigned int, unsigned int> & coords = static_cast<const std::pair<unsigned int, unsigned int>>(static_cast<const std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>>(__begin2).operator*());
-      (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), coords) == static_cast<long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), coords) == 1"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(67), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:263:42)]")));
+      (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), coords) == static_cast<long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), coords) == 1"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(67), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:269:42)]")));
     }
     
   }
@@ -4409,7 +3402,7 @@ bool propagate<4, __lambda_5>(const Stack<4> & stack, std::deque<std::pair<unsig
     const std::pair<unsigned int, unsigned int> source_coords = std::pair<unsigned int, unsigned int>(static_cast<const std::pair<unsigned int, unsigned int>>(todo.front()));
     todo.pop_front();
     const Cell & source_cell = static_cast<const SudokuBase<AnnotatedCell<4>, 4>&>(stack.current()).cell(source_coords);
-    (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(source_cell).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("source_cell.is_set()"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(79), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:263:42)]")));
+    (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(source_cell).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("source_cell.is_set()"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(79), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:269:42)]")));
     const unsigned int value = static_cast<const AnnotatedCell<4>&>(source_cell).get();
     EventsPairGuard<4, __lambda_5, exploration::PropagationStartsForCell<4>, exploration::PropagationIsDoneForCell<4> > guard = EventsPairGuard<4, __lambda_5, exploration::PropagationStartsForCell<4>, exploration::PropagationIsDoneForCell<4> >(add_event, static_cast<const exploration::PropagationStartsForCell<4>>(exploration::PropagationStartsForCell<4>(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CXXParenListInitExpr */)), static_cast<const exploration::PropagationIsDoneForCell<4>>(exploration::PropagationIsDoneForCell<4>(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CXXParenListInitExpr */)));
     {
@@ -4432,7 +3425,7 @@ bool propagate<4, __lambda_5>(const Stack<4> & stack, std::deque<std::pair<unsig
                 } 
                 
               } else {
-                (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(target_cell).allowed_count() > static_cast<unsigned int>(1)) ? void(0) : __assert_fail(static_cast<const char *>("target_cell.allowed_count() > 1"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(96), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:263:42)]")));
+                (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(target_cell).allowed_count() > static_cast<unsigned int>(1)) ? void(0) : __assert_fail(static_cast<const char *>("target_cell.allowed_count() > 1"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(96), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:269:42)]")));
                 if(static_cast<const AnnotatedCell<4>&>(target_cell).is_allowed(value)) {
                   add_event.operator()(static_cast<const exploration::CellPropagates<4>>(exploration::CellPropagates<4>(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CXXParenListInitExpr */)));
                   if(static_cast<const AnnotatedCell<4>&>(target_cell).allowed_count() == static_cast<unsigned int>(1)) {
@@ -4444,7 +3437,11 @@ bool propagate<4, __lambda_5>(const Stack<4> & stack, std::deque<std::pair<unsig
                         unsigned int value = *__begin0;
                         if(static_cast<const AnnotatedCell<4>&>(target_cell).is_allowed(value)) {
                           add_event.operator()(static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<4>>(exploration::CellIsDeducedFromSingleAllowedValue<4>(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CXXParenListInitExpr */)));
-                          (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), target_coords) == static_cast<long>(0)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), target_coords) == 0"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(105), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:263:42)]")));
+                          if(stack.current().is_solved()) {
+                            add_event.operator()(static_cast<const exploration::SudokuIsSolved<4>>(exploration::SudokuIsSolved<4>()));
+                          } 
+                          
+                          (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), target_coords) == static_cast<long>(0)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), target_coords) == 0"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(113), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:269:42)]")));
                           todo.push_back(target_coords);
                           break;
                         } 
@@ -4479,17 +3476,17 @@ bool propagate<4, __lambda_5>(const Stack<4> & stack, std::deque<std::pair<unsig
                       if((count == static_cast<unsigned int>(1)) && !static_cast<const AnnotatedCell<4> *>(single_cell)->is_set()) {
                         const std::pair<unsigned int, unsigned int> single_coords = static_cast<const std::pair<unsigned int, unsigned int>>(single_cell->coordinates());
                         add_event.operator()(static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>>(exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CXXParenListInitExpr */)));
-                        (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), single_coords) == static_cast<long>(0)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), single_coords) == 0"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(125), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:263:42)]")));
+                        if(stack.current().is_solved()) {
+                          add_event.operator()(static_cast<const exploration::SudokuIsSolved<4>>(exploration::SudokuIsSolved<4>()));
+                        } 
+                        
+                        (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), single_coords) == static_cast<long>(0)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), single_coords) == 0"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(139), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:269:42)]")));
                         todo.push_back(single_coords);
                       } 
                       
                     }
                     
                   }
-                  if(stack.current().is_solved()) {
-                    add_event.operator()(static_cast<const exploration::SudokuIsSolved<4>>(exploration::SudokuIsSolved<4>()));
-                  } 
-                  
                 } else {
                 } 
                 
@@ -4510,7 +3507,7 @@ bool propagate<4, __lambda_5>(const Stack<4> & stack, std::deque<std::pair<unsig
 #endif
 
 
-/* First instantiated from: main-4.cpp:1914 */
+/* First instantiated from: main-4.cpp:1413 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool propagate<4, __lambda_6>(const Stack<4> & stack, std::deque<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > todo, const EventAdder<4, __lambda_6> & add_event)
@@ -4521,7 +3518,7 @@ bool propagate<4, __lambda_6>(const Stack<4> & stack, std::deque<std::pair<unsig
     std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *> __end2 = __range2.end();
     for(; !operator==(static_cast<const std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>>(__begin2), static_cast<const std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>>(__end2)); __begin2.operator++()) {
       const std::pair<unsigned int, unsigned int> & coords = static_cast<const std::pair<unsigned int, unsigned int>>(static_cast<const std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>>(__begin2).operator*());
-      (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), coords) == static_cast<long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), coords) == 1"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(67), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/main.impl.hpp:121:7)]")));
+      (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), coords) == static_cast<long>(1)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), coords) == 1"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(67), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/main.impl.hpp:65:7)]")));
     }
     
   }
@@ -4530,7 +3527,7 @@ bool propagate<4, __lambda_6>(const Stack<4> & stack, std::deque<std::pair<unsig
     const std::pair<unsigned int, unsigned int> source_coords = std::pair<unsigned int, unsigned int>(static_cast<const std::pair<unsigned int, unsigned int>>(todo.front()));
     todo.pop_front();
     const Cell & source_cell = static_cast<const SudokuBase<AnnotatedCell<4>, 4>&>(stack.current()).cell(source_coords);
-    (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(source_cell).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("source_cell.is_set()"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(79), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/main.impl.hpp:121:7)]")));
+    (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(source_cell).is_set()) ? void(0) : __assert_fail(static_cast<const char *>("source_cell.is_set()"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(79), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/main.impl.hpp:65:7)]")));
     const unsigned int value = static_cast<const AnnotatedCell<4>&>(source_cell).get();
     EventsPairGuard<4, __lambda_6, exploration::PropagationStartsForCell<4>, exploration::PropagationIsDoneForCell<4> > guard = EventsPairGuard<4, __lambda_6, exploration::PropagationStartsForCell<4>, exploration::PropagationIsDoneForCell<4> >(add_event, static_cast<const exploration::PropagationStartsForCell<4>>(exploration::PropagationStartsForCell<4>(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CXXParenListInitExpr */)), static_cast<const exploration::PropagationIsDoneForCell<4>>(exploration::PropagationIsDoneForCell<4>(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CXXParenListInitExpr */)));
     {
@@ -4553,7 +3550,7 @@ bool propagate<4, __lambda_6>(const Stack<4> & stack, std::deque<std::pair<unsig
                 } 
                 
               } else {
-                (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(target_cell).allowed_count() > static_cast<unsigned int>(1)) ? void(0) : __assert_fail(static_cast<const char *>("target_cell.allowed_count() > 1"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(96), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/main.impl.hpp:121:7)]")));
+                (static_cast<bool>(static_cast<const AnnotatedCell<4>&>(target_cell).allowed_count() > static_cast<unsigned int>(1)) ? void(0) : __assert_fail(static_cast<const char *>("target_cell.allowed_count() > 1"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(96), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/main.impl.hpp:65:7)]")));
                 if(static_cast<const AnnotatedCell<4>&>(target_cell).is_allowed(value)) {
                   add_event.operator()(static_cast<const exploration::CellPropagates<4>>(exploration::CellPropagates<4>(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CXXParenListInitExpr */)));
                   if(static_cast<const AnnotatedCell<4>&>(target_cell).allowed_count() == static_cast<unsigned int>(1)) {
@@ -4565,7 +3562,11 @@ bool propagate<4, __lambda_6>(const Stack<4> & stack, std::deque<std::pair<unsig
                         unsigned int value = *__begin0;
                         if(static_cast<const AnnotatedCell<4>&>(target_cell).is_allowed(value)) {
                           add_event.operator()(static_cast<const exploration::CellIsDeducedFromSingleAllowedValue<4>>(exploration::CellIsDeducedFromSingleAllowedValue<4>(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CXXParenListInitExpr */)));
-                          (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), target_coords) == static_cast<long>(0)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), target_coords) == 0"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(105), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/main.impl.hpp:121:7)]")));
+                          if(stack.current().is_solved()) {
+                            add_event.operator()(static_cast<const exploration::SudokuIsSolved<4>>(exploration::SudokuIsSolved<4>()));
+                          } 
+                          
+                          (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), target_coords) == static_cast<long>(0)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), target_coords) == 0"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(113), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/main.impl.hpp:65:7)]")));
                           todo.push_back(target_coords);
                           break;
                         } 
@@ -4600,17 +3601,17 @@ bool propagate<4, __lambda_6>(const Stack<4> & stack, std::deque<std::pair<unsig
                       if((count == static_cast<unsigned int>(1)) && !static_cast<const AnnotatedCell<4> *>(single_cell)->is_set()) {
                         const std::pair<unsigned int, unsigned int> single_coords = static_cast<const std::pair<unsigned int, unsigned int>>(single_cell->coordinates());
                         add_event.operator()(static_cast<const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>>(exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4>(/* INSIGHTS-TODO: CodeGenerator.cpp:3850 stmt: CXXParenListInitExpr */)));
-                        (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), single_coords) == static_cast<long>(0)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), single_coords) == 0"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(125), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/main.impl.hpp:121:7)]")));
+                        if(stack.current().is_solved()) {
+                          add_event.operator()(static_cast<const exploration::SudokuIsSolved<4>>(exploration::SudokuIsSolved<4>()));
+                        } 
+                        
+                        (static_cast<bool>(std::count<std::_Deque_iterator<std::pair<unsigned int, unsigned int>, std::pair<unsigned int, unsigned int> &, std::pair<unsigned int, unsigned int> *>, std::pair<unsigned int, unsigned int> >(todo.begin(), todo.end(), single_coords) == static_cast<long>(0)) ? void(0) : __assert_fail(static_cast<const char *>("std::count(todo.begin(), todo.end(), single_coords) == 0"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(139), static_cast<const char *>(__extension__"bool propagate(const Stack<size> &, std::deque<Coordinates>, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/main.impl.hpp:65:7)]")));
                         todo.push_back(single_coords);
                       } 
                       
                     }
                     
                   }
-                  if(stack.current().is_solved()) {
-                    add_event.operator()(static_cast<const exploration::SudokuIsSolved<4>>(exploration::SudokuIsSolved<4>()));
-                  } 
-                  
                 } else {
                 } 
                 
@@ -4662,7 +3663,7 @@ std::pair<unsigned int, unsigned int> get_most_constrained_cell(const AnnotatedS
 }
 
 
-/* First instantiated from: main-4.cpp:1879 */
+/* First instantiated from: main-4.cpp:1378 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 std::pair<unsigned int, unsigned int> get_most_constrained_cell<4>(const Sudoku<AnnotatedCell<4>, 4> & sudoku)
@@ -4706,7 +3707,7 @@ bool propagate_and_explore(const Stack<size> &, const std::deque<std::pair<unsig
 template<unsigned int size, typename AddEvent>
 bool explore(const Stack<size> & stack, const EventAdder<size, AddEvent> & add_event)
 {
-  (static_cast<bool>(!stack.current().is_solved()) ? void(0) : __assert_fail("!stack.current().is_solved()", "src/exploration/sudoku-solver.hpp", 183, __extension____PRETTY_FUNCTION__));
+  (static_cast<bool>(!stack.current().is_solved()) ? void(0) : __assert_fail("!stack.current().is_solved()", "src/exploration/sudoku-solver.hpp", 189, __extension____PRETTY_FUNCTION__));
   const auto & cell = stack.current().cell(get_most_constrained_cell(stack.current()));
   const std::pair<unsigned int, unsigned int> coords = cell.coordinates();
   std::vector<unsigned int, std::allocator<unsigned int> > allowed_values = std::vector<unsigned int, std::allocator<unsigned int> >();
@@ -4743,12 +3744,12 @@ bool explore(const Stack<size> & stack, const EventAdder<size, AddEvent> & add_e
 }
 
 
-/* First instantiated from: main-4.cpp:1918 */
+/* First instantiated from: main-4.cpp:1417 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool explore<4, __lambda_5>(const Stack<4> & stack, const EventAdder<4, __lambda_5> & add_event)
 {
-  (static_cast<bool>(!stack.current().is_solved()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.current().is_solved()"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(183), static_cast<const char *>(__extension__"bool explore(const Stack<size> &, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:263:42)]")));
+  (static_cast<bool>(!stack.current().is_solved()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.current().is_solved()"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(189), static_cast<const char *>(__extension__"bool explore(const Stack<size> &, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/exploration/sudoku-solver.hpp:269:42)]")));
   const Cell & cell = static_cast<const SudokuBase<AnnotatedCell<4>, 4>&>(stack.current()).cell(static_cast<const std::pair<unsigned int, unsigned int>>(get_most_constrained_cell<4>(stack.current())));
   const std::pair<unsigned int, unsigned int> coords = static_cast<const std::pair<unsigned int, unsigned int>>(cell.coordinates());
   std::vector<unsigned int, std::allocator<unsigned int> > allowed_values = std::vector<unsigned int, std::allocator<unsigned int> >();
@@ -4788,12 +3789,12 @@ bool explore<4, __lambda_5>(const Stack<4> & stack, const EventAdder<4, __lambda
 #endif
 
 
-/* First instantiated from: main-4.cpp:1918 */
+/* First instantiated from: main-4.cpp:1417 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool explore<4, __lambda_6>(const Stack<4> & stack, const EventAdder<4, __lambda_6> & add_event)
 {
-  (static_cast<bool>(!stack.current().is_solved()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.current().is_solved()"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(183), static_cast<const char *>(__extension__"bool explore(const Stack<size> &, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/main.impl.hpp:121:7)]")));
+  (static_cast<bool>(!stack.current().is_solved()) ? void(0) : __assert_fail(static_cast<const char *>("!stack.current().is_solved()"), static_cast<const char *>("src/exploration/sudoku-solver.hpp"), static_cast<unsigned int>(189), static_cast<const char *>(__extension__"bool explore(const Stack<size> &, const EventAdder<size, AddEvent> &) [size = 4U, AddEvent = (lambda at src/main.impl.hpp:65:7)]")));
   const Cell & cell = static_cast<const SudokuBase<AnnotatedCell<4>, 4>&>(stack.current()).cell(static_cast<const std::pair<unsigned int, unsigned int>>(get_most_constrained_cell<4>(stack.current())));
   const std::pair<unsigned int, unsigned int> coords = static_cast<const std::pair<unsigned int, unsigned int>>(cell.coordinates());
   std::vector<unsigned int, std::allocator<unsigned int> > allowed_values = std::vector<unsigned int, std::allocator<unsigned int> >();
@@ -4851,7 +3852,7 @@ bool propagate_and_explore(const Stack<size> & stack, const std::deque<std::pair
 }
 
 
-/* First instantiated from: main-4.cpp:1945 */
+/* First instantiated from: main-4.cpp:1444 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool propagate_and_explore<4, __lambda_5>(const Stack<4> & stack, const std::deque<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > & todo, const EventAdder<4, __lambda_5> & add_event)
@@ -4871,7 +3872,7 @@ bool propagate_and_explore<4, __lambda_5>(const Stack<4> & stack, const std::deq
 #endif
 
 
-/* First instantiated from: main-4.cpp:1945 */
+/* First instantiated from: main-4.cpp:1444 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool propagate_and_explore<4, __lambda_6>(const Stack<4> & stack, const std::deque<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > & todo, const EventAdder<4, __lambda_6> & add_event)
@@ -4929,7 +3930,7 @@ Sudoku<ValueCell, size> solve_using_exploration(Sudoku<ValueCell, size> sudoku, 
 }
 
 
-/* First instantiated from: main-4.cpp:2088 */
+/* First instantiated from: main-4.cpp:1530 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 Sudoku<ValueCell, 4> solve_using_exploration<4, __lambda_6>(Sudoku<ValueCell, 4> sudoku, const __lambda_6 & add_event_)
@@ -4973,7 +3974,7 @@ Sudoku<ValueCell, 4> solve_using_exploration<4, __lambda_6>(Sudoku<ValueCell, 4>
 #endif
 
 
-/* First instantiated from: main-4.cpp:1957 */
+/* First instantiated from: main-4.cpp:1456 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 Sudoku<ValueCell, 4> solve_using_exploration<4, __lambda_5>(Sudoku<ValueCell, 4> sudoku, const __lambda_5 & add_event_)
@@ -5044,7 +4045,7 @@ Sudoku<ValueCell, size> solve_using_exploration(Sudoku<ValueCell, size> sudoku)
 }
 
 
-/* First instantiated from: main-4.cpp:2016 */
+/* First instantiated from: main-4.cpp:1515 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 Sudoku<ValueCell, 4> solve_using_exploration<4>(Sudoku<ValueCell, 4> sudoku)
@@ -5124,7 +4125,7 @@ Sudoku<ValueCell, 4> solve_using_exploration<4>(Sudoku<ValueCell, 4> sudoku)
     
     #ifdef INSIGHTS_USE_TEMPLATE
     template<>
-    inline /*constexpr */ void operator()<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> >(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> &) const
+    inline /*constexpr */ void operator()<exploration::SudokuIsSolved<4> >(const exploration::SudokuIsSolved<4> &) const
     {
     }
     #endif
@@ -5132,7 +4133,7 @@ Sudoku<ValueCell, 4> solve_using_exploration<4>(Sudoku<ValueCell, 4> sudoku)
     
     #ifdef INSIGHTS_USE_TEMPLATE
     template<>
-    inline /*constexpr */ void operator()<exploration::SudokuIsSolved<4> >(const exploration::SudokuIsSolved<4> &) const
+    inline /*constexpr */ void operator()<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> >(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> &) const
     {
     }
     #endif
@@ -5195,7 +4196,7 @@ Sudoku<ValueCell, 4> solve_using_exploration<4>(Sudoku<ValueCell, 4> sudoku)
 
 
 #endif  // EXPLORATION_SUDOKU_SOLVER_HPP_
-# 18 "src/main.impl.hpp"
+# 19 "src/main.impl.hpp"
 # 1 "src/puzzle/check.hpp"
 // Copyright 2023 Vincent Jacques
 
@@ -5209,7 +4210,7 @@ bool is_solved(const Sudoku<ValueCell, size> &);
 ;
 
 #endif  // PUZZLE_CHECK_HPP_
-# 19 "src/main.impl.hpp"
+# 20 "src/main.impl.hpp"
 # 1 "src/sat/sudoku-solver.hpp"
 // Copyright 2023 Vincent Jacques
 
@@ -5224,7 +4225,7 @@ Sudoku<ValueCell, size> solve_using_sat(Sudoku<ValueCell, size>);
 ;
 
 #endif  // SAT_SUDOKU_SOLVER_HPP_
-# 20 "src/main.impl.hpp"
+# 21 "src/main.impl.hpp"
 
 
 template<unsigned int size>
@@ -5240,7 +4241,7 @@ int main_(const Options & options)
         return Sudoku<ValueCell, size>::load(std::cin);
       } else {
         std::basic_ifstream<char> input = std::basic_ifstream<char>(options.input_path, std::ios_base::in);
-        (static_cast<bool>(input.is_open()) ? void(0) : __assert_fail("input.is_open()", "src/main.impl.hpp", 30, __extension____PRETTY_FUNCTION__));
+        (static_cast<bool>(input.is_open()) ? void(0) : __assert_fail("input.is_open()", "src/main.impl.hpp", 31, __extension____PRETTY_FUNCTION__));
         return Sudoku<ValueCell, size>::load(input);
       } 
       
@@ -5283,48 +4284,58 @@ int main_(const Options & options)
   } else {
     if(options.explain) {
       unsigned int stdout_users = static_cast<unsigned int>(0);
-      std::optional<std::basic_ofstream<char> > text_output = std::optional<std::basic_ofstream<char> >();
-      std::optional<TextExplainer<size> > text_explainer;
+      typename Explanation<size>::Builder explanation_builder;
+                  
+      class __lambda_6
+      {
+        public: 
+        template<class type_parameter_1_0>
+        inline auto operator()(const type_parameter_1_0 & event) const
+        {
+          explanation_builder(event);
+        }
+        
+      };
+      
+      const auto solved = solve_using_exploration<size>(sudoku, __lambda_6{});
+      const Explanation<size> explanation = explanation_builder.get();
       if(std::operator==(options.text_path, "-")) {
         ++stdout_users;
-        text_explainer.emplace(std::cout);
+        explain_as_text(explanation, std::cout, false);
       } else {
         if(static_cast<bool>(options.text_path.operator bool())) {
-          text_output.emplace<const std::filesystem::path &>(options.text_path.operator*());
-          (static_cast<bool>(text_output.operator->()->is_open()) ? void(0) : __assert_fail("text_output->is_open()", "src/main.impl.hpp", 67, __extension____PRETTY_FUNCTION__));
-          text_explainer.emplace(text_output.operator*());
+          std::basic_ofstream<char> out = std::basic_ofstream<char>(options.text_path.operator*(), std::ios_base::out);
+          (static_cast<bool>(out.is_open()) ? void(0) : __assert_fail("out.is_open()", "src/main.impl.hpp", 76, __extension____PRETTY_FUNCTION__));
+          explain_as_text(explanation, out, false);
         } 
         
-      } 
-      
-      std::optional<HtmlExplainer<size> > html_explainer;
-      if(static_cast<bool>(options.html_path.operator bool())) {
-        html_explainer.emplace(options.html_path.operator*(), options.width, options.height);
       } 
       
       if(std::operator==(options.html_text_path, "-")) {
         ++stdout_users;
       } 
       
-      std::optional<std::basic_ofstream<char> > video_text_output = std::optional<std::basic_ofstream<char> >();
-      std::optional<TextExplainer<size> > video_text_explainer_;
-      std::optional<Reorder<size, TextExplainer<size> > > video_text_explainer;
-      if(static_cast<bool>(options.video_text_path.operator bool())) {
-        if(std::operator==(options.video_text_path, "-")) {
-          ++stdout_users;
-          video_text_explainer_.emplace(std::cout);
-        } else {
-          video_text_output.emplace<const std::filesystem::path &>(options.video_text_path.operator*());
-          (static_cast<bool>(video_text_output.operator->()->is_open()) ? void(0) : __assert_fail("video_text_output->is_open()", "src/main.impl.hpp", 89, __extension____PRETTY_FUNCTION__));
-          video_text_explainer_.emplace(video_text_output.operator*());
+      if(std::operator==(options.video_text_path, "-")) {
+        ++stdout_users;
+        explain_as_text(explanation, std::cout, true);
+      } else {
+        if(static_cast<bool>(options.video_text_path.operator bool())) {
+          std::basic_ofstream<char> out = std::basic_ofstream<char>(options.video_text_path.operator*(), std::ios_base::out);
+          (static_cast<bool>(out.is_open()) ? void(0) : __assert_fail("out.is_open()", "src/main.impl.hpp", 89, __extension____PRETTY_FUNCTION__));
+          explain_as_text(explanation, out, true);
         } 
         
-        video_text_explainer.emplace(&*video_text_explainer_);
+      } 
+      
+      if(stdout_users > static_cast<unsigned int>(1)) {
+        std::operator<<(std::cerr, static_cast<const char *>("WARNING: several explanations are interleaved on stdout.")).operator<<(std::endl);
+      } 
+      
+      if(static_cast<bool>(options.html_path.operator bool())) {
+        explain_as_html(explanation, options.html_path.operator*(), options.width, options.height);
       } 
       
       std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > > video_serializers = std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >();
-      std::optional<VideoExplainer<size> > video_explainer_;
-      std::optional<Reorder<size, VideoExplainer<size> > > video_explainer;
       if(static_cast<bool>(options.video_frames_path.operator bool())) {
         video_serializers.push_back(std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >(std::make_unique<video::FramesSerializer>(options.video_frames_path.operator*())));
       } 
@@ -5334,47 +4345,14 @@ int main_(const Options & options)
       } 
       
       if(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() > static_cast<unsigned long>(1)) {
-        (static_cast<bool>(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() == static_cast<unsigned long>(2)) ? void(0) : __assert_fail("video_serializers.size() == 2", "src/main.impl.hpp", 106, __extension____PRETTY_FUNCTION__));
+        (static_cast<bool>(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() == static_cast<unsigned long>(2)) ? void(0) : __assert_fail("video_serializers.size() == 2", "src/main.impl.hpp", 110, __extension____PRETTY_FUNCTION__));
         video_serializers.push_back(std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >(std::make_unique<video::MultipleSerializer>(std::vector<video::Serializer *, std::allocator<video::Serializer *> >{std::initializer_list<video::Serializer *>{static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.operator[](static_cast<unsigned long>(0))).get(), static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.operator[](static_cast<unsigned long>(1))).get()}, static_cast<const std::allocator<video::Serializer *>>(std::allocator<video::Serializer *>())})));
       } 
       
       if(!static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).empty()) {
-        video_explainer_.emplace(static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.back()).get(), options.quick_video, options.width, options.height);
-        video_explainer.emplace(&*video_explainer_);
+        explain_as_video(explanation, static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.back()).get(), options.quick_video, options.width, options.height);
       } 
       
-      if(stdout_users > static_cast<unsigned int>(1)) {
-        std::operator<<(std::cerr, static_cast<const char *>("WARNING: several explanations are interleaved on stdout.")).operator<<(std::endl);
-      } 
-      
-                  
-      class __lambda_6
-      {
-        public: 
-        template<class type_parameter_1_0>
-        inline auto operator()(const type_parameter_1_0 & event) const
-        {
-          if(text_explainer) {
-            (*text_explainer)(event);
-          } 
-          
-          if(html_explainer) {
-            (*html_explainer)(event);
-          } 
-          
-          if(video_text_explainer) {
-            (*video_text_explainer)(event);
-          } 
-          
-          if(video_explainer) {
-            (*video_explainer)(event);
-          } 
-          
-        }
-        
-      };
-      
-      const auto solved = solve_using_exploration<size>(sudoku, __lambda_6{});
       if(is_solved(solved)) {
         return 0;
       } else {
@@ -5391,7 +4369,7 @@ int main_(const Options & options)
 }
 
 
-/* First instantiated from: main-4.cpp:2111 */
+/* First instantiated from: main-4.cpp:1599 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 int main_<4>(const Options & options)
@@ -5406,7 +4384,7 @@ int main_<4>(const Options & options)
         return Sudoku<ValueCell, 4>::load(std::cin);
       } else {
         std::basic_ifstream<char> input = std::basic_ifstream<char>(options.input_path, std::ios_base::in);
-        (static_cast<bool>(input.is_open()) ? void(0) : __assert_fail(static_cast<const char *>("input.is_open()"), static_cast<const char *>("src/main.impl.hpp"), static_cast<unsigned int>(30), static_cast<const char *>(__extension__"auto main_(const Options &)::(anonymous class)::operator()() const")));
+        (static_cast<bool>(input.is_open()) ? void(0) : __assert_fail(static_cast<const char *>("input.is_open()"), static_cast<const char *>("src/main.impl.hpp"), static_cast<unsigned int>(31), static_cast<const char *>(__extension__"auto main_(const Options &)::(anonymous class)::operator()() const")));
         return Sudoku<ValueCell, 4>::load(static_cast<std::basic_istream<char>&>(input));
       } 
       
@@ -5449,48 +4427,200 @@ int main_<4>(const Options & options)
   } else {
     if(options.explain) {
       unsigned int stdout_users = static_cast<unsigned int>(0);
-      std::optional<std::basic_ofstream<char> > text_output = std::optional<std::basic_ofstream<char> >();
-      std::optional<TextExplainer<4> > text_explainer = std::optional<TextExplainer<4> >();
+      typename Explanation<4U>::Builder explanation_builder = typename Explanation<4U>::Builder();
+                  
+      class __lambda_6
+      {
+        public: 
+        template<class type_parameter_0_0>
+        inline /*constexpr */ auto operator()(const type_parameter_0_0 & event) const
+        {
+          explanation_builder(event);
+        }
+        
+        #ifdef INSIGHTS_USE_TEMPLATE
+        template<>
+        inline /*constexpr */ void operator()<exploration::CellIsSetInInput<4> >(const exploration::CellIsSetInInput<4> & event) const
+        {
+          explanation_builder.operator()(event);
+        }
+        #endif
+        
+        
+        #ifdef INSIGHTS_USE_TEMPLATE
+        template<>
+        inline /*constexpr */ void operator()<exploration::InputsAreDone<4> >(const exploration::InputsAreDone<4> & event) const
+        {
+          explanation_builder.operator()(event);
+        }
+        #endif
+        
+        
+        #ifdef INSIGHTS_USE_TEMPLATE
+        template<>
+        inline /*constexpr */ void operator()<exploration::PropagationStartsForSudoku<4> >(const exploration::PropagationStartsForSudoku<4> & event) const
+        {
+          explanation_builder.operator()(event);
+        }
+        #endif
+        
+        
+        #ifdef INSIGHTS_USE_TEMPLATE
+        template<>
+        inline /*constexpr */ void operator()<exploration::PropagationIsDoneForSudoku<4> >(const exploration::PropagationIsDoneForSudoku<4> & event) const
+        {
+          explanation_builder.operator()(event);
+        }
+        #endif
+        
+        
+        #ifdef INSIGHTS_USE_TEMPLATE
+        template<>
+        inline /*constexpr */ void operator()<exploration::PropagationStartsForCell<4> >(const exploration::PropagationStartsForCell<4> & event) const
+        {
+          explanation_builder.operator()(event);
+        }
+        #endif
+        
+        
+        #ifdef INSIGHTS_USE_TEMPLATE
+        template<>
+        inline /*constexpr */ void operator()<exploration::PropagationIsDoneForCell<4> >(const exploration::PropagationIsDoneForCell<4> & event) const
+        {
+          explanation_builder.operator()(event);
+        }
+        #endif
+        
+        
+        #ifdef INSIGHTS_USE_TEMPLATE
+        template<>
+        inline /*constexpr */ void operator()<exploration::CellPropagates<4> >(const exploration::CellPropagates<4> & event) const
+        {
+          explanation_builder.operator()(event);
+        }
+        #endif
+        
+        
+        #ifdef INSIGHTS_USE_TEMPLATE
+        template<>
+        inline /*constexpr */ void operator()<exploration::CellIsDeducedFromSingleAllowedValue<4> >(const exploration::CellIsDeducedFromSingleAllowedValue<4> & event) const
+        {
+          explanation_builder.operator()(event);
+        }
+        #endif
+        
+        
+        #ifdef INSIGHTS_USE_TEMPLATE
+        template<>
+        inline /*constexpr */ void operator()<exploration::SudokuIsSolved<4> >(const exploration::SudokuIsSolved<4> & event) const
+        {
+          explanation_builder.operator()(event);
+        }
+        #endif
+        
+        
+        #ifdef INSIGHTS_USE_TEMPLATE
+        template<>
+        inline /*constexpr */ void operator()<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> >(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event) const
+        {
+          explanation_builder.operator()(event);
+        }
+        #endif
+        
+        
+        #ifdef INSIGHTS_USE_TEMPLATE
+        template<>
+        inline /*constexpr */ void operator()<exploration::ExplorationStarts<4> >(const exploration::ExplorationStarts<4> & event) const
+        {
+          explanation_builder.operator()(event);
+        }
+        #endif
+        
+        
+        #ifdef INSIGHTS_USE_TEMPLATE
+        template<>
+        inline /*constexpr */ void operator()<exploration::ExplorationIsDone<4> >(const exploration::ExplorationIsDone<4> & event) const
+        {
+          explanation_builder.operator()(event);
+        }
+        #endif
+        
+        
+        #ifdef INSIGHTS_USE_TEMPLATE
+        template<>
+        inline /*constexpr */ void operator()<exploration::HypothesisIsMade<4> >(const exploration::HypothesisIsMade<4> & event) const
+        {
+          explanation_builder.operator()(event);
+        }
+        #endif
+        
+        
+        #ifdef INSIGHTS_USE_TEMPLATE
+        template<>
+        inline /*constexpr */ void operator()<exploration::HypothesisIsAccepted<4> >(const exploration::HypothesisIsAccepted<4> & event) const
+        {
+          explanation_builder.operator()(event);
+        }
+        #endif
+        
+        
+        #ifdef INSIGHTS_USE_TEMPLATE
+        template<>
+        inline /*constexpr */ void operator()<exploration::HypothesisIsRejected<4> >(const exploration::HypothesisIsRejected<4> & event) const
+        {
+          explanation_builder.operator()(event);
+        }
+        #endif
+        
+        private: 
+        typename Explanation<4U>::Builder & explanation_builder;
+        
+        public:
+        __lambda_6(Explanation<4>::Builder & _explanation_builder)
+        : explanation_builder{_explanation_builder}
+        {}
+        
+      };
+      
+      const Sudoku<ValueCell, 4> solved = static_cast<const Sudoku<ValueCell, 4>>(solve_using_exploration<4U>(Sudoku<ValueCell, 4>(sudoku), static_cast<const __lambda_6>(__lambda_6{explanation_builder})));
+      const Explanation<4> explanation = static_cast<const Explanation<4>>(explanation_builder.get());
       if(std::operator==(options.text_path, "-")) {
         ++stdout_users;
-        text_explainer.emplace<std::basic_ostream<char> &>(std::cout);
+        explain_as_text<4>(explanation, std::cout, false);
       } else {
         if(static_cast<bool>(options.text_path.operator bool())) {
-          text_output.emplace<const std::filesystem::path &>(options.text_path.operator*());
-          (static_cast<bool>(text_output.operator->()->is_open()) ? void(0) : __assert_fail(static_cast<const char *>("text_output->is_open()"), static_cast<const char *>("src/main.impl.hpp"), static_cast<unsigned int>(67), static_cast<const char *>(__extension__"int main_(const Options &) [size = 4U]")));
-          text_explainer.emplace<std::basic_ofstream<char> &>(text_output.operator*());
+          std::basic_ofstream<char> out = std::basic_ofstream<char>(options.text_path.operator*(), std::ios_base::out);
+          (static_cast<bool>(out.is_open()) ? void(0) : __assert_fail(static_cast<const char *>("out.is_open()"), static_cast<const char *>("src/main.impl.hpp"), static_cast<unsigned int>(76), static_cast<const char *>(__extension__"int main_(const Options &) [size = 4U]")));
+          explain_as_text<4>(explanation, static_cast<std::basic_ostream<char>&>(out), false);
         } 
         
-      } 
-      
-      std::optional<HtmlExplainer<4> > html_explainer = std::optional<HtmlExplainer<4> >();
-      if(static_cast<bool>(options.html_path.operator bool())) {
-        html_explainer.emplace<const std::filesystem::path &, const unsigned int &, const unsigned int &>(options.html_path.operator*(), options.width, options.height);
       } 
       
       if(std::operator==(options.html_text_path, "-")) {
         ++stdout_users;
       } 
       
-      std::optional<std::basic_ofstream<char> > video_text_output = std::optional<std::basic_ofstream<char> >();
-      std::optional<TextExplainer<4> > video_text_explainer_ = std::optional<TextExplainer<4> >();
-      std::optional<Reorder<4, TextExplainer<4> > > video_text_explainer = std::optional<Reorder<4, TextExplainer<4> > >();
-      if(static_cast<bool>(options.video_text_path.operator bool())) {
-        if(std::operator==(options.video_text_path, "-")) {
-          ++stdout_users;
-          video_text_explainer_.emplace<std::basic_ostream<char> &>(std::cout);
-        } else {
-          video_text_output.emplace<const std::filesystem::path &>(options.video_text_path.operator*());
-          (static_cast<bool>(video_text_output.operator->()->is_open()) ? void(0) : __assert_fail(static_cast<const char *>("video_text_output->is_open()"), static_cast<const char *>("src/main.impl.hpp"), static_cast<unsigned int>(89), static_cast<const char *>(__extension__"int main_(const Options &) [size = 4U]")));
-          video_text_explainer_.emplace<std::basic_ofstream<char> &>(video_text_output.operator*());
+      if(std::operator==(options.video_text_path, "-")) {
+        ++stdout_users;
+        explain_as_text<4>(explanation, std::cout, true);
+      } else {
+        if(static_cast<bool>(options.video_text_path.operator bool())) {
+          std::basic_ofstream<char> out = std::basic_ofstream<char>(options.video_text_path.operator*(), std::ios_base::out);
+          (static_cast<bool>(out.is_open()) ? void(0) : __assert_fail(static_cast<const char *>("out.is_open()"), static_cast<const char *>("src/main.impl.hpp"), static_cast<unsigned int>(89), static_cast<const char *>(__extension__"int main_(const Options &) [size = 4U]")));
+          explain_as_text<4>(explanation, static_cast<std::basic_ostream<char>&>(out), true);
         } 
         
-        video_text_explainer.emplace<TextExplainer<4> *>(&video_text_explainer_.operator*());
+      } 
+      
+      if(stdout_users > static_cast<unsigned int>(1)) {
+        std::operator<<(std::cerr, static_cast<const char *>("WARNING: several explanations are interleaved on stdout.")).operator<<(std::endl);
+      } 
+      
+      if(static_cast<bool>(options.html_path.operator bool())) {
+        explain_as_html<4>(explanation, options.html_path.operator*(), options.width, options.height);
       } 
       
       std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > > video_serializers = std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >();
-      std::optional<VideoExplainer<4> > video_explainer_ = std::optional<VideoExplainer<4> >();
-      std::optional<Reorder<4, VideoExplainer<4> > > video_explainer = std::optional<Reorder<4, VideoExplainer<4> > >();
       if(static_cast<bool>(options.video_frames_path.operator bool())) {
         video_serializers.push_back(std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >(std::make_unique<video::FramesSerializer>(options.video_frames_path.operator*())));
       } 
@@ -5500,420 +4630,14 @@ int main_<4>(const Options & options)
       } 
       
       if(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() > static_cast<unsigned long>(1)) {
-        (static_cast<bool>(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() == static_cast<unsigned long>(2)) ? void(0) : __assert_fail(static_cast<const char *>("video_serializers.size() == 2"), static_cast<const char *>("src/main.impl.hpp"), static_cast<unsigned int>(106), static_cast<const char *>(__extension__"int main_(const Options &) [size = 4U]")));
+        (static_cast<bool>(static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).size() == static_cast<unsigned long>(2)) ? void(0) : __assert_fail(static_cast<const char *>("video_serializers.size() == 2"), static_cast<const char *>("src/main.impl.hpp"), static_cast<unsigned int>(110), static_cast<const char *>(__extension__"int main_(const Options &) [size = 4U]")));
         video_serializers.push_back(std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >(std::make_unique<video::MultipleSerializer>(std::vector<video::Serializer *, std::allocator<video::Serializer *> >(std::vector<video::Serializer *, std::allocator<video::Serializer *> >(std::initializer_list<video::Serializer *>{static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.operator[](static_cast<unsigned long>(0))).get(), static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.operator[](static_cast<unsigned long>(1))).get()}, static_cast<const std::allocator<video::Serializer *>>(std::allocator<video::Serializer *>()))))));
       } 
       
       if(!static_cast<const std::vector<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >, std::allocator<std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> > > >>(video_serializers).empty()) {
-        video_explainer_.emplace<video::Serializer *, const bool &, const unsigned int &, const unsigned int &>(static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.back()).get(), options.quick_video, options.width, options.height);
-        video_explainer.emplace<VideoExplainer<4> *>(&video_explainer_.operator*());
+        explain_as_video<4>(explanation, static_cast<const std::unique_ptr<video::Serializer, std::default_delete<video::Serializer> >>(video_serializers.back()).get(), options.quick_video, options.width, options.height);
       } 
       
-      if(stdout_users > static_cast<unsigned int>(1)) {
-        std::operator<<(std::cerr, static_cast<const char *>("WARNING: several explanations are interleaved on stdout.")).operator<<(std::endl);
-      } 
-      
-                  
-      class __lambda_6
-      {
-        public: 
-        template<class type_parameter_0_0>
-        inline /*constexpr */ auto operator()(const type_parameter_0_0 & event) const
-        {
-          if(static_cast<bool>(static_cast<const std::optional<TextExplainer<4> >>(text_explainer).operator bool())) {
-            (text_explainer.operator*())(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<HtmlExplainer<4> >>(html_explainer).operator bool())) {
-            (html_explainer.operator*())(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, TextExplainer<4> > >>(video_text_explainer).operator bool())) {
-            (video_text_explainer.operator*())(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, VideoExplainer<4> > >>(video_explainer).operator bool())) {
-            (video_explainer.operator*())(event);
-          } 
-          
-        }
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::CellIsSetInInput<4> >(const exploration::CellIsSetInInput<4> & event) const
-        {
-          if(static_cast<bool>(static_cast<const std::optional<TextExplainer<4> >>(text_explainer).operator bool())) {
-            (text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<HtmlExplainer<4> >>(html_explainer).operator bool())) {
-            (html_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, TextExplainer<4> > >>(video_text_explainer).operator bool())) {
-            (video_text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, VideoExplainer<4> > >>(video_explainer).operator bool())) {
-            (video_explainer.operator*()).operator()(event);
-          } 
-          
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::InputsAreDone<4> >(const exploration::InputsAreDone<4> & event) const
-        {
-          if(static_cast<bool>(static_cast<const std::optional<TextExplainer<4> >>(text_explainer).operator bool())) {
-            (text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<HtmlExplainer<4> >>(html_explainer).operator bool())) {
-            (html_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, TextExplainer<4> > >>(video_text_explainer).operator bool())) {
-            (video_text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, VideoExplainer<4> > >>(video_explainer).operator bool())) {
-            (video_explainer.operator*()).operator()(event);
-          } 
-          
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::PropagationStartsForSudoku<4> >(const exploration::PropagationStartsForSudoku<4> & event) const
-        {
-          if(static_cast<bool>(static_cast<const std::optional<TextExplainer<4> >>(text_explainer).operator bool())) {
-            (text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<HtmlExplainer<4> >>(html_explainer).operator bool())) {
-            (html_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, TextExplainer<4> > >>(video_text_explainer).operator bool())) {
-            (video_text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, VideoExplainer<4> > >>(video_explainer).operator bool())) {
-            (video_explainer.operator*()).operator()(event);
-          } 
-          
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::PropagationIsDoneForSudoku<4> >(const exploration::PropagationIsDoneForSudoku<4> & event) const
-        {
-          if(static_cast<bool>(static_cast<const std::optional<TextExplainer<4> >>(text_explainer).operator bool())) {
-            (text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<HtmlExplainer<4> >>(html_explainer).operator bool())) {
-            (html_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, TextExplainer<4> > >>(video_text_explainer).operator bool())) {
-            (video_text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, VideoExplainer<4> > >>(video_explainer).operator bool())) {
-            (video_explainer.operator*()).operator()(event);
-          } 
-          
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::PropagationStartsForCell<4> >(const exploration::PropagationStartsForCell<4> & event) const
-        {
-          if(static_cast<bool>(static_cast<const std::optional<TextExplainer<4> >>(text_explainer).operator bool())) {
-            (text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<HtmlExplainer<4> >>(html_explainer).operator bool())) {
-            (html_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, TextExplainer<4> > >>(video_text_explainer).operator bool())) {
-            (video_text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, VideoExplainer<4> > >>(video_explainer).operator bool())) {
-            (video_explainer.operator*()).operator()(event);
-          } 
-          
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::PropagationIsDoneForCell<4> >(const exploration::PropagationIsDoneForCell<4> & event) const
-        {
-          if(static_cast<bool>(static_cast<const std::optional<TextExplainer<4> >>(text_explainer).operator bool())) {
-            (text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<HtmlExplainer<4> >>(html_explainer).operator bool())) {
-            (html_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, TextExplainer<4> > >>(video_text_explainer).operator bool())) {
-            (video_text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, VideoExplainer<4> > >>(video_explainer).operator bool())) {
-            (video_explainer.operator*()).operator()(event);
-          } 
-          
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::CellPropagates<4> >(const exploration::CellPropagates<4> & event) const
-        {
-          if(static_cast<bool>(static_cast<const std::optional<TextExplainer<4> >>(text_explainer).operator bool())) {
-            (text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<HtmlExplainer<4> >>(html_explainer).operator bool())) {
-            (html_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, TextExplainer<4> > >>(video_text_explainer).operator bool())) {
-            (video_text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, VideoExplainer<4> > >>(video_explainer).operator bool())) {
-            (video_explainer.operator*()).operator()(event);
-          } 
-          
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::CellIsDeducedFromSingleAllowedValue<4> >(const exploration::CellIsDeducedFromSingleAllowedValue<4> & event) const
-        {
-          if(static_cast<bool>(static_cast<const std::optional<TextExplainer<4> >>(text_explainer).operator bool())) {
-            (text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<HtmlExplainer<4> >>(html_explainer).operator bool())) {
-            (html_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, TextExplainer<4> > >>(video_text_explainer).operator bool())) {
-            (video_text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, VideoExplainer<4> > >>(video_explainer).operator bool())) {
-            (video_explainer.operator*()).operator()(event);
-          } 
-          
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> >(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event) const
-        {
-          if(static_cast<bool>(static_cast<const std::optional<TextExplainer<4> >>(text_explainer).operator bool())) {
-            (text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<HtmlExplainer<4> >>(html_explainer).operator bool())) {
-            (html_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, TextExplainer<4> > >>(video_text_explainer).operator bool())) {
-            (video_text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, VideoExplainer<4> > >>(video_explainer).operator bool())) {
-            (video_explainer.operator*()).operator()(event);
-          } 
-          
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::SudokuIsSolved<4> >(const exploration::SudokuIsSolved<4> & event) const
-        {
-          if(static_cast<bool>(static_cast<const std::optional<TextExplainer<4> >>(text_explainer).operator bool())) {
-            (text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<HtmlExplainer<4> >>(html_explainer).operator bool())) {
-            (html_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, TextExplainer<4> > >>(video_text_explainer).operator bool())) {
-            (video_text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, VideoExplainer<4> > >>(video_explainer).operator bool())) {
-            (video_explainer.operator*()).operator()(event);
-          } 
-          
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::ExplorationStarts<4> >(const exploration::ExplorationStarts<4> & event) const
-        {
-          if(static_cast<bool>(static_cast<const std::optional<TextExplainer<4> >>(text_explainer).operator bool())) {
-            (text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<HtmlExplainer<4> >>(html_explainer).operator bool())) {
-            (html_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, TextExplainer<4> > >>(video_text_explainer).operator bool())) {
-            (video_text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, VideoExplainer<4> > >>(video_explainer).operator bool())) {
-            (video_explainer.operator*()).operator()(event);
-          } 
-          
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::ExplorationIsDone<4> >(const exploration::ExplorationIsDone<4> & event) const
-        {
-          if(static_cast<bool>(static_cast<const std::optional<TextExplainer<4> >>(text_explainer).operator bool())) {
-            (text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<HtmlExplainer<4> >>(html_explainer).operator bool())) {
-            (html_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, TextExplainer<4> > >>(video_text_explainer).operator bool())) {
-            (video_text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, VideoExplainer<4> > >>(video_explainer).operator bool())) {
-            (video_explainer.operator*()).operator()(event);
-          } 
-          
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::HypothesisIsMade<4> >(const exploration::HypothesisIsMade<4> & event) const
-        {
-          if(static_cast<bool>(static_cast<const std::optional<TextExplainer<4> >>(text_explainer).operator bool())) {
-            (text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<HtmlExplainer<4> >>(html_explainer).operator bool())) {
-            (html_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, TextExplainer<4> > >>(video_text_explainer).operator bool())) {
-            (video_text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, VideoExplainer<4> > >>(video_explainer).operator bool())) {
-            (video_explainer.operator*()).operator()(event);
-          } 
-          
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::HypothesisIsAccepted<4> >(const exploration::HypothesisIsAccepted<4> & event) const
-        {
-          if(static_cast<bool>(static_cast<const std::optional<TextExplainer<4> >>(text_explainer).operator bool())) {
-            (text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<HtmlExplainer<4> >>(html_explainer).operator bool())) {
-            (html_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, TextExplainer<4> > >>(video_text_explainer).operator bool())) {
-            (video_text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, VideoExplainer<4> > >>(video_explainer).operator bool())) {
-            (video_explainer.operator*()).operator()(event);
-          } 
-          
-        }
-        #endif
-        
-        
-        #ifdef INSIGHTS_USE_TEMPLATE
-        template<>
-        inline /*constexpr */ void operator()<exploration::HypothesisIsRejected<4> >(const exploration::HypothesisIsRejected<4> & event) const
-        {
-          if(static_cast<bool>(static_cast<const std::optional<TextExplainer<4> >>(text_explainer).operator bool())) {
-            (text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<HtmlExplainer<4> >>(html_explainer).operator bool())) {
-            (html_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, TextExplainer<4> > >>(video_text_explainer).operator bool())) {
-            (video_text_explainer.operator*()).operator()(event);
-          } 
-          
-          if(static_cast<bool>(static_cast<const std::optional<Reorder<4, VideoExplainer<4> > >>(video_explainer).operator bool())) {
-            (video_explainer.operator*()).operator()(event);
-          } 
-          
-        }
-        #endif
-        
-        private: 
-        std::optional<TextExplainer<4> > & text_explainer;
-        std::optional<HtmlExplainer<4> > & html_explainer;
-        std::optional<Reorder<4, TextExplainer<4> > > & video_text_explainer;
-        std::optional<Reorder<4, VideoExplainer<4> > > & video_explainer;
-        
-        public:
-        __lambda_6(std::optional<TextExplainer<4> > & _text_explainer, std::optional<HtmlExplainer<4> > & _html_explainer, std::optional<Reorder<4, TextExplainer<4> > > & _video_text_explainer, std::optional<Reorder<4, VideoExplainer<4> > > & _video_explainer)
-        : text_explainer{_text_explainer}
-        , html_explainer{_html_explainer}
-        , video_text_explainer{_video_text_explainer}
-        , video_explainer{_video_explainer}
-        {}
-        
-      };
-      
-      const Sudoku<ValueCell, 4> solved = static_cast<const Sudoku<ValueCell, 4>>(solve_using_exploration<4U>(Sudoku<ValueCell, 4>(sudoku), static_cast<const __lambda_6>(__lambda_6{text_explainer, html_explainer, video_text_explainer, video_explainer})));
       if(is_solved<4>(solved)) {
         return 0;
       } else {

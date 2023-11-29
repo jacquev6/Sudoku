@@ -100,10 +100,19 @@ bool propagate(
               if (target_cell.allowed_count() == 1) {
                 for (unsigned value : SudokuConstants<size>::values) {
                   if (target_cell.is_allowed(value)) {
-                    add_event(exploration::CellIsDeducedFromSingleAllowedValue<size>(
-                      target_coords, value));
+                    add_event(exploration::CellIsDeducedFromSingleAllowedValue<size>(target_coords, value));
+
+                    // 'AnnotatedSudoku::is_solved' is currently O(AnnotatedSudoku::size^2),
+                    // which we could optimize easily with additional book-keeping,
+                    // but the *whole* solving algorithm still executes in less than 100ms for size 9,
+                    // so it's not worth it yet.
+                    if (stack.current().is_solved()) {
+                      add_event(exploration::SudokuIsSolved<size>());
+                    }
+
                     assert(std::count(todo.begin(), todo.end(), target_coords) == 0);
                     todo.push_back(target_coords);
+
                     break;
                   }
                 }
@@ -122,17 +131,14 @@ bool propagate(
                   const Coordinates single_coords = single_cell->coordinates();
                   add_event(exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>(
                     single_coords, value, target_region.index()));
+
+                  if (stack.current().is_solved()) {
+                    add_event(exploration::SudokuIsSolved<size>());
+                  }
+
                   assert(std::count(todo.begin(), todo.end(), single_coords) == 0);
                   todo.push_back(single_coords);
                 }
-              }
-
-              // 'AnnotatedSudoku::is_solved' is currently O(AnnotatedSudoku::size^2),
-              // which we could optimize easily with additional book-keeping,
-              // but the *whole* solving algorithm still executes in less than 100ms for size 9,
-              // so it's not worth it yet.
-              if (stack.current().is_solved()) {
-                add_event(exploration::SudokuIsSolved<size>());
               }
             } else {
               // Nothing to do: this is old news
