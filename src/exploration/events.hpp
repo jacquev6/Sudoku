@@ -5,41 +5,31 @@
 
 #include <vector>
 
-#include "annotations.hpp"
+#include "../puzzle/sudoku.hpp"
 
 
 // Name events like affirmative sentences in present tense
 
 template<unsigned size>
 struct CellIsSetInInput {
-  void apply(Stack<ExplorableSudoku<size>>*) const;
-
   Coordinates cell;
   unsigned value;
 };
 
 template<unsigned size>
-struct InputsAreDone {
-  void apply(Stack<ExplorableSudoku<size>>*) const;
-};
+struct InputsAreDone {};
 
 template<unsigned size>
-struct PropagationStartsForSudoku {
-  void apply(Stack<ExplorableSudoku<size>>*) const;
-};
+struct PropagationStartsForSudoku {};
 
 template<unsigned size>
 struct PropagationStartsForCell {
-  void apply(Stack<ExplorableSudoku<size>>*) const;
-
   Coordinates cell;
   unsigned value;
 };
 
 template<unsigned size>
 struct CellPropagates {
-  void apply(Stack<ExplorableSudoku<size>>*) const;
-
   Coordinates source_cell;
   Coordinates target_cell;
   unsigned value;
@@ -47,16 +37,12 @@ struct CellPropagates {
 
 template<unsigned size>
 struct CellIsDeducedFromSingleAllowedValue {
-  void apply(Stack<ExplorableSudoku<size>>*) const;
-
   Coordinates cell;
   unsigned value;
 };
 
 template<unsigned size>
 struct CellIsDeducedAsSinglePlaceForValueInRegion {
-  void apply(Stack<ExplorableSudoku<size>>*) const;
-
   Coordinates cell;
   unsigned value;
   unsigned region;
@@ -64,58 +50,42 @@ struct CellIsDeducedAsSinglePlaceForValueInRegion {
 
 template<unsigned size>
 struct PropagationIsDoneForCell {
-  void apply(Stack<ExplorableSudoku<size>>*) const;
-
   Coordinates cell;
   unsigned value;
 };
 
 template<unsigned size>
-struct PropagationIsDoneForSudoku {
-  void apply(Stack<ExplorableSudoku<size>>*) const;
-};
+struct PropagationIsDoneForSudoku {};
 
 template<unsigned size>
 struct ExplorationStarts {
-  void apply(Stack<ExplorableSudoku<size>>*) const;
-
   Coordinates cell;
   std::vector<unsigned> allowed_values;
 };
 
 template<unsigned size>
 struct HypothesisIsMade {
-  void apply(Stack<ExplorableSudoku<size>>*) const;
-
   Coordinates cell;
   unsigned value;
 };
 
 template<unsigned size>
 struct HypothesisIsRejected {
-  void apply(Stack<ExplorableSudoku<size>>*) const;
-
   Coordinates cell;
   unsigned value;
 };
 
 template<unsigned size>
-struct SudokuIsSolved {
-  void apply(Stack<ExplorableSudoku<size>>*) const;
-};
+struct SudokuIsSolved {};
 
 template<unsigned size>
 struct HypothesisIsAccepted {
-  void apply(Stack<ExplorableSudoku<size>>*) const;
-
   Coordinates cell;
   unsigned value;
 };
 
 template<unsigned size>
 struct ExplorationIsDone {
-  void apply(Stack<ExplorableSudoku<size>>*) const;
-
   Coordinates cell;
 };
 

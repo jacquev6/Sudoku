@@ -3,9 +3,14 @@
 #ifndef EXPLORATION_SUDOKU_SOLVER_HPP_
 #define EXPLORATION_SUDOKU_SOLVER_HPP_
 
+#include <array>
+#include <bitset>
+#include <cassert>
 #include <deque>
 #include <functional>
 #include <memory>
+#include <optional>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -13,79 +18,148 @@
 #include "events.hpp"
 
 
-// This is the only way to modify the Stack (everywhere else, it's manipulated through const references).
-// This design ensures that the events returned to the client can replicate exactly the evolution of the
-// stack that happened during the exploration, because the stack actually evolved only through said events.
-// (I think this is brilliant, but I *may* biased as I'm the author of this code).
-template<unsigned size, typename AddEvent>
-struct EventAdder {
-  EventAdder(Stack<ExplorableSudoku<size>>* stack_, const AddEvent& add_event_)
-    : stack(stack_), add_event(add_event_) {}
+template<unsigned size>
+class ExplorableCell {
+ public:
+  ExplorableCell() :
+    allowed_values(),
+    set_value()
+  {  // NOLINT(whitespace/braces)
+    allowed_values.set();
+    assert_invariants();
+  }
 
-  template<typename Event>
-  void operator()(const Event& event) const {
-    event.apply(stack);
-    add_event(event);
+ public:
+  bool is_set() const {
+    assert_invariants();
+    return set_value.has_value();
+  }
+
+  unsigned get() const {
+    assert_invariants();
+    assert(is_set());
+
+    return set_value.value();
+  }
+
+  bool is_allowed(const unsigned value) const {
+    assert_invariants();
+    assert(value < size);
+
+    return allowed_values.test(value);
+  }
+
+  unsigned allowed_count() const {
+    assert_invariants();
+
+    return allowed_values.count();
+  }
+
+  void set(const unsigned value) {
+    assert_invariants();
+    assert(value < size);
+    assert(is_allowed(value));
+    assert(!is_set());
+
+    allowed_values.reset();
+    allowed_values.set(value);
+    set_value = value;
+
+    assert_invariants();
+  }
+
+  void forbid(const unsigned value) {
+    assert_invariants();
+    assert(value < size);
+    assert(is_allowed(value));
+
+    allowed_values.reset(value);
+
+    assert_invariants();
   }
 
  private:
-  Stack<ExplorableSudoku<size>>* stack;
-  const AddEvent& add_event;
+  void assert_invariants() const {
+    // At least one value is always allowed
+    assert(allowed_values.any());
+
+    // 'set_value' forces 'allowed_values'
+    if (set_value.has_value()) {
+      assert(allowed_values.count() == 1);
+      assert(allowed_values.test(set_value.value()));
+    }
+  }
+
+ private:
+  std::bitset<size> allowed_values;
+  std::optional<unsigned> set_value;
 };
 
+template<unsigned size>
+class Sudoku<ExplorableCell<size>, size> : public SudokuBase<ExplorableCell<size>, size> {
+ public:
+  bool is_solved() const {
+    for (const auto& cell : this->cells()) {
+      if (!cell.is_set()) {
+        return false;
+      }
+    }
+    return true;
+  }
+};
 
 // Make sure a closing event is added, however the scope is exited
-template<unsigned size, typename AddEvent, typename EventIn, typename EventOut>
+template<typename EventSink, typename EventIn, typename EventOut>
 struct EventsPairGuard {
   EventsPairGuard(
-    const EventAdder<size, AddEvent>& add_event_,
+    const EventSink& sink_event_,
     const EventIn& in,
     const EventOut& out_
   ) :  // NOLINT(whitespace/parens)
-    add_event(add_event_),
+    sink_event(sink_event_),
     out(out_)
   {  // NOLINT(whitespace/braces)
-    add_event(in);
+    sink_event(in);
   }
 
   ~EventsPairGuard() {
-    add_event(out);
+    sink_event(out);
   }
 
-  const EventAdder<size, AddEvent>& add_event;
+  const EventSink& sink_event;
   EventOut out;
 };
 
 
-template<unsigned size, typename AddEvent>
+template<unsigned size, typename EventSink>
 bool propagate(
-  const Stack<ExplorableSudoku<size>>& stack,
+  Stack<Sudoku<ExplorableCell<size>, size>>* stack,
   std::deque<Coordinates> todo,
-  const EventAdder<size, AddEvent>& add_event
+  const EventSink& sink_event
 ) {
   for (const auto& coords : todo) {
     assert(std::count(todo.begin(), todo.end(), coords) == 1);
   }
 
   EventsPairGuard guard(
-    add_event,
+    sink_event,
     PropagationStartsForSudoku<size>(),
     PropagationIsDoneForSudoku<size>());
 
   while (!todo.empty()) {
     const auto source_coords = todo.front();
     todo.pop_front();
-    const auto& source_cell = stack.current().cell(source_coords);
+    auto& source_cell = stack->current().cell(source_coords);
     assert(source_cell.is_set());
     const unsigned value = source_cell.get();
 
     EventsPairGuard guard(
-      add_event,
+      sink_event,
       PropagationStartsForCell<size>(source_coords, value),
       PropagationIsDoneForCell<size>(source_coords, value));
 
-    for (const auto& source_region : source_cell.regions()) {
-      for (const auto& target_cell : source_region.cells()) {
+    for (auto& source_region : source_cell.regions()) {
+      for (auto& target_cell : source_region.cells()) {
         const auto target_coords = target_cell.coordinates();
         if (target_cell != source_cell) {
           if (target_cell.is_set()) {
@@ -95,19 +169,21 @@ bool propagate(
           } else {
             assert(target_cell.allowed_count() > 1);
             if (target_cell.is_allowed(value)) {
-              add_event(CellPropagates<size>(source_coords, target_coords, value));
+              sink_event(CellPropagates<size>(source_coords, target_coords, value));
+              target_cell.forbid(value);
 
               if (target_cell.allowed_count() == 1) {
                 for (unsigned value : SudokuConstants<size>::values) {
                   if (target_cell.is_allowed(value)) {
-                    add_event(CellIsDeducedFromSingleAllowedValue<size>(target_coords, value));
+                    sink_event(CellIsDeducedFromSingleAllowedValue<size>(target_coords, value));
+                    target_cell.set(value);
 
-                    // 'ExplorableSudoku::is_solved' is currently O(ExplorableSudoku::size^2),
+                    // 'is_solved' is currently O(size^2),
                     // which we could optimize easily with additional book-keeping,
                     // but the *whole* solving algorithm still executes in less than 100ms for size 9,
                     // so it's not worth it yet.
-                    if (stack.current().is_solved()) {
-                      add_event(SudokuIsSolved<size>());
+                    if (stack->current().is_solved()) {
+                      sink_event(SudokuIsSolved<size>());
                     }
 
                     assert(std::count(todo.begin(), todo.end(), target_coords) == 0);
@@ -118,10 +194,10 @@ bool propagate(
                 }
               }
 
-              for (const auto& target_region : target_cell.regions()) {
+              for (auto& target_region : target_cell.regions()) {
                 unsigned count = 0;
-                const typename ExplorableSudoku<size>::Cell* single_cell;
-                for (const auto& cell : target_region.cells()) {
+                typename Sudoku<ExplorableCell<size>, size>::Cell* single_cell;
+                for (auto& cell : target_region.cells()) {
                   if (cell.is_allowed(value)) {
                     ++count;
                     single_cell = &cell;
@@ -129,11 +205,12 @@ bool propagate(
                 }
                 if (count == 1 && !single_cell->is_set()) {
                   const Coordinates single_coords = single_cell->coordinates();
-                  add_event(CellIsDeducedAsSinglePlaceForValueInRegion<size>(
+                  sink_event(CellIsDeducedAsSinglePlaceForValueInRegion<size>(
                     single_coords, value, target_region.index()));
+                  single_cell->set(value);
 
-                  if (stack.current().is_solved()) {
-                    add_event(SudokuIsSolved<size>());
+                  if (stack->current().is_solved()) {
+                    sink_event(SudokuIsSolved<size>());
                   }
 
                   assert(std::count(todo.begin(), todo.end(), single_coords) == 0);
@@ -154,7 +231,7 @@ bool propagate(
 
 
 template<unsigned size>
-Coordinates get_most_constrained_cell(const ExplorableSudoku<size>& sudoku) {
+Coordinates get_most_constrained_cell(const Sudoku<ExplorableCell<size>, size>& sudoku) {
   Coordinates best_coords;
   unsigned best_count = size + 1;
 
@@ -176,40 +253,43 @@ Coordinates get_most_constrained_cell(const ExplorableSudoku<size>& sudoku) {
 }
 
 
-template<unsigned size, typename AddEvent>
+template<unsigned size, typename EventSink>
 bool propagate_and_explore(
-  const Stack<ExplorableSudoku<size>>&,
+  Stack<Sudoku<ExplorableCell<size>, size>>*,
   const std::deque<Coordinates>& todo,
-  const EventAdder<size, AddEvent>&
+  const EventSink&
 );
 
 
-template<unsigned size, typename AddEvent>
-bool explore(const Stack<ExplorableSudoku<size>>& stack, const EventAdder<size, AddEvent>& add_event) {
-  assert(!stack.current().is_solved());
+template<unsigned size, typename EventSink>
+bool explore(Stack<Sudoku<ExplorableCell<size>, size>>* stack, const EventSink& sink_event) {
+  assert(!stack->current().is_solved());
 
-  const auto& cell = stack.current().cell(get_most_constrained_cell(stack.current()));
-  const Coordinates coords = cell.coordinates();
+  const Coordinates coords = get_most_constrained_cell(stack->current());
+  const auto& cell = stack->current().cell(coords);
   std::vector<unsigned> allowed_values;
-  for (unsigned val : SudokuConstants<size>::values) {
-    if (cell.is_allowed(val)) {
-      allowed_values.push_back(val);
+  for (unsigned value : SudokuConstants<size>::values) {
+    if (cell.is_allowed(value)) {
+      allowed_values.push_back(value);
     }
   }
 
   EventsPairGuard guard(
-    add_event,
+    sink_event,
     ExplorationStarts<size>(coords, allowed_values),
     ExplorationIsDone<size>(coords));
 
-  // @todo Artificially favor values without solution to demonstrate and visualize backtracking
-  for (unsigned val : allowed_values) {
-    add_event(HypothesisIsMade<size>(coords, val));
-    if (propagate_and_explore(stack, {coords}, add_event)) {
-      add_event(HypothesisIsAccepted<size>(coords, val));
+  for (unsigned value : allowed_values) {
+    sink_event(HypothesisIsMade<size>(coords, value));
+    stack->push();
+    stack->current().cell(coords).set(value);
+
+    if (propagate_and_explore(stack, {coords}, sink_event)) {
+      sink_event(HypothesisIsAccepted<size>(coords, value));
       return true;
     } else {
-      add_event(HypothesisIsRejected<size>(coords, val));
+      sink_event(HypothesisIsRejected<size>(coords, value));
+      stack->pop();
     }
   }
 
@@ -217,17 +297,17 @@ bool explore(const Stack<ExplorableSudoku<size>>& stack, const EventAdder<size, 
 }
 
 
-template<unsigned size, typename AddEvent>
+template<unsigned size, typename EventSink>
 bool propagate_and_explore(
-  const Stack<ExplorableSudoku<size>>& stack,
+  Stack<Sudoku<ExplorableCell<size>, size>>* stack,
   const std::deque<Coordinates>& todo,
-  const EventAdder<size, AddEvent>& add_event
+  const EventSink& sink_event
 ) {
-  if (propagate(stack, todo, add_event)) {
-    if (stack.current().is_solved()) {
+  if (propagate(stack, todo, sink_event)) {
+    if (stack->current().is_solved()) {
       return true;
     } else {
-      return explore(stack, add_event);
+      return explore(stack, sink_event);
     }
   } else {
     return false;
@@ -235,26 +315,26 @@ bool propagate_and_explore(
 }
 
 
-template<unsigned size, typename AddEvent>
+template<unsigned size, typename EventSink>
 Sudoku<ValueCell, size> solve_using_exploration(
   Sudoku<ValueCell, size> sudoku,
-  const AddEvent& add_event_
+  const EventSink& sink_event
 ) {
-  Stack<ExplorableSudoku<size>> stack;
-  EventAdder<size, AddEvent> add_event(&stack, add_event_);
+  Stack<Sudoku<ExplorableCell<size>, size>> stack;
   std::deque<Coordinates> todo;
   for (const auto& cell : sudoku.cells()) {
-    const auto val = cell.get();
-    if (val) {
+    const auto value = cell.get();
+    if (value) {
       const Coordinates coords = cell.coordinates();
-      add_event(CellIsSetInInput<size>(coords, *val));
+      sink_event(CellIsSetInInput<size>(coords, *value));
+      stack.current().cell(coords).set(*value);
       todo.push_back(coords);
     }
   }
 
-  add_event(InputsAreDone<size>());
+  sink_event(InputsAreDone<size>());
 
-  propagate_and_explore(stack, std::move(todo), add_event);
+  propagate_and_explore(&stack, std::move(todo), sink_event);
 
   for (const auto& cell : stack.current().cells()) {
     if (cell.is_set()) {
