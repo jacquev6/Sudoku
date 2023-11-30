@@ -99,4 +99,40 @@ TEST_CASE("sudoku - cell equality") {
   CHECK(sudoku.cell({0, 0}) != sudoku.cell({1, 1}));
 }
 
+TEST_CASE("sudoku - modify through .cells") {
+  Sudoku<TestCell, 4> sudoku;
+  for (auto& cell : sudoku.cells()) {
+    cell.val = 1;
+  }
+  for (const auto& cell : sudoku.cells()) {
+    CHECK(cell.val == 1);
+  }
+}
+
+TEST_CASE("sudoku - modify through .regions then .cells") {
+  Sudoku<TestCell, 4> sudoku;
+  for (auto& region : sudoku.regions()) {
+    for (auto& cell : region.cells()) {
+      cell.val = 1;
+    }
+  }
+  for (const auto& cell : sudoku.cells()) {
+    CHECK(cell.val == 1);
+  }
+}
+
+TEST_CASE("sudoku - modify through .cells then .regions then .cells") {
+  Sudoku<TestCell, 4> sudoku;
+  for (auto& cell : sudoku.cells()) {
+    for (auto& region : cell.regions()) {
+      for (auto& cell : region.cells()) {
+        cell.val = 1;
+      }
+    }
+  }
+  for (const auto& cell : sudoku.cells()) {
+    CHECK(cell.val == 1);
+  }
+}
+
 // LCOV_EXCL_STOP

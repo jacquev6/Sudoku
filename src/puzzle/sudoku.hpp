@@ -21,16 +21,15 @@
 template<typename CellBase, unsigned size>
 class SudokuBase {
  public:
-  // Cells and Regions keep a reference to the sudoku, so we make them not copyable or moveable.
   class Cell : public CellBase {
    public:
-    Cell(const SudokuBase* sudoku_, const Coordinates& coords_) :
+    Cell(SudokuBase* sudoku_, const Coordinates& coords_) :
       CellBase(),
       sudoku(sudoku_),
       coords(coords_)
     {}
 
-    Cell(const SudokuBase* sudoku_, const Cell& other) :
+    Cell(SudokuBase* sudoku_, const Cell& other) :
       CellBase(other),
       sudoku(sudoku_),
       coords(other.coords)
@@ -49,16 +48,34 @@ class SudokuBase {
 
     Coordinates coordinates() const { return coords; }
 
-    auto regions() const;
+    auto regions() const {
+      const auto convert = [this](const unsigned region_index) -> const Region& {
+        return sudoku->_regions[region_index];
+      };
+
+      return boost::make_iterator_range(
+        boost::make_transform_iterator(SudokuConstants<size>::regions_of[coords.first][coords.second].begin(), convert),
+        boost::make_transform_iterator(SudokuConstants<size>::regions_of[coords.first][coords.second].end(), convert));
+    }
+
+    auto regions() {
+      const auto convert = [this](const unsigned region_index) -> Region& {
+        return sudoku->_regions[region_index];
+      };
+
+      return boost::make_iterator_range(
+        boost::make_transform_iterator(SudokuConstants<size>::regions_of[coords.first][coords.second].begin(), convert),
+        boost::make_transform_iterator(SudokuConstants<size>::regions_of[coords.first][coords.second].end(), convert));
+    }
 
    private:
-    const SudokuBase* sudoku;
+    SudokuBase* sudoku;
     const Coordinates coords;
   };
 
   class Region {
    public:
-    Region(const SudokuBase* sudoku_, const unsigned index_) :
+    Region(SudokuBase* sudoku_, const unsigned index_) :
       sudoku(sudoku_), _index(index_)
     {}
 
@@ -81,18 +98,31 @@ class SudokuBase {
         boost::make_transform_iterator(SudokuConstants<size>::regions[_index].end(), convert));
     }
 
+    auto cells() {
+      const auto convert = [this](const auto& coords) -> Cell& {
+        const auto [row, col] = coords;
+        return sudoku->_cells[row][col];
+      };
+
+      return boost::make_iterator_range(
+        boost::make_transform_iterator(SudokuConstants<size>::regions[_index].begin(), convert),
+        boost::make_transform_iterator(SudokuConstants<size>::regions[_index].end(), convert));
+    }
+
    private:
-    const SudokuBase* sudoku;
+    SudokuBase* sudoku;
     const unsigned _index;
   };
 
  public:
   SudokuBase() :
-    _cells(make_cells())
+    _cells(make_cells()),
+    _regions(make_regions())
   {}
 
   SudokuBase(const SudokuBase& other) :
-    _cells(copy_cells(other._cells))
+    _cells(copy_cells(other._cells)),
+    _regions(make_regions())
   {};
 
   SudokuBase& operator=(const SudokuBase&);
@@ -116,7 +146,7 @@ class SudokuBase {
     return {make_cell(row, col)...};
   }
 
-  Cell make_cell(unsigned row, unsigned col) const {
+  Cell make_cell(unsigned row, unsigned col) {
     return Cell(this, {row, col});
   }
 
@@ -139,8 +169,24 @@ class SudokuBase {
     return {copy_cell(row, col, other_cells)...};
   }
 
-  Cell copy_cell(unsigned row, unsigned col, const CellsArray& other_cells) const {
+  Cell copy_cell(unsigned row, unsigned col, const CellsArray& other_cells) {
     return Cell(this, other_cells[row][col]);
+  }
+
+ private:
+  typedef std::array<Region, 3 * size> RegionsArray;
+
+  RegionsArray make_regions() {
+    return make_regions(std::make_integer_sequence<unsigned, 3 * size>());
+  }
+
+  template<unsigned... index>
+  RegionsArray make_regions(const std::integer_sequence<unsigned, index...>&) {
+    return {make_region(index)...};
+  }
+
+  Region make_region(unsigned index) {
+    return Region(this, index);
   }
 
  public:
@@ -181,8 +227,18 @@ class SudokuBase {
   }
 
   auto regions() const {
-    const auto convert = [this](const unsigned index) -> const Region {
-      return Region(this, index);
+    const auto convert = [this](const unsigned index) -> const Region& {
+      return _regions[index];
+    };
+
+    return boost::make_iterator_range(
+      boost::make_transform_iterator(SudokuConstants<size>::region_indexes.begin(), convert),
+      boost::make_transform_iterator(SudokuConstants<size>::region_indexes.end(), convert));
+  }
+
+  auto regions() {
+    const auto convert = [this](const unsigned index) -> Region& {
+      return _regions[index];
     };
 
     return boost::make_iterator_range(
@@ -192,18 +248,8 @@ class SudokuBase {
 
  protected:
   CellsArray _cells;
+  RegionsArray _regions;
 };
-
-template<typename CellBase, unsigned size>
-auto SudokuBase<CellBase, size>::Cell::regions() const {
-  const auto convert = [this](const unsigned region_index) -> const Region {
-    return Region(sudoku, region_index);
-  };
-
-  return boost::make_iterator_range(
-    boost::make_transform_iterator(SudokuConstants<size>::regions_of[coords.first][coords.second].begin(), convert),
-    boost::make_transform_iterator(SudokuConstants<size>::regions_of[coords.first][coords.second].end(), convert));
-}
 
 template<typename Cell, unsigned size>
 class Sudoku : public SudokuBase<Cell, size> {};
