@@ -8,325 +8,34 @@
 #include <vector>
 
 #include "art.hpp"
+#include "video/frames-serializer.hpp"  // Only for tests
+
+#include <doctest.h>  // NOLINT(build/include_order): keep last because it defines really common names like CHECK
+
+
+using std::literals::operator""s;
 
 
 template<unsigned size>
-class VideoExplainer {
+class Animator {
   static constexpr unsigned margin_pixels = 10;
   static constexpr unsigned thick_line_width = 4;
   static constexpr unsigned thin_line_width = 2;
+  static constexpr double widths[] = {2, 4, 5, 3, 2};
+  static constexpr unsigned widths_count = sizeof(widths) / sizeof(widths[0]);
 
  public:
-  VideoExplainer(
-    const Explanation<size>& explanation_,
+  Animator(
     video::Serializer* serializer_,
-    bool quick_,
     unsigned frame_width_,
     unsigned frame_height_
   ) :  // NOLINT(whitespace/parens)
-    explanation(explanation_),
     serializer(serializer_),
-    quick(quick_),
     frame_width_pixels(frame_width_),
     frame_height_pixels(frame_height_),
     viewport_height_pixels(frame_height_pixels - 2 * margin_pixels),
-    viewport_width_pixels(frame_width_pixels - 2 * margin_pixels),
-    stack()
+    viewport_width_pixels(frame_width_pixels - 2 * margin_pixels)
   {}
-
- public:
-  void explain() {
-    for (const auto& cell : explanation.inputs.cells()) {
-      const std::optional<unsigned> value = cell.get();
-      if (value) {
-        stack.current().cell(cell.coordinates()).set_input(*value);
-      }
-    }
-
-    Layout title{
-      .above = {
-        {"How to solve this Sudoku?", 40, Text::Bold},
-        {"An automated explanation by @jacquev6", 20},
-        {"https://github.com/jacquev6/Sudoku", 20},
-      },
-    };
-
-    for (unsigned index = 0; index != quicken(75); ++index) {
-      make_frame(title, {});
-    }
-
-    Layout propagate{.below = {{"Propagate constraints", 20}}};
-
-    const unsigned transition_duration = quicken(12);
-    for (unsigned index = 0; index != transition_duration; ++index) {
-      make_frame(title, propagate, index, transition_duration, {});
-    }
-
-    for (unsigned index = 0; index != quicken(12); ++index) {
-      make_frame(propagate, {});
-    }
-
-    for (unsigned index = 0; index != quicken(12); ++index) {
-      make_frame(propagate, { .possible = true, .bold_todo = true });
-    }
-
-    explain(explanation.propagations);
-    explain(explanation.exploration);
-  }
-
- private:
-  void explain(const std::vector<typename Explanation<size>::Propagation>& propagations) {
-    for (const auto& propagation : propagations) {
-      explain(propagation);
-    }
-  }
-
-  void explain(const typename Explanation<size>::Propagation& propagation) {
-    Layout propagate{.below = {{"Propagate constraints", 20}}};
-    const double widths[] = {2, 4, 5, 3, 2};
-    const unsigned widths_count = sizeof(widths) / sizeof(widths[0]);
-
-    if (cell_propagations_handled < quicken(3)) {
-      for (unsigned index = 0; index != quicken(3) * widths_count; ++index) {
-        make_frame(
-          propagate,
-          {
-            .possible = true,
-            .bold_todo = true,
-            .circled_cells = {propagation.source},
-            .circled_cells_line_width = widths[index % widths_count],
-          });
-      }
-
-      for (const auto& target : propagation.targets) {
-        if (single_propagations_handled < quicken(6)) {
-          for (unsigned index = 0; index != quicken(3) * widths_count; ++index) {
-            make_frame(propagate, {
-              .possible = true,
-              .bold_todo = true,
-              .circled_cells = {propagation.source},
-              .circled_values = {{target.cell, propagation.value}},
-              .circled_values_line_width = widths[index % widths_count],
-              .links_from_cell_to_value = {{propagation.source, target.cell, propagation.value}},
-              .links_from_cell_to_value_line_width = widths[index % widths_count],
-            });
-          }
-
-          stack.current().cell(target.cell).forbid(propagation.value);
-
-          for (unsigned index = 0; index != quicken(6); ++index) {
-            make_frame(propagate, {
-              .possible = true,
-              .bold_todo = true,
-              .circled_cells = {propagation.source},
-            });
-          }
-        } else {
-          for (unsigned index = 0; index != quicken(1) * widths_count; ++index) {
-            make_frame(propagate, {
-              .possible = true,
-              .bold_todo = true,
-              .circled_cells = {propagation.source},
-              .circled_values = {{target.cell, propagation.value}},
-              .circled_values_line_width = widths[index % widths_count],
-              .links_from_cell_to_value = {{propagation.source, target.cell, propagation.value}},
-              .links_from_cell_to_value_line_width = widths[index % widths_count],
-            });
-          }
-
-          stack.current().cell(target.cell).forbid(propagation.value);
-
-          for (unsigned index = 0; index != quicken(4); ++index) {
-            make_frame(propagate, {
-              .possible = true,
-              .bold_todo = true,
-              .circled_cells = {propagation.source},
-              .circled_values = {{target.cell, propagation.value}},
-              .links_from_cell_to_value = {{propagation.source, target.cell, propagation.value}},
-            });
-          }
-        }
-
-        ++single_propagations_handled;
-      }
-    } else {
-      std::vector<std::tuple<Coordinates, unsigned>> circled_values;
-      circled_values.reserve(propagation.targets.size());
-      std::vector<std::tuple<Coordinates, Coordinates, unsigned>> links_from_cell_to_value;
-      links_from_cell_to_value.reserve(propagation.targets.size());
-      for (const auto& target : propagation.targets) {
-        circled_values.emplace_back(target.cell, propagation.value);
-        links_from_cell_to_value.emplace_back(propagation.source, target.cell, propagation.value);
-      }
-
-      if (!circled_values.empty()) {
-        for (unsigned index = 0; index != quicken(1) * widths_count; ++index) {
-          make_frame(propagate, {
-            .possible = true,
-            .bold_todo = true,
-            .circled_cells = {propagation.source},
-            .circled_cells_line_width = widths[index % widths_count],
-            .circled_values = circled_values,
-            .circled_values_line_width = widths[index % widths_count],
-            .links_from_cell_to_value = links_from_cell_to_value,
-            .links_from_cell_to_value_line_width = widths[index % widths_count],
-          });
-        }
-      }
-
-      for (const auto& target : propagation.targets) {
-        stack.current().cell(target.cell).forbid(propagation.value);
-      }
-
-      if (!circled_values.empty()) {
-        for (unsigned index = 0; index != quicken(4); ++index) {
-          make_frame(propagate, {
-            .possible = true,
-            .bold_todo = true,
-            .circled_cells = {propagation.source},
-            .circled_values = circled_values,
-            .links_from_cell_to_value = links_from_cell_to_value,
-          });
-        }
-
-        for (unsigned index = 0; index != quicken(4); ++index) {
-          make_frame(propagate, {
-            .possible = true,
-            .bold_todo = true,
-            .circled_cells = {propagation.source},
-          });
-        }
-      }
-    }
-
-    bool solved = false;
-    for (const auto& target : propagation.targets) {
-      for (const auto& deduction : target.single_value_deductions) {
-        if (deduction.solved) {
-          solved = true;
-        }
-      }
-      for (const auto& deduction : target.single_place_deductions) {
-        if (deduction.solved) {
-          solved = true;
-        }
-      }
-    }
-    if (!solved) {
-      stack.current().cell(propagation.source).set_propagated();
-    }
-
-    if (deductions_handled < quicken(4)) {
-      for (const auto& target : propagation.targets) {
-        for (const auto& deduction : target.single_value_deductions) {
-          stack.current().cell(deduction.cell).set_deduced(deduction.value);
-          ++deductions_handled;
-
-          for (unsigned index = 0; index != quicken(6) * widths_count; ++index) {
-            make_frame(propagate, {
-              .possible = true,
-              .bold_todo = true,
-              .circled_cells = {deduction.cell},
-              .circled_cells_line_width = widths[index % widths_count],
-              .circled_cells_color = {0, 1, 0},
-            });
-          }
-        }
-
-        for (const auto& deduction : target.single_place_deductions) {
-          stack.current().cell(deduction.cell).set_deduced(deduction.value);
-          ++deductions_handled;
-
-          for (unsigned index = 0; index != quicken(6) * widths_count; ++index) {
-            make_frame(propagate, {
-              .possible = true,
-              .bold_todo = true,
-              .boxed_cells = {deduction.cell},
-              .boxed_cells_line_width = widths[index % widths_count],
-              .boxed_cells_color = {0, 1, 0},
-            });
-          }
-        }
-      }
-    } else {
-      std::vector<Coordinates> circled_cells;
-      for (const auto& target : propagation.targets) {
-        for (const auto& deduction : target.single_value_deductions) {
-          stack.current().cell(deduction.cell).set_deduced(deduction.value);
-          ++deductions_handled;
-
-          circled_cells.emplace_back(deduction.cell);
-        }
-      }
-      if (!circled_cells.empty()) {
-        for (unsigned index = 0; index != quicken(2) * widths_count; ++index) {
-          make_frame(propagate, {
-            .possible = true,
-            .bold_todo = true,
-            .circled_cells = circled_cells,
-            .circled_cells_line_width = widths[index % widths_count],
-            .circled_cells_color = {0, 1, 0},
-          });
-        }
-      }
-
-      std::vector<Coordinates> boxed_cells;
-      for (const auto& target : propagation.targets) {
-        for (const auto& deduction : target.single_place_deductions) {
-          stack.current().cell(deduction.cell).set_deduced(deduction.value);
-          ++deductions_handled;
-
-          boxed_cells.emplace_back(deduction.cell);
-        }
-      }
-      if (!boxed_cells.empty()) {
-        for (unsigned index = 0; index != quicken(2) * widths_count; ++index) {
-          make_frame(propagate, {
-            .possible = true,
-            .bold_todo = true,
-            .boxed_cells = boxed_cells,
-            .boxed_cells_line_width = widths[index % widths_count],
-            .boxed_cells_color = {0, 1, 0},
-          });
-        }
-      }
-    }
-
-    if (solved) {
-      for (unsigned index = 0; index != quicken(75); ++index) {
-        make_frame({.below = {{"Solved!", 20}}}, {});
-      }
-    }
-
-    ++cell_propagations_handled;
-  }
-
-  void explain(const std::optional<typename Explanation<size>::Exploration>& exploration) {
-    if (exploration.has_value()) {
-      explain(*exploration);
-    }
-  }
-
-  void explain(const typename Explanation<size>::Exploration& exploration) {
-    for (const auto& hypothesis : exploration.explored_hypotheses) {
-      stack.push();
-      stack.current().cell(exploration.cell).set_hypothesis(hypothesis.value);
-
-      explain(hypothesis.propagations);
-      explain(hypothesis.exploration);
-
-      stack.pop();
-    }
-  }
-
- private:
-  unsigned quicken(unsigned n) {
-    if (quick) {
-      return 1;
-    } else {
-      return n;
-    }
-  }
 
  private:
   struct Text {
@@ -340,7 +49,244 @@ class VideoExplainer {
     std::vector<Text> below = {};
   };
 
-  void make_frame(const Layout& layout, art::DrawOptions draw_options) {
+  // @todo Make these layouts 'static constexpr' members instead of methods
+  // (This currently fails with a weird compile error, and I'm procrastinating investigation)
+  Layout title() {
+    return {
+      .above = {
+        Text{"How to solve this Sudoku?"s, 40, Text::Bold},
+        Text{"An automated explanation by @jacquev6"s, 20},
+        Text{"https://github.com/jacquev6/Sudoku"s, 20},
+      }
+    };
+  }
+
+  Layout propagate() { return {.below = {{"Propagate constraints", 20}}}; }
+
+ public:
+  void make_title_sequence(const AnnotatedSudoku<size>& state, const unsigned duration) {
+    for (unsigned index = 0; index != duration; ++index) {
+      make_frame(title(), state, {});
+    }
+  }
+
+  void make_title_to_propagate_sequence(const AnnotatedSudoku<size>& state, const unsigned duration) {
+    for (unsigned index = 0; index != duration; ++index) {
+      make_frame(title(), propagate(), index, duration, state, {});
+    }
+  }
+
+  void make_introduce_propagation_sequence(const AnnotatedSudoku<size>& state, const unsigned duration) {
+    for (unsigned index = 0; index != duration; ++index) {
+      make_frame(propagate(), state, {});
+    }
+  }
+
+  void make_setup_propagation_sequence(const AnnotatedSudoku<size>& state, const unsigned duration) {
+    for (unsigned index = 0; index != duration; ++index) {
+      make_frame(propagate(), state, { .possible = true, .bold_todo = true });
+    }
+  }
+
+  void make_start_cell_propagation_sequence(
+    const AnnotatedSudoku<size>& state,
+    const Coordinates& source,
+    const unsigned duration
+  ) {
+    for (unsigned index = 0; index != duration * widths_count; ++index) {
+      make_frame(
+        propagate(),
+        state,
+        {
+          .possible = true,
+          .bold_todo = true,
+          .circled_cells = {source},
+          .circled_cells_line_width = widths[index % widths_count],
+        });
+    }
+  }
+
+  void make_propagate_cell_to_target_sequence(
+    const AnnotatedSudoku<size>& state,
+    const Coordinates& source,
+    const Coordinates& target,
+    const unsigned value,
+    const unsigned duration
+  ) {
+    for (unsigned index = 0; index != duration * widths_count; ++index) {
+      make_frame(
+        propagate(),
+        state,
+        {
+          .possible = true,
+          .bold_todo = true,
+          .circled_cells = {source},
+          .circled_values = {{target, value}},
+          .circled_values_line_width = widths[index % widths_count],
+          .links_from_cell_to_value = {{source, target, value}},
+          .links_from_cell_to_value_line_width = widths[index % widths_count],
+        });
+    }
+  }
+
+  void make_continue_cell_propagation_1_sequence(
+    const AnnotatedSudoku<size>& state,
+    const Coordinates& source,
+    const unsigned duration
+  ) {
+    for (unsigned index = 0; index != duration; ++index) {
+      make_frame(
+        propagate(),
+        state,
+        {
+          .possible = true,
+          .bold_todo = true,
+          .circled_cells = {source},
+        });
+    }
+  }
+
+  void make_continue_cell_propagation_2_sequence(
+    const AnnotatedSudoku<size>& state,
+    const Coordinates& source,
+    const Coordinates& target,
+    const unsigned value,
+    const unsigned duration
+  ) {
+    for (unsigned index = 0; index != duration; ++index) {
+      make_frame(
+        propagate(),
+        state,
+        {
+          .possible = true,
+          .bold_todo = true,
+          .circled_cells = {source},
+          .circled_values = {{target, value}},
+          .links_from_cell_to_value = {{source, target, value}},
+        });
+    }
+  }
+
+  void make_quick_propagation_sequence_begin(
+    const AnnotatedSudoku<size>& state,
+    const Coordinates& source,
+    const std::vector<Coordinates>& targets,
+    const unsigned value,
+    const unsigned duration
+  ) {
+    std::vector<std::tuple<Coordinates, unsigned>> circled_values;
+    circled_values.reserve(targets.size());
+    std::vector<std::tuple<Coordinates, Coordinates, unsigned>> links_from_cell_to_value;
+    links_from_cell_to_value.reserve(targets.size());
+    for (const auto& target : targets) {
+      circled_values.emplace_back(target, value);
+      links_from_cell_to_value.emplace_back(source, target, value);
+    }
+
+    for (unsigned index = 0; index != duration * widths_count; ++index) {
+      make_frame(
+        propagate(),
+        state,
+        {
+          .possible = true,
+          .bold_todo = true,
+          .circled_cells = {source},
+          .circled_cells_line_width = widths[index % widths_count],
+          .circled_values = circled_values,
+          .circled_values_line_width = widths[index % widths_count],
+          .links_from_cell_to_value = links_from_cell_to_value,
+          .links_from_cell_to_value_line_width = widths[index % widths_count],
+        });
+    }
+  }
+
+  void make_quick_propagation_sequence_end(
+    const AnnotatedSudoku<size>& state,
+    const Coordinates& source,
+    const std::vector<Coordinates>& targets,
+    const unsigned value,
+    const unsigned duration
+  ) {
+    std::vector<std::tuple<Coordinates, unsigned>> circled_values;
+    circled_values.reserve(targets.size());
+    std::vector<std::tuple<Coordinates, Coordinates, unsigned>> links_from_cell_to_value;
+    links_from_cell_to_value.reserve(targets.size());
+    for (const auto& target : targets) {
+      circled_values.emplace_back(target, value);
+      links_from_cell_to_value.emplace_back(source, target, value);
+    }
+
+    for (unsigned index = 0; index != duration; ++index) {
+      make_frame(
+        propagate(),
+        state,
+        {
+          .possible = true,
+          .bold_todo = true,
+          .circled_cells = {source},
+          .circled_values = circled_values,
+          .links_from_cell_to_value = links_from_cell_to_value,
+        });
+    }
+
+    for (unsigned index = 0; index != duration; ++index) {
+      make_frame(
+        propagate(),
+        state,
+        {
+          .possible = true,
+          .bold_todo = true,
+          .circled_cells = {source},
+        });
+    }
+  }
+
+  void make_single_value_deduction_sequence(
+    const AnnotatedSudoku<size>& state,
+    const std::vector<Coordinates>& cells,
+    const unsigned duration
+  ) {
+    for (unsigned index = 0; index != duration * widths_count; ++index) {
+      make_frame(
+        propagate(),
+        state,
+        {
+          .possible = true,
+          .bold_todo = true,
+          .circled_cells = cells,
+          .circled_cells_line_width = widths[index % widths_count],
+          .circled_cells_color = {0, 1, 0},
+        });
+    }
+  }
+
+  void make_single_place_deduction_sequence(
+    const AnnotatedSudoku<size>& state,
+    const std::vector<Coordinates>& cells,
+    const unsigned duration
+  ) {
+    for (unsigned index = 0; index != duration * widths_count; ++index) {
+      make_frame(
+        propagate(),
+        state,
+        {
+          .possible = true,
+          .bold_todo = true,
+          .boxed_cells = cells,
+          .boxed_cells_line_width = widths[index % widths_count],
+          .boxed_cells_color = {0, 1, 0},
+        });
+    }
+  }
+
+  void make_solved_sequence(const AnnotatedSudoku<size>& state, const unsigned duration) {
+    for (unsigned index = 0; index != duration; ++index) {
+      make_frame({.below = {{"Solved!", 20}}}, state, {});
+    }
+  }
+
+ private:
+  void make_frame(const Layout& layout, const AnnotatedSudoku<size>& state, art::DrawOptions draw_options) {
     auto surface = Cairo::ImageSurface::create(Cairo::Surface::Format::ARGB32, frame_width_pixels, frame_height_pixels);
     auto cr = Cairo::Context::create(surface);
     cr->set_source_rgb(1.0, 0.8, 0.8);
@@ -355,7 +301,7 @@ class VideoExplainer {
     const auto [grid_x, grid_y, grid_size] = draw_layout(cr, layout);
     cr->translate(grid_x, grid_y);
     draw_options.grid_size = grid_size;
-    art::draw(cr, stack.current(), draw_options);
+    art::draw(cr, state, draw_options);
 
     cr->restore();
     // @todo Remove the margin visualisation
@@ -368,42 +314,6 @@ class VideoExplainer {
     serializer->serialize(surface);
   }
 
-  void make_frame(
-    const Layout& before,
-    const Layout& after,
-    const unsigned index,
-    const unsigned duration,
-    art::DrawOptions draw_options
-  ) {
-    auto surface = Cairo::ImageSurface::create(Cairo::Surface::Format::ARGB32, frame_width_pixels, frame_height_pixels);
-    auto cr = Cairo::Context::create(surface);
-    cr->set_source_rgb(1.0, 0.8, 0.8);
-    cr->paint();
-    cr->set_source_rgb(1.0, 1.0, 1.0);
-    cr->rectangle(margin_pixels, margin_pixels, viewport_width_pixels, viewport_height_pixels);
-    cr->fill();
-    cr->save();
-    cr->translate(margin_pixels, margin_pixels);
-    cr->set_source_rgb(0, 0, 0);
-
-    const double ratio = (index + 1.) / (duration + 1);
-    const auto [grid_x, grid_y, grid_size] = draw_layout_transition(cr, before, after, ratio);
-    cr->translate(grid_x, grid_y);
-    draw_options.grid_size = grid_size;
-    art::draw(cr, stack.current(), draw_options);
-
-    cr->restore();
-    // @todo Remove the margin visualisation
-    cr->rectangle(0, 0, frame_width_pixels, frame_height_pixels);
-    cr->rectangle(margin_pixels, margin_pixels, viewport_width_pixels, viewport_height_pixels);
-    cr->set_fill_rule(Cairo::Context::FillRule::EVEN_ODD);
-    cr->set_source_rgba(0.5, 0.5, 0.5, 0.5);
-    cr->fill();
-
-    serializer->serialize(surface);
-  }
-
- private:
   std::tuple<double, double, double> draw_layout(Cairo::RefPtr<Cairo::Context> cr, const Layout& layout) {
     Cairo::SaveGuard saver(cr);
 
@@ -458,6 +368,43 @@ class VideoExplainer {
     const unsigned grid_y = above_height + (available_height - grid_size) / 2;
 
     return std::make_tuple(grid_x, grid_y, grid_size);
+  }
+
+ private:
+  void make_frame(
+    const Layout& before,
+    const Layout& after,
+    const unsigned index,
+    const unsigned duration,
+    const AnnotatedSudoku<size>& state,
+    art::DrawOptions draw_options
+  ) {
+    auto surface = Cairo::ImageSurface::create(Cairo::Surface::Format::ARGB32, frame_width_pixels, frame_height_pixels);
+    auto cr = Cairo::Context::create(surface);
+    cr->set_source_rgb(1.0, 0.8, 0.8);
+    cr->paint();
+    cr->set_source_rgb(1.0, 1.0, 1.0);
+    cr->rectangle(margin_pixels, margin_pixels, viewport_width_pixels, viewport_height_pixels);
+    cr->fill();
+    cr->save();
+    cr->translate(margin_pixels, margin_pixels);
+    cr->set_source_rgb(0, 0, 0);
+
+    const double ratio = (index + 1.) / (duration + 1);
+    const auto [grid_x, grid_y, grid_size] = draw_layout_transition(cr, before, after, ratio);
+    cr->translate(grid_x, grid_y);
+    draw_options.grid_size = grid_size;
+    art::draw(cr, state, draw_options);
+
+    cr->restore();
+    // @todo Remove the margin visualisation
+    cr->rectangle(0, 0, frame_width_pixels, frame_height_pixels);
+    cr->rectangle(margin_pixels, margin_pixels, viewport_width_pixels, viewport_height_pixels);
+    cr->set_fill_rule(Cairo::Context::FillRule::EVEN_ODD);
+    cr->set_source_rgba(0.5, 0.5, 0.5, 0.5);
+    cr->fill();
+
+    serializer->serialize(surface);
   }
 
   std::tuple<double, double, double> draw_layout_transition(
@@ -515,13 +462,358 @@ class VideoExplainer {
   }
 
  private:
+  video::Serializer* const serializer;
+  const unsigned frame_width_pixels;
+  const unsigned frame_height_pixels;
+  const unsigned viewport_height_pixels;
+  const unsigned viewport_width_pixels;
+};
+
+
+// LCOV_EXCL_START
+
+// These tests must be validated visually e.g. using 'git diff-image tests/unit' before commit
+TEST_CASE("Animator::make_title_sequence") {
+  video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "010-title-");
+  AnnotatedSudoku<4> state;
+  state.cell({0, 0}).set_input(0);
+  state.cell({0, 1}).set_input(1);
+  state.cell({0, 2}).set_input(2);
+  state.cell({0, 3}).set_input(3);
+  Animator<4>(&serializer, 640, 480).make_title_sequence(state, 1);
+}
+
+TEST_CASE("Animator::make_title_to_propagate_sequence") {
+  video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "020-title_to_propagate-");
+  AnnotatedSudoku<4> state;
+  state.cell({0, 0}).set_input(0);
+  state.cell({0, 1}).set_input(1);
+  state.cell({0, 2}).set_input(2);
+  state.cell({0, 3}).set_input(3);
+  Animator<4>(&serializer, 640, 480).make_title_to_propagate_sequence(state, 4);
+}
+
+TEST_CASE("Animator::make_introduce_propagation_sequence") {
+  video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "030-introduce_propagation-");
+  AnnotatedSudoku<4> state;
+  state.cell({0, 0}).set_input(0);
+  state.cell({0, 1}).set_input(1);
+  state.cell({0, 2}).set_input(2);
+  state.cell({0, 3}).set_input(3);
+  Animator<4>(&serializer, 640, 480).make_introduce_propagation_sequence(state, 1);
+}
+
+TEST_CASE("Animator::make_setup_propagation_sequence") {
+  video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "040-setup_propagation-");
+  AnnotatedSudoku<4> state;
+  state.cell({0, 0}).set_input(0);
+  state.cell({0, 1}).set_input(1);
+  state.cell({0, 2}).set_input(2);
+  state.cell({0, 3}).set_input(3);
+  Animator<4>(&serializer, 640, 480).make_setup_propagation_sequence(state, 1);
+}
+
+TEST_CASE("Animator::make_start_cell_propagation_sequence") {
+  video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "050-start_cell_propagation-");
+  AnnotatedSudoku<4> state;
+  state.cell({0, 0}).set_input(0);
+  state.cell({0, 1}).set_input(1);
+  state.cell({0, 2}).set_input(2);
+  state.cell({0, 3}).set_input(3);
+  Animator<4>(&serializer, 640, 480).make_start_cell_propagation_sequence(state, {0, 0}, 1);
+}
+
+TEST_CASE("Animator::make_propagate_cell_to_target_sequence") {
+  video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "060-propagate_cell_to_target-");
+  AnnotatedSudoku<4> state;
+  state.cell({0, 0}).set_input(0);
+  state.cell({0, 1}).set_input(1);
+  state.cell({0, 2}).set_input(2);
+  state.cell({0, 3}).set_input(3);
+  Animator<4>(&serializer, 640, 480).make_propagate_cell_to_target_sequence(state, {0, 0}, {1, 0}, 0, 1);
+}
+
+TEST_CASE("Animator::make_continue_cell_propagation_1_sequence") {
+  video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "070-continue_cell_propagation_1-");
+  AnnotatedSudoku<4> state;
+  state.cell({0, 0}).set_input(0);
+  state.cell({0, 1}).set_input(1);
+  state.cell({0, 2}).set_input(2);
+  state.cell({0, 3}).set_input(3);
+  state.cell({1, 0}).forbid(0);
+  Animator<4>(&serializer, 640, 480).make_continue_cell_propagation_1_sequence(state, {0, 0}, 1);
+}
+
+TEST_CASE("Animator::make_continue_cell_propagation_2_sequence") {
+  video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "080-continue_cell_propagation_2-");
+  AnnotatedSudoku<4> state;
+  state.cell({0, 0}).set_input(0);
+  state.cell({0, 1}).set_input(1);
+  state.cell({0, 2}).set_input(2);
+  state.cell({0, 3}).set_input(3);
+  state.cell({1, 0}).forbid(0);
+  Animator<4>(&serializer, 640, 480).make_continue_cell_propagation_2_sequence(state, {0, 0}, {1, 0}, 0, 1);
+}
+
+TEST_CASE("Animator::make_quick_propagation_sequence_begin") {
+  video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "090-quick_propagation_begin-");
+  AnnotatedSudoku<4> state;
+  state.cell({0, 0}).set_input(0);
+  state.cell({1, 0}).set_input(1);
+  state.cell({2, 0}).set_input(2);
+  state.cell({3, 0}).set_input(3);
+  Animator<4>(&serializer, 640, 480).make_quick_propagation_sequence_begin(
+    state, {0, 0}, {{0, 1}, {0, 2}, {0, 3}}, 0, 1);
+}
+
+TEST_CASE("Animator::make_quick_propagation_sequence_end") {
+  video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "100-quick_propagation_end-");
+  AnnotatedSudoku<4> state;
+  state.cell({0, 0}).set_input(0);
+  state.cell({1, 0}).set_input(1);
+  state.cell({2, 0}).set_input(2);
+  state.cell({3, 0}).set_input(3);
+  state.cell({0, 1}).forbid(0);
+  state.cell({0, 2}).forbid(0);
+  state.cell({0, 3}).forbid(0);
+  Animator<4>(&serializer, 640, 480).make_quick_propagation_sequence_end(state, {0, 0}, {{0, 1}, {0, 2}, {0, 3}}, 0, 1);
+}
+
+TEST_CASE("Animator::make_single_value_deduction_sequence") {
+  video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "110-single_value_deduction-");
+  AnnotatedSudoku<4> state;
+  state.cell({0, 0}).set_input(0);
+  state.cell({1, 0}).set_input(1);
+  state.cell({2, 0}).set_input(2);
+  state.cell({3, 0}).set_input(3);
+  Animator<4>(&serializer, 640, 480).make_single_value_deduction_sequence(state, {{0, 0}, {1, 0}, {2, 0}, {3, 0}}, 1);
+}
+
+TEST_CASE("Animator::make_single_place_deduction_sequence") {
+  video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "120-single_place_deduction-");
+  AnnotatedSudoku<4> state;
+  state.cell({0, 0}).set_input(0);
+  state.cell({1, 0}).set_input(1);
+  state.cell({2, 0}).set_input(2);
+  state.cell({3, 0}).set_input(3);
+  Animator<4>(&serializer, 640, 480).make_single_place_deduction_sequence(state, {{0, 0}, {1, 0}, {2, 0}, {3, 0}}, 1);
+}
+
+TEST_CASE("Animator::make_solved_sequence") {
+  video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "130-solved-");
+  AnnotatedSudoku<4> state;
+  state.cell({0, 0}).set_input(0);
+  state.cell({1, 0}).set_input(1);
+  state.cell({2, 0}).set_input(2);
+  state.cell({3, 0}).set_input(3);
+  Animator<4>(&serializer, 640, 480).make_solved_sequence(state, 1);
+}
+
+// LCOV_EXCL_STOP
+
+
+template<unsigned size>
+class VideoExplainer {
+ public:
+  VideoExplainer(
+    const Explanation<size>& explanation_,
+    video::Serializer* serializer_,
+    bool quick_,
+    unsigned frame_width_,
+    unsigned frame_height_
+  ) :  // NOLINT(whitespace/parens)
+    explanation(explanation_),
+    animator(serializer_, frame_width_, frame_height_),
+    quick(quick_),
+    stack()
+  {}
+
+ public:
+  void explain() {
+    for (const auto& cell : explanation.inputs.cells()) {
+      const std::optional<unsigned> value = cell.get();
+      if (value) {
+        stack.current().cell(cell.coordinates()).set_input(*value);
+      }
+    }
+
+    animator.make_title_sequence(stack.current(), quicken(75));
+    animator.make_title_to_propagate_sequence(stack.current(), quicken(12));
+    animator.make_introduce_propagation_sequence(stack.current(), quicken(12));
+    animator.make_setup_propagation_sequence(stack.current(), quicken(12));
+
+    explain(explanation.propagations);
+    explain(explanation.exploration);
+  }
+
+ private:
+  void explain(const std::vector<typename Explanation<size>::Propagation>& propagations) {
+    for (const auto& propagation : propagations) {
+      explain(propagation);
+    }
+  }
+
+  void explain(const typename Explanation<size>::Propagation& propagation) {
+    if (cell_propagations_handled < quicken(3)) {
+      animator.make_start_cell_propagation_sequence(stack.current(), propagation.source, quicken(3));
+
+      for (const auto& target : propagation.targets) {
+        if (single_propagations_handled < quicken(6)) {
+          animator.make_propagate_cell_to_target_sequence(
+            stack.current(),
+            propagation.source,
+            target.cell,
+            propagation.value,
+            quicken(3));
+
+          stack.current().cell(target.cell).forbid(propagation.value);
+
+          animator.make_continue_cell_propagation_1_sequence(stack.current(), propagation.source, quicken(6));
+        } else {
+          animator.make_propagate_cell_to_target_sequence(
+            stack.current(),
+            propagation.source,
+            target.cell,
+            propagation.value,
+            quicken(1));
+
+          stack.current().cell(target.cell).forbid(propagation.value);
+
+          animator.make_continue_cell_propagation_2_sequence(
+            stack.current(),
+            propagation.source,
+            target.cell,
+            propagation.value,
+            quicken(4));
+        }
+
+        ++single_propagations_handled;
+      }
+    } else {
+      if (!propagation.targets.empty()) {
+        std::vector<Coordinates> targets;
+        targets.reserve(propagation.targets.size());
+        for (const auto& target : propagation.targets) {
+          targets.emplace_back(target.cell);
+        }
+
+        animator.make_quick_propagation_sequence_begin(
+          stack.current(),
+          propagation.source,
+          targets,
+          propagation.value,
+          quicken(1));
+
+        for (const auto& target : propagation.targets) {
+          stack.current().cell(target.cell).forbid(propagation.value);
+        }
+
+        animator.make_quick_propagation_sequence_end(
+          stack.current(),
+          propagation.source,
+          targets,
+          propagation.value,
+          quicken(4));
+      }
+    }
+
+    bool solved = false;
+    for (const auto& target : propagation.targets) {
+      for (const auto& deduction : target.single_value_deductions) {
+        if (deduction.solved) {
+          solved = true;
+        }
+      }
+      for (const auto& deduction : target.single_place_deductions) {
+        if (deduction.solved) {
+          solved = true;
+        }
+      }
+    }
+    if (!solved) {
+      stack.current().cell(propagation.source).set_propagated();
+    }
+
+    if (deductions_handled < quicken(4)) {
+      for (const auto& target : propagation.targets) {
+        for (const auto& deduction : target.single_value_deductions) {
+          stack.current().cell(deduction.cell).set_deduced(deduction.value);
+          ++deductions_handled;
+          animator.make_single_value_deduction_sequence(stack.current(), {deduction.cell}, quicken(6));
+        }
+
+        for (const auto& deduction : target.single_place_deductions) {
+          stack.current().cell(deduction.cell).set_deduced(deduction.value);
+          ++deductions_handled;
+          animator.make_single_place_deduction_sequence(stack.current(), {deduction.cell}, quicken(6));
+        }
+      }
+    } else {
+      std::vector<Coordinates> circled_cells;
+      for (const auto& target : propagation.targets) {
+        for (const auto& deduction : target.single_value_deductions) {
+          stack.current().cell(deduction.cell).set_deduced(deduction.value);
+          ++deductions_handled;
+
+          circled_cells.emplace_back(deduction.cell);
+        }
+      }
+      if (!circled_cells.empty()) {
+        animator.make_single_value_deduction_sequence(stack.current(), circled_cells, quicken(2));
+      }
+
+      std::vector<Coordinates> boxed_cells;
+      for (const auto& target : propagation.targets) {
+        for (const auto& deduction : target.single_place_deductions) {
+          stack.current().cell(deduction.cell).set_deduced(deduction.value);
+          ++deductions_handled;
+
+          boxed_cells.emplace_back(deduction.cell);
+        }
+      }
+      if (!boxed_cells.empty()) {
+        animator.make_single_place_deduction_sequence(stack.current(), boxed_cells, quicken(2));
+      }
+    }
+
+    if (solved) {
+      animator.make_solved_sequence(stack.current(), quicken(75));
+    }
+
+    ++cell_propagations_handled;
+  }
+
+  void explain(const std::optional<typename Explanation<size>::Exploration>& exploration) {
+    if (exploration.has_value()) {
+      explain(*exploration);
+    }
+  }
+
+  void explain(const typename Explanation<size>::Exploration& exploration) {
+    for (const auto& hypothesis : exploration.explored_hypotheses) {
+      stack.push();
+      stack.current().cell(exploration.cell).set_hypothesis(hypothesis.value);
+
+      explain(hypothesis.propagations);
+      explain(hypothesis.exploration);
+
+      stack.pop();
+    }
+  }
+
+ private:
+  unsigned quicken(unsigned n) {
+    if (quick) {
+      return 1;
+    } else {
+      return n;
+    }
+  }
+
+ private:
   const Explanation<size>& explanation;
-  video::Serializer* serializer;
+  Animator<size> animator;
   bool quick;
-  unsigned frame_width_pixels;
-  unsigned frame_height_pixels;
-  unsigned viewport_height_pixels;
-  unsigned viewport_width_pixels;
   Stack<size> stack;
 
  private:

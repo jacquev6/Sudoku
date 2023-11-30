@@ -13,9 +13,10 @@
 namespace video {
 
 struct FramesSerializer : Serializer {
-  explicit FramesSerializer(const std::filesystem::path& directory_path_) :
+  explicit FramesSerializer(const std::filesystem::path& directory_path_, const std::string& file_name_prefix_ = "") :
     frame_index(0),
-    directory_path(directory_path_)
+    directory_path(directory_path_),
+    file_name_prefix(file_name_prefix_)
   {  // NOLINT(whitespace/braces)
     std::filesystem::create_directories(directory_path);
   }
@@ -26,14 +27,15 @@ struct FramesSerializer : Serializer {
 
   std::string next_frame_name() {
     std::ostringstream oss;
-    oss << std::setfill('0') << std::setw(6) << frame_index << ".png";
+    oss << file_name_prefix << std::setfill('0') << std::setw(6) << frame_index << ".png";
     ++frame_index;
     return oss.str();
   }
 
  private:
   unsigned frame_index;
-  std::filesystem::path directory_path;
+  const std::filesystem::path directory_path;
+  const std::string file_name_prefix;
 };
 
 }  // namespace video

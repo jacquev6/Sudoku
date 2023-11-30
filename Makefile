@@ -132,6 +132,8 @@ build/tests/unit/%.ok: build/obj/%.o build/obj/test-main.o
 	@mkdir -p ${@D}
 	@g++ -g --coverage $^ $$(pkg-config cairomm-1.16 libavutil libavcodec --libs) -lminisat -o build/tests/unit/$*
 
+	@find tests/unit/$* -type f -delete 2>/dev/null || true
+
 	@${echo} "Test (unit): build/tests/unit/$*"
 	@rm -rf build/tests/unit/$*.coverage/gcov
 	@GCOV_PREFIX=build/tests/unit/$*.coverage/gcov GCOV_PREFIX_STRIP=${gcov_prefix_strip} build/tests/unit/$* --minimal --source-file=src/$*.cpp

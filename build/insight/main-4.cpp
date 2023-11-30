@@ -1249,7 +1249,7 @@ class Sudoku : public SudokuBase<Cell, size>
 {
 };
 
-/* First instantiated from: main-4.cpp:1494 */
+/* First instantiated from: main-4.cpp:1496 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Sudoku<ValueCell, 4> : public SudokuBase<ValueCell, 4>
@@ -1703,7 +1703,7 @@ class Stack
   std::vector<AnnotatedSudoku<size> > stack;
 };
 
-/* First instantiated from: main-4.cpp:1430 */
+/* First instantiated from: main-4.cpp:1432 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<4>
@@ -1767,7 +1767,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-4.cpp:1437 */
+  /* First instantiated from: main-4.cpp:1439 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsSetInInput<4>
@@ -1786,7 +1786,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: main-4.cpp:1442 */
+  /* First instantiated from: main-4.cpp:1444 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct InputsAreDone<4>
@@ -1803,7 +1803,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: main-4.cpp:1259 */
+  /* First instantiated from: main-4.cpp:1261 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForSudoku<4>
@@ -1822,7 +1822,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-4.cpp:1271 */
+  /* First instantiated from: main-4.cpp:1273 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationStartsForCell<4>
@@ -1844,7 +1844,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-4.cpp:1285 */
+  /* First instantiated from: main-4.cpp:1287 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellPropagates<4>
@@ -1866,7 +1866,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-4.cpp:1290 */
+  /* First instantiated from: main-4.cpp:1292 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedFromSingleAllowedValue<4>
@@ -1888,7 +1888,7 @@ namespace exploration
     unsigned int region;
   };
   
-  /* First instantiated from: main-4.cpp:1319 */
+  /* First instantiated from: main-4.cpp:1321 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct CellIsDeducedAsSinglePlaceForValueInRegion<4>
@@ -1910,7 +1910,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-4.cpp:1272 */
+  /* First instantiated from: main-4.cpp:1274 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForCell<4>
@@ -1930,7 +1930,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: main-4.cpp:1260 */
+  /* First instantiated from: main-4.cpp:1262 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct PropagationIsDoneForSudoku<4>
@@ -1950,7 +1950,7 @@ namespace exploration
     std::vector<unsigned int, std::allocator<unsigned int> > allowed_values;
   };
   
-  /* First instantiated from: main-4.cpp:1389 */
+  /* First instantiated from: main-4.cpp:1391 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationStarts<4>
@@ -1971,7 +1971,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-4.cpp:1394 */
+  /* First instantiated from: main-4.cpp:1396 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsMade<4>
@@ -1992,7 +1992,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-4.cpp:1399 */
+  /* First instantiated from: main-4.cpp:1401 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsRejected<4>
@@ -2011,7 +2011,7 @@ namespace exploration
     
   };
   
-  /* First instantiated from: main-4.cpp:1297 */
+  /* First instantiated from: main-4.cpp:1299 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct SudokuIsSolved<4>
@@ -2030,7 +2030,7 @@ namespace exploration
     unsigned int value;
   };
   
-  /* First instantiated from: main-4.cpp:1396 */
+  /* First instantiated from: main-4.cpp:1398 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct HypothesisIsAccepted<4>
@@ -2050,7 +2050,7 @@ namespace exploration
     std::pair<unsigned int, unsigned int> cell;
   };
   
-  /* First instantiated from: main-4.cpp:1390 */
+  /* First instantiated from: main-4.cpp:1392 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   struct ExplorationIsDone<4>
@@ -2212,7 +2212,7 @@ struct Explanation
   
 };
 
-/* First instantiated from: main-4.cpp:1528 */
+/* First instantiated from: main-4.cpp:1530 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct Explanation<4>
@@ -2470,23 +2470,24 @@ namespace video
 {
   struct FramesSerializer : public Serializer
   {
-    inline explicit FramesSerializer(const std::filesystem::path & directory_path_)
+    inline explicit FramesSerializer(const std::filesystem::path & directory_path_, const std::basic_string<char, std::char_traits<char>, std::allocator<char> > & file_name_prefix_)
     : Serializer()
     , frame_index{static_cast<unsigned int>(0)}
     , directory_path{std::filesystem::path(directory_path_)}
+    , file_name_prefix{std::basic_string<char, std::char_traits<char>, std::allocator<char> >(file_name_prefix_)}
     {
-      std::filesystem::create_directories(static_cast<const std::filesystem::path>(this->directory_path));
+      std::filesystem::create_directories(this->directory_path);
     }
     
     inline virtual void serialize(std::shared_ptr<Cairo::ImageSurface> surface)
     {
-      static_cast<Cairo::Surface *>(static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(surface).operator->())->write_to_png(static_cast<const std::basic_string<char, std::char_traits<char>, std::allocator<char> >>(static_cast<const std::filesystem::path &&>((operator/(static_cast<const std::filesystem::path>(this->directory_path), static_cast<const std::filesystem::path>(std::filesystem::path(this->next_frame_name(), std::filesystem::path::auto_format))))).string()));
+      static_cast<Cairo::Surface *>(static_cast<const std::__shared_ptr_access<Cairo::ImageSurface, 2, false, false>&>(surface).operator->())->write_to_png(static_cast<const std::basic_string<char, std::char_traits<char>, std::allocator<char> >>(static_cast<const std::filesystem::path &&>((operator/(this->directory_path, static_cast<const std::filesystem::path>(std::filesystem::path(this->next_frame_name(), std::filesystem::path::auto_format))))).string()));
     }
     
     inline std::basic_string<char, std::char_traits<char>, std::allocator<char> > next_frame_name()
     {
       std::basic_ostringstream<char> oss = std::basic_ostringstream<char>();
-      std::operator<<(std::operator<<(std::operator<<(static_cast<std::basic_ostream<char>&>(oss), std::setfill<char>('0')), std::setw(6)).operator<<(this->frame_index), static_cast<const char *>(".png"));
+      std::operator<<(std::operator<<(std::operator<<(std::operator<<(static_cast<std::basic_ostream<char>&>(oss), this->file_name_prefix), std::setfill<char>('0')), std::setw(6)).operator<<(this->frame_index), static_cast<const char *>(".png"));
       ++this->frame_index;
       return static_cast<const std::basic_ostringstream<char>>(oss).str();
     }
@@ -2494,8 +2495,11 @@ namespace video
     
     private: 
     unsigned int frame_index;
-    std::filesystem::path directory_path;
+    const std::filesystem::path directory_path;
+    const std::basic_string<char, std::char_traits<char>, std::allocator<char> > file_name_prefix;
     public: 
+    // inline FramesSerializer & operator=(const FramesSerializer &) /* noexcept */ = delete;
+    // inline FramesSerializer & operator=(FramesSerializer &&) /* noexcept */ = delete;
     // inline virtual ~FramesSerializer() noexcept = default;
   };
   
@@ -2698,7 +2702,7 @@ struct EventAdder
   const AddEvent & add_event;
 };
 
-/* First instantiated from: main-4.cpp:1431 */
+/* First instantiated from: main-4.cpp:1433 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventAdder<4, __lambda_5>
@@ -2712,7 +2716,7 @@ struct EventAdder<4, __lambda_5>
   template<typename Event>
   inline void operator()(const Event & event) const;
   
-  /* First instantiated from: main-4.cpp:1437 */
+  /* First instantiated from: main-4.cpp:1439 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsSetInInput<4> >(const exploration::CellIsSetInInput<4> & event) const
@@ -2723,7 +2727,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1442 */
+  /* First instantiated from: main-4.cpp:1444 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::InputsAreDone<4> >(const exploration::InputsAreDone<4> & event) const
@@ -2734,7 +2738,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1285 */
+  /* First instantiated from: main-4.cpp:1287 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellPropagates<4> >(const exploration::CellPropagates<4> & event) const
@@ -2745,7 +2749,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1290 */
+  /* First instantiated from: main-4.cpp:1292 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsDeducedFromSingleAllowedValue<4> >(const exploration::CellIsDeducedFromSingleAllowedValue<4> & event) const
@@ -2756,7 +2760,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1297 */
+  /* First instantiated from: main-4.cpp:1299 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::SudokuIsSolved<4> >(const exploration::SudokuIsSolved<4> & event) const
@@ -2767,7 +2771,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1319 */
+  /* First instantiated from: main-4.cpp:1321 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> >(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event) const
@@ -2778,7 +2782,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1235 */
+  /* First instantiated from: main-4.cpp:1237 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationStartsForSudoku<4> >(const exploration::PropagationStartsForSudoku<4> & event) const
@@ -2789,7 +2793,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1239 */
+  /* First instantiated from: main-4.cpp:1241 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationIsDoneForSudoku<4> >(const exploration::PropagationIsDoneForSudoku<4> & event) const
@@ -2800,7 +2804,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1235 */
+  /* First instantiated from: main-4.cpp:1237 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationStartsForCell<4> >(const exploration::PropagationStartsForCell<4> & event) const
@@ -2811,7 +2815,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1239 */
+  /* First instantiated from: main-4.cpp:1241 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationIsDoneForCell<4> >(const exploration::PropagationIsDoneForCell<4> & event) const
@@ -2822,7 +2826,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1394 */
+  /* First instantiated from: main-4.cpp:1396 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsMade<4> >(const exploration::HypothesisIsMade<4> & event) const
@@ -2833,7 +2837,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1396 */
+  /* First instantiated from: main-4.cpp:1398 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsAccepted<4> >(const exploration::HypothesisIsAccepted<4> & event) const
@@ -2844,7 +2848,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1399 */
+  /* First instantiated from: main-4.cpp:1401 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsRejected<4> >(const exploration::HypothesisIsRejected<4> & event) const
@@ -2855,7 +2859,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1235 */
+  /* First instantiated from: main-4.cpp:1237 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::ExplorationStarts<4> >(const exploration::ExplorationStarts<4> & event) const
@@ -2866,7 +2870,7 @@ struct EventAdder<4, __lambda_5>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1239 */
+  /* First instantiated from: main-4.cpp:1241 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::ExplorationIsDone<4> >(const exploration::ExplorationIsDone<4> & event) const
@@ -2884,7 +2888,7 @@ struct EventAdder<4, __lambda_5>
 };
 
 #endif
-/* First instantiated from: main-4.cpp:1431 */
+/* First instantiated from: main-4.cpp:1433 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventAdder<4, __lambda_6>
@@ -2898,7 +2902,7 @@ struct EventAdder<4, __lambda_6>
   template<typename Event>
   inline void operator()(const Event & event) const;
   
-  /* First instantiated from: main-4.cpp:1437 */
+  /* First instantiated from: main-4.cpp:1439 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsSetInInput<4> >(const exploration::CellIsSetInInput<4> & event) const
@@ -2909,7 +2913,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1442 */
+  /* First instantiated from: main-4.cpp:1444 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::InputsAreDone<4> >(const exploration::InputsAreDone<4> & event) const
@@ -2920,7 +2924,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1285 */
+  /* First instantiated from: main-4.cpp:1287 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellPropagates<4> >(const exploration::CellPropagates<4> & event) const
@@ -2931,7 +2935,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1290 */
+  /* First instantiated from: main-4.cpp:1292 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsDeducedFromSingleAllowedValue<4> >(const exploration::CellIsDeducedFromSingleAllowedValue<4> & event) const
@@ -2942,7 +2946,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1297 */
+  /* First instantiated from: main-4.cpp:1299 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::SudokuIsSolved<4> >(const exploration::SudokuIsSolved<4> & event) const
@@ -2953,7 +2957,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1319 */
+  /* First instantiated from: main-4.cpp:1321 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> >(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<4> & event) const
@@ -2964,7 +2968,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1235 */
+  /* First instantiated from: main-4.cpp:1237 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationStartsForSudoku<4> >(const exploration::PropagationStartsForSudoku<4> & event) const
@@ -2975,7 +2979,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1239 */
+  /* First instantiated from: main-4.cpp:1241 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationIsDoneForSudoku<4> >(const exploration::PropagationIsDoneForSudoku<4> & event) const
@@ -2986,7 +2990,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1235 */
+  /* First instantiated from: main-4.cpp:1237 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationStartsForCell<4> >(const exploration::PropagationStartsForCell<4> & event) const
@@ -2997,7 +3001,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1239 */
+  /* First instantiated from: main-4.cpp:1241 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::PropagationIsDoneForCell<4> >(const exploration::PropagationIsDoneForCell<4> & event) const
@@ -3008,7 +3012,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1394 */
+  /* First instantiated from: main-4.cpp:1396 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsMade<4> >(const exploration::HypothesisIsMade<4> & event) const
@@ -3019,7 +3023,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1396 */
+  /* First instantiated from: main-4.cpp:1398 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsAccepted<4> >(const exploration::HypothesisIsAccepted<4> & event) const
@@ -3030,7 +3034,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1399 */
+  /* First instantiated from: main-4.cpp:1401 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::HypothesisIsRejected<4> >(const exploration::HypothesisIsRejected<4> & event) const
@@ -3041,7 +3045,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1235 */
+  /* First instantiated from: main-4.cpp:1237 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::ExplorationStarts<4> >(const exploration::ExplorationStarts<4> & event) const
@@ -3052,7 +3056,7 @@ struct EventAdder<4, __lambda_6>
   #endif
   
   
-  /* First instantiated from: main-4.cpp:1239 */
+  /* First instantiated from: main-4.cpp:1241 */
   #ifdef INSIGHTS_USE_TEMPLATE
   template<>
   inline void operator()<exploration::ExplorationIsDone<4> >(const exploration::ExplorationIsDone<4> & event) const
@@ -3093,7 +3097,7 @@ struct EventsPairGuard
   EventOut out;
 };
 
-/* First instantiated from: main-4.cpp:1257 */
+/* First instantiated from: main-4.cpp:1259 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<4, __lambda_5, exploration::PropagationStartsForSudoku<4>, exploration::PropagationIsDoneForSudoku<4> >
@@ -3115,7 +3119,7 @@ struct EventsPairGuard<4, __lambda_5, exploration::PropagationStartsForSudoku<4>
 };
 
 #endif
-/* First instantiated from: main-4.cpp:1257 */
+/* First instantiated from: main-4.cpp:1259 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<4, __lambda_6, exploration::PropagationStartsForSudoku<4>, exploration::PropagationIsDoneForSudoku<4> >
@@ -3137,7 +3141,7 @@ struct EventsPairGuard<4, __lambda_6, exploration::PropagationStartsForSudoku<4>
 };
 
 #endif
-/* First instantiated from: main-4.cpp:1269 */
+/* First instantiated from: main-4.cpp:1271 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<4, __lambda_5, exploration::PropagationStartsForCell<4>, exploration::PropagationIsDoneForCell<4> >
@@ -3159,7 +3163,7 @@ struct EventsPairGuard<4, __lambda_5, exploration::PropagationStartsForCell<4>, 
 };
 
 #endif
-/* First instantiated from: main-4.cpp:1269 */
+/* First instantiated from: main-4.cpp:1271 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<4, __lambda_6, exploration::PropagationStartsForCell<4>, exploration::PropagationIsDoneForCell<4> >
@@ -3181,7 +3185,7 @@ struct EventsPairGuard<4, __lambda_6, exploration::PropagationStartsForCell<4>, 
 };
 
 #endif
-/* First instantiated from: main-4.cpp:1387 */
+/* First instantiated from: main-4.cpp:1389 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<4, __lambda_5, exploration::ExplorationStarts<4>, exploration::ExplorationIsDone<4> >
@@ -3203,7 +3207,7 @@ struct EventsPairGuard<4, __lambda_5, exploration::ExplorationStarts<4>, explora
 };
 
 #endif
-/* First instantiated from: main-4.cpp:1387 */
+/* First instantiated from: main-4.cpp:1389 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct EventsPairGuard<4, __lambda_6, exploration::ExplorationStarts<4>, exploration::ExplorationIsDone<4> >
@@ -3228,42 +3232,42 @@ struct EventsPairGuard<4, __lambda_6, exploration::ExplorationStarts<4>, explora
 
 
 
-/* First instantiated from: main-4.cpp:1257 */
+/* First instantiated from: main-4.cpp:1259 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 EventsPairGuard(const EventAdder<4, __lambda_5> & add_event_, const exploration::PropagationStartsForSudoku<4> & in, const exploration::PropagationIsDoneForSudoku<4> & out_) -> EventsPairGuard<4, __lambda_5, exploration::PropagationStartsForSudoku<4>, exploration::PropagationIsDoneForSudoku<4> >;
 #endif
 
 
-/* First instantiated from: main-4.cpp:1269 */
+/* First instantiated from: main-4.cpp:1271 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 EventsPairGuard(const EventAdder<4, __lambda_5> & add_event_, const exploration::PropagationStartsForCell<4> & in, const exploration::PropagationIsDoneForCell<4> & out_) -> EventsPairGuard<4, __lambda_5, exploration::PropagationStartsForCell<4>, exploration::PropagationIsDoneForCell<4> >;
 #endif
 
 
-/* First instantiated from: main-4.cpp:1387 */
+/* First instantiated from: main-4.cpp:1389 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 EventsPairGuard(const EventAdder<4, __lambda_5> & add_event_, const exploration::ExplorationStarts<4> & in, const exploration::ExplorationIsDone<4> & out_) -> EventsPairGuard<4, __lambda_5, exploration::ExplorationStarts<4>, exploration::ExplorationIsDone<4> >;
 #endif
 
 
-/* First instantiated from: main-4.cpp:1257 */
+/* First instantiated from: main-4.cpp:1259 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 EventsPairGuard(const EventAdder<4, __lambda_6> & add_event_, const exploration::PropagationStartsForSudoku<4> & in, const exploration::PropagationIsDoneForSudoku<4> & out_) -> EventsPairGuard<4, __lambda_6, exploration::PropagationStartsForSudoku<4>, exploration::PropagationIsDoneForSudoku<4> >;
 #endif
 
 
-/* First instantiated from: main-4.cpp:1269 */
+/* First instantiated from: main-4.cpp:1271 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 EventsPairGuard(const EventAdder<4, __lambda_6> & add_event_, const exploration::PropagationStartsForCell<4> & in, const exploration::PropagationIsDoneForCell<4> & out_) -> EventsPairGuard<4, __lambda_6, exploration::PropagationStartsForCell<4>, exploration::PropagationIsDoneForCell<4> >;
 #endif
 
 
-/* First instantiated from: main-4.cpp:1387 */
+/* First instantiated from: main-4.cpp:1389 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 EventsPairGuard(const EventAdder<4, __lambda_6> & add_event_, const exploration::ExplorationStarts<4> & in, const exploration::ExplorationIsDone<4> & out_) -> EventsPairGuard<4, __lambda_6, exploration::ExplorationStarts<4>, exploration::ExplorationIsDone<4> >;
@@ -3382,7 +3386,7 @@ bool propagate(const Stack<size> & stack, std::deque<std::pair<unsigned int, uns
 }
 
 
-/* First instantiated from: main-4.cpp:1413 */
+/* First instantiated from: main-4.cpp:1415 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool propagate<4, __lambda_5>(const Stack<4> & stack, std::deque<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > todo, const EventAdder<4, __lambda_5> & add_event)
@@ -3507,7 +3511,7 @@ bool propagate<4, __lambda_5>(const Stack<4> & stack, std::deque<std::pair<unsig
 #endif
 
 
-/* First instantiated from: main-4.cpp:1413 */
+/* First instantiated from: main-4.cpp:1415 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool propagate<4, __lambda_6>(const Stack<4> & stack, std::deque<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > todo, const EventAdder<4, __lambda_6> & add_event)
@@ -3663,7 +3667,7 @@ std::pair<unsigned int, unsigned int> get_most_constrained_cell(const AnnotatedS
 }
 
 
-/* First instantiated from: main-4.cpp:1378 */
+/* First instantiated from: main-4.cpp:1380 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 std::pair<unsigned int, unsigned int> get_most_constrained_cell<4>(const Sudoku<AnnotatedCell<4>, 4> & sudoku)
@@ -3744,7 +3748,7 @@ bool explore(const Stack<size> & stack, const EventAdder<size, AddEvent> & add_e
 }
 
 
-/* First instantiated from: main-4.cpp:1417 */
+/* First instantiated from: main-4.cpp:1419 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool explore<4, __lambda_5>(const Stack<4> & stack, const EventAdder<4, __lambda_5> & add_event)
@@ -3789,7 +3793,7 @@ bool explore<4, __lambda_5>(const Stack<4> & stack, const EventAdder<4, __lambda
 #endif
 
 
-/* First instantiated from: main-4.cpp:1417 */
+/* First instantiated from: main-4.cpp:1419 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool explore<4, __lambda_6>(const Stack<4> & stack, const EventAdder<4, __lambda_6> & add_event)
@@ -3852,7 +3856,7 @@ bool propagate_and_explore(const Stack<size> & stack, const std::deque<std::pair
 }
 
 
-/* First instantiated from: main-4.cpp:1444 */
+/* First instantiated from: main-4.cpp:1446 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool propagate_and_explore<4, __lambda_5>(const Stack<4> & stack, const std::deque<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > & todo, const EventAdder<4, __lambda_5> & add_event)
@@ -3872,7 +3876,7 @@ bool propagate_and_explore<4, __lambda_5>(const Stack<4> & stack, const std::deq
 #endif
 
 
-/* First instantiated from: main-4.cpp:1444 */
+/* First instantiated from: main-4.cpp:1446 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 bool propagate_and_explore<4, __lambda_6>(const Stack<4> & stack, const std::deque<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > & todo, const EventAdder<4, __lambda_6> & add_event)
@@ -3930,7 +3934,7 @@ Sudoku<ValueCell, size> solve_using_exploration(Sudoku<ValueCell, size> sudoku, 
 }
 
 
-/* First instantiated from: main-4.cpp:1530 */
+/* First instantiated from: main-4.cpp:1532 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 Sudoku<ValueCell, 4> solve_using_exploration<4, __lambda_6>(Sudoku<ValueCell, 4> sudoku, const __lambda_6 & add_event_)
@@ -3974,7 +3978,7 @@ Sudoku<ValueCell, 4> solve_using_exploration<4, __lambda_6>(Sudoku<ValueCell, 4>
 #endif
 
 
-/* First instantiated from: main-4.cpp:1456 */
+/* First instantiated from: main-4.cpp:1458 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 Sudoku<ValueCell, 4> solve_using_exploration<4, __lambda_5>(Sudoku<ValueCell, 4> sudoku, const __lambda_5 & add_event_)
@@ -4045,7 +4049,7 @@ Sudoku<ValueCell, size> solve_using_exploration(Sudoku<ValueCell, size> sudoku)
 }
 
 
-/* First instantiated from: main-4.cpp:1515 */
+/* First instantiated from: main-4.cpp:1517 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 Sudoku<ValueCell, 4> solve_using_exploration<4>(Sudoku<ValueCell, 4> sudoku)
@@ -4369,7 +4373,7 @@ int main_(const Options & options)
 }
 
 
-/* First instantiated from: main-4.cpp:1599 */
+/* First instantiated from: main-4.cpp:1601 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 int main_<4>(const Options & options)
