@@ -8,8 +8,6 @@
 #include "annotations.hpp"
 
 
-namespace exploration {
-
 // Name events like affirmative sentences in present tense
 
 template<unsigned size>
@@ -120,7 +118,5 @@ struct ExplorationIsDone {
 
   Coordinates cell;
 };
-
-}  // namespace exploration
 
 #endif  // EXPLORATION_EVENTS_HPP_

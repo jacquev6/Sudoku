@@ -3,27 +3,25 @@
 #include "explanation.hpp"
 
 template<unsigned size>
-void Explanation<size>::Builder::operator()(const exploration::CellIsSetInInput<size>& event) {
+void Explanation<size>::Builder::operator()(const CellIsSetInInput<size>& event) {
   explanation.inputs.cell(event.cell).set(event.value);
 }
 
 template<unsigned size>
-void Explanation<size>::Builder::operator()(const exploration::InputsAreDone<size>&) {
-}
+void Explanation<size>::Builder::operator()(const InputsAreDone<size>&) {}
 
 template<unsigned size>
-void Explanation<size>::Builder::operator()(const exploration::PropagationStartsForSudoku<size>&) {
-}
+void Explanation<size>::Builder::operator()(const PropagationStartsForSudoku<size>&) {}
 
 template<unsigned size>
-void Explanation<size>::Builder::operator()(const exploration::PropagationStartsForCell<size>& event) {
+void Explanation<size>::Builder::operator()(const PropagationStartsForCell<size>& event) {
   assert(!stack.empty());
   assert(stack.back().propagations != nullptr);
   stack.back().propagations->push_back({event.cell, event.value});
 }
 
 template<unsigned size>
-void Explanation<size>::Builder::operator()(const exploration::CellPropagates<size>& event) {
+void Explanation<size>::Builder::operator()(const CellPropagates<size>& event) {
   assert(!stack.empty());
   assert(stack.back().propagations != nullptr);
   assert(!stack.back().propagations->empty());
@@ -33,15 +31,14 @@ void Explanation<size>::Builder::operator()(const exploration::CellPropagates<si
 }
 
 template<unsigned size>
-void Explanation<size>::Builder::operator()(const exploration::CellIsDeducedFromSingleAllowedValue<size>& event) {
+void Explanation<size>::Builder::operator()(const CellIsDeducedFromSingleAllowedValue<size>& event) {
   stack.back().propagations->back().targets.back().single_value_deductions.push_back({event.cell, event.value});
   stack.back().sudoku_is_solved =
     &stack.back().propagations->back().targets.back().single_value_deductions.back().solved;
 }
 
 template<unsigned size>
-void Explanation<size>::Builder::operator()(
-  const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>& event
+void Explanation<size>::Builder::operator()(const CellIsDeducedAsSinglePlaceForValueInRegion<size>& event
 ) {
   stack.back().propagations->back().targets.back().single_place_deductions.push_back(
     {event.region, event.cell, event.value});
@@ -50,22 +47,20 @@ void Explanation<size>::Builder::operator()(
 }
 
 template<unsigned size>
-void Explanation<size>::Builder::operator()(const exploration::PropagationIsDoneForCell<size>&) {
-}
+void Explanation<size>::Builder::operator()(const PropagationIsDoneForCell<size>&) {}
 
 template<unsigned size>
-void Explanation<size>::Builder::operator()(const exploration::PropagationIsDoneForSudoku<size>&) {
-}
+void Explanation<size>::Builder::operator()(const PropagationIsDoneForSudoku<size>&) {}
 
 template<unsigned size>
-void Explanation<size>::Builder::operator()(const exploration::ExplorationStarts<size>& event) {
+void Explanation<size>::Builder::operator()(const ExplorationStarts<size>& event) {
   assert(stack.back().exploration != nullptr);
   assert(!stack.back().exploration->has_value());
   stack.back().exploration->emplace(Exploration{event.cell, event.allowed_values, {}});
 }
 
 template<unsigned size>
-void Explanation<size>::Builder::operator()(const exploration::HypothesisIsMade<size>& event) {
+void Explanation<size>::Builder::operator()(const HypothesisIsMade<size>& event) {
   assert(stack.back().exploration != nullptr);
   assert(stack.back().exploration->has_value());
   Exploration& exploration = **stack.back().exploration;
@@ -74,27 +69,26 @@ void Explanation<size>::Builder::operator()(const exploration::HypothesisIsMade<
 }
 
 template<unsigned size>
-void Explanation<size>::Builder::operator()(const exploration::HypothesisIsRejected<size>&) {
+void Explanation<size>::Builder::operator()(const HypothesisIsRejected<size>&) {
   assert(stack.back().hypothesis != nullptr);
   stack.back().hypothesis->successful = false;
   stack.pop_back();
 }
 
 template<unsigned size>
-void Explanation<size>::Builder::operator()(const exploration::SudokuIsSolved<size>&) {
+void Explanation<size>::Builder::operator()(const SudokuIsSolved<size>&) {
   *stack.back().sudoku_is_solved = true;
 }
 
 template<unsigned size>
-void Explanation<size>::Builder::operator()(const exploration::HypothesisIsAccepted<size>&) {
+void Explanation<size>::Builder::operator()(const HypothesisIsAccepted<size>&) {
   assert(stack.back().hypothesis != nullptr);
   stack.back().hypothesis->successful = true;
   stack.pop_back();
 }
 
 template<unsigned size>
-void Explanation<size>::Builder::operator()(const exploration::ExplorationIsDone<size>&) {
-}
+void Explanation<size>::Builder::operator()(const ExplorationIsDone<size>&) {}
 
 template class Explanation<4>;
 template class Explanation<9>;

@@ -103,21 +103,21 @@ struct Explanation {
     Builder() : explanation(), stack(1, { &explanation.propagations, &explanation.exploration }) {}
 
    public:
-    void operator()(const exploration::CellIsSetInInput<size>&);
-    void operator()(const exploration::InputsAreDone<size>&);
-    void operator()(const exploration::PropagationStartsForSudoku<size>&);
-    void operator()(const exploration::PropagationStartsForCell<size>&);
-    void operator()(const exploration::CellPropagates<size>&);
-    void operator()(const exploration::CellIsDeducedFromSingleAllowedValue<size>&);
-    void operator()(const exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>&);
-    void operator()(const exploration::PropagationIsDoneForCell<size>&);
-    void operator()(const exploration::PropagationIsDoneForSudoku<size>&);
-    void operator()(const exploration::ExplorationStarts<size>&);
-    void operator()(const exploration::HypothesisIsMade<size>&);
-    void operator()(const exploration::HypothesisIsRejected<size>&);
-    void operator()(const exploration::SudokuIsSolved<size>&);
-    void operator()(const exploration::HypothesisIsAccepted<size>&);
-    void operator()(const exploration::ExplorationIsDone<size>&);
+    void operator()(const CellIsSetInInput<size>&);
+    void operator()(const InputsAreDone<size>&);
+    void operator()(const PropagationStartsForSudoku<size>&);
+    void operator()(const PropagationStartsForCell<size>&);
+    void operator()(const CellPropagates<size>&);
+    void operator()(const CellIsDeducedFromSingleAllowedValue<size>&);
+    void operator()(const CellIsDeducedAsSinglePlaceForValueInRegion<size>&);
+    void operator()(const PropagationIsDoneForCell<size>&);
+    void operator()(const PropagationIsDoneForSudoku<size>&);
+    void operator()(const ExplorationStarts<size>&);
+    void operator()(const HypothesisIsMade<size>&);
+    void operator()(const HypothesisIsRejected<size>&);
+    void operator()(const SudokuIsSolved<size>&);
+    void operator()(const HypothesisIsAccepted<size>&);
+    void operator()(const ExplorationIsDone<size>&);
 
    public:
     Explanation get() {

@@ -69,8 +69,8 @@ bool propagate(
 
   EventsPairGuard guard(
     add_event,
-    exploration::PropagationStartsForSudoku<size>(),
-    exploration::PropagationIsDoneForSudoku<size>());
+    PropagationStartsForSudoku<size>(),
+    PropagationIsDoneForSudoku<size>());
 
   while (!todo.empty()) {
     const auto source_coords = todo.front();
@@ -81,8 +81,8 @@ bool propagate(
 
     EventsPairGuard guard(
       add_event,
-      exploration::PropagationStartsForCell<size>(source_coords, value),
-      exploration::PropagationIsDoneForCell<size>(source_coords, value));
+      PropagationStartsForCell<size>(source_coords, value),
+      PropagationIsDoneForCell<size>(source_coords, value));
 
     for (const auto& source_region : source_cell.regions()) {
       for (const auto& target_cell : source_region.cells()) {
@@ -95,19 +95,19 @@ bool propagate(
           } else {
             assert(target_cell.allowed_count() > 1);
             if (target_cell.is_allowed(value)) {
-              add_event(exploration::CellPropagates<size>(source_coords, target_coords, value));
+              add_event(CellPropagates<size>(source_coords, target_coords, value));
 
               if (target_cell.allowed_count() == 1) {
                 for (unsigned value : SudokuConstants<size>::values) {
                   if (target_cell.is_allowed(value)) {
-                    add_event(exploration::CellIsDeducedFromSingleAllowedValue<size>(target_coords, value));
+                    add_event(CellIsDeducedFromSingleAllowedValue<size>(target_coords, value));
 
                     // 'AnnotatedSudoku::is_solved' is currently O(AnnotatedSudoku::size^2),
                     // which we could optimize easily with additional book-keeping,
                     // but the *whole* solving algorithm still executes in less than 100ms for size 9,
                     // so it's not worth it yet.
                     if (stack.current().is_solved()) {
-                      add_event(exploration::SudokuIsSolved<size>());
+                      add_event(SudokuIsSolved<size>());
                     }
 
                     assert(std::count(todo.begin(), todo.end(), target_coords) == 0);
@@ -129,11 +129,11 @@ bool propagate(
                 }
                 if (count == 1 && !single_cell->is_set()) {
                   const Coordinates single_coords = single_cell->coordinates();
-                  add_event(exploration::CellIsDeducedAsSinglePlaceForValueInRegion<size>(
+                  add_event(CellIsDeducedAsSinglePlaceForValueInRegion<size>(
                     single_coords, value, target_region.index()));
 
                   if (stack.current().is_solved()) {
-                    add_event(exploration::SudokuIsSolved<size>());
+                    add_event(SudokuIsSolved<size>());
                   }
 
                   assert(std::count(todo.begin(), todo.end(), single_coords) == 0);
@@ -199,17 +199,17 @@ bool explore(const Stack<size>& stack, const EventAdder<size, AddEvent>& add_eve
 
   EventsPairGuard guard(
     add_event,
-    exploration::ExplorationStarts<size>(coords, allowed_values),
-    exploration::ExplorationIsDone<size>(coords));
+    ExplorationStarts<size>(coords, allowed_values),
+    ExplorationIsDone<size>(coords));
 
   // @todo Artificially favor values without solution to demonstrate and visualize backtracking
   for (unsigned val : allowed_values) {
-    add_event(exploration::HypothesisIsMade<size>(coords, val));
+    add_event(HypothesisIsMade<size>(coords, val));
     if (propagate_and_explore(stack, {coords}, add_event)) {
-      add_event(exploration::HypothesisIsAccepted<size>(coords, val));
+      add_event(HypothesisIsAccepted<size>(coords, val));
       return true;
     } else {
-      add_event(exploration::HypothesisIsRejected<size>(coords, val));
+      add_event(HypothesisIsRejected<size>(coords, val));
     }
   }
 
@@ -247,12 +247,12 @@ Sudoku<ValueCell, size> solve_using_exploration(
     const auto val = cell.get();
     if (val) {
       const Coordinates coords = cell.coordinates();
-      add_event(exploration::CellIsSetInInput<size>(coords, *val));
+      add_event(CellIsSetInInput<size>(coords, *val));
       todo.push_back(coords);
     }
   }
 
-  add_event(exploration::InputsAreDone<size>());
+  add_event(InputsAreDone<size>());
 
   propagate_and_explore(stack, std::move(todo), add_event);
 

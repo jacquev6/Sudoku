@@ -2,7 +2,6 @@
 
 #include "events.hpp"
 
-namespace exploration {
 
 template<unsigned size>
 void CellIsSetInInput<size>::apply(Stack<size>* stack) const {
@@ -134,5 +133,3 @@ template struct HypothesisIsAccepted<9>;
 
 template struct ExplorationIsDone<4>;
 template struct ExplorationIsDone<9>;
-
-}  // namespace exploration
