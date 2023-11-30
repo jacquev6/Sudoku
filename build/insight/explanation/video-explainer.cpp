@@ -2104,7 +2104,7 @@ class Stack
   std::vector<AnnotatedSudoku<size> > stack;
 };
 
-/* First instantiated from: video-explainer.cpp:1784 */
+/* First instantiated from: video-explainer.cpp:1772 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<4>
@@ -2154,7 +2154,7 @@ class Stack<4>
 };
 
 #endif
-/* First instantiated from: video-explainer.cpp:1784 */
+/* First instantiated from: video-explainer.cpp:1772 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Stack<9>
@@ -2490,7 +2490,7 @@ struct Explanation
   
 };
 
-/* First instantiated from: video-explainer.cpp:1617 */
+/* First instantiated from: video-explainer.cpp:1615 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct Explanation<4>
@@ -2549,7 +2549,7 @@ struct Explanation<4>
 };
 
 #endif
-/* First instantiated from: video-explainer.cpp:1617 */
+/* First instantiated from: video-explainer.cpp:1615 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 struct Explanation<9>
@@ -2672,7 +2672,7 @@ namespace video
 
 
 template<unsigned int size>
-void explain_as_video(const Explanation<size> &, video::Serializer *, bool quick, unsigned int width, unsigned int height);
+void explain_as_video(const Explanation<size> &, video::Serializer *, unsigned int width, unsigned int height);
 ;
 
 #endif  // EXPLANATION_VIDEO_EXPLAINER_HPP_
@@ -3498,7 +3498,7 @@ class Animator<4>
 };
 
 #endif
-/* First instantiated from: video-explainer.cpp:1782 */
+/* First instantiated from: video-explainer.cpp:1771 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class Animator<9>
@@ -4018,10 +4018,9 @@ class VideoExplainer
 {
   
   public: 
-  inline VideoExplainer(const Explanation<size> & explanation_, video::Serializer * serializer_, bool quick_, unsigned int frame_width_, unsigned int frame_height_)
+  inline VideoExplainer(const Explanation<size> & explanation_, video::Serializer * serializer_, unsigned int frame_width_, unsigned int frame_height_)
   : explanation{explanation_}
   , animator{serializer_, frame_width_, frame_height_}
-  , quick{quick_}
   , stack{}
   {
   }
@@ -4042,10 +4041,10 @@ class VideoExplainer
       }
       
     }
-    this->animator.make_title_sequence(this->stack.current(), this->quicken(75));
-    this->animator.make_title_to_propagate_sequence(this->stack.current(), this->quicken(12));
-    this->animator.make_introduce_propagation_sequence(this->stack.current(), this->quicken(12));
-    this->animator.make_setup_propagation_sequence(this->stack.current(), this->quicken(12));
+    this->animator.make_title_sequence(this->stack.current(), 75);
+    this->animator.make_title_to_propagate_sequence(this->stack.current(), 12);
+    this->animator.make_introduce_propagation_sequence(this->stack.current(), 12);
+    this->animator.make_setup_propagation_sequence(this->stack.current(), 12);
     explain(this->explanation.propagations);
     explain(this->explanation.exploration);
   }
@@ -4066,20 +4065,20 @@ class VideoExplainer
   
   inline void explain(const typename Explanation<size>::Propagation & propagation)
   {
-    if(this->cell_propagations_handled < this->quicken(3)) {
-      this->animator.make_start_cell_propagation_sequence(this->stack.current(), propagation.source, this->quicken(3));
+    if(this->cell_propagations_handled < static_cast<unsigned int>(3)) {
+      this->animator.make_start_cell_propagation_sequence(this->stack.current(), propagation.source, 3);
       {
         auto && __range1 = propagation.targets;
         for(; ; ) {
           const auto & target;
-          if(this->single_propagations_handled < this->quicken(6)) {
-            this->animator.make_propagate_cell_to_target_sequence(this->stack.current(), propagation.source, target.cell, propagation.value, this->quicken(3));
+          if(this->single_propagations_handled < static_cast<unsigned int>(6)) {
+            this->animator.make_propagate_cell_to_target_sequence(this->stack.current(), propagation.source, target.cell, propagation.value, 3);
             this->stack.current().cell(target.cell).forbid(propagation.value);
-            this->animator.make_continue_cell_propagation_1_sequence(this->stack.current(), propagation.source, this->quicken(6));
+            this->animator.make_continue_cell_propagation_1_sequence(this->stack.current(), propagation.source, 6);
           } else {
-            this->animator.make_propagate_cell_to_target_sequence(this->stack.current(), propagation.source, target.cell, propagation.value, this->quicken(1));
+            this->animator.make_propagate_cell_to_target_sequence(this->stack.current(), propagation.source, target.cell, propagation.value, 1);
             this->stack.current().cell(target.cell).forbid(propagation.value);
-            this->animator.make_continue_cell_propagation_2_sequence(this->stack.current(), propagation.source, target.cell, propagation.value, this->quicken(4));
+            this->animator.make_continue_cell_propagation_2_sequence(this->stack.current(), propagation.source, target.cell, propagation.value, 4);
           } 
           
           ++this->single_propagations_handled;
@@ -4098,7 +4097,7 @@ class VideoExplainer
           }
           
         }
-        this->animator.make_quick_propagation_sequence_begin(this->stack.current(), propagation.source, targets, propagation.value, this->quicken(1));
+        this->animator.make_quick_propagation_sequence_begin(this->stack.current(), propagation.source, targets, propagation.value, 1);
         {
           auto && __range2 = propagation.targets;
           for(; ; ) {
@@ -4107,7 +4106,7 @@ class VideoExplainer
           }
           
         }
-        this->animator.make_quick_propagation_sequence_end(this->stack.current(), propagation.source, targets, propagation.value, this->quicken(4));
+        this->animator.make_quick_propagation_sequence_end(this->stack.current(), propagation.source, targets, propagation.value, 4);
       } 
       
     } 
@@ -4146,7 +4145,7 @@ class VideoExplainer
       this->stack.current().cell(propagation.source).set_propagated();
     } 
     
-    if(this->deductions_handled < this->quicken(4)) {
+    if(this->deductions_handled < static_cast<unsigned int>(4)) {
       {
         auto && __range1 = propagation.targets;
         for(; ; ) {
@@ -4157,7 +4156,7 @@ class VideoExplainer
               const auto & deduction;
               this->stack.current().cell(deduction.cell).set_deduced(deduction.value);
               ++this->deductions_handled;
-              this->animator.make_single_value_deduction_sequence(this->stack.current(), {deduction.cell}, this->quicken(6));
+              this->animator.make_single_value_deduction_sequence(this->stack.current(), {deduction.cell}, 6);
             }
             
           }
@@ -4167,7 +4166,7 @@ class VideoExplainer
               const auto & deduction;
               this->stack.current().cell(deduction.cell).set_deduced(deduction.value);
               ++this->deductions_handled;
-              this->animator.make_single_place_deduction_sequence(this->stack.current(), {deduction.cell}, this->quicken(6));
+              this->animator.make_single_place_deduction_sequence(this->stack.current(), {deduction.cell}, 6);
             }
             
           }
@@ -4194,7 +4193,7 @@ class VideoExplainer
         
       }
       if(!static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(circled_cells).empty()) {
-        this->animator.make_single_value_deduction_sequence(this->stack.current(), circled_cells, this->quicken(2));
+        this->animator.make_single_value_deduction_sequence(this->stack.current(), circled_cells, 2);
       } 
       
       std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > boxed_cells = std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >();
@@ -4216,13 +4215,13 @@ class VideoExplainer
         
       }
       if(!static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(boxed_cells).empty()) {
-        this->animator.make_single_place_deduction_sequence(this->stack.current(), boxed_cells, this->quicken(2));
+        this->animator.make_single_place_deduction_sequence(this->stack.current(), boxed_cells, 2);
       } 
       
     } 
     
     if(solved) {
-      this->animator.make_solved_sequence(this->stack.current(), this->quicken(75));
+      this->animator.make_solved_sequence(this->stack.current(), 75);
     } 
     
     ++this->cell_propagations_handled;
@@ -4254,21 +4253,8 @@ class VideoExplainer
   
   
   private: 
-  inline unsigned int quicken(unsigned int n)
-  {
-    if(this->quick) {
-      return static_cast<unsigned int>(1);
-    } else {
-      return n;
-    } 
-    
-  }
-  
-  
-  private: 
   const Explanation<size> & explanation;
   Animator<size> animator;
-  bool quick;
   Stack<size> stack;
   
   private: 
@@ -4277,17 +4263,16 @@ class VideoExplainer
   unsigned int deductions_handled;
 };
 
-/* First instantiated from: video-explainer.cpp:1800 */
+/* First instantiated from: video-explainer.cpp:1787 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class VideoExplainer<4>
 {
   
   public: 
-  inline VideoExplainer(const Explanation<4> & explanation_, video::Serializer * serializer_, bool quick_, unsigned int frame_width_, unsigned int frame_height_)
+  inline VideoExplainer(const Explanation<4> & explanation_, video::Serializer * serializer_, unsigned int frame_width_, unsigned int frame_height_)
   : explanation{explanation_}
   , animator{Animator<4>(serializer_, frame_width_, frame_height_)}
-  , quick{quick_}
   , stack{Stack<4>()}
   , single_propagations_handled{static_cast<unsigned int>(0)}
   , cell_propagations_handled{static_cast<unsigned int>(0)}
@@ -4313,10 +4298,10 @@ class VideoExplainer<4>
       }
       
     }
-    this->animator.make_title_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), this->quicken(static_cast<unsigned int>(75)));
-    this->animator.make_title_to_propagate_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), this->quicken(static_cast<unsigned int>(12)));
-    this->animator.make_introduce_propagation_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), this->quicken(static_cast<unsigned int>(12)));
-    this->animator.make_setup_propagation_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), this->quicken(static_cast<unsigned int>(12)));
+    this->animator.make_title_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), static_cast<unsigned int>(75));
+    this->animator.make_title_to_propagate_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), static_cast<unsigned int>(12));
+    this->animator.make_introduce_propagation_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), static_cast<unsigned int>(12));
+    this->animator.make_setup_propagation_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), static_cast<unsigned int>(12));
     this->explain(this->explanation.propagations);
     this->explain(this->explanation.exploration);
   }
@@ -4339,22 +4324,22 @@ class VideoExplainer<4>
   
   inline void explain(const typename Explanation<4U>::Propagation & propagation)
   {
-    if(this->cell_propagations_handled < this->quicken(static_cast<unsigned int>(3))) {
-      this->animator.make_start_cell_propagation_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), propagation.source, this->quicken(static_cast<unsigned int>(3)));
+    if(this->cell_propagations_handled < static_cast<unsigned int>(3)) {
+      this->animator.make_start_cell_propagation_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), propagation.source, static_cast<unsigned int>(3));
       {
         const std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > & __range1 = propagation.targets;
         __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > > __begin0 = __range1.begin();
         __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > > __end0 = __range1.end();
         for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > >>(__end0)); __begin0.operator++()) {
           const Explanation<4>::PropagationTarget & target = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > >>(__begin0).operator*();
-          if(this->single_propagations_handled < this->quicken(static_cast<unsigned int>(6))) {
-            this->animator.make_propagate_cell_to_target_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), propagation.source, target.cell, propagation.value, this->quicken(static_cast<unsigned int>(3)));
+          if(this->single_propagations_handled < static_cast<unsigned int>(6)) {
+            this->animator.make_propagate_cell_to_target_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), propagation.source, target.cell, propagation.value, static_cast<unsigned int>(3));
             static_cast<AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(this->stack.current()).cell(target.cell)).forbid(propagation.value);
-            this->animator.make_continue_cell_propagation_1_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), propagation.source, this->quicken(static_cast<unsigned int>(6)));
+            this->animator.make_continue_cell_propagation_1_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), propagation.source, static_cast<unsigned int>(6));
           } else {
-            this->animator.make_propagate_cell_to_target_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), propagation.source, target.cell, propagation.value, this->quicken(static_cast<unsigned int>(1)));
+            this->animator.make_propagate_cell_to_target_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), propagation.source, target.cell, propagation.value, static_cast<unsigned int>(1));
             static_cast<AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(this->stack.current()).cell(target.cell)).forbid(propagation.value);
-            this->animator.make_continue_cell_propagation_2_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), propagation.source, target.cell, propagation.value, this->quicken(static_cast<unsigned int>(4)));
+            this->animator.make_continue_cell_propagation_2_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), propagation.source, target.cell, propagation.value, static_cast<unsigned int>(4));
           } 
           
           ++this->single_propagations_handled;
@@ -4375,7 +4360,7 @@ class VideoExplainer<4>
           }
           
         }
-        this->animator.make_quick_propagation_sequence_begin(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), propagation.source, static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(targets), propagation.value, this->quicken(static_cast<unsigned int>(1)));
+        this->animator.make_quick_propagation_sequence_begin(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), propagation.source, static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(targets), propagation.value, static_cast<unsigned int>(1));
         {
           const std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > & __range2 = propagation.targets;
           __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > > __begin0 = __range2.begin();
@@ -4386,7 +4371,7 @@ class VideoExplainer<4>
           }
           
         }
-        this->animator.make_quick_propagation_sequence_end(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), propagation.source, static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(targets), propagation.value, this->quicken(static_cast<unsigned int>(4)));
+        this->animator.make_quick_propagation_sequence_end(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), propagation.source, static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(targets), propagation.value, static_cast<unsigned int>(4));
       } 
       
     } 
@@ -4431,7 +4416,7 @@ class VideoExplainer<4>
       static_cast<AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(this->stack.current()).cell(propagation.source)).set_propagated();
     } 
     
-    if(this->deductions_handled < this->quicken(static_cast<unsigned int>(4))) {
+    if(this->deductions_handled < static_cast<unsigned int>(4)) {
       {
         const std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > & __range1 = propagation.targets;
         __gnu_cxx::__normal_iterator<const Explanation<4>::PropagationTarget *, std::vector<Explanation<4>::PropagationTarget, std::allocator<Explanation<4>::PropagationTarget> > > __begin0 = __range1.begin();
@@ -4446,7 +4431,7 @@ class VideoExplainer<4>
               const Explanation<4>::SingleValueDeduction & deduction = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::SingleValueDeduction *, std::vector<Explanation<4>::SingleValueDeduction, std::allocator<Explanation<4>::SingleValueDeduction> > >>(__begin0).operator*();
               static_cast<AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(this->stack.current()).cell(deduction.cell)).set_deduced(deduction.value);
               ++this->deductions_handled;
-              this->animator.make_single_value_deduction_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(deduction.cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, this->quicken(static_cast<unsigned int>(6)));
+              this->animator.make_single_value_deduction_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(deduction.cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, static_cast<unsigned int>(6));
             }
             
           }
@@ -4458,7 +4443,7 @@ class VideoExplainer<4>
               const Explanation<4>::SinglePlaceDeduction & deduction = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<4>::SinglePlaceDeduction *, std::vector<Explanation<4>::SinglePlaceDeduction, std::allocator<Explanation<4>::SinglePlaceDeduction> > >>(__begin0).operator*();
               static_cast<AnnotatedCell<4>&>(static_cast<SudokuBase<AnnotatedCell<4>, 4>&>(this->stack.current()).cell(deduction.cell)).set_deduced(deduction.value);
               ++this->deductions_handled;
-              this->animator.make_single_place_deduction_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(deduction.cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, this->quicken(static_cast<unsigned int>(6)));
+              this->animator.make_single_place_deduction_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(deduction.cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, static_cast<unsigned int>(6));
             }
             
           }
@@ -4489,7 +4474,7 @@ class VideoExplainer<4>
         
       }
       if(!static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(circled_cells).empty()) {
-        this->animator.make_single_value_deduction_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(circled_cells), this->quicken(static_cast<unsigned int>(2)));
+        this->animator.make_single_value_deduction_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(circled_cells), static_cast<unsigned int>(2));
       } 
       
       std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > boxed_cells = std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >();
@@ -4515,13 +4500,13 @@ class VideoExplainer<4>
         
       }
       if(!static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(boxed_cells).empty()) {
-        this->animator.make_single_place_deduction_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(boxed_cells), this->quicken(static_cast<unsigned int>(2)));
+        this->animator.make_single_place_deduction_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(boxed_cells), static_cast<unsigned int>(2));
       } 
       
     } 
     
     if(solved) {
-      this->animator.make_solved_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), this->quicken(static_cast<unsigned int>(75)));
+      this->animator.make_solved_sequence(static_cast<const Sudoku<AnnotatedCell<4>, 4>>(this->stack.current()), static_cast<unsigned int>(75));
     } 
     
     ++this->cell_propagations_handled;
@@ -4555,21 +4540,8 @@ class VideoExplainer<4>
   
   
   private: 
-  inline unsigned int quicken(unsigned int n)
-  {
-    if(this->quick) {
-      return static_cast<unsigned int>(1);
-    } else {
-      return n;
-    } 
-    
-  }
-  
-  
-  private: 
   const Explanation<4> & explanation;
   Animator<4> animator;
-  bool quick;
   Stack<4> stack;
   
   private: 
@@ -4583,17 +4555,16 @@ class VideoExplainer<4>
 };
 
 #endif
-/* First instantiated from: video-explainer.cpp:1800 */
+/* First instantiated from: video-explainer.cpp:1787 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
 class VideoExplainer<9>
 {
   
   public: 
-  inline VideoExplainer(const Explanation<9> & explanation_, video::Serializer * serializer_, bool quick_, unsigned int frame_width_, unsigned int frame_height_)
+  inline VideoExplainer(const Explanation<9> & explanation_, video::Serializer * serializer_, unsigned int frame_width_, unsigned int frame_height_)
   : explanation{explanation_}
   , animator{Animator<9>(serializer_, frame_width_, frame_height_)}
-  , quick{quick_}
   , stack{Stack<9>()}
   , single_propagations_handled{static_cast<unsigned int>(0)}
   , cell_propagations_handled{static_cast<unsigned int>(0)}
@@ -4619,10 +4590,10 @@ class VideoExplainer<9>
       }
       
     }
-    this->animator.make_title_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), this->quicken(static_cast<unsigned int>(75)));
-    this->animator.make_title_to_propagate_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), this->quicken(static_cast<unsigned int>(12)));
-    this->animator.make_introduce_propagation_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), this->quicken(static_cast<unsigned int>(12)));
-    this->animator.make_setup_propagation_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), this->quicken(static_cast<unsigned int>(12)));
+    this->animator.make_title_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), static_cast<unsigned int>(75));
+    this->animator.make_title_to_propagate_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), static_cast<unsigned int>(12));
+    this->animator.make_introduce_propagation_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), static_cast<unsigned int>(12));
+    this->animator.make_setup_propagation_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), static_cast<unsigned int>(12));
     this->explain(this->explanation.propagations);
     this->explain(this->explanation.exploration);
   }
@@ -4645,22 +4616,22 @@ class VideoExplainer<9>
   
   inline void explain(const typename Explanation<9U>::Propagation & propagation)
   {
-    if(this->cell_propagations_handled < this->quicken(static_cast<unsigned int>(3))) {
-      this->animator.make_start_cell_propagation_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), propagation.source, this->quicken(static_cast<unsigned int>(3)));
+    if(this->cell_propagations_handled < static_cast<unsigned int>(3)) {
+      this->animator.make_start_cell_propagation_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), propagation.source, static_cast<unsigned int>(3));
       {
         const std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > & __range1 = propagation.targets;
         __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > > __begin0 = __range1.begin();
         __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > > __end0 = __range1.end();
         for(; !__gnu_cxx::operator==(static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > >>(__begin0), static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > >>(__end0)); __begin0.operator++()) {
           const Explanation<9>::PropagationTarget & target = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > >>(__begin0).operator*();
-          if(this->single_propagations_handled < this->quicken(static_cast<unsigned int>(6))) {
-            this->animator.make_propagate_cell_to_target_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), propagation.source, target.cell, propagation.value, this->quicken(static_cast<unsigned int>(3)));
+          if(this->single_propagations_handled < static_cast<unsigned int>(6)) {
+            this->animator.make_propagate_cell_to_target_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), propagation.source, target.cell, propagation.value, static_cast<unsigned int>(3));
             static_cast<AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(this->stack.current()).cell(target.cell)).forbid(propagation.value);
-            this->animator.make_continue_cell_propagation_1_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), propagation.source, this->quicken(static_cast<unsigned int>(6)));
+            this->animator.make_continue_cell_propagation_1_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), propagation.source, static_cast<unsigned int>(6));
           } else {
-            this->animator.make_propagate_cell_to_target_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), propagation.source, target.cell, propagation.value, this->quicken(static_cast<unsigned int>(1)));
+            this->animator.make_propagate_cell_to_target_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), propagation.source, target.cell, propagation.value, static_cast<unsigned int>(1));
             static_cast<AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(this->stack.current()).cell(target.cell)).forbid(propagation.value);
-            this->animator.make_continue_cell_propagation_2_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), propagation.source, target.cell, propagation.value, this->quicken(static_cast<unsigned int>(4)));
+            this->animator.make_continue_cell_propagation_2_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), propagation.source, target.cell, propagation.value, static_cast<unsigned int>(4));
           } 
           
           ++this->single_propagations_handled;
@@ -4681,7 +4652,7 @@ class VideoExplainer<9>
           }
           
         }
-        this->animator.make_quick_propagation_sequence_begin(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), propagation.source, static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(targets), propagation.value, this->quicken(static_cast<unsigned int>(1)));
+        this->animator.make_quick_propagation_sequence_begin(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), propagation.source, static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(targets), propagation.value, static_cast<unsigned int>(1));
         {
           const std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > & __range2 = propagation.targets;
           __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > > __begin0 = __range2.begin();
@@ -4692,7 +4663,7 @@ class VideoExplainer<9>
           }
           
         }
-        this->animator.make_quick_propagation_sequence_end(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), propagation.source, static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(targets), propagation.value, this->quicken(static_cast<unsigned int>(4)));
+        this->animator.make_quick_propagation_sequence_end(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), propagation.source, static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(targets), propagation.value, static_cast<unsigned int>(4));
       } 
       
     } 
@@ -4737,7 +4708,7 @@ class VideoExplainer<9>
       static_cast<AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(this->stack.current()).cell(propagation.source)).set_propagated();
     } 
     
-    if(this->deductions_handled < this->quicken(static_cast<unsigned int>(4))) {
+    if(this->deductions_handled < static_cast<unsigned int>(4)) {
       {
         const std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > & __range1 = propagation.targets;
         __gnu_cxx::__normal_iterator<const Explanation<9>::PropagationTarget *, std::vector<Explanation<9>::PropagationTarget, std::allocator<Explanation<9>::PropagationTarget> > > __begin0 = __range1.begin();
@@ -4752,7 +4723,7 @@ class VideoExplainer<9>
               const Explanation<9>::SingleValueDeduction & deduction = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::SingleValueDeduction *, std::vector<Explanation<9>::SingleValueDeduction, std::allocator<Explanation<9>::SingleValueDeduction> > >>(__begin0).operator*();
               static_cast<AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(this->stack.current()).cell(deduction.cell)).set_deduced(deduction.value);
               ++this->deductions_handled;
-              this->animator.make_single_value_deduction_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(deduction.cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, this->quicken(static_cast<unsigned int>(6)));
+              this->animator.make_single_value_deduction_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(deduction.cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, static_cast<unsigned int>(6));
             }
             
           }
@@ -4764,7 +4735,7 @@ class VideoExplainer<9>
               const Explanation<9>::SinglePlaceDeduction & deduction = static_cast<const __gnu_cxx::__normal_iterator<const Explanation<9>::SinglePlaceDeduction *, std::vector<Explanation<9>::SinglePlaceDeduction, std::allocator<Explanation<9>::SinglePlaceDeduction> > >>(__begin0).operator*();
               static_cast<AnnotatedCell<9>&>(static_cast<SudokuBase<AnnotatedCell<9>, 9>&>(this->stack.current()).cell(deduction.cell)).set_deduced(deduction.value);
               ++this->deductions_handled;
-              this->animator.make_single_place_deduction_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(deduction.cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, this->quicken(static_cast<unsigned int>(6)));
+              this->animator.make_single_place_deduction_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >{std::initializer_list<std::pair<unsigned int, unsigned int> >{std::pair<unsigned int, unsigned int>(deduction.cell)}, static_cast<const std::allocator<std::pair<unsigned int, unsigned int> >>(std::allocator<std::pair<unsigned int, unsigned int> >())}, static_cast<unsigned int>(6));
             }
             
           }
@@ -4795,7 +4766,7 @@ class VideoExplainer<9>
         
       }
       if(!static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(circled_cells).empty()) {
-        this->animator.make_single_value_deduction_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(circled_cells), this->quicken(static_cast<unsigned int>(2)));
+        this->animator.make_single_value_deduction_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(circled_cells), static_cast<unsigned int>(2));
       } 
       
       std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > > boxed_cells = std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >();
@@ -4821,13 +4792,13 @@ class VideoExplainer<9>
         
       }
       if(!static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(boxed_cells).empty()) {
-        this->animator.make_single_place_deduction_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(boxed_cells), this->quicken(static_cast<unsigned int>(2)));
+        this->animator.make_single_place_deduction_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), static_cast<const std::vector<std::pair<unsigned int, unsigned int>, std::allocator<std::pair<unsigned int, unsigned int> > >>(boxed_cells), static_cast<unsigned int>(2));
       } 
       
     } 
     
     if(solved) {
-      this->animator.make_solved_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), this->quicken(static_cast<unsigned int>(75)));
+      this->animator.make_solved_sequence(static_cast<const Sudoku<AnnotatedCell<9>, 9>>(this->stack.current()), static_cast<unsigned int>(75));
     } 
     
     ++this->cell_propagations_handled;
@@ -4861,21 +4832,8 @@ class VideoExplainer<9>
   
   
   private: 
-  inline unsigned int quicken(unsigned int n)
-  {
-    if(this->quick) {
-      return static_cast<unsigned int>(1);
-    } else {
-      return n;
-    } 
-    
-  }
-  
-  
-  private: 
   const Explanation<9> & explanation;
   Animator<9> animator;
-  bool quick;
   Stack<9> stack;
   
   private: 
@@ -4892,31 +4850,31 @@ class VideoExplainer<9>
 
 
 template<unsigned int size>
-void explain_as_video(const Explanation<size> & explanation, video::Serializer * serializer, bool quick, unsigned int frame_width, unsigned int frame_height)
+void explain_as_video(const Explanation<size> & explanation, video::Serializer * serializer, unsigned int frame_width, unsigned int frame_height)
 {
-  VideoExplainer<size>(explanation, serializer, quick, frame_width, frame_height).explain();
+  VideoExplainer<size>(explanation, serializer, frame_width, frame_height).explain();
 }
 
 
-/* First instantiated from: video-explainer.cpp:1803 */
+/* First instantiated from: video-explainer.cpp:1790 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
-void explain_as_video<4>(const Explanation<4> & explanation, video::Serializer * serializer, bool quick, unsigned int frame_width, unsigned int frame_height)
+void explain_as_video<4>(const Explanation<4> & explanation, video::Serializer * serializer, unsigned int frame_width, unsigned int frame_height)
 {
-  VideoExplainer<4>(explanation, serializer, quick, frame_width, frame_height).explain();
+  VideoExplainer<4>(explanation, serializer, frame_width, frame_height).explain();
 }
 #endif
 
 
-/* First instantiated from: video-explainer.cpp:1804 */
+/* First instantiated from: video-explainer.cpp:1791 */
 #ifdef INSIGHTS_USE_TEMPLATE
 template<>
-void explain_as_video<9>(const Explanation<9> & explanation, video::Serializer * serializer, bool quick, unsigned int frame_width, unsigned int frame_height)
+void explain_as_video<9>(const Explanation<9> & explanation, video::Serializer * serializer, unsigned int frame_width, unsigned int frame_height)
 {
-  VideoExplainer<9>(explanation, serializer, quick, frame_width, frame_height).explain();
+  VideoExplainer<9>(explanation, serializer, frame_width, frame_height).explain();
 }
 #endif
 
 
-template void explain_as_video<4>(const Explanation<4>&, video::Serializer*, bool, unsigned, unsigned);
-template void explain_as_video<9>(const Explanation<9>&, video::Serializer*, bool, unsigned, unsigned);
+template void explain_as_video<4>(const Explanation<4>&, video::Serializer*, unsigned, unsigned);
+template void explain_as_video<9>(const Explanation<9>&, video::Serializer*, unsigned, unsigned);

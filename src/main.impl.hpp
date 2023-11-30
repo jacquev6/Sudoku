@@ -112,7 +112,7 @@ int main_(const Options& options) {
         std::vector<video::Serializer*>{video_serializers[0].get(), video_serializers[1].get()}));
     }
     if (!video_serializers.empty()) {
-      explain_as_video(explanation, video_serializers.back().get(), options.quick_video, options.width, options.height);
+      explain_as_video(explanation, video_serializers.back().get(), options.width, options.height);
     }
 
     if (is_solved(solved)) {

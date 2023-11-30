@@ -21,7 +21,6 @@ struct Options
   std::optional<std::filesystem::path> html_path;
   std::optional<std::filesystem::path> html_text_path;
   std::optional<std::filesystem::path> video_path;
-  bool quick_video;
   std::optional<std::filesystem::path> video_frames_path;
   std::optional<std::filesystem::path> video_text_path;
   unsigned int width;
@@ -65,8 +64,8 @@ struct ExistingFileOrStdinValidator : public CLI::Validator
         
       }
       
-      using retType_47_13 = std::string (*)(const std::string &);
-      inline constexpr operator retType_47_13 () const noexcept
+      using retType_46_13 = std::string (*)(const std::string &);
+      inline constexpr operator retType_46_13 () const noexcept
       {
         return __invoke;
       };
@@ -109,8 +108,8 @@ struct FileOrStdoutValidator : public CLI::Validator
         return std::basic_string<char, std::char_traits<char>, std::allocator<char> >();
       }
       
-      using retType_61_13 = std::string (*)(const std::string &);
-      inline constexpr operator retType_61_13 () const noexcept
+      using retType_60_13 = std::string (*)(const std::string &);
+      inline constexpr operator retType_60_13 () const noexcept
       {
         return __invoke;
       };
@@ -153,8 +152,8 @@ struct FileValidator : public CLI::Validator
         return std::basic_string<char, std::char_traits<char>, std::allocator<char> >();
       }
       
-      using retType_69_13 = std::string (*)(const std::string &);
-      inline constexpr operator retType_69_13 () const noexcept
+      using retType_68_13 = std::string (*)(const std::string &);
+      inline constexpr operator retType_68_13 () const noexcept
       {
         return __invoke;
       };
@@ -201,8 +200,6 @@ int main(int argc, char ** argv)
   std::optional<std::filesystem::path> html_text_path = std::optional<std::filesystem::path>();
   std::optional<std::filesystem::path> video_path = std::optional<std::filesystem::path>();
   explain->add_option<std::optional<std::filesystem::path>, std::optional<std::filesystem::path>, 0>(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("--video"), static_cast<const std::allocator<char>>(std::allocator<char>())), video_path, std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Generate video explanation in the given '.mpg' file"), static_cast<const std::allocator<char>>(std::allocator<char>())))->check(CLI::Validator(static_cast<const CLI::Validator&>(File)), std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>(""), static_cast<const std::allocator<char>>(std::allocator<char>())));
-  bool quick_video = false;
-  static_cast<CLI::OptionBase<CLI::Option> *>(explain->add_flag<bool, 0>(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("--quick-video"), static_cast<const std::allocator<char>>(std::allocator<char>())), quick_video, std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Make the video explanation quick (for testing)"), static_cast<const std::allocator<char>>(std::allocator<char>()))))->group(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>(""), static_cast<const std::allocator<char>>(std::allocator<char>())));
   std::optional<std::filesystem::path> video_frames_path = std::optional<std::filesystem::path>();
   explain->add_option<std::optional<std::filesystem::path>, std::optional<std::filesystem::path>, 0>(std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("--video-frames"), static_cast<const std::allocator<char>>(std::allocator<char>())), video_frames_path, std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>("Generate PNG frames from the video explanation in the given directory"), static_cast<const std::allocator<char>>(std::allocator<char>())))->check(CLI::Validator(static_cast<const CLI::Validator&>(CLI::NonexistentPath)), std::basic_string<char, std::char_traits<char>, std::allocator<char> >(static_cast<const char *>(""), static_cast<const std::allocator<char>>(std::allocator<char>())));
   std::optional<std::filesystem::path> video_text_path = std::optional<std::filesystem::path>();
@@ -234,7 +231,7 @@ int main(int argc, char ** argv)
     text_path.operator=("-");
   } 
   
-  Options options = {static_cast<const CLI::App *>(solve)->parsed(), use_sat, static_cast<const CLI::App *>(explain)->parsed(), std::filesystem::path(static_cast<const std::filesystem::path>(input_path)), std::optional<std::filesystem::path>(static_cast<const std::optional<std::filesystem::path>>(text_path)), std::optional<std::filesystem::path>(static_cast<const std::optional<std::filesystem::path>>(html_path)), std::optional<std::filesystem::path>(static_cast<const std::optional<std::filesystem::path>>(html_text_path)), std::optional<std::filesystem::path>(static_cast<const std::optional<std::filesystem::path>>(video_path)), quick_video, std::optional<std::filesystem::path>(static_cast<const std::optional<std::filesystem::path>>(video_frames_path)), std::optional<std::filesystem::path>(static_cast<const std::optional<std::filesystem::path>>(video_text_path)), width, height};
+  Options options = {static_cast<const CLI::App *>(solve)->parsed(), use_sat, static_cast<const CLI::App *>(explain)->parsed(), std::filesystem::path(static_cast<const std::filesystem::path>(input_path)), std::optional<std::filesystem::path>(static_cast<const std::optional<std::filesystem::path>>(text_path)), std::optional<std::filesystem::path>(static_cast<const std::optional<std::filesystem::path>>(html_path)), std::optional<std::filesystem::path>(static_cast<const std::optional<std::filesystem::path>>(html_text_path)), std::optional<std::filesystem::path>(static_cast<const std::optional<std::filesystem::path>>(video_path)), std::optional<std::filesystem::path>(static_cast<const std::optional<std::filesystem::path>>(video_frames_path)), std::optional<std::filesystem::path>(static_cast<const std::optional<std::filesystem::path>>(video_text_path)), width, height};
   switch(size) {
     case static_cast<unsigned int>(4): return main_<4>(static_cast<const Options>(options));
     case static_cast<unsigned int>(9): return main_<9>(static_cast<const Options>(options));

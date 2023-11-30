@@ -75,11 +75,6 @@ int main(int argc, char* argv[]) {
     ->add_option("--video", video_path, "Generate video explanation in the given '.mpg' file")
     ->check(File);
 
-  bool quick_video = false;
-  explain
-    ->add_flag("--quick-video", quick_video, "Make the video explanation quick (for testing)")
-    ->group("");  // Hidden
-
   std::optional<std::filesystem::path> video_frames_path;
   explain
     ->add_option("--video-frames", video_frames_path,
@@ -122,7 +117,6 @@ int main(int argc, char* argv[]) {
     .html_path = html_path,
     .html_text_path = html_text_path,
     .video_path = video_path,
-    .quick_video = quick_video,
     .video_frames_path = video_frames_path,
     .video_text_path = video_text_path,
     .width = width,

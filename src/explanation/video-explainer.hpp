@@ -8,6 +8,6 @@
 
 
 template<unsigned size>
-void explain_as_video(const Explanation<size>&, video::Serializer*, bool quick, unsigned width, unsigned height);
+void explain_as_video(const Explanation<size>&, video::Serializer*, unsigned width, unsigned height);
 
 #endif  // EXPLANATION_VIDEO_EXPLAINER_HPP_

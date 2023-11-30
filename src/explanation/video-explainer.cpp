@@ -618,13 +618,11 @@ class VideoExplainer {
   VideoExplainer(
     const Explanation<size>& explanation_,
     video::Serializer* serializer_,
-    bool quick_,
     unsigned frame_width_,
     unsigned frame_height_
   ) :  // NOLINT(whitespace/parens)
     explanation(explanation_),
     animator(serializer_, frame_width_, frame_height_),
-    quick(quick_),
     stack()
   {}
 
@@ -637,10 +635,10 @@ class VideoExplainer {
       }
     }
 
-    animator.make_title_sequence(stack.current(), quicken(75));
-    animator.make_title_to_propagate_sequence(stack.current(), quicken(12));
-    animator.make_introduce_propagation_sequence(stack.current(), quicken(12));
-    animator.make_setup_propagation_sequence(stack.current(), quicken(12));
+    animator.make_title_sequence(stack.current(), 75);
+    animator.make_title_to_propagate_sequence(stack.current(), 12);
+    animator.make_introduce_propagation_sequence(stack.current(), 12);
+    animator.make_setup_propagation_sequence(stack.current(), 12);
 
     explain(explanation.propagations);
     explain(explanation.exploration);
@@ -654,28 +652,28 @@ class VideoExplainer {
   }
 
   void explain(const typename Explanation<size>::Propagation& propagation) {
-    if (cell_propagations_handled < quicken(3)) {
-      animator.make_start_cell_propagation_sequence(stack.current(), propagation.source, quicken(3));
+    if (cell_propagations_handled < 3) {
+      animator.make_start_cell_propagation_sequence(stack.current(), propagation.source, 3);
 
       for (const auto& target : propagation.targets) {
-        if (single_propagations_handled < quicken(6)) {
+        if (single_propagations_handled < 6) {
           animator.make_propagate_cell_to_target_sequence(
             stack.current(),
             propagation.source,
             target.cell,
             propagation.value,
-            quicken(3));
+            3);
 
           stack.current().cell(target.cell).forbid(propagation.value);
 
-          animator.make_continue_cell_propagation_1_sequence(stack.current(), propagation.source, quicken(6));
+          animator.make_continue_cell_propagation_1_sequence(stack.current(), propagation.source, 6);
         } else {
           animator.make_propagate_cell_to_target_sequence(
             stack.current(),
             propagation.source,
             target.cell,
             propagation.value,
-            quicken(1));
+            1);
 
           stack.current().cell(target.cell).forbid(propagation.value);
 
@@ -684,7 +682,7 @@ class VideoExplainer {
             propagation.source,
             target.cell,
             propagation.value,
-            quicken(4));
+            4);
         }
 
         ++single_propagations_handled;
@@ -702,7 +700,7 @@ class VideoExplainer {
           propagation.source,
           targets,
           propagation.value,
-          quicken(1));
+          1);
 
         for (const auto& target : propagation.targets) {
           stack.current().cell(target.cell).forbid(propagation.value);
@@ -713,7 +711,7 @@ class VideoExplainer {
           propagation.source,
           targets,
           propagation.value,
-          quicken(4));
+          4);
       }
     }
 
@@ -734,18 +732,18 @@ class VideoExplainer {
       stack.current().cell(propagation.source).set_propagated();
     }
 
-    if (deductions_handled < quicken(4)) {
+    if (deductions_handled < 4) {
       for (const auto& target : propagation.targets) {
         for (const auto& deduction : target.single_value_deductions) {
           stack.current().cell(deduction.cell).set_deduced(deduction.value);
           ++deductions_handled;
-          animator.make_single_value_deduction_sequence(stack.current(), {deduction.cell}, quicken(6));
+          animator.make_single_value_deduction_sequence(stack.current(), {deduction.cell}, 6);
         }
 
         for (const auto& deduction : target.single_place_deductions) {
           stack.current().cell(deduction.cell).set_deduced(deduction.value);
           ++deductions_handled;
-          animator.make_single_place_deduction_sequence(stack.current(), {deduction.cell}, quicken(6));
+          animator.make_single_place_deduction_sequence(stack.current(), {deduction.cell}, 6);
         }
       }
     } else {
@@ -759,7 +757,7 @@ class VideoExplainer {
         }
       }
       if (!circled_cells.empty()) {
-        animator.make_single_value_deduction_sequence(stack.current(), circled_cells, quicken(2));
+        animator.make_single_value_deduction_sequence(stack.current(), circled_cells, 2);
       }
 
       std::vector<Coordinates> boxed_cells;
@@ -772,12 +770,12 @@ class VideoExplainer {
         }
       }
       if (!boxed_cells.empty()) {
-        animator.make_single_place_deduction_sequence(stack.current(), boxed_cells, quicken(2));
+        animator.make_single_place_deduction_sequence(stack.current(), boxed_cells, 2);
       }
     }
 
     if (solved) {
-      animator.make_solved_sequence(stack.current(), quicken(75));
+      animator.make_solved_sequence(stack.current(), 75);
     }
 
     ++cell_propagations_handled;
@@ -802,18 +800,8 @@ class VideoExplainer {
   }
 
  private:
-  unsigned quicken(unsigned n) {
-    if (quick) {
-      return 1;
-    } else {
-      return n;
-    }
-  }
-
- private:
   const Explanation<size>& explanation;
   Animator<size> animator;
-  bool quick;
   Stack<size> stack;
 
  private:
@@ -826,12 +814,11 @@ template<unsigned size>
 void explain_as_video(
   const Explanation<size>& explanation,
   video::Serializer* serializer,
-  bool quick,
   unsigned frame_width,
   unsigned frame_height
 ) {
-  VideoExplainer<size>(explanation, serializer, quick, frame_width, frame_height).explain();
+  VideoExplainer<size>(explanation, serializer, frame_width, frame_height).explain();
 }
 
-template void explain_as_video<4>(const Explanation<4>&, video::Serializer*, bool, unsigned, unsigned);
-template void explain_as_video<9>(const Explanation<9>&, video::Serializer*, bool, unsigned, unsigned);
+template void explain_as_video<4>(const Explanation<4>&, video::Serializer*, unsigned, unsigned);
+template void explain_as_video<9>(const Explanation<9>&, video::Serializer*, unsigned, unsigned);
