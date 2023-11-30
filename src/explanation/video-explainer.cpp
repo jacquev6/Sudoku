@@ -64,32 +64,32 @@ class Animator {
   Layout propagate() { return {.below = {{"Propagate constraints", 20}}}; }
 
  public:
-  void make_title_sequence(const AnnotatedSudoku<size>& state, const unsigned duration) {
+  void make_title_sequence(const ExplainableSudoku<size>& state, const unsigned duration) {
     for (unsigned index = 0; index != duration; ++index) {
       make_frame(title(), state, {});
     }
   }
 
-  void make_title_to_propagate_sequence(const AnnotatedSudoku<size>& state, const unsigned duration) {
+  void make_title_to_propagate_sequence(const ExplainableSudoku<size>& state, const unsigned duration) {
     for (unsigned index = 0; index != duration; ++index) {
       make_frame(title(), propagate(), index, duration, state, {});
     }
   }
 
-  void make_introduce_propagation_sequence(const AnnotatedSudoku<size>& state, const unsigned duration) {
+  void make_introduce_propagation_sequence(const ExplainableSudoku<size>& state, const unsigned duration) {
     for (unsigned index = 0; index != duration; ++index) {
       make_frame(propagate(), state, {});
     }
   }
 
-  void make_setup_propagation_sequence(const AnnotatedSudoku<size>& state, const unsigned duration) {
+  void make_setup_propagation_sequence(const ExplainableSudoku<size>& state, const unsigned duration) {
     for (unsigned index = 0; index != duration; ++index) {
       make_frame(propagate(), state, { .possible = true, .bold_todo = true });
     }
   }
 
   void make_start_cell_propagation_sequence(
-    const AnnotatedSudoku<size>& state,
+    const ExplainableSudoku<size>& state,
     const Coordinates& source,
     const unsigned duration
   ) {
@@ -107,7 +107,7 @@ class Animator {
   }
 
   void make_propagate_cell_to_target_sequence(
-    const AnnotatedSudoku<size>& state,
+    const ExplainableSudoku<size>& state,
     const Coordinates& source,
     const Coordinates& target,
     const unsigned value,
@@ -130,7 +130,7 @@ class Animator {
   }
 
   void make_continue_cell_propagation_1_sequence(
-    const AnnotatedSudoku<size>& state,
+    const ExplainableSudoku<size>& state,
     const Coordinates& source,
     const unsigned duration
   ) {
@@ -147,7 +147,7 @@ class Animator {
   }
 
   void make_continue_cell_propagation_2_sequence(
-    const AnnotatedSudoku<size>& state,
+    const ExplainableSudoku<size>& state,
     const Coordinates& source,
     const Coordinates& target,
     const unsigned value,
@@ -168,7 +168,7 @@ class Animator {
   }
 
   void make_quick_propagation_sequence_begin(
-    const AnnotatedSudoku<size>& state,
+    const ExplainableSudoku<size>& state,
     const Coordinates& source,
     const std::vector<Coordinates>& targets,
     const unsigned value,
@@ -201,7 +201,7 @@ class Animator {
   }
 
   void make_quick_propagation_sequence_end(
-    const AnnotatedSudoku<size>& state,
+    const ExplainableSudoku<size>& state,
     const Coordinates& source,
     const std::vector<Coordinates>& targets,
     const unsigned value,
@@ -242,7 +242,7 @@ class Animator {
   }
 
   void make_single_value_deduction_sequence(
-    const AnnotatedSudoku<size>& state,
+    const ExplainableSudoku<size>& state,
     const std::vector<Coordinates>& cells,
     const unsigned duration
   ) {
@@ -261,7 +261,7 @@ class Animator {
   }
 
   void make_single_place_deduction_sequence(
-    const AnnotatedSudoku<size>& state,
+    const ExplainableSudoku<size>& state,
     const std::vector<Coordinates>& cells,
     const unsigned duration
   ) {
@@ -279,14 +279,14 @@ class Animator {
     }
   }
 
-  void make_solved_sequence(const AnnotatedSudoku<size>& state, const unsigned duration) {
+  void make_solved_sequence(const ExplainableSudoku<size>& state, const unsigned duration) {
     for (unsigned index = 0; index != duration; ++index) {
       make_frame({.below = {{"Solved!", 20}}}, state, {});
     }
   }
 
  private:
-  void make_frame(const Layout& layout, const AnnotatedSudoku<size>& state, art::DrawOptions draw_options) {
+  void make_frame(const Layout& layout, const ExplainableSudoku<size>& state, art::DrawOptions draw_options) {
     auto surface = Cairo::ImageSurface::create(Cairo::Surface::Format::ARGB32, frame_width_pixels, frame_height_pixels);
     auto cr = Cairo::Context::create(surface);
     cr->set_source_rgb(1.0, 0.8, 0.8);
@@ -376,7 +376,7 @@ class Animator {
     const Layout& after,
     const unsigned index,
     const unsigned duration,
-    const AnnotatedSudoku<size>& state,
+    const ExplainableSudoku<size>& state,
     art::DrawOptions draw_options
   ) {
     auto surface = Cairo::ImageSurface::create(Cairo::Surface::Format::ARGB32, frame_width_pixels, frame_height_pixels);
@@ -475,7 +475,7 @@ class Animator {
 // These tests must be validated visually e.g. using 'git diff-image tests/unit' before commit
 TEST_CASE("Animator::make_title_sequence") {
   video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "010-title-");
-  AnnotatedSudoku<4> state;
+  ExplainableSudoku<4> state;
   state.cell({0, 0}).set_input(0);
   state.cell({0, 1}).set_input(1);
   state.cell({0, 2}).set_input(2);
@@ -485,7 +485,7 @@ TEST_CASE("Animator::make_title_sequence") {
 
 TEST_CASE("Animator::make_title_to_propagate_sequence") {
   video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "020-title_to_propagate-");
-  AnnotatedSudoku<4> state;
+  ExplainableSudoku<4> state;
   state.cell({0, 0}).set_input(0);
   state.cell({0, 1}).set_input(1);
   state.cell({0, 2}).set_input(2);
@@ -495,7 +495,7 @@ TEST_CASE("Animator::make_title_to_propagate_sequence") {
 
 TEST_CASE("Animator::make_introduce_propagation_sequence") {
   video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "030-introduce_propagation-");
-  AnnotatedSudoku<4> state;
+  ExplainableSudoku<4> state;
   state.cell({0, 0}).set_input(0);
   state.cell({0, 1}).set_input(1);
   state.cell({0, 2}).set_input(2);
@@ -505,7 +505,7 @@ TEST_CASE("Animator::make_introduce_propagation_sequence") {
 
 TEST_CASE("Animator::make_setup_propagation_sequence") {
   video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "040-setup_propagation-");
-  AnnotatedSudoku<4> state;
+  ExplainableSudoku<4> state;
   state.cell({0, 0}).set_input(0);
   state.cell({0, 1}).set_input(1);
   state.cell({0, 2}).set_input(2);
@@ -515,7 +515,7 @@ TEST_CASE("Animator::make_setup_propagation_sequence") {
 
 TEST_CASE("Animator::make_start_cell_propagation_sequence") {
   video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "050-start_cell_propagation-");
-  AnnotatedSudoku<4> state;
+  ExplainableSudoku<4> state;
   state.cell({0, 0}).set_input(0);
   state.cell({0, 1}).set_input(1);
   state.cell({0, 2}).set_input(2);
@@ -525,7 +525,7 @@ TEST_CASE("Animator::make_start_cell_propagation_sequence") {
 
 TEST_CASE("Animator::make_propagate_cell_to_target_sequence") {
   video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "060-propagate_cell_to_target-");
-  AnnotatedSudoku<4> state;
+  ExplainableSudoku<4> state;
   state.cell({0, 0}).set_input(0);
   state.cell({0, 1}).set_input(1);
   state.cell({0, 2}).set_input(2);
@@ -535,7 +535,7 @@ TEST_CASE("Animator::make_propagate_cell_to_target_sequence") {
 
 TEST_CASE("Animator::make_continue_cell_propagation_1_sequence") {
   video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "070-continue_cell_propagation_1-");
-  AnnotatedSudoku<4> state;
+  ExplainableSudoku<4> state;
   state.cell({0, 0}).set_input(0);
   state.cell({0, 1}).set_input(1);
   state.cell({0, 2}).set_input(2);
@@ -546,7 +546,7 @@ TEST_CASE("Animator::make_continue_cell_propagation_1_sequence") {
 
 TEST_CASE("Animator::make_continue_cell_propagation_2_sequence") {
   video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "080-continue_cell_propagation_2-");
-  AnnotatedSudoku<4> state;
+  ExplainableSudoku<4> state;
   state.cell({0, 0}).set_input(0);
   state.cell({0, 1}).set_input(1);
   state.cell({0, 2}).set_input(2);
@@ -557,7 +557,7 @@ TEST_CASE("Animator::make_continue_cell_propagation_2_sequence") {
 
 TEST_CASE("Animator::make_quick_propagation_sequence_begin") {
   video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "090-quick_propagation_begin-");
-  AnnotatedSudoku<4> state;
+  ExplainableSudoku<4> state;
   state.cell({0, 0}).set_input(0);
   state.cell({1, 0}).set_input(1);
   state.cell({2, 0}).set_input(2);
@@ -568,7 +568,7 @@ TEST_CASE("Animator::make_quick_propagation_sequence_begin") {
 
 TEST_CASE("Animator::make_quick_propagation_sequence_end") {
   video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "100-quick_propagation_end-");
-  AnnotatedSudoku<4> state;
+  ExplainableSudoku<4> state;
   state.cell({0, 0}).set_input(0);
   state.cell({1, 0}).set_input(1);
   state.cell({2, 0}).set_input(2);
@@ -581,7 +581,7 @@ TEST_CASE("Animator::make_quick_propagation_sequence_end") {
 
 TEST_CASE("Animator::make_single_value_deduction_sequence") {
   video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "110-single_value_deduction-");
-  AnnotatedSudoku<4> state;
+  ExplainableSudoku<4> state;
   state.cell({0, 0}).set_input(0);
   state.cell({1, 0}).set_input(1);
   state.cell({2, 0}).set_input(2);
@@ -591,7 +591,7 @@ TEST_CASE("Animator::make_single_value_deduction_sequence") {
 
 TEST_CASE("Animator::make_single_place_deduction_sequence") {
   video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "120-single_place_deduction-");
-  AnnotatedSudoku<4> state;
+  ExplainableSudoku<4> state;
   state.cell({0, 0}).set_input(0);
   state.cell({1, 0}).set_input(1);
   state.cell({2, 0}).set_input(2);
@@ -601,7 +601,7 @@ TEST_CASE("Animator::make_single_place_deduction_sequence") {
 
 TEST_CASE("Animator::make_solved_sequence") {
   video::FramesSerializer serializer("tests/unit/explanation/video-explainer", "130-solved-");
-  AnnotatedSudoku<4> state;
+  ExplainableSudoku<4> state;
   state.cell({0, 0}).set_input(0);
   state.cell({1, 0}).set_input(1);
   state.cell({2, 0}).set_input(2);
@@ -802,7 +802,7 @@ class VideoExplainer {
  private:
   const Explanation<size>& explanation;
   Animator<size> animator;
-  Stack<size> stack;
+  Stack<ExplainableSudoku<size>> stack;
 
  private:
   unsigned single_propagations_handled = 0;

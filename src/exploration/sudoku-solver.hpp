@@ -19,7 +19,7 @@
 // (I think this is brilliant, but I *may* biased as I'm the author of this code).
 template<unsigned size, typename AddEvent>
 struct EventAdder {
-  EventAdder(Stack<size>* stack_, const AddEvent& add_event_)
+  EventAdder(Stack<ExplorableSudoku<size>>* stack_, const AddEvent& add_event_)
     : stack(stack_), add_event(add_event_) {}
 
   template<typename Event>
@@ -29,7 +29,7 @@ struct EventAdder {
   }
 
  private:
-  Stack<size>* stack;
+  Stack<ExplorableSudoku<size>>* stack;
   const AddEvent& add_event;
 };
 
@@ -59,7 +59,7 @@ struct EventsPairGuard {
 
 template<unsigned size, typename AddEvent>
 bool propagate(
-  const Stack<size>& stack,
+  const Stack<ExplorableSudoku<size>>& stack,
   std::deque<Coordinates> todo,
   const EventAdder<size, AddEvent>& add_event
 ) {
@@ -102,7 +102,7 @@ bool propagate(
                   if (target_cell.is_allowed(value)) {
                     add_event(CellIsDeducedFromSingleAllowedValue<size>(target_coords, value));
 
-                    // 'AnnotatedSudoku::is_solved' is currently O(AnnotatedSudoku::size^2),
+                    // 'ExplorableSudoku::is_solved' is currently O(ExplorableSudoku::size^2),
                     // which we could optimize easily with additional book-keeping,
                     // but the *whole* solving algorithm still executes in less than 100ms for size 9,
                     // so it's not worth it yet.
@@ -120,7 +120,7 @@ bool propagate(
 
               for (const auto& target_region : target_cell.regions()) {
                 unsigned count = 0;
-                const typename AnnotatedSudoku<size>::Cell* single_cell;
+                const typename ExplorableSudoku<size>::Cell* single_cell;
                 for (const auto& cell : target_region.cells()) {
                   if (cell.is_allowed(value)) {
                     ++count;
@@ -154,7 +154,7 @@ bool propagate(
 
 
 template<unsigned size>
-Coordinates get_most_constrained_cell(const AnnotatedSudoku<size>& sudoku) {
+Coordinates get_most_constrained_cell(const ExplorableSudoku<size>& sudoku) {
   Coordinates best_coords;
   unsigned best_count = size + 1;
 
@@ -178,14 +178,14 @@ Coordinates get_most_constrained_cell(const AnnotatedSudoku<size>& sudoku) {
 
 template<unsigned size, typename AddEvent>
 bool propagate_and_explore(
-  const Stack<size>&,
+  const Stack<ExplorableSudoku<size>>&,
   const std::deque<Coordinates>& todo,
   const EventAdder<size, AddEvent>&
 );
 
 
 template<unsigned size, typename AddEvent>
-bool explore(const Stack<size>& stack, const EventAdder<size, AddEvent>& add_event) {
+bool explore(const Stack<ExplorableSudoku<size>>& stack, const EventAdder<size, AddEvent>& add_event) {
   assert(!stack.current().is_solved());
 
   const auto& cell = stack.current().cell(get_most_constrained_cell(stack.current()));
@@ -219,7 +219,7 @@ bool explore(const Stack<size>& stack, const EventAdder<size, AddEvent>& add_eve
 
 template<unsigned size, typename AddEvent>
 bool propagate_and_explore(
-  const Stack<size>& stack,
+  const Stack<ExplorableSudoku<size>>& stack,
   const std::deque<Coordinates>& todo,
   const EventAdder<size, AddEvent>& add_event
 ) {
@@ -240,7 +240,7 @@ Sudoku<ValueCell, size> solve_using_exploration(
   Sudoku<ValueCell, size> sudoku,
   const AddEvent& add_event_
 ) {
-  Stack<size> stack;
+  Stack<ExplorableSudoku<size>> stack;
   EventAdder<size, AddEvent> add_event(&stack, add_event_);
   std::deque<Coordinates> todo;
   for (const auto& cell : sudoku.cells()) {

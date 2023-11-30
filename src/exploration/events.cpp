@@ -4,25 +4,25 @@
 
 
 template<unsigned size>
-void CellIsSetInInput<size>::apply(Stack<size>* stack) const {
+void CellIsSetInInput<size>::apply(Stack<ExplorableSudoku<size>>* stack) const {
   stack->current().cell(cell).set_input(value);
 }
 
 template<unsigned size>
-void InputsAreDone<size>::apply(Stack<size>*) const {}
+void InputsAreDone<size>::apply(Stack<ExplorableSudoku<size>>*) const {}
 
 template<unsigned size>
-void PropagationStartsForSudoku<size>::apply(Stack<size>*) const {}
+void PropagationStartsForSudoku<size>::apply(Stack<ExplorableSudoku<size>>*) const {}
 
 template<unsigned size>
-void PropagationStartsForCell<size>::apply(Stack<size>* stack) const {
+void PropagationStartsForCell<size>::apply(Stack<ExplorableSudoku<size>>* stack) const {
   assert(stack->current().cell(cell).is_set());
   assert(stack->current().cell(cell).get() == value);
   assert(!stack->current().cell(cell).is_propagated());
 }
 
 template<unsigned size>
-void CellPropagates<size>::apply(Stack<size>* stack) const {
+void CellPropagates<size>::apply(Stack<ExplorableSudoku<size>>* stack) const {
   assert(stack->current().cell(source_cell).is_set());
   assert(stack->current().cell(source_cell).get() == value);
   assert(!stack->current().cell(target_cell).is_set());
@@ -33,7 +33,7 @@ void CellPropagates<size>::apply(Stack<size>* stack) const {
 }
 
 template<unsigned size>
-void CellIsDeducedFromSingleAllowedValue<size>::apply(Stack<size>* stack) const {
+void CellIsDeducedFromSingleAllowedValue<size>::apply(Stack<ExplorableSudoku<size>>* stack) const {
   assert(!stack->current().cell(cell).is_set());
   assert(!stack->current().cell(cell).is_propagated());
 
@@ -41,7 +41,7 @@ void CellIsDeducedFromSingleAllowedValue<size>::apply(Stack<size>* stack) const 
 }
 
 template<unsigned size>
-void CellIsDeducedAsSinglePlaceForValueInRegion<size>::apply(Stack<size>* stack) const {
+void CellIsDeducedAsSinglePlaceForValueInRegion<size>::apply(Stack<ExplorableSudoku<size>>* stack) const {
   assert(!stack->current().cell(cell).is_set());
   assert(!stack->current().cell(cell).is_propagated());
 
@@ -49,7 +49,7 @@ void CellIsDeducedAsSinglePlaceForValueInRegion<size>::apply(Stack<size>* stack)
 }
 
 template<unsigned size>
-void PropagationIsDoneForCell<size>::apply(Stack<size>* stack) const {
+void PropagationIsDoneForCell<size>::apply(Stack<ExplorableSudoku<size>>* stack) const {
   assert(stack->current().cell(cell).is_set());
   assert(stack->current().cell(cell).get() == value);
   assert(!stack->current().cell(cell).is_propagated());
@@ -58,13 +58,13 @@ void PropagationIsDoneForCell<size>::apply(Stack<size>* stack) const {
 }
 
 template<unsigned size>
-void PropagationIsDoneForSudoku<size>::apply(Stack<size>*) const {}
+void PropagationIsDoneForSudoku<size>::apply(Stack<ExplorableSudoku<size>>*) const {}
 
 template<unsigned size>
-void ExplorationStarts<size>::apply(Stack<size>*) const {}
+void ExplorationStarts<size>::apply(Stack<ExplorableSudoku<size>>*) const {}
 
 template<unsigned size>
-void HypothesisIsMade<size>::apply(Stack<size>* stack) const {
+void HypothesisIsMade<size>::apply(Stack<ExplorableSudoku<size>>* stack) const {
   assert(!stack->current().cell(cell).is_set());
   assert(stack->current().cell(cell).is_allowed(value));
   assert(!stack->current().cell(cell).is_propagated());
@@ -74,20 +74,20 @@ void HypothesisIsMade<size>::apply(Stack<size>* stack) const {
 }
 
 template<unsigned size>
-void HypothesisIsRejected<size>::apply(Stack<size>* stack) const {
+void HypothesisIsRejected<size>::apply(Stack<ExplorableSudoku<size>>* stack) const {
   stack->pop();
 }
 
 template<unsigned size>
-void SudokuIsSolved<size>::apply(Stack<size>* stack) const {
+void SudokuIsSolved<size>::apply(Stack<ExplorableSudoku<size>>* stack) const {
   assert(stack->current().is_solved());
 }
 
 template<unsigned size>
-void HypothesisIsAccepted<size>::apply(Stack<size>*) const {}
+void HypothesisIsAccepted<size>::apply(Stack<ExplorableSudoku<size>>*) const {}
 
 template<unsigned size>
-void ExplorationIsDone<size>::apply(Stack<size>*) const {}
+void ExplorationIsDone<size>::apply(Stack<ExplorableSudoku<size>>*) const {}
 
 template struct CellIsSetInInput<4>;
 template struct CellIsSetInInput<9>;

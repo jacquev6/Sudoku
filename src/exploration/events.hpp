@@ -12,7 +12,7 @@
 
 template<unsigned size>
 struct CellIsSetInInput {
-  void apply(Stack<size>*) const;
+  void apply(Stack<ExplorableSudoku<size>>*) const;
 
   Coordinates cell;
   unsigned value;
@@ -20,17 +20,17 @@ struct CellIsSetInInput {
 
 template<unsigned size>
 struct InputsAreDone {
-  void apply(Stack<size>*) const;
+  void apply(Stack<ExplorableSudoku<size>>*) const;
 };
 
 template<unsigned size>
 struct PropagationStartsForSudoku {
-  void apply(Stack<size>*) const;
+  void apply(Stack<ExplorableSudoku<size>>*) const;
 };
 
 template<unsigned size>
 struct PropagationStartsForCell {
-  void apply(Stack<size>*) const;
+  void apply(Stack<ExplorableSudoku<size>>*) const;
 
   Coordinates cell;
   unsigned value;
@@ -38,7 +38,7 @@ struct PropagationStartsForCell {
 
 template<unsigned size>
 struct CellPropagates {
-  void apply(Stack<size>*) const;
+  void apply(Stack<ExplorableSudoku<size>>*) const;
 
   Coordinates source_cell;
   Coordinates target_cell;
@@ -47,7 +47,7 @@ struct CellPropagates {
 
 template<unsigned size>
 struct CellIsDeducedFromSingleAllowedValue {
-  void apply(Stack<size>*) const;
+  void apply(Stack<ExplorableSudoku<size>>*) const;
 
   Coordinates cell;
   unsigned value;
@@ -55,7 +55,7 @@ struct CellIsDeducedFromSingleAllowedValue {
 
 template<unsigned size>
 struct CellIsDeducedAsSinglePlaceForValueInRegion {
-  void apply(Stack<size>*) const;
+  void apply(Stack<ExplorableSudoku<size>>*) const;
 
   Coordinates cell;
   unsigned value;
@@ -64,7 +64,7 @@ struct CellIsDeducedAsSinglePlaceForValueInRegion {
 
 template<unsigned size>
 struct PropagationIsDoneForCell {
-  void apply(Stack<size>*) const;
+  void apply(Stack<ExplorableSudoku<size>>*) const;
 
   Coordinates cell;
   unsigned value;
@@ -72,12 +72,12 @@ struct PropagationIsDoneForCell {
 
 template<unsigned size>
 struct PropagationIsDoneForSudoku {
-  void apply(Stack<size>*) const;
+  void apply(Stack<ExplorableSudoku<size>>*) const;
 };
 
 template<unsigned size>
 struct ExplorationStarts {
-  void apply(Stack<size>*) const;
+  void apply(Stack<ExplorableSudoku<size>>*) const;
 
   Coordinates cell;
   std::vector<unsigned> allowed_values;
@@ -85,7 +85,7 @@ struct ExplorationStarts {
 
 template<unsigned size>
 struct HypothesisIsMade {
-  void apply(Stack<size>*) const;
+  void apply(Stack<ExplorableSudoku<size>>*) const;
 
   Coordinates cell;
   unsigned value;
@@ -93,7 +93,7 @@ struct HypothesisIsMade {
 
 template<unsigned size>
 struct HypothesisIsRejected {
-  void apply(Stack<size>*) const;
+  void apply(Stack<ExplorableSudoku<size>>*) const;
 
   Coordinates cell;
   unsigned value;
@@ -101,12 +101,12 @@ struct HypothesisIsRejected {
 
 template<unsigned size>
 struct SudokuIsSolved {
-  void apply(Stack<size>*) const;
+  void apply(Stack<ExplorableSudoku<size>>*) const;
 };
 
 template<unsigned size>
 struct HypothesisIsAccepted {
-  void apply(Stack<size>*) const;
+  void apply(Stack<ExplorableSudoku<size>>*) const;
 
   Coordinates cell;
   unsigned value;
@@ -114,7 +114,7 @@ struct HypothesisIsAccepted {
 
 template<unsigned size>
 struct ExplorationIsDone {
-  void apply(Stack<size>*) const;
+  void apply(Stack<ExplorableSudoku<size>>*) const;
 
   Coordinates cell;
 };

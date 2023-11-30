@@ -2,6 +2,7 @@
 
 #include "explanation.hpp"
 
+
 template<unsigned size>
 void Explanation<size>::Builder::operator()(const CellIsSetInInput<size>& event) {
   explanation.inputs.cell(event.cell).set(event.value);

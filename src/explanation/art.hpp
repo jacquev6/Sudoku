@@ -8,7 +8,7 @@
 #include <tuple>
 #include <vector>
 
-#include "../exploration/annotations.hpp"
+#include "annotations.hpp"
 
 
 namespace Cairo {
@@ -56,7 +56,7 @@ struct DrawOptions {
 };
 
 template<unsigned size>
-void draw(Cairo::RefPtr<Cairo::Context>, const AnnotatedSudoku<size>&, const DrawOptions&);
+void draw(Cairo::RefPtr<Cairo::Context>, const ExplainableSudoku<size>&, const DrawOptions&);
 
 }  // namespace art
 

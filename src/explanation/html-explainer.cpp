@@ -196,7 +196,7 @@ class HtmlExplainer {
   unsigned frame_width;
   unsigned frame_height;
   std::ofstream index_file;
-  Stack<size> stack;
+  Stack<ExplainableSudoku<size>> stack;
   #ifndef NDEBUG
   mutable std::set<std::string> generated_image_names;
   #endif

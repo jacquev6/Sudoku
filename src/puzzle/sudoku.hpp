@@ -241,4 +241,53 @@ class Sudoku<ValueCell, size> : public SudokuBase<ValueCell, size> {
   std::string to_string() const;
 };
 
+
+template<typename Sudoku>
+class Stack {
+ public:
+  Stack() : stack(1) {}
+
+ public:
+  const Sudoku& current() const {
+    assert(!stack.empty());
+    return stack.back();
+  }
+
+  Sudoku& current() {
+    assert(!stack.empty());
+    return stack.back();
+  }
+
+  int height() const {
+    return stack.size();
+  }
+
+ public:
+  struct Saved {
+    explicit Saved(const Stack& stack) : begin_(std::next(stack.stack.rbegin())), end_(stack.stack.rend()) {}
+
+    std::vector<Sudoku>::const_reverse_iterator begin() { return begin_; }
+    std::vector<Sudoku>::const_reverse_iterator end() { return end_; }
+
+   private:
+    const std::vector<Sudoku>::const_reverse_iterator begin_;
+    const std::vector<Sudoku>::const_reverse_iterator end_;
+  };
+
+  Saved saved() const { return Saved(*this); }
+
+ public:
+  void push() {
+    stack.push_back(current());
+  }
+
+  void pop() {
+    assert(!stack.empty());
+    stack.pop_back();
+  }
+
+ private:
+  std::vector<Sudoku> stack;
+};
+
 #endif  // PUZZLE_SUDOKU_HPP_

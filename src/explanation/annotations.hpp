@@ -1,7 +1,7 @@
 // Copyright 2023 Vincent Jacques
 
-#ifndef EXPLORATION_ANNOTATIONS_HPP_
-#define EXPLORATION_ANNOTATIONS_HPP_
+#ifndef EXPLANATION_ANNOTATIONS_HPP_
+#define EXPLANATION_ANNOTATIONS_HPP_
 
 #include <array>
 #include <bitset>
@@ -15,9 +15,9 @@
 
 
 template<unsigned size>
-class ExplorableCell {
+class ExplainableCell {
  public:
-  ExplorableCell() :
+  ExplainableCell() :
     allowed_values(),
     set_value(),
     input(false),
@@ -161,7 +161,7 @@ class ExplorableCell {
 };
 
 template<unsigned size>
-class Sudoku<ExplorableCell<size>, size> : public SudokuBase<ExplorableCell<size>, size> {
+class Sudoku<ExplainableCell<size>, size> : public SudokuBase<ExplainableCell<size>, size> {
  public:
   bool is_solved() const {
     for (const auto& cell : this->cells()) {
@@ -174,6 +174,6 @@ class Sudoku<ExplorableCell<size>, size> : public SudokuBase<ExplorableCell<size
 };
 
 template<unsigned size>
-using ExplorableSudoku = Sudoku<ExplorableCell<size>, size>;
+using ExplainableSudoku = Sudoku<ExplainableCell<size>, size>;
 
-#endif  // EXPLORATION_ANNOTATIONS_HPP_
+#endif  // EXPLANATION_ANNOTATIONS_HPP_
