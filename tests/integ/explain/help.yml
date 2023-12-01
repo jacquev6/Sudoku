@@ -18,7 +18,5 @@ stdout: |
     --video TEXT:FILE           Generate video explanation in the given '.mpg' file
     --video-frames TEXT:PATH(non-existing)
                                 Generate PNG frames from the video explanation in the given directory
-    --video-text TEXT:FILE(or - for stdout)
-                                Generate textual explanation in the given file, reordered to match the video explanation
     --width UINT [640]          Width of the images in the HTML and video explanations
     --height UINT [480]         Height of the images in the HTML and video explanations

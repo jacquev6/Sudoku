@@ -66,10 +66,6 @@ int main(int argc, char* argv[]) {
     ->add_option("--html", html_path, "Generate HTML explanation in the given directory")
     ->check(CLI::NonexistentPath);
 
-  std::optional<std::filesystem::path> html_text_path;
-  // @todo explain->add_option("--html-text", html_text_path,
-  //   "Generate textual explanation in the given file, reordered to match the html explanation");
-
   std::optional<std::filesystem::path> video_path;
   explain
     ->add_option("--video", video_path, "Generate video explanation in the given '.mpg' file")
@@ -80,12 +76,6 @@ int main(int argc, char* argv[]) {
     ->add_option("--video-frames", video_frames_path,
       "Generate PNG frames from the video explanation in the given directory")
     ->check(CLI::NonexistentPath);
-
-  std::optional<std::filesystem::path> video_text_path;
-  explain->add_option(
-    "--video-text", video_text_path,
-      "Generate textual explanation in the given file, reordered to match the video explanation")
-    ->check(FileOrStdout);
 
   unsigned width = 640;
   explain->add_option("--width", width, "Width of the images in the HTML and video explanations")
@@ -104,7 +94,7 @@ int main(int argc, char* argv[]) {
 
   CLI11_PARSE(app, argc, argv);
 
-  if (!text_path && !html_path && !html_text_path && !video_path && !video_frames_path && !video_text_path) {
+  if (!text_path && !html_path && !video_path && !video_frames_path) {
     text_path = "-";
   }
 
@@ -115,10 +105,8 @@ int main(int argc, char* argv[]) {
     .input_path = input_path,
     .text_path = text_path,
     .html_path = html_path,
-    .html_text_path = html_text_path,
     .video_path = video_path,
     .video_frames_path = video_frames_path,
-    .video_text_path = video_text_path,
     .width = width,
     .height = height,
   };

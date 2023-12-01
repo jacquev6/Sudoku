@@ -15,10 +15,8 @@ struct Options {
   std::filesystem::path input_path;
   std::optional<std::filesystem::path> text_path;
   std::optional<std::filesystem::path> html_path;
-  std::optional<std::filesystem::path> html_text_path;
   std::optional<std::filesystem::path> video_path;
   std::optional<std::filesystem::path> video_frames_path;
-  std::optional<std::filesystem::path> video_text_path;
   unsigned width;
   unsigned height;
 };

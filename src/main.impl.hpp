@@ -56,36 +56,16 @@ int main_(const Options& options) {
       }
     }
   } else if (options.explain) {
-    unsigned stdout_users = 0;
-
     typename Explanation<size>::Builder explanation_builder;
     const auto solved = solve_using_exploration<size>(sudoku, explanation_builder);
     const Explanation<size> explanation = explanation_builder.get();
 
     if (options.text_path == "-") {
-      ++stdout_users;
       explain_as_text(explanation, std::cout, false);
     } else if (options.text_path) {
       std::ofstream out(*options.text_path);
       assert(out.is_open());
       explain_as_text(explanation, out, false);
-    }
-
-    if (options.html_text_path == "-") {
-      ++stdout_users;
-    }
-
-    if (options.video_text_path == "-") {
-      ++stdout_users;
-      explain_as_text(explanation, std::cout, true);
-    } else if (options.video_text_path) {
-      std::ofstream out(*options.video_text_path);
-      assert(out.is_open());
-      explain_as_text(explanation, out, true);
-    }
-
-    if (stdout_users > 1) {
-      std::cerr << "WARNING: several explanations are interleaved on stdout." << std::endl;
     }
 
     if (options.html_path) {
