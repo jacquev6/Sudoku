@@ -112,7 +112,7 @@ class Sudoku<ExplorableCell<size>, size> : public SudokuBase<ExplorableCell<size
 template<typename EventSink, typename EventIn, typename EventOut>
 struct EventsPairGuard {
   EventsPairGuard(
-    const EventSink& sink_event_,
+    EventSink& sink_event_,  // NOLINT(runtime/references)
     const EventIn& in,
     const EventOut& out_
   ) :  // NOLINT(whitespace/parens)
@@ -126,7 +126,7 @@ struct EventsPairGuard {
     sink_event(out);
   }
 
-  const EventSink& sink_event;
+  EventSink& sink_event;
   EventOut out;
 };
 
@@ -135,7 +135,7 @@ template<unsigned size, typename EventSink>
 bool propagate(
   Stack<Sudoku<ExplorableCell<size>, size>>* stack,
   std::deque<Coordinates> todo,
-  const EventSink& sink_event
+  EventSink& sink_event
 ) {
   for (const auto& coords : todo) {
     assert(std::count(todo.begin(), todo.end(), coords) == 1);
@@ -257,12 +257,15 @@ template<unsigned size, typename EventSink>
 bool propagate_and_explore(
   Stack<Sudoku<ExplorableCell<size>, size>>*,
   const std::deque<Coordinates>& todo,
-  const EventSink&
+  EventSink&
 );
 
 
 template<unsigned size, typename EventSink>
-bool explore(Stack<Sudoku<ExplorableCell<size>, size>>* stack, const EventSink& sink_event) {
+bool explore(
+  Stack<Sudoku<ExplorableCell<size>, size>>* stack,
+  EventSink& sink_event  // NOLINT(runtime/references)
+) {
   assert(!stack->current().is_solved());
 
   const Coordinates coords = get_most_constrained_cell(stack->current());
@@ -301,7 +304,7 @@ template<unsigned size, typename EventSink>
 bool propagate_and_explore(
   Stack<Sudoku<ExplorableCell<size>, size>>* stack,
   const std::deque<Coordinates>& todo,
-  const EventSink& sink_event
+  EventSink& sink_event
 ) {
   if (propagate(stack, todo, sink_event)) {
     if (stack->current().is_solved()) {
@@ -316,9 +319,9 @@ bool propagate_and_explore(
 
 
 template<unsigned size, typename EventSink>
-Sudoku<ValueCell, size> solve_using_exploration(
+Sudoku<ValueCell, size> solve_using_exploration_(
   Sudoku<ValueCell, size> sudoku,
-  const EventSink& sink_event
+  EventSink& sink_event
 ) {
   Stack<Sudoku<ExplorableCell<size>, size>> stack;
   std::deque<Coordinates> todo;
@@ -342,6 +345,22 @@ Sudoku<ValueCell, size> solve_using_exploration(
     }
   }
   return sudoku;
+}
+
+template<unsigned size, typename EventSink>
+Sudoku<ValueCell, size> solve_using_exploration(
+  Sudoku<ValueCell, size> sudoku,
+  EventSink& sink_event
+) {
+  return solve_using_exploration_(sudoku, sink_event);
+}
+
+template<unsigned size, typename EventSink>
+Sudoku<ValueCell, size> solve_using_exploration(
+  Sudoku<ValueCell, size> sudoku,
+  const EventSink& sink_event
+) {
+  return solve_using_exploration_(sudoku, sink_event);
 }
 
 template<unsigned size>

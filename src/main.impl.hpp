@@ -59,13 +59,7 @@ int main_(const Options& options) {
     unsigned stdout_users = 0;
 
     typename Explanation<size>::Builder explanation_builder;
-
-    const auto solved = solve_using_exploration<size>(
-      sudoku,
-      [&](const auto& event) {
-        explanation_builder(event);
-      });
-
+    const auto solved = solve_using_exploration<size>(sudoku, explanation_builder);
     const Explanation<size> explanation = explanation_builder.get();
 
     if (options.text_path == "-") {
