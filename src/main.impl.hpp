@@ -61,11 +61,11 @@ int main_(const Options& options) {
     const Explanation<size> explanation = explanation_builder.get();
 
     if (options.text_path == "-") {
-      explain_as_text(explanation, std::cout, false);
+      explain_as_text(explanation, std::cout);
     } else if (options.text_path) {
       std::ofstream out(*options.text_path);
       assert(out.is_open());
-      explain_as_text(explanation, out, false);
+      explain_as_text(explanation, out);
     }
 
     if (options.html_path) {

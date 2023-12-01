@@ -139,9 +139,9 @@ Propagation starts for 2 in (3, 7)
 2 in (3, 7) has been fully propagated
 Propagation starts for 8 in (3, 8)
 8 in (3, 8) forbids 8 in (3, 9)
+8 in (3, 8) has been fully propagated
 (3, 9) can only be 1
 Sudoku is solved
-8 in (3, 8) has been fully propagated
 Propagation starts for 8 in (4, 1)
 8 in (4, 1) has been fully propagated
 Propagation starts for 2 in (4, 2)

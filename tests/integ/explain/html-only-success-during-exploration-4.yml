@@ -57,10 +57,10 @@ stdout: |
     Propagation starts
     Propagation starts for 1 in (2, 3)
     1 in (2, 3) forbids 1 in (2, 4)
-    (2, 4) can only be 2
     1 in (2, 3) forbids 1 in (4, 3)
-    (4, 3) can only be 2
     1 in (2, 3) has been fully propagated
+    (2, 4) can only be 2
+    (4, 3) can only be 2
     Propagation starts for 2 in (2, 4)
     2 in (2, 4) forbids 2 in (4, 4)
     2 in (2, 4) has been fully propagated
@@ -72,12 +72,12 @@ stdout: |
       Propagation starts
       Propagation starts for 1 in (3, 2)
       1 in (3, 2) forbids 1 in (3, 4)
-      (3, 4) can only be 3
-      In region 8, only (4, 4) can be 1
       1 in (3, 2) forbids 1 in (4, 2)
+      1 in (3, 2) has been fully propagated
+      (3, 4) can only be 3
       (4, 2) can only be 3
       Sudoku is solved
-      1 in (3, 2) has been fully propagated
+      In region 8, only (4, 4) can be 1
       Propagation starts for 3 in (3, 4)
       3 in (3, 4) has been fully propagated
       Propagation starts for 1 in (4, 4)

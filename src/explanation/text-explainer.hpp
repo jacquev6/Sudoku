@@ -9,6 +9,6 @@
 
 
 template<unsigned size>
-void explain_as_text(const Explanation<size>&, std::ostream&, bool);
+void explain_as_text(const Explanation<size>&, std::ostream&);
 
 #endif  // EXPLANATION_TEXT_EXPLAINER_HPP_
