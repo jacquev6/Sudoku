@@ -103,31 +103,27 @@ stdout: |
   Propagation starts for 4 in (1, 7)
   4 in (1, 7) forbids 4 in (3, 9)
   4 in (1, 7) has been fully propagated
-  Propagation starts for 3 in (1, 8)
-  3 in (1, 8) forbids 3 in (3, 9)
-  3 in (1, 8) has been fully propagated
-  Propagation starts for 6 in (1, 9)
-  6 in (1, 9) forbids 6 in (3, 9)
-  6 in (1, 9) has been fully propagated
+  In region 3, only (3, 9) can be 1
+  Sudoku is solved
+  3 in (1, 8) has no effect
+  6 in (1, 9) has no effect
   2 in (2, 1) has no effect
   4 in (2, 2) has no effect
   8 in (2, 3) has no effect
   1 in (2, 4) has no effect
   3 in (2, 5) has no effect
   6 in (2, 6) has no effect
-  5 in (2, 7) propagates to forbid 5 in (3, 9)
-  7 in (2, 8) propagates to forbid 7 in (3, 9)
-  9 in (2, 9) propagates to forbid 9 in (3, 9)
+  5 in (2, 7) has no effect
+  7 in (2, 8) has no effect
+  9 in (2, 9) has no effect
   5 in (3, 1) has no effect
   6 in (3, 2) has no effect
   3 in (3, 3) has no effect
   7 in (3, 4) has no effect
   9 in (3, 5) has no effect
   4 in (3, 6) has no effect
-  2 in (3, 7) propagates to forbid 2 in (3, 9)
-  8 in (3, 8) propagates to forbid 8 in (3, 9)
-  (3, 9) can only be 1
-  Sudoku is solved
+  2 in (3, 7) has no effect
+  8 in (3, 8) has no effect
   8 in (4, 1) has no effect
   2 in (4, 2) has no effect
   7 in (4, 3) has no effect

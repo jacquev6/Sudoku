@@ -42,10 +42,10 @@ stdout: |
       Exploration starts for (3, 1) with 2 possible values
       (3, 1) may be 2
         Propagation starts
-        2 in (3, 1) propagates to forbid 2 in (3, 3) and (4, 1)
+        2 in (3, 1) propagates to forbid 2 in (3, 3)
         (3, 3) can only be 4
-        (4, 1) can only be 4
         In region 7, only (4, 3) can be 2
+        In region 4, only (4, 1) can be 4
         4 in (3, 3) has no effect
         2 in (4, 3) has no effect
         4 in (4, 1) has no effect
@@ -53,10 +53,10 @@ stdout: |
         Exploration starts for (3, 2) with 2 possible values
         (3, 2) may be 1
           Propagation starts
-          1 in (3, 2) propagates to forbid 1 in (3, 4) and (4, 2)
+          1 in (3, 2) propagates to forbid 1 in (3, 4)
           (3, 4) can only be 3
-          (4, 2) can only be 3
           In region 8, only (4, 4) can be 1
+          In region 4, only (4, 2) can be 3
           Sudoku is solved
           3 in (3, 4) has no effect
           1 in (4, 4) has no effect

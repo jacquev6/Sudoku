@@ -196,7 +196,7 @@ bool propagate(
 
               for (auto& target_region : target_cell.regions()) {
                 unsigned count = 0;
-                typename Sudoku<ExplorableCell<size>, size>::Cell* single_cell;
+                typename Sudoku<ExplorableCell<size>, size>::Cell* single_cell = nullptr;
                 for (auto& cell : target_region.cells()) {
                   if (cell.is_allowed(value)) {
                     ++count;
@@ -217,6 +217,56 @@ bool propagate(
                   todo.push_back(single_coords);
                 }
               }
+
+              // @todo IMPROVE!
+              for (unsigned k = 0; k != size; ++k) {
+                for (auto& region : stack->current().regions()) {
+                  for (const unsigned value : SudokuConstants<size>::values) {
+                    unsigned count = 0;
+                    typename Sudoku<ExplorableCell<size>, size>::Cell* single_cell = nullptr;
+                    for (auto& cell : region.cells()) {
+                      if (cell.is_allowed(value)) {
+                        ++count;
+                        single_cell = &cell;
+                      }
+                    }
+                    if (count == 1 && !single_cell->is_set()) {
+                      const Coordinates single_coords = single_cell->coordinates();
+                      sink_event(CellIsDeducedAsSinglePlaceForValueInRegion<size>(
+                        single_coords, value, region.index()));
+                      single_cell->set(value);
+
+                      if (stack->current().is_solved()) {
+                        sink_event(SudokuIsSolved<size>());
+                      }
+
+                      assert(std::count(todo.begin(), todo.end(), single_coords) == 0);
+                      todo.push_back(single_coords);
+                    }
+                  }
+                }
+              }
+
+              #ifndef NDEBUG
+              // All single-value deductions have been applied
+              for (const auto& cell : stack->current().cells()) {
+                assert(cell.is_set() || cell.allowed_count() > 1);
+              }
+              // All single-place deductions have been applied
+              for (const auto& region : stack->current().regions()) {
+                for (const unsigned value : SudokuConstants<size>::values) {
+                  unsigned count = 0;
+                  const typename Sudoku<ExplorableCell<size>, size>::Cell* single_cell = nullptr;
+                  for (const auto& cell : region.cells()) {
+                    if (cell.is_allowed(value)) {
+                      ++count;
+                      single_cell = &cell;
+                    }
+                  }
+                  assert(!(count == 1 && !single_cell->is_set()));
+                }
+              }
+              #endif
             } else {
               // Nothing to do: this is old news
             }
