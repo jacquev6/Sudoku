@@ -176,13 +176,22 @@ class ExplanationWalker {
   void walk(const typename Explanation<size>::Propagation& propagation) {
     explainer.propagation_begin(stack, propagation);
 
-    explainer.propagation_targets_begin(stack, propagation);
-    for (const auto& target : propagation.targets) {
-      explainer.propagation_target_begin(stack, propagation, target);
-      stack.current().cell(target.cell).forbid(propagation.value);
-      explainer.propagation_target_end(stack, propagation, target);
+    if (propagation_targets_count < 3) {
+      explainer.propagation_targets_begin(stack, propagation);
+      for (const auto& target : propagation.targets) {
+        explainer.propagation_target_begin(stack, propagation, target);
+        stack.current().cell(target.cell).forbid(propagation.value);
+        explainer.propagation_target_end(stack, propagation, target);
+        ++propagation_targets_count;
+      }
+      explainer.propagation_targets_end(stack, propagation);
+    } else {
+      explainer.propagation_targets_condensed_begin(stack, propagation);
+      for (const auto& target : propagation.targets) {
+        stack.current().cell(target.cell).forbid(propagation.value);
+      }
+      explainer.propagation_targets_condensed_end(stack, propagation);
     }
-    explainer.propagation_targets_end(stack, propagation);
 
     bool solved = false;
     explainer.propagation_single_value_deductions_begin(stack, propagation);
@@ -245,6 +254,7 @@ class ExplanationWalker {
   const Explanation<size>& explanation;
   Explainer& explainer;
   Stack<ExplainableSudoku<size>> stack;
+  unsigned propagation_targets_count = 0;
 };
 
 template<unsigned size, typename Explainer>

@@ -101,27 +101,17 @@ Propagation starts for 6 in (1, 9)
 1 in (2, 4) has no effect
 3 in (2, 5) has no effect
 6 in (2, 6) has no effect
-Propagation starts for 5 in (2, 7)
-5 in (2, 7) forbids 5 in (3, 9)
-5 in (2, 7) has been fully propagated
-Propagation starts for 7 in (2, 8)
-7 in (2, 8) forbids 7 in (3, 9)
-7 in (2, 8) has been fully propagated
-Propagation starts for 9 in (2, 9)
-9 in (2, 9) forbids 9 in (3, 9)
-9 in (2, 9) has been fully propagated
+5 in (2, 7) propagates to forbid 5 in (3, 9)
+7 in (2, 8) propagates to forbid 7 in (3, 9)
+9 in (2, 9) propagates to forbid 9 in (3, 9)
 5 in (3, 1) has no effect
 6 in (3, 2) has no effect
 3 in (3, 3) has no effect
 7 in (3, 4) has no effect
 9 in (3, 5) has no effect
 4 in (3, 6) has no effect
-Propagation starts for 2 in (3, 7)
-2 in (3, 7) forbids 2 in (3, 9)
-2 in (3, 7) has been fully propagated
-Propagation starts for 8 in (3, 8)
-8 in (3, 8) forbids 8 in (3, 9)
-8 in (3, 8) has been fully propagated
+2 in (3, 7) propagates to forbid 2 in (3, 9)
+8 in (3, 8) propagates to forbid 8 in (3, 9)
 (3, 9) can only be 1
 Sudoku is solved
 8 in (4, 1) has no effect

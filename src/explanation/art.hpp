@@ -49,8 +49,7 @@ struct DrawOptions {
   double circled_values_line_width = 2;
   std::tuple<double, double, double> circled_values_color = {1, 0, 0};
 
-  std::vector<std::tuple<Coordinates, Coordinates, unsigned>>
-    links_from_cell_to_value;
+  std::vector<std::tuple<Coordinates, Coordinates, unsigned>> links_from_cell_to_value;
   double links_from_cell_to_value_line_width = 2;
   std::tuple<double, double, double> links_from_cell_to_value_color = {1, 0, 0};
 };

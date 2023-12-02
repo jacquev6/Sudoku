@@ -4,10 +4,8 @@
 
 #include <cairomm/cairomm.h>
 
-// #include <fstream>
-// #include <set>
-// #include <string>
-// #include <vector>
+#include <tuple>
+#include <vector>
 
 #include <boost/format.hpp>
 
@@ -68,6 +66,30 @@ void HtmlExplainer<size>::propagation_target_end(
     .circled_cells = {propagation.source},
     .circled_values = {{target.cell, value}},
     .links_from_cell_to_value = {{propagation.source, target.cell, value}},
+  });
+  index_file << "<p><img src=\"" << image_name << "\"/></p>\n";
+}
+
+template<unsigned size>
+void HtmlExplainer<size>::propagation_targets_condensed_end(
+  const Stack<ExplainableSudoku<size>>& stack,
+  const typename Explanation<size>::Propagation& propagation
+) const {
+  const auto [src_row, src_col] = propagation.source;
+  index_file << "<h2>Propagation from (" << src_row + 1 << ", " << src_col + 1 << ")</h2>\n";
+  const std::string image_name = str(boost::format("propagation-%1%-%2%.png") % (src_row + 1) % (src_col + 1));
+  std::vector<std::tuple<Coordinates, unsigned>> circled_values;
+  std::vector<std::tuple<Coordinates, Coordinates, unsigned>> links_from_cell_to_value;
+  for (const auto& target : propagation.targets) {
+    circled_values.push_back({target.cell, propagation.value});
+    links_from_cell_to_value.push_back({propagation.source, target.cell, propagation.value});
+  }
+  make_image(stack, image_name, {
+    .possible = true,
+    .bold_todo = true,
+    .circled_cells = {propagation.source},
+    .circled_values = circled_values,
+    .links_from_cell_to_value = links_from_cell_to_value,
   });
   index_file << "<p><img src=\"" << image_name << "\"/></p>\n";
 }

@@ -2,6 +2,8 @@
 
 #include "text-explainer.hpp"
 
+#include <sstream>
+
 #include <boost/format.hpp>
 
 
@@ -74,6 +76,33 @@ void TextExplainer<size>::propagation_targets_end(
   const auto [row, col] = propagation.source;
   prefix(stack) << boost::format("%1% in (%2%, %3%) has been fully propagated\n")
     % (propagation.value + 1) % (row + 1) % (col + 1);
+}
+
+template<unsigned size>
+void TextExplainer<size>::propagation_targets_condensed_begin(
+  const Stack<ExplainableSudoku<size>>& stack,
+  const typename Explanation<size>::Propagation& propagation
+) const {
+  std::ostringstream targets;
+  if (propagation.targets.size() >= 3) {
+    for (auto target = propagation.targets.begin(); target != std::prev(propagation.targets.end()); ++target) {
+      const auto [row, col] = target->cell;
+      targets << boost::format("(%1%, %2%), ") % (row + 1) % (col + 1);
+    }
+    const auto [row, col] = propagation.targets.back().cell;
+    targets << boost::format("and (%1%, %2%)") % (row + 1) % (col + 1);
+  } else if (propagation.targets.size() == 2) {
+    const auto [row1, col1] = propagation.targets.front().cell;
+    const auto [row2, col2] = propagation.targets.back().cell;
+    targets << boost::format("(%1%, %2%) and (%3%, %4%)") % (row1 + 1) % (col1 + 1) % (row2 + 1) % (col2 + 1);
+  } else {
+    assert(propagation.targets.size() == 1);
+    const auto [row, col] = propagation.targets.front().cell;
+    targets << boost::format("(%1%, %2%)") % (row + 1) % (col + 1);
+  }
+  const auto [row, col] = propagation.source;
+  prefix(stack) << boost::format("%1% in (%2%, %3%) propagates to forbid %1% in %4%\n")
+    % (propagation.value + 1) % (row + 1) % (col + 1) % targets.str();
 }
 
 template<unsigned size>

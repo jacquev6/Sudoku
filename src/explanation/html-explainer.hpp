@@ -68,6 +68,14 @@ class HtmlExplainer {
     const Stack<ExplainableSudoku<size>>&,
     const typename Explanation<size>::Propagation&) const {}
 
+  void propagation_targets_condensed_begin(
+    const Stack<ExplainableSudoku<size>>&,
+    const typename Explanation<size>::Propagation&) const {}
+
+  void propagation_targets_condensed_end(
+    const Stack<ExplainableSudoku<size>>&,
+    const typename Explanation<size>::Propagation&) const;
+
   void propagation_single_value_deductions_begin(
     const Stack<ExplainableSudoku<size>>&,
     const typename Explanation<size>::Propagation&) const {}
