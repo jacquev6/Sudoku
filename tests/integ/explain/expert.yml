@@ -1,4 +1,4 @@
-command: build/bin/sudoku explain inputs/expert.txt
+command: build/bin/sudoku explain --text - inputs/expert.txt
 returncode: 0
 stderr: |
 stdout: |
