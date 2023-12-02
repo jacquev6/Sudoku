@@ -178,14 +178,6 @@ bool propagate(
                     sink_event(CellIsDeducedFromSingleAllowedValue<size>(target_coords, value));
                     target_cell.set(value);
 
-                    // 'is_solved' is currently O(size^2),
-                    // which we could optimize easily with additional book-keeping,
-                    // but the *whole* solving algorithm still executes in less than 100ms for size 9,
-                    // so it's not worth it yet.
-                    if (stack->current().is_solved()) {
-                      sink_event(SudokuIsSolved<size>());
-                    }
-
                     assert(std::count(todo.begin(), todo.end(), target_coords) == 0);
                     todo.push_back(target_coords);
 
@@ -208,10 +200,6 @@ bool propagate(
                   sink_event(CellIsDeducedAsSinglePlaceForValueInRegion<size>(
                     single_coords, value, target_region.index()));
                   single_cell->set(value);
-
-                  if (stack->current().is_solved()) {
-                    sink_event(SudokuIsSolved<size>());
-                  }
 
                   assert(std::count(todo.begin(), todo.end(), single_coords) == 0);
                   todo.push_back(single_coords);
@@ -236,15 +224,19 @@ bool propagate(
                         single_coords, value, region.index()));
                       single_cell->set(value);
 
-                      if (stack->current().is_solved()) {
-                        sink_event(SudokuIsSolved<size>());
-                      }
-
                       assert(std::count(todo.begin(), todo.end(), single_coords) == 0);
                       todo.push_back(single_coords);
                     }
                   }
                 }
+              }
+
+              // 'is_solved' is currently O(size^2),
+              // which we could optimize easily with additional book-keeping,
+              // but the *whole* solving algorithm still executes in less than 100ms for size 9,
+              // so it's not worth it yet.
+              if (stack->current().is_solved()) {
+                sink_event(SudokuIsSolved<size>());
               }
 
               #ifndef NDEBUG
