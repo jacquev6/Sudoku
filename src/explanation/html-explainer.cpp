@@ -36,7 +36,7 @@ void HtmlExplainer<size>::propagation_empty_begin(
 ) const {
   const auto [src_row, src_col] = propagation.source;
   index_file
-    << "<h2>" << propagation.value << " in (" << src_row + 1 << ", " << src_col + 1 << ") has no effect</h2>\n";
+    << "<h2>" << propagation.value + 1 << " in (" << src_row + 1 << ", " << src_col + 1 << ") has no effect</h2>\n";
 }
 
 template<unsigned size>
