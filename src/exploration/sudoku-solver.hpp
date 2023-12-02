@@ -29,6 +29,11 @@ class ExplorableCell {
     assert_invariants();
   }
 
+  ExplorableCell(const ExplorableCell&) = default;
+  ExplorableCell& operator=(const ExplorableCell&) = default;
+  ExplorableCell(ExplorableCell&&) = default;
+  ExplorableCell& operator=(ExplorableCell&&) = default;
+
  public:
   bool is_set() const {
     assert_invariants();
@@ -135,43 +140,51 @@ template<unsigned size, typename EventSink>
 class ExplorationSolver {
  public:
   ExplorationSolver(
-    Sudoku<ValueCell, size> sudoku_,
+    const Sudoku<ValueCell, size>& input_sudoku_,
     EventSink& sink_event_
   ) :  // NOLINT(whitespace/parens)
-    sudoku(std::move(sudoku_)),
-    sink_event(sink_event_),
-    stack()
+    input_sudoku(input_sudoku_),
+    sink_event(sink_event_)
   {}
 
  public:
-  Sudoku<ValueCell, size> solve() {
-    std::deque<Coordinates> todo;
-    for (const auto& cell : sudoku.cells()) {
+  std::optional<Sudoku<ValueCell, size>> solve() {
+    Sudoku<ExplorableCell<size>, size> sudoku;
+    std::deque<Coordinates> to_propagate;
+    for (const auto& cell : input_sudoku.cells()) {
       const auto value = cell.get();
       if (value) {
         const Coordinates coords = cell.coordinates();
         sink_event(CellIsSetInInput<size>(coords, *value));
-        stack.current().cell(coords).set(*value);
-        todo.push_back(coords);
+        sudoku.cell(coords).set(*value);
+        to_propagate.push_back(coords);
       }
     }
 
     sink_event(InputsAreDone<size>());
 
-    propagate_and_explore(std::move(todo));
-
-    for (const auto& cell : stack.current().cells()) {
-      if (cell.is_set()) {
-        sudoku.cell(cell.coordinates()).set(cell.get());
+    switch (propagate_and_explore(&sudoku, std::move(to_propagate))) {
+      case ExplorationResult::solved: {
+        std::optional<Sudoku<ValueCell, size>> solved(std::in_place);
+        for (const auto& cell : sudoku.cells()) {
+          if (cell.is_set()) {
+            solved->cell(cell.coordinates()).set(cell.get());
+          }
+        }
+        return solved;
       }
+      case ExplorationResult::unsolvable:
+        return std::nullopt;
     }
-    return sudoku;
+    __builtin_unreachable();
   }
 
  private:
-  bool propagate(std::deque<Coordinates> todo) {
-    for (const auto& coords : todo) {
-      assert(std::count(todo.begin(), todo.end(), coords) == 1);
+  enum class PropagationResult { solved, unsolvable, requires_exploration };
+
+  PropagationResult propagate(Sudoku<ExplorableCell<size>, size>* sudoku, std::deque<Coordinates>&& to_propagate) {
+    for (const auto& coords : to_propagate) {
+      assert(std::count(to_propagate.begin(), to_propagate.end(), coords) == 1);
     }
 
     EventsPairGuard guard(
@@ -179,10 +192,11 @@ class ExplorationSolver {
       PropagationStartsForSudoku<size>(),
       PropagationIsDoneForSudoku<size>());
 
-    while (!todo.empty()) {
-      const auto source_coords = todo.front();
-      todo.pop_front();
-      auto& source_cell = stack.current().cell(source_coords);
+    bool is_solved = false;
+    while (!to_propagate.empty()) {
+      const auto source_coords = to_propagate.front();
+      to_propagate.pop_front();
+      auto& source_cell = sudoku->cell(source_coords);
       assert(source_cell.is_set());
       const unsigned value = source_cell.get();
 
@@ -197,7 +211,7 @@ class ExplorationSolver {
           if (target_cell != source_cell) {
             if (target_cell.is_set()) {
               if (target_cell.get() == value) {
-                return false;
+                return PropagationResult::unsolvable;
               }
             } else {
               assert(target_cell.allowed_count() > 1);
@@ -211,8 +225,8 @@ class ExplorationSolver {
                       sink_event(CellIsDeducedFromSingleAllowedValue<size>(target_coords, value));
                       target_cell.set(value);
 
-                      assert(std::count(todo.begin(), todo.end(), target_coords) == 0);
-                      todo.push_back(target_coords);
+                      assert(std::count(to_propagate.begin(), to_propagate.end(), target_coords) == 0);
+                      to_propagate.push_back(target_coords);
 
                       break;
                     }
@@ -234,14 +248,14 @@ class ExplorationSolver {
                       single_coords, value, target_region.index()));
                     single_cell->set(value);
 
-                    assert(std::count(todo.begin(), todo.end(), single_coords) == 0);
-                    todo.push_back(single_coords);
+                    assert(std::count(to_propagate.begin(), to_propagate.end(), single_coords) == 0);
+                    to_propagate.push_back(single_coords);
                   }
                 }
 
                 // @todo IMPROVE!
                 for (unsigned k = 0; k != size; ++k) {
-                  for (auto& region : stack.current().regions()) {
+                  for (auto& region : sudoku->regions()) {
                     for (const unsigned value : SudokuConstants<size>::values) {
                       unsigned count = 0;
                       typename Sudoku<ExplorableCell<size>, size>::Cell* single_cell = nullptr;
@@ -252,33 +266,27 @@ class ExplorationSolver {
                         }
                       }
                       if (count == 1 && !single_cell->is_set()) {
+                        // std::cerr << "Unexpected single-place deduction at: (" << single_coords.first << ", "
+                        //   << single_coords.second << ")" << std::endl;
                         const Coordinates single_coords = single_cell->coordinates();
                         sink_event(CellIsDeducedAsSinglePlaceForValueInRegion<size>(
                           single_coords, value, region.index()));
                         single_cell->set(value);
 
-                        assert(std::count(todo.begin(), todo.end(), single_coords) == 0);
-                        todo.push_back(single_coords);
+                        assert(std::count(to_propagate.begin(), to_propagate.end(), single_coords) == 0);
+                        to_propagate.push_back(single_coords);
                       }
                     }
                   }
                 }
 
-                // 'is_solved' is currently O(size^2),
-                // which we could optimize easily with additional book-keeping,
-                // but the *whole* solving algorithm still executes in less than 100ms for size 9,
-                // so it's not worth it yet.
-                if (stack.current().is_solved()) {
-                  sink_event(SudokuIsSolved<size>());
-                }
-
                 #ifndef NDEBUG
                 // All single-value deductions have been applied
-                for (const auto& cell : stack.current().cells()) {
+                for (const auto& cell : sudoku->cells()) {
                   assert(cell.is_set() || cell.allowed_count() > 1);
                 }
                 // All single-place deductions have been applied
-                for (const auto& region : stack.current().regions()) {
+                for (const auto& region : sudoku->regions()) {
                   for (const unsigned value : SudokuConstants<size>::values) {
                     unsigned count = 0;
                     const typename Sudoku<ExplorableCell<size>, size>::Cell* single_cell = nullptr;
@@ -292,6 +300,16 @@ class ExplorationSolver {
                   }
                 }
                 #endif
+
+                // 'is_solved' is currently O(size^2),
+                // which we could optimize easily with additional book-keeping,
+                // but the *whole* solving algorithm still executes in less than 100ms for size 9,
+                // so it's not worth it yet.
+                if (sudoku->is_solved()) {
+                  sink_event(SudokuIsSolved<size>());
+                  is_solved = true;
+                  // @todo return solved;
+                }
               } else {
                 // Nothing to do: this is old news
               }
@@ -301,14 +319,19 @@ class ExplorationSolver {
       }
     }
 
-    return true;
+    // @todo Remove the test, always return requires_exploration
+    if (is_solved) {
+      return PropagationResult::solved;
+    } else {
+      return PropagationResult::requires_exploration;
+    }
   }
 
-  Coordinates get_most_constrained_cell() {
+  Coordinates get_most_constrained_cell(Sudoku<ExplorableCell<size>, size>* sudoku) {
     Coordinates best_coords;
     unsigned best_count = size + 1;
 
-    for (const auto& cell : stack.current().cells()) {
+    for (const auto& cell : sudoku->cells()) {
       if (cell.is_set()) {
         continue;
       }
@@ -325,11 +348,13 @@ class ExplorationSolver {
     return best_coords;
   }
 
-  bool explore() {
-    assert(!stack.current().is_solved());
+  enum class ExplorationResult { solved, unsolvable };
 
-    const Coordinates coords = get_most_constrained_cell();
-    const auto& cell = stack.current().cell(coords);
+  ExplorationResult explore(Sudoku<ExplorableCell<size>, size>* sudoku) {
+    assert(!sudoku->is_solved());
+
+    const Coordinates coords = get_most_constrained_cell(sudoku);
+    const auto& cell = sudoku->cell(coords);
     std::vector<unsigned> allowed_values;
     for (unsigned value : SudokuConstants<size>::values) {
       if (cell.is_allowed(value)) {
@@ -344,41 +369,42 @@ class ExplorationSolver {
 
     for (unsigned value : allowed_values) {
       sink_event(HypothesisIsMade<size>(coords, value));
-      stack.push();
-      stack.current().cell(coords).set(value);
+      Sudoku<ExplorableCell<size>, size> copied_sudoku(*sudoku);
+      copied_sudoku.cell(coords).set(value);
 
-      if (propagate_and_explore({coords})) {
-        sink_event(HypothesisIsAccepted<size>(coords, value));
-        return true;
-      } else {
-        sink_event(HypothesisIsRejected<size>(coords, value));
-        stack.pop();
+      switch (propagate_and_explore(&copied_sudoku, {coords})) {
+        case ExplorationResult::solved:
+          sink_event(HypothesisIsAccepted<size>(coords, value));
+          *sudoku = copied_sudoku;
+          return ExplorationResult::solved;
+        case ExplorationResult::unsolvable:
+          sink_event(HypothesisIsRejected<size>(coords, value));
+          break;
       }
     }
 
-    return false;
+    return ExplorationResult::unsolvable;
   }
 
-  bool propagate_and_explore(const std::deque<Coordinates>& todo) {
-    if (propagate(todo)) {
-      if (stack.current().is_solved()) {
-        return true;
-      } else {
-        return explore();
-      }
-    } else {
-      return false;
+  ExplorationResult propagate_and_explore(Sudoku<ExplorableCell<size>, size>* sudoku, std::deque<Coordinates>&& todo) {
+    switch (propagate(sudoku, std::move(todo))) {
+      case PropagationResult::solved:
+        return ExplorationResult::solved;
+      case PropagationResult::unsolvable:
+        return ExplorationResult::unsolvable;
+      case PropagationResult::requires_exploration:
+        return explore(sudoku);
     }
+    __builtin_unreachable();
   }
 
  private:
-  Sudoku<ValueCell, size> sudoku;
+  Sudoku<ValueCell, size> input_sudoku;
   EventSink& sink_event;
-  Stack<Sudoku<ExplorableCell<size>, size>> stack;
 };
 
 template<unsigned size, typename EventSink>
-Sudoku<ValueCell, size> solve_using_exploration(
+std::optional<Sudoku<ValueCell, size>> solve_using_exploration(
   Sudoku<ValueCell, size> sudoku,
   EventSink& sink_event
 ) {
@@ -386,7 +412,7 @@ Sudoku<ValueCell, size> solve_using_exploration(
 }
 
 template<unsigned size, typename EventSink>
-Sudoku<ValueCell, size> solve_using_exploration(
+std::optional<Sudoku<ValueCell, size>> solve_using_exploration(
   Sudoku<ValueCell, size> sudoku,
   const EventSink& sink_event
 ) {
@@ -394,7 +420,7 @@ Sudoku<ValueCell, size> solve_using_exploration(
 }
 
 template<unsigned size>
-Sudoku<ValueCell, size> solve_using_exploration(Sudoku<ValueCell, size> sudoku) {
+std::optional<Sudoku<ValueCell, size>> solve_using_exploration(Sudoku<ValueCell, size> sudoku) {
   return solve_using_exploration(sudoku, [](const auto&) {});
 }
 

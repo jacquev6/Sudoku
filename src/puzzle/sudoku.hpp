@@ -13,7 +13,6 @@
 
 #include <boost/iterator/transform_iterator.hpp>
 #include <boost/range.hpp>
-#include <boost/range/adaptor/indexed.hpp>
 
 #include "sudoku-constants.hpp"
 
@@ -44,6 +43,11 @@ class SudokuBase {
     bool operator==(const Cell& other) const {
       assert(sudoku == other.sudoku);
       return coords == other.coords;
+    }
+
+    void assign(const Cell& other) {
+      assert(coords == other.coords);
+      CellBase::operator=(other);
     }
 
     Coordinates coordinates() const { return coords; }
@@ -125,7 +129,11 @@ class SudokuBase {
     _regions(make_regions())
   {};
 
-  SudokuBase& operator=(const SudokuBase&);
+  SudokuBase& operator=(const SudokuBase& other) {
+    assign_cells(other._cells);
+    return *this;
+  }
+
   SudokuBase(SudokuBase&&) = delete;
   SudokuBase& operator=(SudokuBase&&) = delete;
 
@@ -171,6 +179,29 @@ class SudokuBase {
 
   Cell copy_cell(unsigned row, unsigned col, const CellsArray& other_cells) {
     return Cell(this, other_cells[row][col]);
+  }
+
+ private:
+  void assign_cells(const CellsArray& other_cells) {
+    assign_cells(std::make_integer_sequence<unsigned, size>(), other_cells);
+  }
+
+  template<unsigned... row>
+  void assign_cells(const std::integer_sequence<unsigned, row...>&, const CellsArray& other_cells) {
+    (assign_row(row, other_cells, std::make_integer_sequence<unsigned, size>()), ...);
+  }
+
+  template<unsigned... col>
+  void assign_row(
+    unsigned row,
+    const CellsArray& other_cells,
+    const std::integer_sequence<unsigned, col...>&
+  ) {
+    (assign_cell(row, col, other_cells), ...);
+  }
+
+  void assign_cell(unsigned row, unsigned col, const CellsArray& other_cells) {
+    _cells[row][col].assign(other_cells[row][col]);
   }
 
  private:

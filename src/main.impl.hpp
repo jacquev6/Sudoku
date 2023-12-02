@@ -37,8 +37,8 @@ int main_(const Options& options) {
     if (options.use_sat) {
       const auto solved = solve_using_sat(sudoku);
 
-      if (is_solved(solved)) {
-        solved.dump(std::cout);
+      if (solved) {
+        solved->dump(std::cout);
         return 0;
       } else {
         std::cerr << "FAILED to solve this Sudoku using SAT" << std::endl;
@@ -47,8 +47,8 @@ int main_(const Options& options) {
     } else {
       const auto solved = solve_using_exploration(sudoku);
 
-      if (is_solved(solved)) {
-        solved.dump(std::cout);
+      if (solved) {
+        solved->dump(std::cout);
         return 0;
       } else {
         std::cerr << "FAILED to solve this Sudoku using exploration" << std::endl;
@@ -89,7 +89,7 @@ int main_(const Options& options) {
       explain_as_video(explanation, video_serializers.back().get(), options.width, options.height);
     }
 
-    if (is_solved(solved)) {
+    if (solved) {
       return 0;
     } else {
       std::cerr << "FAILED to solve this Sudoku using exploration" << std::endl;
