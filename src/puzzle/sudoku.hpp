@@ -304,7 +304,7 @@ class Stack {
     return stack.back();
   }
 
-  int height() const {
+  unsigned size() const {
     return stack.size();
   }
 

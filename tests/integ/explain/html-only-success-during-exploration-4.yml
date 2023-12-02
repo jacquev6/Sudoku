@@ -76,8 +76,8 @@ stdout: |
       1 in (3, 2) has been fully propagated
       (3, 4) can only be 3
       (4, 2) can only be 3
-      Sudoku is solved
       In region 8, only (4, 4) can be 1
+      Sudoku is solved
       Propagation starts for 3 in (3, 4)
       3 in (3, 4) has been fully propagated
       Propagation starts for 1 in (4, 4)

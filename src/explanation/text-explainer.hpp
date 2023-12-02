@@ -9,6 +9,65 @@
 
 
 template<unsigned size>
-void explain_as_text(const Explanation<size>&, std::ostream&);
+class TextExplainer : public NullExplainer<size> {
+ public:
+  explicit TextExplainer(std::ostream& os_) : os(os_) {}
+
+ public:
+  void inputs(const Stack<ExplainableSudoku<size>>&, const Sudoku<ValueCell, size>&) const;
+
+  void propagations_begin(const Stack<ExplainableSudoku<size>>&) const;
+
+  void propagation_targets_begin(
+    const Stack<ExplainableSudoku<size>>&,
+    const typename Explanation<size>::Propagation&) const;
+
+  void propagation_target_begin(
+    const Stack<ExplainableSudoku<size>>&,
+    const typename Explanation<size>::Propagation&,
+    const typename Explanation<size>::PropagationTarget&) const;
+
+  void propagation_targets_end(
+    const Stack<ExplainableSudoku<size>>&,
+    const typename Explanation<size>::Propagation&) const;
+
+  void propagation_single_value_deduction_end(
+    const Stack<ExplainableSudoku<size>>&,
+    const typename Explanation<size>::Propagation&,
+    const typename Explanation<size>::PropagationTarget&,
+    const typename Explanation<size>::SingleValueDeduction&) const;
+
+  void propagation_single_place_deduction_end(
+    const Stack<ExplainableSudoku<size>>&,
+    const typename Explanation<size>::Propagation&,
+    const typename Explanation<size>::PropagationTarget&,
+    const typename Explanation<size>::SinglePlaceDeduction&) const;
+
+  void solved(
+    const Stack<ExplainableSudoku<size>>& stack,
+    const typename Explanation<size>::Propagation&) const;
+
+  void propagations_end(const Stack<ExplainableSudoku<size>>&) const;
+
+  void exploration_begin(const Stack<ExplainableSudoku<size>>&, const typename Explanation<size>::Exploration&) const;
+
+  void hypothesis_begin(
+    const Stack<ExplainableSudoku<size>>&,
+    const typename Explanation<size>::Exploration&,
+    const typename Explanation<size>::Hypothesis&) const;
+
+  void hypothesis_end(
+    const Stack<ExplainableSudoku<size>>&,
+    const typename Explanation<size>::Exploration&,
+    const typename Explanation<size>::Hypothesis&) const;
+
+  void exploration_end(const Stack<ExplainableSudoku<size>>&, const typename Explanation<size>::Exploration&) const;
+
+ private:
+  std::ostream& prefix(const Stack<ExplainableSudoku<size>>&) const;
+
+ private:
+  std::ostream& os;
+};
 
 #endif  // EXPLANATION_TEXT_EXPLAINER_HPP_

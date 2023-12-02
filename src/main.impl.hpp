@@ -61,15 +61,15 @@ int main_(const Options& options) {
     const Explanation<size> explanation = explanation_builder.get();
 
     if (options.text_path == "-") {
-      explain_as_text(explanation, std::cout);
+      explain(explanation, TextExplainer<size>(std::cout));
     } else if (options.text_path) {
       std::ofstream out(*options.text_path);
       assert(out.is_open());
-      explain_as_text(explanation, out);
+      explain(explanation, TextExplainer<size>(out));
     }
 
     if (options.html_path) {
-      explain_as_html(explanation, *options.html_path, options.width, options.height);
+      explain(explanation, HtmlExplainer<size>(*options.html_path, options.width, options.height));
     }
 
     std::vector<std::unique_ptr<video::Serializer>> video_serializers;
