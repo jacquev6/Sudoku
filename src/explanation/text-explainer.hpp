@@ -67,15 +67,23 @@ class TextExplainer {
     const Stack<ExplainableSudoku<size>>&,
     const typename Explanation<size>::Propagation&,
     const typename Explanation<size>::PropagationTarget&,
-    const typename Explanation<size>::SingleValueDeduction&) const {}
+    const typename Explanation<size>::SingleValueDeduction&) const;
 
   void propagation_single_value_deduction_end(
     const Stack<ExplainableSudoku<size>>&,
     const typename Explanation<size>::Propagation&,
     const typename Explanation<size>::PropagationTarget&,
-    const typename Explanation<size>::SingleValueDeduction&) const;
+    const typename Explanation<size>::SingleValueDeduction&) const {}
 
   void propagation_single_value_deductions_end(
+    const Stack<ExplainableSudoku<size>>&,
+    const typename Explanation<size>::Propagation&) const {}
+
+  void propagation_single_value_deductions_condensed_begin(
+    const Stack<ExplainableSudoku<size>>&,
+    const typename Explanation<size>::Propagation&) const;
+
+  void propagation_single_value_deductions_condensed_end(
     const Stack<ExplainableSudoku<size>>&,
     const typename Explanation<size>::Propagation&) const {}
 
@@ -87,15 +95,31 @@ class TextExplainer {
     const Stack<ExplainableSudoku<size>>&,
     const typename Explanation<size>::Propagation&,
     const typename Explanation<size>::PropagationTarget&,
-    const typename Explanation<size>::SinglePlaceDeduction&) const {}
+    const typename Explanation<size>::SinglePlaceDeduction&) const;
 
   void propagation_single_place_deduction_end(
     const Stack<ExplainableSudoku<size>>&,
     const typename Explanation<size>::Propagation&,
     const typename Explanation<size>::PropagationTarget&,
-    const typename Explanation<size>::SinglePlaceDeduction&) const;
+    const typename Explanation<size>::SinglePlaceDeduction&) const {}
 
   void propagation_single_place_deductions_end(
+    const Stack<ExplainableSudoku<size>>&,
+    const typename Explanation<size>::Propagation&) const {}
+
+  void propagation_single_place_deductions_condensed_begin(
+    const Stack<ExplainableSudoku<size>>&,
+    const typename Explanation<size>::Propagation&) const;
+
+  void propagation_single_place_deductions_condensed_end(
+    const Stack<ExplainableSudoku<size>>&,
+    const typename Explanation<size>::Propagation&) const {}
+
+  void propagation_all_deductions_condensed_begin(
+    const Stack<ExplainableSudoku<size>>&,
+    const typename Explanation<size>::Propagation&) const;
+
+  void propagation_all_deductions_condensed_end(
     const Stack<ExplainableSudoku<size>>&,
     const typename Explanation<size>::Propagation&) const {}
 

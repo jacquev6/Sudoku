@@ -194,27 +194,66 @@ class ExplanationWalker {
     }
 
     bool solved = false;
-    explainer.propagation_single_value_deductions_begin(stack, propagation);
-    for (const auto& target : propagation.targets) {
-      for (const auto& deduction : target.single_value_deductions) {
-        explainer.propagation_single_value_deduction_begin(stack, propagation, target, deduction);
-        stack.current().cell(deduction.cell).set_deduced(deduction.value);
-        solved |= deduction.solved;
-        explainer.propagation_single_value_deduction_end(stack, propagation, target, deduction);
+    if (single_value_deductions_count < 3 || single_place_deductions_count < 3) {
+      if (single_value_deductions_count < 3) {
+        explainer.propagation_single_value_deductions_begin(stack, propagation);
+        for (const auto& target : propagation.targets) {
+          for (const auto& deduction : target.single_value_deductions) {
+            explainer.propagation_single_value_deduction_begin(stack, propagation, target, deduction);
+            stack.current().cell(deduction.cell).set_deduced(deduction.value);
+            solved |= deduction.solved;
+            explainer.propagation_single_value_deduction_end(stack, propagation, target, deduction);
+            ++single_value_deductions_count;
+          }
+        }
+        explainer.propagation_single_value_deductions_end(stack, propagation);
+      } else {
+        explainer.propagation_single_value_deductions_condensed_begin(stack, propagation);
+        for (const auto& target : propagation.targets) {
+          for (const auto& deduction : target.single_value_deductions) {
+            stack.current().cell(deduction.cell).set_deduced(deduction.value);
+            solved |= deduction.solved;
+          }
+        }
+        explainer.propagation_single_value_deductions_condensed_end(stack, propagation);
       }
-    }
-    explainer.propagation_single_value_deductions_end(stack, propagation);
 
-    explainer.propagation_single_place_deductions_begin(stack, propagation);
-    for (const auto& target : propagation.targets) {
-      for (const auto& deduction : target.single_place_deductions) {
-        explainer.propagation_single_place_deduction_begin(stack, propagation, target, deduction);
-        stack.current().cell(deduction.cell).set_deduced(deduction.value);
-        solved |= deduction.solved;
-        explainer.propagation_single_place_deduction_end(stack, propagation, target, deduction);
+      if (single_place_deductions_count < 3) {
+        explainer.propagation_single_place_deductions_begin(stack, propagation);
+        for (const auto& target : propagation.targets) {
+          for (const auto& deduction : target.single_place_deductions) {
+            explainer.propagation_single_place_deduction_begin(stack, propagation, target, deduction);
+            stack.current().cell(deduction.cell).set_deduced(deduction.value);
+            solved |= deduction.solved;
+            explainer.propagation_single_place_deduction_end(stack, propagation, target, deduction);
+            ++single_place_deductions_count;
+          }
+        }
+        explainer.propagation_single_place_deductions_end(stack, propagation);
+      } else {
+        explainer.propagation_single_place_deductions_condensed_begin(stack, propagation);
+        for (const auto& target : propagation.targets) {
+          for (const auto& deduction : target.single_place_deductions) {
+            stack.current().cell(deduction.cell).set_deduced(deduction.value);
+            solved |= deduction.solved;
+          }
+        }
+        explainer.propagation_single_place_deductions_condensed_end(stack, propagation);
       }
+    } else {
+      explainer.propagation_all_deductions_condensed_begin(stack, propagation);
+      for (const auto& target : propagation.targets) {
+        for (const auto& deduction : target.single_value_deductions) {
+          stack.current().cell(deduction.cell).set_deduced(deduction.value);
+          solved |= deduction.solved;
+        }
+        for (const auto& deduction : target.single_place_deductions) {
+          stack.current().cell(deduction.cell).set_deduced(deduction.value);
+          solved |= deduction.solved;
+        }
+      }
+      explainer.propagation_all_deductions_condensed_end(stack, propagation);
     }
-    explainer.propagation_single_place_deductions_end(stack, propagation);
 
     stack.current().cell(propagation.source).set_propagated();
 
@@ -255,6 +294,8 @@ class ExplanationWalker {
   Explainer& explainer;
   Stack<ExplainableSudoku<size>> stack;
   unsigned propagation_targets_count = 0;
+  unsigned single_value_deductions_count = 0;
+  unsigned single_place_deductions_count = 0;
 };
 
 template<unsigned size, typename Explainer>

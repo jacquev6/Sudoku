@@ -1,4 +1,6 @@
-command: build/bin/sudoku explain inputs/easy.txt
+setup: |
+  rm -rf tests/integ/explain/easy
+command: build/bin/sudoku explain --html tests/integ/explain/easy --width 480 --height 320 --text - inputs/easy.txt
 returncode: 0
 stderr: |
 stdout: |

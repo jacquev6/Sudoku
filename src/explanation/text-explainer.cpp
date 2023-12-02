@@ -106,7 +106,7 @@ void TextExplainer<size>::propagation_targets_condensed_begin(
 }
 
 template<unsigned size>
-void TextExplainer<size>::propagation_single_value_deduction_end(
+void TextExplainer<size>::propagation_single_value_deduction_begin(
   const Stack<ExplainableSudoku<size>>& stack,
   const typename Explanation<size>::Propagation&,
   const typename Explanation<size>::PropagationTarget&,
@@ -117,7 +117,19 @@ void TextExplainer<size>::propagation_single_value_deduction_end(
 }
 
 template<unsigned size>
-void TextExplainer<size>::propagation_single_place_deduction_end(
+void TextExplainer<size>::propagation_single_value_deductions_condensed_begin(
+  const Stack<ExplainableSudoku<size>>& stack,
+  const typename Explanation<size>::Propagation& propagation
+) const {
+  for (const auto& target : propagation.targets) {
+    for (const auto& deduction : target.single_value_deductions) {
+      propagation_single_value_deduction_begin(stack, propagation, target, deduction);
+    }
+  }
+}
+
+template<unsigned size>
+void TextExplainer<size>::propagation_single_place_deduction_begin(
   const Stack<ExplainableSudoku<size>>& stack,
   const typename Explanation<size>::Propagation&,
   const typename Explanation<size>::PropagationTarget&,
@@ -126,6 +138,27 @@ void TextExplainer<size>::propagation_single_place_deduction_end(
   const auto [row, col] = deduction.cell;
   prefix(stack) << boost::format("In region %4%, only (%1%, %2%) can be %3%\n")
     % (row + 1) % (col + 1) % (deduction.value + 1) % (deduction.region + 1);
+}
+
+template<unsigned size>
+void TextExplainer<size>::propagation_single_place_deductions_condensed_begin(
+  const Stack<ExplainableSudoku<size>>& stack,
+  const typename Explanation<size>::Propagation& propagation
+) const {
+  for (const auto& target : propagation.targets) {
+    for (const auto& deduction : target.single_place_deductions) {
+      propagation_single_place_deduction_begin(stack, propagation, target, deduction);
+    }
+  }
+}
+
+template<unsigned size>
+void TextExplainer<size>::propagation_all_deductions_condensed_begin(
+  const Stack<ExplainableSudoku<size>>& stack,
+  const typename Explanation<size>::Propagation& propagation
+) const {
+  propagation_single_value_deductions_condensed_begin(stack, propagation);
+  propagation_single_place_deductions_condensed_begin(stack, propagation);
 }
 
 template<unsigned size>

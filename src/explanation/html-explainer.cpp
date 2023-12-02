@@ -95,6 +95,134 @@ void HtmlExplainer<size>::propagation_targets_condensed_end(
 }
 
 template<unsigned size>
+void HtmlExplainer<size>::propagation_single_value_deduction_end(
+  const Stack<ExplainableSudoku<size>>& stack,
+  const typename Explanation<size>::Propagation&,
+  const typename Explanation<size>::PropagationTarget&,
+  const typename Explanation<size>::SingleValueDeduction& deduction
+) const {
+  const auto [row, col] = deduction.cell;
+  const std::string image_name = str(boost::format("deduction-%1%-%2%.png") % (row + 1) % (col + 1));
+  make_image(stack, image_name, {
+    .possible = true,
+    .bold_todo = true,
+    .circled_cells = {deduction.cell},
+    .circled_cells_color = {0, 1, 0},
+  });
+  index_file <<
+    boost::format("<p>(%1%, %2%) can be deduced because it only has one possible value (%3%):</p>\n")
+    % (row + 1) % (col + 1) % (deduction.value + 1);
+  index_file << "<p><img src=\"" << image_name << "\"/></p>\n";
+}
+
+template<unsigned size>
+void HtmlExplainer<size>::propagation_single_value_deductions_condensed_end(
+  const Stack<ExplainableSudoku<size>>& stack,
+  const typename Explanation<size>::Propagation& propagation
+) const {
+  std::vector<Coordinates> circled_cells;
+  for (const auto& target : propagation.targets) {
+    for (const auto& deduction : target.single_value_deductions) {
+      circled_cells.push_back(deduction.cell);
+    }
+  }
+  if (!circled_cells.empty()) {
+    const auto [row, col] = propagation.source;
+    const std::string image_name =
+      str(boost::format("single-value-deductions-from-%1%-%2%.png") % (row + 1) % (col + 1));
+    make_image(stack, image_name, {
+      .possible = true,
+      .bold_todo = true,
+      .circled_cells = circled_cells,
+      .circled_cells_color = {0, 1, 0},
+    });
+    index_file << "<p>Single-value deductions:</p>\n";
+    index_file << "<p><img src=\"" << image_name << "\"/></p>\n";
+  }
+}
+
+template<unsigned size>
+void HtmlExplainer<size>::propagation_single_place_deduction_end(
+  const Stack<ExplainableSudoku<size>>& stack,
+  const typename Explanation<size>::Propagation&,
+  const typename Explanation<size>::PropagationTarget&,
+  const typename Explanation<size>::SinglePlaceDeduction& deduction
+) const {
+  const auto [row, col] = deduction.cell;
+  const std::string image_name = str(boost::format("deduction-%1%-%2%.png") % (row + 1) % (col + 1));
+  make_image(stack, image_name, {
+    .possible = true,
+    .bold_todo = true,
+    .boxed_cells = {deduction.cell},
+    .boxed_cells_color = {0, 1, 0},
+  });
+  index_file <<
+    boost::format("<p>(%1%, %2%) can be deduced because it's the only place for %3% in region %4%:</p>\n")
+    % (row + 1) % (col + 1) % (deduction.value + 1) % (deduction.region + 1);
+  index_file << "<p><img src=\"" << image_name << "\"/></p>\n";
+}
+
+template<unsigned size>
+void HtmlExplainer<size>::propagation_single_place_deductions_condensed_end(
+  const Stack<ExplainableSudoku<size>>& stack,
+  const typename Explanation<size>::Propagation& propagation
+) const {
+  std::vector<Coordinates> boxed_cells;
+  for (const auto& target : propagation.targets) {
+    for (const auto& deduction : target.single_place_deductions) {
+      boxed_cells.push_back(deduction.cell);
+    }
+  }
+  if (!boxed_cells.empty()) {
+    const auto [row, col] = propagation.source;
+    const std::string image_name =
+      str(boost::format("single-place-deductions-from-%1%-%2%.png") % (row + 1) % (col + 1));
+    make_image(stack, image_name, {
+      .possible = true,
+      .bold_todo = true,
+      .boxed_cells = boxed_cells,
+      .boxed_cells_color = {0, 1, 0},
+    });
+    index_file << "<p>Single-place deductions:</p>\n";
+    index_file << "<p><img src=\"" << image_name << "\"/></p>\n";
+  }
+}
+
+template<unsigned size>
+void HtmlExplainer<size>::propagation_all_deductions_condensed_end(
+  const Stack<ExplainableSudoku<size>>& stack,
+  const typename Explanation<size>::Propagation& propagation
+) const {
+  std::vector<Coordinates> circled_cells;
+  for (const auto& target : propagation.targets) {
+    for (const auto& deduction : target.single_value_deductions) {
+      circled_cells.push_back(deduction.cell);
+    }
+  }
+  std::vector<Coordinates> boxed_cells;
+  for (const auto& target : propagation.targets) {
+    for (const auto& deduction : target.single_place_deductions) {
+      boxed_cells.push_back(deduction.cell);
+    }
+  }
+  if (!(circled_cells.empty() && boxed_cells.empty())) {
+    const auto [row, col] = propagation.source;
+    const std::string image_name =
+      str(boost::format("all-deductions-from-%1%-%2%.png") % (row + 1) % (col + 1));
+    make_image(stack, image_name, {
+      .possible = true,
+      .bold_todo = true,
+      .circled_cells = circled_cells,
+      .circled_cells_color = {0, 1, 0},
+      .boxed_cells = boxed_cells,
+      .boxed_cells_color = {0, 1, 0},
+    });
+    index_file << "<p>Deductions:</p>\n";
+    index_file << "<p><img src=\"" << image_name << "\"/></p>\n";
+  }
+}
+
+template<unsigned size>
 void HtmlExplainer<size>::solved(
   const Stack<ExplainableSudoku<size>>& stack,
   const typename Explanation<size>::Propagation&
