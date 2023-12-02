@@ -35,6 +35,10 @@ class HtmlExplainer : public NullExplainer<size> {
 
   void propagations_begin(const Stack<ExplainableSudoku<size>>&) const;
 
+  void propagation_empty_begin(
+    const Stack<ExplainableSudoku<size>>&,
+    const typename Explanation<size>::Propagation&) const;
+
   void propagation_targets_begin(
     const Stack<ExplainableSudoku<size>>&,
     const typename Explanation<size>::Propagation&) const;

@@ -294,8 +294,7 @@ stdout: |
   4 in (6, 3) forbids 4 in (9, 3)
   4 in (6, 3) forbids 4 in (4, 1)
   4 in (6, 3) has been fully propagated
-  Propagation starts for 7 in (6, 5)
-  7 in (6, 5) has been fully propagated
+  7 in (6, 5) has no effect
   Propagation starts for 3 in (6, 6)
   3 in (6, 6) forbids 3 in (6, 4)
   3 in (6, 6) forbids 3 in (6, 7)
@@ -413,8 +412,7 @@ stdout: |
   5 in (9, 5) forbids 5 in (8, 6)
   5 in (9, 5) has been fully propagated
   In region 17, only (8, 8) can be 5
-  Propagation starts for 5 in (5, 6)
-  5 in (5, 6) has been fully propagated
+  5 in (5, 6) has no effect
   Propagation starts for 9 in (1, 3)
   9 in (1, 3) forbids 9 in (1, 9)
   9 in (1, 3) forbids 9 in (7, 3)
@@ -429,16 +427,11 @@ stdout: |
   2 in (6, 9) forbids 2 in (9, 9)
   2 in (6, 9) has been fully propagated
   In region 27, only (9, 8) can be 2
-  Propagation starts for 4 in (4, 8)
-  4 in (4, 8) has been fully propagated
-  Propagation starts for 7 in (1, 1)
-  7 in (1, 1) has been fully propagated
-  Propagation starts for 3 in (4, 7)
-  3 in (4, 7) has been fully propagated
-  Propagation starts for 3 in (8, 1)
-  3 in (8, 1) has been fully propagated
-  Propagation starts for 3 in (2, 5)
-  3 in (2, 5) has been fully propagated
+  4 in (4, 8) has no effect
+  7 in (1, 1) has no effect
+  3 in (4, 7) has no effect
+  3 in (8, 1) has no effect
+  3 in (2, 5) has no effect
   Propagation starts for 8 in (3, 8)
   8 in (3, 8) forbids 8 in (3, 9)
   8 in (3, 8) forbids 8 in (5, 8)
@@ -454,21 +447,16 @@ stdout: |
   In region 22, only (5, 1) can be 1
   In region 6, only (6, 7) can be 1
   In region 13, only (2, 4) can be 1
-  Propagation starts for 6 in (4, 4)
-  6 in (4, 4) has been fully propagated
-  Propagation starts for 7 in (9, 6)
-  7 in (9, 6) has been fully propagated
-  Propagation starts for 7 in (2, 8)
-  7 in (2, 8) has been fully propagated
-  Propagation starts for 3 in (7, 9)
-  3 in (7, 9) has been fully propagated
+  6 in (4, 4) has no effect
+  7 in (9, 6) has no effect
+  7 in (2, 8) has no effect
+  3 in (7, 9) has no effect
   Propagation starts for 4 in (7, 4)
   4 in (7, 4) forbids 4 in (7, 6)
   4 in (7, 4) has been fully propagated
   (7, 6) can only be 2
   In region 15, only (3, 6) can be 4
-  Propagation starts for 6 in (7, 1)
-  6 in (7, 1) has been fully propagated
+  6 in (7, 1) has no effect
   Propagation starts for 6 in (3, 2)
   6 in (3, 2) forbids 6 in (3, 9)
   6 in (3, 2) has been fully propagated
@@ -480,65 +468,47 @@ stdout: |
   5 in (8, 8) forbids 5 in (8, 3)
   5 in (8, 8) has been fully propagated
   In region 12, only (7, 3) can be 5
-  Propagation starts for 6 in (1, 9)
-  6 in (1, 9) has been fully propagated
+  6 in (1, 9) has no effect
   Propagation starts for 9 in (7, 7)
   9 in (7, 7) forbids 9 in (2, 7)
   9 in (7, 7) forbids 9 in (5, 7)
   9 in (7, 7) has been fully propagated
   In region 2, only (2, 9) can be 9
-  Propagation starts for 9 in (9, 2)
-  9 in (9, 2) has been fully propagated
-  Propagation starts for 4 in (2, 2)
-  4 in (2, 2) has been fully propagated
+  9 in (9, 2) has no effect
+  4 in (2, 2) has no effect
   Propagation starts for 2 in (9, 8)
   2 in (9, 8) forbids 2 in (9, 3)
   2 in (9, 8) has been fully propagated
   (9, 3) can only be 1
   In region 12, only (8, 3) can be 2
-  Propagation starts for 8 in (9, 9)
-  8 in (9, 9) has been fully propagated
-  Propagation starts for 9 in (5, 8)
-  9 in (5, 8) has been fully propagated
-  Propagation starts for 8 in (4, 1)
-  8 in (4, 1) has been fully propagated
+  8 in (9, 9) has no effect
+  9 in (5, 8) has no effect
+  8 in (4, 1) has no effect
   Propagation starts for 1 in (5, 1)
   1 in (5, 1) forbids 1 in (5, 7)
   1 in (5, 1) forbids 1 in (9, 1)
   1 in (5, 1) has been fully propagated
   (5, 7) can only be 8
   (9, 1) can only be 4
-  Propagation starts for 8 in (6, 4)
-  8 in (6, 4) has been fully propagated
+  8 in (6, 4) has no effect
   Propagation starts for 1 in (6, 7)
   1 in (6, 7) forbids 1 in (2, 7)
   1 in (6, 7) has been fully propagated
   (2, 7) can only be 5
-  Propagation starts for 1 in (2, 4)
-  1 in (2, 4) has been fully propagated
+  1 in (2, 4) has no effect
   Propagation starts for 2 in (7, 6)
   2 in (7, 6) forbids 2 in (8, 6)
   2 in (7, 6) has been fully propagated
   (8, 6) can only be 1
   Sudoku is solved
-  Propagation starts for 4 in (3, 6)
-  4 in (3, 6) has been fully propagated
-  Propagation starts for 1 in (3, 9)
-  1 in (3, 9) has been fully propagated
-  Propagation starts for 5 in (7, 3)
-  5 in (7, 3) has been fully propagated
-  Propagation starts for 9 in (2, 9)
-  9 in (2, 9) has been fully propagated
-  Propagation starts for 1 in (9, 3)
-  1 in (9, 3) has been fully propagated
-  Propagation starts for 2 in (8, 3)
-  2 in (8, 3) has been fully propagated
-  Propagation starts for 8 in (5, 7)
-  8 in (5, 7) has been fully propagated
-  Propagation starts for 4 in (9, 1)
-  4 in (9, 1) has been fully propagated
-  Propagation starts for 5 in (2, 7)
-  5 in (2, 7) has been fully propagated
-  Propagation starts for 1 in (8, 6)
-  1 in (8, 6) has been fully propagated
+  4 in (3, 6) has no effect
+  1 in (3, 9) has no effect
+  5 in (7, 3) has no effect
+  9 in (2, 9) has no effect
+  1 in (9, 3) has no effect
+  2 in (8, 3) has no effect
+  8 in (5, 7) has no effect
+  4 in (9, 1) has no effect
+  5 in (2, 7) has no effect
+  1 in (8, 6) has no effect
   All cells have been fully propagated

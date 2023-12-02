@@ -35,6 +35,16 @@ void TextExplainer<size>::propagations_begin(const Stack<ExplainableSudoku<size>
 }
 
 template<unsigned size>
+void TextExplainer<size>::propagation_empty_begin(
+  const Stack<ExplainableSudoku<size>>& stack,
+  const typename Explanation<size>::Propagation& propagation
+) const {
+  const auto [row, col] = propagation.source;
+  prefix(stack) << boost::format("%1% in (%2%, %3%) has no effect\n")
+    % (propagation.value + 1) % (row + 1) % (col + 1);
+}
+
+template<unsigned size>
 void TextExplainer<size>::propagation_targets_begin(
   const Stack<ExplainableSudoku<size>>& stack,
   const typename Explanation<size>::Propagation& propagation

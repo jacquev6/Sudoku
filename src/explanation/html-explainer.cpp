@@ -32,6 +32,16 @@ void HtmlExplainer<size>::propagations_begin(const Stack<ExplainableSudoku<size>
 }
 
 template<unsigned size>
+void HtmlExplainer<size>::propagation_empty_begin(
+  const Stack<ExplainableSudoku<size>>&,
+  const typename Explanation<size>::Propagation& propagation
+) const {
+  const auto [src_row, src_col] = propagation.source;
+  index_file
+    << "<h2>" << propagation.value << " in (" << src_row + 1 << ", " << src_col + 1 << ") has no effect</h2>\n";
+}
+
+template<unsigned size>
 void HtmlExplainer<size>::propagation_targets_begin(
   const Stack<ExplainableSudoku<size>>&,
   const typename Explanation<size>::Propagation& propagation

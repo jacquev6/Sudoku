@@ -141,6 +141,14 @@ struct NullExplainer {
   void propagations_begin(
     const Stack<ExplainableSudoku<size>>&) const {}
 
+  void propagation_empty_begin(
+    const Stack<ExplainableSudoku<size>>&,
+    const typename Explanation<size>::Propagation&) const {}
+
+  void propagation_empty_end(
+    const Stack<ExplainableSudoku<size>>&,
+    const typename Explanation<size>::Propagation&) const {}
+
   void propagation_begin(
     const Stack<ExplainableSudoku<size>>&,
     const typename Explanation<size>::Propagation&) const {}
@@ -268,7 +276,13 @@ class ExplanationWalker {
   void walk(const std::vector<typename Explanation<size>::Propagation>& propagations) {
     explainer.propagations_begin(stack);
     for (const auto& propagation : propagations) {
-      walk(propagation);
+      if (propagation.targets.empty()) {
+        explainer.propagation_empty_begin(stack, propagation);
+        stack.current().cell(propagation.source).set_propagated();
+        explainer.propagation_empty_end(stack, propagation);
+      } else {
+        walk(propagation);
+      }
     }
     explainer.propagations_end(stack);
   }
