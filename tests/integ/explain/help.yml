@@ -1,9 +1,9 @@
-command: build/bin/sudoku explain --help
+command: sudoku explain --help
 returncode: 0
 stderr: |
 stdout: |
   Explain how to solve a Sudoku
-  Usage: build/bin/sudoku explain [OPTIONS] INPUT
+  Usage: sudoku explain [OPTIONS] INPUT
   
   Positionals:
     INPUT TEXT:FILE(or - for stdin) REQUIRED

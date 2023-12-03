@@ -1,4 +1,4 @@
-command: build/bin/sudoku --size 3 explain -
+command: sudoku --size 3 explain -
 returncode: 1
 stderr: |
   ERROR: unsupported size: 3

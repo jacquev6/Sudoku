@@ -1,4 +1,4 @@
-command: build/bin/sudoku solve inputs/expert.txt
+command: sudoku solve inputs/expert.txt
 returncode: 0
 stderr: |
 stdout: |

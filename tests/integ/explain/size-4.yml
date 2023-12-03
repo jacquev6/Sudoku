@@ -1,6 +1,6 @@
 setup: |
   rm -rf tests/integ/explain/size-4
-command: build/bin/sudoku --size 4 explain --html tests/integ/explain/size-4 --width 480 --height 320 --text - -
+command: sudoku --size 4 explain --html tests/integ/explain/size-4 --width 480 --height 320 --text - -
 stdin: |
   1234
   ....

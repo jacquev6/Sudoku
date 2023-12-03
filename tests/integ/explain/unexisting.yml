@@ -1,4 +1,4 @@
-command: build/bin/sudoku explain unexisting-file
+command: sudoku explain unexisting-file
 returncode: 105
 stderr: |
   INPUT: File does not exist: unexisting-file

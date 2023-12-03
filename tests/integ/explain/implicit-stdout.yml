@@ -1,4 +1,4 @@
-command: build/bin/sudoku explain -
+command: sudoku explain -
 stdin: |
   719528436
   248136579

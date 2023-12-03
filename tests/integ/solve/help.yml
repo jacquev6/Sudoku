@@ -1,9 +1,9 @@
-command: build/bin/sudoku solve --help
+command: sudoku solve --help
 returncode: 0
 stderr: |
 stdout: |
   Just solve a Sudoku
-  Usage: build/bin/sudoku solve [OPTIONS] INPUT
+  Usage: sudoku solve [OPTIONS] INPUT
   
   Positionals:
     INPUT TEXT:FILE(or - for stdin) REQUIRED

@@ -1,4 +1,4 @@
-command: build/bin/sudoku
+command: sudoku
 returncode: 106
 stderr: |
   A subcommand is required
