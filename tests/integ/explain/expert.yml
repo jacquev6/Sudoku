@@ -225,8 +225,8 @@ stdout: |
       In region 9, only (9, 9) can be 7
       In region 9, only (9, 3) can be 8
       In region 9, only (9, 7) can be 2
-      In region 27, only (7, 9) can be 8
       In region 12, only (7, 3) can be 2
+      In region 7, only (7, 9) can be 8
       In region 12, only (8, 3) can be 9
       7 in (7, 1) has no effect
       1 in (8, 1) propagates to forbid 1 in (8, 7) and (8, 9)
@@ -242,8 +242,8 @@ stdout: |
       7 in (9, 9) has no effect
       8 in (9, 3) has no effect
       2 in (9, 7) has no effect
-      8 in (7, 9) has no effect
       2 in (7, 3) has no effect
+      8 in (7, 9) has no effect
       9 in (8, 3) propagates to forbid 9 in (8, 7)
       In region 16, only (6, 7) can be 9
       In region 16, only (8, 7) can be 3

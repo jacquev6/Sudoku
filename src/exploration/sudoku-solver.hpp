@@ -72,17 +72,22 @@ class ExplorableCell {
     __builtin_unreachable();
   }
 
-  void set(const unsigned value) {
+  std::bitset<size> set(const unsigned value) {
     assert_invariants();
     assert(value < size);
     assert(is_allowed(value));
     assert(!is_set());
+
+    std::bitset<size> previously_allowed(allowed_values);
+    previously_allowed.reset(value);
 
     allowed_values.reset();
     allowed_values.set(value);
     set_value = value;
 
     assert_invariants();
+
+    return previously_allowed;
   }
 
   void forbid(const unsigned value) {
@@ -108,6 +113,7 @@ class ExplorableCell {
   }
 
  private:
+  // @todo Use a std::variant? (Because we never use both members at the same time)
   std::bitset<size> allowed_values;
   std::optional<unsigned> set_value;
 };
@@ -176,10 +182,35 @@ class ExplorationSolver {
     sink_event(InputsAreDone<size>());
 
     for (const auto& cell : input_sudoku.cells()) {
-      if (cell.get()) {
-        deduce_after_set(&sudoku, cell.coordinates(), &to_propagate);
+      const auto value = cell.get();
+      if (value) {
+        std::bitset<size> previously_allowed;
+        previously_allowed.set();
+        previously_allowed.reset(*value);
+        deduce_after_set(&sudoku, cell.coordinates(), previously_allowed, &to_propagate);
       }
     }
+
+    #ifndef NDEBUG
+    // All single-value deductions have been applied
+    for (const auto& cell : sudoku.cells()) {
+      assert(cell.is_set() || cell.allowed_count() > 1);
+    }
+    // All single-place deductions have been applied
+    for (const auto& region : sudoku.regions()) {
+      for (const unsigned value : SudokuConstants<size>::values) {
+        unsigned count = 0;
+        const typename Sudoku<ExplorableCell<size>, size>::Cell* single_cell = nullptr;
+        for (const auto& cell : region.cells()) {
+          if (cell.is_allowed(value)) {
+            ++count;
+            single_cell = &cell;
+          }
+        }
+        assert(!(count == 1 && !single_cell->is_set()));
+      }
+    }
+    #endif
 
     if (sudoku.is_solved()) {
       sink_event(SudokuIsSolved<size>());
@@ -243,15 +274,14 @@ class ExplorationSolver {
                 if (target_cell.allowed_count() == 1) {
                   const unsigned set_value = target_cell.get_single_allowed_value();
                   sink_event(CellIsDeducedFromSingleAllowedValue<size>(target_coords, set_value));
-                  target_cell.set(set_value);
+                  const auto previously_allowed = target_cell.set(set_value);
+                  assert(previously_allowed.count() == 0);  // No need to call 'deduce_after_set'
 
                   assert(std::count(to_propagate.begin(), to_propagate.end(), target_coords) == 0);
                   to_propagate.push_back(target_coords);
-
-                  deduce_after_set(sudoku, target_coords, &to_propagate);
-                } else {
-                  deduce_after_forbid(sudoku, target_coords, source_value, &to_propagate);
                 }
+
+                deduce_after_forbid(sudoku, target_coords, source_value, &to_propagate);
 
                 #ifndef NDEBUG
                 // All single-value deductions have been applied
@@ -302,14 +332,15 @@ class ExplorationSolver {
   void deduce_after_set(
     Sudoku<ExplorableCell<size>, size>* sudoku,
     const Coordinates& coords,
+    const std::bitset<size>& previously_allowed,
     std::deque<Coordinates>* to_propagate
   ) {
     auto& set_cell = sudoku->cell(coords);
     assert(set_cell.is_set());
 
-    // @todo Iterate on fewer values: only the ones that were allowed before the cell was set
-    for (unsigned value : SudokuConstants<size>::values) {
-      if (value != set_cell.get()) {
+    for (const unsigned value : SudokuConstants<size>::values) {
+      if (previously_allowed.test(value)) {
+        assert(value != set_cell.get());
         deduce_after_forbid(sudoku, coords, value, to_propagate);
       }
     }
@@ -334,12 +365,12 @@ class ExplorationSolver {
         const Coordinates single_coords = single_cell->coordinates();
         sink_event(CellIsDeducedAsSinglePlaceForValueInRegion<size>(
           single_coords, value, region.index()));
-        single_cell->set(value);
+        const auto previously_allowed = single_cell->set(value);
 
         assert(std::count(to_propagate->begin(), to_propagate->end(), single_coords) == 0);
         to_propagate->push_back(single_coords);
 
-        deduce_after_set(sudoku, single_coords, to_propagate);
+        deduce_after_set(sudoku, single_coords, previously_allowed, to_propagate);
       }
     }
   }
@@ -387,10 +418,10 @@ class ExplorationSolver {
     for (unsigned value : allowed_values) {
       sink_event(HypothesisIsMade<size>(coords, value));
       Sudoku<ExplorableCell<size>, size> copied_sudoku(*sudoku);
-      copied_sudoku.cell(coords).set(value);
+      const auto previously_allowed = copied_sudoku.cell(coords).set(value);
 
       std::deque<Coordinates> to_propagate(1, {coords});
-      deduce_after_set(&copied_sudoku, coords, &to_propagate);
+      deduce_after_set(&copied_sudoku, coords, previously_allowed, &to_propagate);
 
       if (copied_sudoku.is_solved()) {
         sink_event(SudokuIsSolved<size>());
