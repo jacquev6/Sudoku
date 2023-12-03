@@ -237,57 +237,14 @@ class ExplorationSolver {
                       assert(std::count(to_propagate.begin(), to_propagate.end(), target_coords) == 0);
                       to_propagate.push_back(target_coords);
 
+                      deduce_after_set(sudoku, target_coords, &to_propagate);
+
                       break;
                     }
                   }
                 }
 
-                for (auto& target_region : target_cell.regions()) {
-                  unsigned count = 0;
-                  typename Sudoku<ExplorableCell<size>, size>::Cell* single_cell = nullptr;
-                  for (auto& cell : target_region.cells()) {
-                    if (cell.is_allowed(source_value)) {
-                      ++count;
-                      single_cell = &cell;
-                    }
-                  }
-                  if (count == 1 && !single_cell->is_set()) {
-                    const Coordinates single_coords = single_cell->coordinates();
-                    sink_event(CellIsDeducedAsSinglePlaceForValueInRegion<size>(
-                      single_coords, source_value, target_region.index()));
-                    single_cell->set(source_value);
-
-                    assert(std::count(to_propagate.begin(), to_propagate.end(), single_coords) == 0);
-                    to_propagate.push_back(single_coords);
-                  }
-                }
-
-                // @todo IMPROVE!
-                for (unsigned k = 0; k != size; ++k) {
-                  for (auto& region : sudoku->regions()) {
-                    for (const unsigned value : SudokuConstants<size>::values) {
-                      unsigned count = 0;
-                      typename Sudoku<ExplorableCell<size>, size>::Cell* single_cell = nullptr;
-                      for (auto& cell : region.cells()) {
-                        if (cell.is_allowed(value)) {
-                          ++count;
-                          single_cell = &cell;
-                        }
-                      }
-                      if (count == 1 && !single_cell->is_set()) {
-                        // std::cerr << "Unexpected single-place deduction at: (" << single_coords.first << ", "
-                        //   << single_coords.second << ")" << std::endl;
-                        const Coordinates single_coords = single_cell->coordinates();
-                        sink_event(CellIsDeducedAsSinglePlaceForValueInRegion<size>(
-                          single_coords, value, region.index()));
-                        single_cell->set(value);
-
-                        assert(std::count(to_propagate.begin(), to_propagate.end(), single_coords) == 0);
-                        to_propagate.push_back(single_coords);
-                      }
-                    }
-                  }
-                }
+                deduce_after_forbid(sudoku, target_coords, source_value, &to_propagate);
 
                 #ifndef NDEBUG
                 // All single-value deductions have been applied
@@ -374,6 +331,8 @@ class ExplorationSolver {
 
         assert(std::count(to_propagate->begin(), to_propagate->end(), single_coords) == 0);
         to_propagate->push_back(single_coords);
+
+        deduce_after_set(sudoku, single_coords, to_propagate);
       }
     }
   }
@@ -423,7 +382,14 @@ class ExplorationSolver {
       Sudoku<ExplorableCell<size>, size> copied_sudoku(*sudoku);
       copied_sudoku.cell(coords).set(value);
 
-      switch (propagate_and_explore(&copied_sudoku, {coords})) {
+      std::deque<Coordinates> to_propagate(1, {coords});
+      deduce_after_set(&copied_sudoku, coords, &to_propagate);
+
+      if (copied_sudoku.is_solved()) {
+        sink_event(SudokuIsSolved<size>());
+      }
+
+      switch (propagate_and_explore(&copied_sudoku, std::move(to_propagate))) {
         case ExplorationResult::solved:
           sink_event(HypothesisIsAccepted<size>(coords, value));
           *sudoku = copied_sudoku;

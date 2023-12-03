@@ -43,6 +43,7 @@ struct Explanation {
 
   struct Hypothesis {
     unsigned value;
+    std::vector<SinglePlaceDeduction> initial_deductions;
     std::vector<Propagation> propagations;
     std::optional<Exploration> exploration;
     bool successful;
@@ -301,6 +302,7 @@ class ExplanationWalker {
 
       explainer.hypothesis_before_propagations(stack, exploration, hypothesis);
 
+      walk(hypothesis.initial_deductions);
       walk(hypothesis.propagations);
       walk(hypothesis.exploration);
       explainer.hypothesis_end(stack, exploration, hypothesis);

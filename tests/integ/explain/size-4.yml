@@ -27,37 +27,37 @@ stdout: |
   All cells have been fully propagated
   Exploration starts for (2, 1) with 2 possible values
   (2, 1) may be 3
+    In region 2, only (2, 2) can be 4
     Propagation starts
-    3 in (2, 1) propagates to forbid 3 in (2, 2), (3, 1), and (4, 1)
-    (2, 2) can only be 4
+    3 in (2, 1) propagates to forbid 3 in (3, 1) and (4, 1)
     4 in (2, 2) propagates to forbid 4 in (3, 2) and (4, 2)
     All cells have been fully propagated
     Exploration starts for (2, 3) with 2 possible values
     (2, 3) may be 1
+      In region 2, only (2, 4) can be 2
       Propagation starts
-      1 in (2, 3) propagates to forbid 1 in (2, 4), (3, 3), and (4, 3)
-      (2, 4) can only be 2
+      1 in (2, 3) propagates to forbid 1 in (3, 3) and (4, 3)
       2 in (2, 4) propagates to forbid 2 in (3, 4) and (4, 4)
       All cells have been fully propagated
       Exploration starts for (3, 1) with 2 possible values
       (3, 1) may be 2
-        Propagation starts
-        2 in (3, 1) propagates to forbid 2 in (3, 3)
-        (3, 3) can only be 4
+        In region 3, only (3, 3) can be 4
         In region 7, only (4, 3) can be 2
         In region 4, only (4, 1) can be 4
+        Propagation starts
+        2 in (3, 1) has no effect
         4 in (3, 3) has no effect
         2 in (4, 3) has no effect
         4 in (4, 1) has no effect
         All cells have been fully propagated
         Exploration starts for (3, 2) with 2 possible values
         (3, 2) may be 1
-          Propagation starts
-          1 in (3, 2) propagates to forbid 1 in (3, 4)
-          (3, 4) can only be 3
+          In region 3, only (3, 4) can be 3
           In region 8, only (4, 4) can be 1
           In region 4, only (4, 2) can be 3
           Sudoku is solved
+          Propagation starts
+          1 in (3, 2) has no effect
           3 in (3, 4) has no effect
           1 in (4, 4) has no effect
           3 in (4, 2) has no effect

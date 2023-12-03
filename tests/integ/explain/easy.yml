@@ -94,13 +94,13 @@ stdout: |
   In region 8, only (8, 1) can be 3
   In region 14, only (2, 5) can be 3
   In region 14, only (4, 5) can be 1
-  In region 20, only (2, 4) can be 1
   In region 4, only (4, 4) can be 6
   In region 4, only (4, 1) can be 8
-  In region 13, only (7, 4) can be 4
-  In region 13, only (6, 4) can be 8
   In region 22, only (5, 1) can be 1
+  In region 23, only (6, 4) can be 8
   In region 6, only (6, 7) can be 1
+  In region 20, only (2, 4) can be 1
+  In region 13, only (7, 4) can be 4
   6 in (6, 8) propagates to forbid 6 in (3, 8), (8, 8), and (9, 8)
   7 in (7, 2) propagates to forbid 7 in (7, 1), (7, 6), (7, 7), (8, 2), (9, 2), and (9, 1)
   8 in (7, 5) propagates to forbid 8 in (7, 1), (7, 6), (7, 7), (7, 9), (8, 6), and (9, 6)
@@ -128,8 +128,8 @@ stdout: |
   In region 10, only (9, 1) can be 4
   In region 9, only (9, 3) can be 1
   In region 9, only (9, 8) can be 2
-  In region 12, only (8, 3) can be 2
   In region 17, only (8, 8) can be 5
+  In region 8, only (8, 3) can be 2
   Sudoku is solved
   4 in (8, 9) has no effect
   3 in (9, 4) has no effect
@@ -151,13 +151,13 @@ stdout: |
   3 in (8, 1) has no effect
   3 in (2, 5) has no effect
   1 in (4, 5) has no effect
-  1 in (2, 4) has no effect
   6 in (4, 4) has no effect
   8 in (4, 1) has no effect
-  4 in (7, 4) has no effect
-  8 in (6, 4) has no effect
   1 in (5, 1) has no effect
+  8 in (6, 4) has no effect
   1 in (6, 7) has no effect
+  1 in (2, 4) has no effect
+  4 in (7, 4) has no effect
   8 in (5, 7) has no effect
   9 in (5, 8) has no effect
   8 in (3, 8) has no effect
@@ -178,6 +178,6 @@ stdout: |
   4 in (9, 1) has no effect
   1 in (9, 3) has no effect
   2 in (9, 8) has no effect
-  2 in (8, 3) has no effect
   5 in (8, 8) has no effect
+  2 in (8, 3) has no effect
   All cells have been fully propagated

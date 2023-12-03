@@ -47,16 +47,22 @@ void Explanation<size>::Builder::operator()(const CellIsDeducedAsSinglePlaceForV
 ) {
   assert(!stack.empty());
   assert(stack.back().propagations != nullptr);
-  if (stack.back().propagations->empty()) {
-    explanation.initial_deductions.push_back({event.region, event.cell, event.value});
-    stack.back().sudoku_is_solved = &explanation.initial_deductions.back().solved;
-  } else {
+  assert(stack.back().exploration != nullptr);
+  if (!stack.back().propagations->empty()) {
     assert(!stack.back().propagations->empty());
     assert(!stack.back().propagations->back().targets.empty());
     stack.back().propagations->back().targets.back().single_place_deductions.push_back(
       {event.region, event.cell, event.value});
     stack.back().sudoku_is_solved =
       &stack.back().propagations->back().targets.back().single_place_deductions.back().solved;
+  } else if (stack.back().hypothesis != nullptr) {
+    // std::cerr << "EXPLORATION INITIAL DEDUCTION " << stack.size() << std::endl;
+    stack.back().hypothesis->initial_deductions.push_back({event.region, event.cell, event.value});
+    stack.back().sudoku_is_solved = &stack.back().hypothesis->initial_deductions.back().solved;
+  } else {
+    // std::cerr << "GLOBAL INITIAL DEDUCTION " << stack.size() << std::endl;
+    explanation.initial_deductions.push_back({event.region, event.cell, event.value});
+    stack.back().sudoku_is_solved = &explanation.initial_deductions.back().solved;
   }
 }
 
