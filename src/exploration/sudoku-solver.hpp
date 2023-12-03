@@ -207,32 +207,32 @@ class ExplorationSolver {
       to_propagate.pop_front();
       auto& source_cell = sudoku->cell(source_coords);
       assert(source_cell.is_set());
-      const unsigned value = source_cell.get();
+      const unsigned source_value = source_cell.get();
 
       EventsPairGuard guard(
         sink_event,
-        PropagationStartsForCell<size>(source_coords, value),
-        PropagationIsDoneForCell<size>(source_coords, value));
+        PropagationStartsForCell<size>(source_coords, source_value),
+        PropagationIsDoneForCell<size>(source_coords, source_value));
 
       for (auto& source_region : source_cell.regions()) {
         for (auto& target_cell : source_region.cells()) {
           const auto target_coords = target_cell.coordinates();
           if (target_cell != source_cell) {
             if (target_cell.is_set()) {
-              if (target_cell.get() == value) {
+              if (target_cell.get() == source_value) {
                 return PropagationResult::unsolvable;
               }
             } else {
               assert(target_cell.allowed_count() > 1);
-              if (target_cell.is_allowed(value)) {
-                sink_event(CellPropagates<size>(source_coords, target_coords, value));
-                target_cell.forbid(value);
+              if (target_cell.is_allowed(source_value)) {
+                sink_event(CellPropagates<size>(source_coords, target_coords, source_value));
+                target_cell.forbid(source_value);
 
                 if (target_cell.allowed_count() == 1) {
-                  for (unsigned value : SudokuConstants<size>::values) {
-                    if (target_cell.is_allowed(value)) {
-                      sink_event(CellIsDeducedFromSingleAllowedValue<size>(target_coords, value));
-                      target_cell.set(value);
+                  for (unsigned set_value : SudokuConstants<size>::values) {
+                    if (target_cell.is_allowed(set_value)) {
+                      sink_event(CellIsDeducedFromSingleAllowedValue<size>(target_coords, set_value));
+                      target_cell.set(set_value);
 
                       assert(std::count(to_propagate.begin(), to_propagate.end(), target_coords) == 0);
                       to_propagate.push_back(target_coords);
@@ -246,7 +246,7 @@ class ExplorationSolver {
                   unsigned count = 0;
                   typename Sudoku<ExplorableCell<size>, size>::Cell* single_cell = nullptr;
                   for (auto& cell : target_region.cells()) {
-                    if (cell.is_allowed(value)) {
+                    if (cell.is_allowed(source_value)) {
                       ++count;
                       single_cell = &cell;
                     }
@@ -254,8 +254,8 @@ class ExplorationSolver {
                   if (count == 1 && !single_cell->is_set()) {
                     const Coordinates single_coords = single_cell->coordinates();
                     sink_event(CellIsDeducedAsSinglePlaceForValueInRegion<size>(
-                      single_coords, value, target_region.index()));
-                    single_cell->set(value);
+                      single_coords, source_value, target_region.index()));
+                    single_cell->set(source_value);
 
                     assert(std::count(to_propagate.begin(), to_propagate.end(), single_coords) == 0);
                     to_propagate.push_back(single_coords);
@@ -346,25 +346,34 @@ class ExplorationSolver {
     // @todo Iterate on fewer values: only the ones that were allowed before the cell was set
     for (unsigned value : SudokuConstants<size>::values) {
       if (value != set_cell.get()) {
-        for (auto& region : set_cell.regions()) {
-          unsigned count = 0;
-          typename Sudoku<ExplorableCell<size>, size>::Cell* single_cell = nullptr;
-          for (auto& cell : region.cells()) {
-            if (cell.is_allowed(value)) {
-              ++count;
-              single_cell = &cell;
-            }
-          }
-          if (count == 1 && !single_cell->is_set()) {
-            const Coordinates single_coords = single_cell->coordinates();
-            sink_event(CellIsDeducedAsSinglePlaceForValueInRegion<size>(
-              single_coords, value, region.index()));
-            single_cell->set(value);
+        deduce_after_forbid(sudoku, coords, value, to_propagate);
+      }
+    }
+  }
 
-            assert(std::count(to_propagate->begin(), to_propagate->end(), single_coords) == 0);
-            to_propagate->push_back(single_coords);
-          }
+  void deduce_after_forbid(
+    Sudoku<ExplorableCell<size>, size>* sudoku,
+    const Coordinates& coords,
+    const unsigned value,
+    std::deque<Coordinates>* to_propagate
+  ) {
+    for (auto& region : sudoku->cell(coords).regions()) {
+      unsigned count = 0;
+      typename Sudoku<ExplorableCell<size>, size>::Cell* single_cell = nullptr;
+      for (auto& cell : region.cells()) {
+        if (cell.is_allowed(value)) {
+          ++count;
+          single_cell = &cell;
         }
+      }
+      if (count == 1 && !single_cell->is_set()) {
+        const Coordinates single_coords = single_cell->coordinates();
+        sink_event(CellIsDeducedAsSinglePlaceForValueInRegion<size>(
+          single_coords, value, region.index()));
+        single_cell->set(value);
+
+        assert(std::count(to_propagate->begin(), to_propagate->end(), single_coords) == 0);
+        to_propagate->push_back(single_coords);
       }
     }
   }
