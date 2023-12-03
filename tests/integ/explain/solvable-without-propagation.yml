@@ -1,0 +1,45 @@
+command: build/bin/sudoku --size 4 explain --text - -
+stdin: |
+  123.
+  3.1.
+  21.3
+  ...1
+returncode: 0
+stderr: |
+stdout: |
+  (1, 1) is set to 1 in the input
+  (1, 2) is set to 2 in the input
+  (1, 3) is set to 3 in the input
+  (2, 1) is set to 3 in the input
+  (2, 3) is set to 1 in the input
+  (3, 1) is set to 2 in the input
+  (3, 2) is set to 1 in the input
+  (3, 4) is set to 3 in the input
+  (4, 4) is set to 1 in the input
+  All inputs have been set
+  In region 1, only (1, 4) can be 4
+  In region 5, only (4, 1) can be 4
+  In region 9, only (2, 2) can be 4
+  In region 6, only (4, 2) can be 3
+  In region 10, only (2, 4) can be 2
+  In region 3, only (3, 3) can be 4
+  In region 12, only (4, 3) can be 2
+  Sudoku is solved
+  Propagation starts
+  1 in (1, 1) has no effect
+  2 in (1, 2) has no effect
+  3 in (1, 3) has no effect
+  3 in (2, 1) has no effect
+  1 in (2, 3) has no effect
+  2 in (3, 1) has no effect
+  1 in (3, 2) has no effect
+  3 in (3, 4) has no effect
+  1 in (4, 4) has no effect
+  4 in (1, 4) has no effect
+  4 in (4, 1) has no effect
+  4 in (2, 2) has no effect
+  3 in (4, 2) has no effect
+  2 in (2, 4) has no effect
+  4 in (3, 3) has no effect
+  2 in (4, 3) has no effect
+  All cells have been fully propagated

@@ -5,7 +5,6 @@
 #include <cairomm/cairomm.h>
 
 #include <tuple>
-#include <vector>
 
 #include <boost/format.hpp>
 
@@ -22,6 +21,25 @@ void HtmlExplainer<size>::inputs(
   index_file << "<h1>Possible values</h1>\n";
   make_image(stack, "initial-possible.png", { .possible = true });
   index_file << "<p><img src=\"initial-possible.png\"/></p>\n";
+}
+
+template<unsigned size>
+void HtmlExplainer<size>::initial_deduction_end(
+  const Stack<ExplainableSudoku<size>>& stack,
+  const typename Explanation<size>::SinglePlaceDeduction& deduction
+) const {
+  const auto [row, col] = deduction.cell;
+  const std::string image_name = str(boost::format("deduction-%1%-%2%.png") % (row + 1) % (col + 1));
+  make_image(stack, image_name, {
+    .possible = true,
+    .bold_todo = true,
+    .boxed_cells = {deduction.cell},
+    .boxed_cells_color = {0, 1, 0},
+  });
+  index_file <<
+    boost::format("<p>(%1%, %2%) can be deduced because it's the only place for %3% in region %4%:</p>\n")
+    % (row + 1) % (col + 1) % (deduction.value + 1) % (deduction.region + 1);
+  index_file << "<p><img src=\"" << image_name << "\"/></p>\n";
 }
 
 template<unsigned size>
@@ -224,8 +242,7 @@ void HtmlExplainer<size>::propagation_all_deductions_condensed_end(
 
 template<unsigned size>
 void HtmlExplainer<size>::solved(
-  const Stack<ExplainableSudoku<size>>& stack,
-  const typename Explanation<size>::Propagation&
+  const Stack<ExplainableSudoku<size>>& stack
 ) const {
   index_file << "<h1>Solved grid</h1>\n";
   make_image(stack, "solved.png", {}, { .draw_stack = false });

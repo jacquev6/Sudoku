@@ -93,6 +93,8 @@ stdout: |
   (9, 8) is set to 2 in the input
   (9, 9) is set to 8 in the input
   All inputs have been set
+  In region 21, only (3, 9) can be 1
+  Sudoku is solved
   Propagation starts
   7 in (1, 1) has no effect
   1 in (1, 2) has no effect
@@ -100,11 +102,7 @@ stdout: |
   5 in (1, 4) has no effect
   2 in (1, 5) has no effect
   8 in (1, 6) has no effect
-  Propagation starts for 4 in (1, 7)
-  4 in (1, 7) forbids 4 in (3, 9)
-  4 in (1, 7) has been fully propagated
-  In region 3, only (3, 9) can be 1
-  Sudoku is solved
+  4 in (1, 7) has no effect
   3 in (1, 8) has no effect
   6 in (1, 9) has no effect
   2 in (2, 1) has no effect

@@ -55,6 +55,7 @@ struct Explanation {
   };
 
   Sudoku<ValueCell, size> inputs;
+  std::vector<SinglePlaceDeduction> initial_deductions;
   std::vector<Propagation> propagations;
   std::optional<Exploration> exploration;
 
@@ -154,23 +155,43 @@ class ExplanationWalker {
  public:
   void walk() {
     explainer.inputs(stack, explanation.inputs);
+    walk(explanation.initial_deductions);
     walk(explanation.propagations);
     walk(explanation.exploration);
   }
 
  private:
-  void walk(const std::vector<typename Explanation<size>::Propagation>& propagations) {
-    explainer.propagations_begin(stack);
-    for (const auto& propagation : propagations) {
-      if (propagation.targets.empty()) {
-        explainer.propagation_empty_begin(stack, propagation);
-        stack.current().cell(propagation.source).set_propagated();
-        explainer.propagation_empty_end(stack, propagation);
-      } else {
-        walk(propagation);
-      }
+  void walk(const std::vector<typename Explanation<size>::SinglePlaceDeduction>& deductions) {
+    explainer.initial_deductions_begin(stack, deductions);
+    bool solved = false;
+    for (const auto& deduction : deductions) {
+      explainer.initial_deduction_begin(stack, deduction);
+      stack.current().cell(deduction.cell).set_deduced(deduction.value);
+      solved |= deduction.solved;
+      explainer.initial_deduction_end(stack, deduction);
+      ++single_place_deductions_count;
     }
-    explainer.propagations_end(stack);
+    explainer.initial_deductions_end(stack, deductions);
+
+    if (solved) {
+      explainer.solved(stack);
+    }
+  }
+
+  void walk(const std::vector<typename Explanation<size>::Propagation>& propagations) {
+    if (!propagations.empty()) {
+      explainer.propagations_begin(stack);
+      for (const auto& propagation : propagations) {
+        if (propagation.targets.empty()) {
+          explainer.propagation_empty_begin(stack, propagation);
+          stack.current().cell(propagation.source).set_propagated();
+          explainer.propagation_empty_end(stack, propagation);
+        } else {
+          walk(propagation);
+        }
+      }
+      explainer.propagations_end(stack);
+    }
   }
 
   void walk(const typename Explanation<size>::Propagation& propagation) {
@@ -258,7 +279,7 @@ class ExplanationWalker {
     stack.current().cell(propagation.source).set_propagated();
 
     if (solved) {
-      explainer.solved(stack, propagation);
+      explainer.solved(stack);
     }
 
     explainer.propagation_end(stack, propagation);

@@ -163,6 +163,16 @@ class ExplorationSolver {
 
     sink_event(InputsAreDone<size>());
 
+    for (const auto& cell : input_sudoku.cells()) {
+      if (cell.get()) {
+        deduce_after_set(&sudoku, cell.coordinates(), &to_propagate);
+      }
+    }
+
+    if (sudoku.is_solved()) {
+      sink_event(SudokuIsSolved<size>());
+    }
+
     switch (propagate_and_explore(&sudoku, std::move(to_propagate))) {
       case ExplorationResult::solved: {
         std::optional<Sudoku<ValueCell, size>> solved(std::in_place);
@@ -192,7 +202,6 @@ class ExplorationSolver {
       PropagationStartsForSudoku<size>(),
       PropagationIsDoneForSudoku<size>());
 
-    bool is_solved = false;
     while (!to_propagate.empty()) {
       const auto source_coords = to_propagate.front();
       to_propagate.pop_front();
@@ -307,7 +316,6 @@ class ExplorationSolver {
                 // so it's not worth it yet.
                 if (sudoku->is_solved()) {
                   sink_event(SudokuIsSolved<size>());
-                  is_solved = true;
                   // @todo return solved;
                 }
               } else {
@@ -320,10 +328,44 @@ class ExplorationSolver {
     }
 
     // @todo Remove the test, always return requires_exploration
-    if (is_solved) {
+    if (sudoku->is_solved()) {
       return PropagationResult::solved;
     } else {
       return PropagationResult::requires_exploration;
+    }
+  }
+
+  void deduce_after_set(
+    Sudoku<ExplorableCell<size>, size>* sudoku,
+    const Coordinates& coords,
+    std::deque<Coordinates>* to_propagate
+  ) {
+    auto& set_cell = sudoku->cell(coords);
+    assert(set_cell.is_set());
+
+    // @todo Iterate on fewer values: only the ones that were allowed before the cell was set
+    for (unsigned value : SudokuConstants<size>::values) {
+      if (value != set_cell.get()) {
+        for (auto& region : set_cell.regions()) {
+          unsigned count = 0;
+          typename Sudoku<ExplorableCell<size>, size>::Cell* single_cell = nullptr;
+          for (auto& cell : region.cells()) {
+            if (cell.is_allowed(value)) {
+              ++count;
+              single_cell = &cell;
+            }
+          }
+          if (count == 1 && !single_cell->is_set()) {
+            const Coordinates single_coords = single_cell->coordinates();
+            sink_event(CellIsDeducedAsSinglePlaceForValueInRegion<size>(
+              single_coords, value, region.index()));
+            single_cell->set(value);
+
+            assert(std::count(to_propagate->begin(), to_propagate->end(), single_coords) == 0);
+            to_propagate->push_back(single_coords);
+          }
+        }
+      }
     }
   }
 

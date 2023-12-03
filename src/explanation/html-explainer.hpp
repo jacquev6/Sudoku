@@ -7,6 +7,7 @@
 #include <fstream>
 #include <set>
 #include <string>
+#include <vector>
 
 #include "art.hpp"
 #include "explanation.hpp"
@@ -34,6 +35,22 @@ class HtmlExplainer {
   void inputs(
     const Stack<ExplainableSudoku<size>>&,
     const Sudoku<ValueCell, size>&) const;
+
+  void initial_deductions_begin(
+    const Stack<ExplainableSudoku<size>>&,
+    const std::vector<typename Explanation<size>::SinglePlaceDeduction>&) const {}
+
+  void initial_deduction_begin(
+    const Stack<ExplainableSudoku<size>>&,
+    const typename Explanation<size>::SinglePlaceDeduction&) const {}
+
+  void initial_deduction_end(
+    const Stack<ExplainableSudoku<size>>&,
+    const typename Explanation<size>::SinglePlaceDeduction&) const;
+
+  void initial_deductions_end(
+    const Stack<ExplainableSudoku<size>>&,
+    const std::vector<typename Explanation<size>::SinglePlaceDeduction>&) const {}
 
   void propagations_begin(
     const Stack<ExplainableSudoku<size>>&) const;
@@ -145,8 +162,7 @@ class HtmlExplainer {
     const typename Explanation<size>::Propagation&) const {}
 
   void solved(
-    const Stack<ExplainableSudoku<size>>&,
-    const typename Explanation<size>::Propagation&) const;
+    const Stack<ExplainableSudoku<size>>&) const;
 
   void propagations_end(
     const Stack<ExplainableSudoku<size>>&) const {}

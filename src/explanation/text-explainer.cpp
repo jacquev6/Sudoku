@@ -32,6 +32,16 @@ void TextExplainer<size>::inputs(
 }
 
 template<unsigned size>
+void TextExplainer<size>::initial_deduction_begin(
+  const Stack<ExplainableSudoku<size>>& stack,
+  const typename Explanation<size>::SinglePlaceDeduction& deduction
+) const {
+  const auto [row, col] = deduction.cell;
+  prefix(stack) << boost::format("In region %4%, only (%1%, %2%) can be %3%\n")
+    % (row + 1) % (col + 1) % (deduction.value + 1) % (deduction.region + 1);
+}
+
+template<unsigned size>
 void TextExplainer<size>::propagations_begin(const Stack<ExplainableSudoku<size>>& stack) const {
   prefix(stack) << "Propagation starts\n";
 }
@@ -163,8 +173,7 @@ void TextExplainer<size>::propagation_all_deductions_condensed_begin(
 
 template<unsigned size>
 void TextExplainer<size>::solved(
-  const Stack<ExplainableSudoku<size>>& stack,
-  const typename Explanation<size>::Propagation&
+  const Stack<ExplainableSudoku<size>>& stack
 ) const {
   prefix(stack) << "Sudoku is solved\n";
 }
