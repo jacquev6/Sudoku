@@ -169,26 +169,21 @@ class ExplorationSolver {
   std::optional<Sudoku<ValueCell, size>> solve() {
     Sudoku<ExplorableCell<size>, size> sudoku;
     std::deque<Coordinates> to_propagate;
+    std::vector<std::pair<Coordinates, std::bitset<size>>> initial_deductions;
     for (const auto& cell : input_sudoku.cells()) {
       const auto value = cell.get();
       if (value) {
         const Coordinates coords = cell.coordinates();
         sink_event(CellIsSetInInput<size>(coords, *value));
-        sudoku.cell(coords).set(*value);
         to_propagate.push_back(coords);
+        initial_deductions.emplace_back(coords, sudoku.cell(coords).set(*value));
       }
     }
 
     sink_event(InputsAreDone<size>());
 
-    for (const auto& cell : input_sudoku.cells()) {
-      const auto value = cell.get();
-      if (value) {
-        std::bitset<size> previously_allowed;
-        previously_allowed.set();
-        previously_allowed.reset(*value);
-        deduce_after_set(&sudoku, cell.coordinates(), previously_allowed, &to_propagate);
-      }
+    for (const auto& [coords, previously_allowed] : initial_deductions) {
+      deduce_after_set(&sudoku, coords, previously_allowed, &to_propagate);
     }
 
     #ifndef NDEBUG
