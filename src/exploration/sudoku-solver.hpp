@@ -60,6 +60,18 @@ class ExplorableCell {
     return allowed_values.count();
   }
 
+  unsigned get_single_allowed_value() const {
+    assert_invariants();
+    assert(allowed_count() == 1);
+
+    for (unsigned value : SudokuConstants<size>::values) {
+      if (is_allowed(value)) {
+        return value;
+      }
+    }
+    __builtin_unreachable();
+  }
+
   void set(const unsigned value) {
     assert_invariants();
     assert(value < size);
@@ -229,22 +241,17 @@ class ExplorationSolver {
                 target_cell.forbid(source_value);
 
                 if (target_cell.allowed_count() == 1) {
-                  for (unsigned set_value : SudokuConstants<size>::values) {
-                    if (target_cell.is_allowed(set_value)) {
-                      sink_event(CellIsDeducedFromSingleAllowedValue<size>(target_coords, set_value));
-                      target_cell.set(set_value);
+                  const unsigned set_value = target_cell.get_single_allowed_value();
+                  sink_event(CellIsDeducedFromSingleAllowedValue<size>(target_coords, set_value));
+                  target_cell.set(set_value);
 
-                      assert(std::count(to_propagate.begin(), to_propagate.end(), target_coords) == 0);
-                      to_propagate.push_back(target_coords);
+                  assert(std::count(to_propagate.begin(), to_propagate.end(), target_coords) == 0);
+                  to_propagate.push_back(target_coords);
 
-                      deduce_after_set(sudoku, target_coords, &to_propagate);
-
-                      break;
-                    }
-                  }
+                  deduce_after_set(sudoku, target_coords, &to_propagate);
+                } else {
+                  deduce_after_forbid(sudoku, target_coords, source_value, &to_propagate);
                 }
-
-                deduce_after_forbid(sudoku, target_coords, source_value, &to_propagate);
 
                 #ifndef NDEBUG
                 // All single-value deductions have been applied
