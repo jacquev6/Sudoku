@@ -4,11 +4,14 @@
 
 #include <string>
 
+#include <chrones.hpp>
 #include <CLI11.hpp>
 
 #define DOCTEST_CONFIG_IMPLEMENT
 #include <doctest.h>  // NOLINT(build/include_order): keep last because it defines really common names like CHECK
 
+
+CHRONABLE("sudoku");
 
 struct ExistingFileOrStdinValidator : public CLI::Validator {
   ExistingFileOrStdinValidator() : CLI::Validator("FILE(or - for stdin)") {
@@ -52,6 +55,7 @@ int main(int argc, char* argv[]) {
   app.require_subcommand(1);
   CLI::App* solve = app.add_subcommand("solve", "Just solve a Sudoku");
   CLI::App* explain = app.add_subcommand("explain", "Explain how to solve a Sudoku");
+  CLI::App* benchmark = app.add_subcommand("benchmark", "Benchmark the Sudoku solvers");
 
   bool use_sat = false;
   solve->add_flag("--sat", use_sat, "Use the 'Minisat' SAT solver instead of the default exploration algorithm");
@@ -85,7 +89,7 @@ int main(int argc, char* argv[]) {
     ->default_val("480");
 
   std::filesystem::path input_path;
-  for (auto* subcommand : {solve, explain}) {
+  for (auto* subcommand : {solve, explain, benchmark}) {
     subcommand
       ->add_option("INPUT", input_path, "Input file")
       ->check(ExistingFileOrStdin)
@@ -109,6 +113,7 @@ int main(int argc, char* argv[]) {
     .video_frames_path = video_frames_path,
     .width = width,
     .height = height,
+    .benchmark = benchmark->parsed(),
   };
 
   switch (size) {

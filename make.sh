@@ -25,5 +25,6 @@ docker run \
   --volume "$PWD:/wd" --workdir /wd \
   --volume sudoku-development-ccache:/ccache \
   --env SUDOKU_MAKE_CALLED_BY_SCRIPT=true \
+  --env MPLCONFIGDIR=/wd/build/matplotlib-config-dir \
   jacquev6/sudoku-development \
   make "$@"

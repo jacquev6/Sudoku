@@ -19,6 +19,8 @@ struct Options {
   std::optional<std::filesystem::path> video_frames_path;
   unsigned width;
   unsigned height;
+
+  bool benchmark;
 };
 
 template<unsigned size>

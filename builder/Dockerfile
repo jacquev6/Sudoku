@@ -105,6 +105,7 @@ RUN --mount=type=cache,target=/root/.cache/pip,sharing=locked \
       cpplint \
       gcovr \
       PyYAML \
+      Chrones \
  && true
 
 RUN --mount=type=bind,from=download-cli11,source=/download,target=/download \

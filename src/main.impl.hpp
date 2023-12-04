@@ -95,6 +95,18 @@ int main_(const Options& options) {
       std::cerr << "FAILED to solve this Sudoku using exploration" << std::endl;
       return 1;
     }
+  } else if (options.benchmark) {
+    if (!solve_using_sat(sudoku)) {
+      std::cerr << "FAILED to solve this Sudoku using SAT" << std::endl;
+      return 1;
+    }
+
+    if (!solve_using_exploration(sudoku)) {
+      std::cerr << "FAILED to solve this Sudoku using exploration" << std::endl;
+      return 1;
+    }
+
+    return 0;
   } else {
     __builtin_unreachable();
   }

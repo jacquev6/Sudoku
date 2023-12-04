@@ -13,3 +13,4 @@ stdout: |
   Subcommands:
     solve                       Just solve a Sudoku
     explain                     Explain how to solve a Sudoku
+    benchmark                   Benchmark the Sudoku solvers

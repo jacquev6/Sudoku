@@ -11,7 +11,7 @@ SHELL := /bin/bash -o pipefail -o errexit -o nounset
 # Top-level targets
 
 .PHONY: default
-default: coverage-gcovr link-release lint insight
+default: coverage-gcovr lint insight
 
 .PHONY: no-cover
 no-cover: test lint insight
@@ -63,7 +63,9 @@ build/insight/%: src/% builder/crudest-preprocessor.py builder/stabilize-lambda-
 	@${echo} "Insight: insights $<"
 	@mkdir -p ${@D}
 	@builder/crudest-preprocessor.py $< \
-	| insights --stdin --show-all-callexpr-template-parameters --show-all-implicit-casts $< -- $$(pkg-config cairomm-1.16 libavutil libavcodec --cflags) -std=c++20 \
+	| insights --stdin --show-all-callexpr-template-parameters --show-all-implicit-casts $< -- \
+	  -std=c++20 \
+	  $$(pkg-config cairomm-1.16 libavutil libavcodec --cflags) -I`chrones instrument c++ header-location` -include icecream.hpp \
 	| builder/stabilize-lambda-names.py \
 	| builder/stabilize-numbered-names.py \
 	>$@.tmp
@@ -82,24 +84,44 @@ compile: compile-debug compile-release
 compile-debug: ${debug_object_files}
 
 build/debug/obj/%.o: src/%.cpp
-	@${echo} "Compile: g++ -c $<"
+	@${echo} "Compile: g++ -c ... -o $@"
 	@mkdir -p ${@D}
-	@CCACHE_LOGFILE=$@.ccache-log g++ -g --coverage -O0 -c -std=c++20 -Wall -Wextra -pedantic -Werror -Wno-missing-field-initializers $$(pkg-config cairomm-1.16 libavutil libavcodec --cflags) -include icecream.hpp -MMD -MP $< -o $@
+	@CCACHE_LOGFILE=$@.ccache-log g++ \
+		-g --coverage -O0 \
+		-std=c++20 -Wall -Wextra -pedantic -Werror -Wno-missing-field-initializers \
+		$$(pkg-config cairomm-1.16 libavutil libavcodec --cflags) -I`chrones instrument c++ header-location` -include icecream.hpp \
+		-MMD -MP \
+		-c $< \
+		-o $@
 	@sed -i 's#^build/debug/obj/\(.*\)\.o:#build/debug/obj/\1.o build/insight/\1.cpp:#' build/debug/obj/$*.d
 
 # Special object file containing doctest's main function
 build/debug/obj/test-main.o:
 	@${echo} "Compile: g++ -c doctest.h"
 	@mkdir -p ${@D}
-	@CCACHE_LOGFILE=$@.ccache-log g++ -g -c -x c++ -std=c++20 -include doctest.h -DDOCTEST_CONFIG_IMPLEMENT_WITH_MAIN /dev/null -o $@
+	@ (echo 'CHRONABLE("test")') | \
+	CCACHE_LOGFILE=$@.ccache-log g++ \
+		-g -O0 \
+		-x c++ -std=c++20 \
+		-I`chrones instrument c++ header-location` \
+		-include doctest.h -include chrones.hpp \
+		-DDOCTEST_CONFIG_IMPLEMENT_WITH_MAIN \
+		-c - \
+		-o $@
 
 .PHONY: compile-release
 compile-release: ${release_object_files}
 
 build/release/obj/%.o: src/%.cpp
-	@${echo} "Compile: g++ -c $<"
+	@${echo} "Compile: g++ -c ... -o $@"
 	@mkdir -p ${@D}
-	@CCACHE_LOGFILE=$@.ccache-log g++ -DNDEBUG -O3 -c -std=c++20 $$(pkg-config cairomm-1.16 libavutil libavcodec --cflags) -include icecream.hpp -MMD -MP $< -o $@
+	@CCACHE_LOGFILE=$@.ccache-log g++ \
+		-DNDEBUG -O3 \
+		-std=c++20 \
+		$$(pkg-config cairomm-1.16 libavutil libavcodec --cflags) -I`chrones instrument c++ header-location` -include icecream.hpp \
+		-MMD -MP \
+		-c $< \
+		-o $@
 
 # @todo Robustify these includes: the following sequence leads to missing rebuilding a target:
 #   rm -rf build; ./make.sh insight; touch src/main.cpp; ./make.sh insight
@@ -275,3 +297,15 @@ build/debug/tests.coverage/gcovr/index.html: build/debug/tests/unit.coverage/gco
 	@rm -rf ${@D}
 	@mkdir -p ${@D}
 	@gcovr $(patsubst %,--add-tracefile build/debug/tests/%.coverage/gcovr/info.json,unit integ) --decisions --html-details ${@D}/index.html --json ${@D}/info.json
+
+
+# Benchmarks
+
+.PHONY: benchmark
+benchmark: build/release/report.png
+
+build/release/report.png: build/release/bin/sudoku
+	@${echo} "Benchmark: sudoku"
+	@rm -f build/release/report.png build/release/run-result.json build/release/sudoku.*.chrones.csv
+	@chrones run --logs-dir build/release -- build/release/bin/sudoku benchmark inputs/expert.txt
+	@chrones report --logs-dir build/release --output-name build/release/report.png

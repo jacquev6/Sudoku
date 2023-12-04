@@ -14,6 +14,8 @@
 #include <utility>
 #include <vector>
 
+#include <chrones.hpp>
+
 #include "../puzzle/sudoku.hpp"
 #include "events.hpp"
 
@@ -167,6 +169,8 @@ class ExplorationSolver {
 
  public:
   std::optional<Sudoku<ValueCell, size>> solve() {
+    CHRONE();
+
     Sudoku<ExplorableCell<size>, size> sudoku;
     std::deque<Coordinates> to_propagate;
     std::vector<std::pair<Coordinates, std::bitset<size>>> initial_deductions;
@@ -231,6 +235,8 @@ class ExplorationSolver {
   enum class PropagationResult { solved, unsolvable, requires_exploration };
 
   PropagationResult propagate(Sudoku<ExplorableCell<size>, size>* sudoku, std::deque<Coordinates>&& to_propagate) {
+    CHRONE();
+
     for (const auto& coords : to_propagate) {
       assert(std::count(to_propagate.begin(), to_propagate.end(), coords) == 1);
     }
@@ -394,6 +400,8 @@ class ExplorationSolver {
   enum class ExplorationResult { solved, unsolvable };
 
   ExplorationResult explore(Sudoku<ExplorableCell<size>, size>* sudoku) {
+    CHRONE();
+
     assert(!sudoku->is_solved());
 
     const Coordinates coords = get_most_constrained_cell(sudoku);
@@ -437,6 +445,8 @@ class ExplorationSolver {
   }
 
   ExplorationResult propagate_and_explore(Sudoku<ExplorableCell<size>, size>* sudoku, std::deque<Coordinates>&& todo) {
+    CHRONE();
+
     switch (propagate(sudoku, std::move(todo))) {
       case PropagationResult::solved:
         return ExplorationResult::solved;
