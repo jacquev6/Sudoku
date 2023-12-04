@@ -195,6 +195,8 @@ class HtmlExplainer {
     bool draw_stack = true;
   };
 
+  char symbol(unsigned value) const;
+
   void make_image(
     const Stack<ExplainableSudoku<size>>&,
     const std::string&,

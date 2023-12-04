@@ -8,6 +8,8 @@
 #include <utility>
 #include <vector>
 
+#include "../puzzle/sudoku-alphabet.hpp"
+
 #include <doctest.h>  // NOLINT(build/include_order): keep last because it defines really common names like CHECK
 
 
@@ -49,7 +51,7 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const ExplainableSudoku<size>& sudok
   cr->set_source_rgb(0.0, 0.0, 0.0);
   for (const auto& cell : sudoku.cells()) {
     if (cell.is_set()) {
-      const std::string text = std::to_string(cell.get() + 1);
+      const std::string text(1, SudokuAlphabet<size>::get_symbol(cell.get()));
 
       if (options.bold_todo && !cell.is_propagated()) {
         cr->select_font_face("sans-serif", Cairo::ToyFontFace::Slant::NORMAL, Cairo::ToyFontFace::Weight::BOLD);
@@ -95,7 +97,7 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const ExplainableSudoku<size>& sudok
         for (unsigned value : SudokuConstants<size>::values) {
           Cairo::SaveGuard saver(cr);
 
-          const std::string text = std::to_string(value + 1);
+          const std::string text(1, SudokuAlphabet<size>::get_symbol(value));
           Cairo::TextExtents extents;
           cr->get_text_extents(text, extents);
           {
@@ -205,9 +207,13 @@ void draw(Cairo::RefPtr<Cairo::Context> cr, const ExplainableSudoku<size>& sudok
 
 template double round_grid_size<4>(unsigned available_size);
 template double round_grid_size<9>(unsigned available_size);
+template double round_grid_size<16>(unsigned available_size);
+template double round_grid_size<25>(unsigned available_size);
 
 template void draw(Cairo::RefPtr<Cairo::Context> cr, const ExplainableSudoku<4>& sudoku, const DrawOptions& options);
 template void draw(Cairo::RefPtr<Cairo::Context> cr, const ExplainableSudoku<9>& sudoku, const DrawOptions& options);
+template void draw(Cairo::RefPtr<Cairo::Context> cr, const ExplainableSudoku<16>& sudoku, const DrawOptions& options);
+template void draw(Cairo::RefPtr<Cairo::Context> cr, const ExplainableSudoku<25>& sudoku, const DrawOptions& options);
 
 
 // LCOV_EXCL_START

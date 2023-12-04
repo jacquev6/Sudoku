@@ -6,6 +6,8 @@
 
 #include <boost/format.hpp>
 
+#include "../puzzle/sudoku-alphabet.hpp"
+
 
 template<unsigned size>
 std::ostream& TextExplainer<size>::prefix(const Stack<ExplainableSudoku<size>>& stack) const {
@@ -17,6 +19,11 @@ std::ostream& TextExplainer<size>::prefix(const Stack<ExplainableSudoku<size>>& 
 }
 
 template<unsigned size>
+char TextExplainer<size>::symbol(unsigned value) const {
+  return SudokuAlphabet<size>::get_symbol(value);
+}
+
+template<unsigned size>
 void TextExplainer<size>::inputs(
   const Stack<ExplainableSudoku<size>>& stack,
   const Sudoku<ValueCell, size>& inputs
@@ -25,7 +32,8 @@ void TextExplainer<size>::inputs(
     const std::optional<unsigned> value = cell.get();
     if (value) {
       const auto [row, col] = cell.coordinates();
-      prefix(stack) << boost::format("(%1%, %2%) is set to %3% in the input\n") % (row + 1) % (col + 1) % (*value + 1);
+      prefix(stack) << boost::format("(%1%, %2%) is set to %3% in the input\n")
+        % (row + 1) % (col + 1) % symbol(*value);
     }
   }
   prefix(stack) << "All inputs have been set\n";
@@ -38,7 +46,7 @@ void TextExplainer<size>::initial_deduction_begin(
 ) const {
   const auto [row, col] = deduction.cell;
   prefix(stack) << boost::format("In region %4%, only (%1%, %2%) can be %3%\n")
-    % (row + 1) % (col + 1) % (deduction.value + 1) % (deduction.region + 1);
+    % (row + 1) % (col + 1) % symbol(deduction.value) % (deduction.region + 1);
 }
 
 template<unsigned size>
@@ -53,7 +61,7 @@ void TextExplainer<size>::propagation_empty_begin(
 ) const {
   const auto [row, col] = propagation.source;
   prefix(stack) << boost::format("%1% in (%2%, %3%) has no effect\n")
-    % (propagation.value + 1) % (row + 1) % (col + 1);
+    % symbol(propagation.value) % (row + 1) % (col + 1);
 }
 
 template<unsigned size>
@@ -63,7 +71,7 @@ void TextExplainer<size>::propagation_targets_begin(
 ) const {
   const auto [row, col] = propagation.source;
   prefix(stack) << boost::format("Propagation starts for %1% in (%2%, %3%)\n")
-    % (propagation.value + 1) % (row + 1) % (col + 1);
+    % symbol(propagation.value) % (row + 1) % (col + 1);
 }
 
 template<unsigned size>
@@ -75,7 +83,7 @@ void TextExplainer<size>::propagation_target_begin(
   const auto [src_row, src_col] = propagation.source;
   const auto [tgt_row, tgt_col] = target.cell;
   prefix(stack) << boost::format("%1% in (%2%, %3%) forbids %1% in (%4%, %5%)\n")
-    % (propagation.value + 1) % (src_row + 1) % (src_col + 1) % (tgt_row + 1) % (tgt_col + 1);
+    % symbol(propagation.value) % (src_row + 1) % (src_col + 1) % (tgt_row + 1) % (tgt_col + 1);
 }
 
 template<unsigned size>
@@ -85,7 +93,7 @@ void TextExplainer<size>::propagation_targets_end(
 ) const {
   const auto [row, col] = propagation.source;
   prefix(stack) << boost::format("%1% in (%2%, %3%) has been fully propagated\n")
-    % (propagation.value + 1) % (row + 1) % (col + 1);
+    % symbol(propagation.value) % (row + 1) % (col + 1);
 }
 
 template<unsigned size>
@@ -112,7 +120,7 @@ void TextExplainer<size>::propagation_targets_condensed_begin(
   }
   const auto [row, col] = propagation.source;
   prefix(stack) << boost::format("%1% in (%2%, %3%) propagates to forbid %1% in %4%\n")
-    % (propagation.value + 1) % (row + 1) % (col + 1) % targets.str();
+    % symbol(propagation.value) % (row + 1) % (col + 1) % targets.str();
 }
 
 template<unsigned size>
@@ -123,7 +131,7 @@ void TextExplainer<size>::propagation_single_value_deduction_begin(
   const typename Explanation<size>::SingleValueDeduction& deduction
 ) const {
   const auto [row, col] = deduction.cell;
-  prefix(stack) << boost::format("(%1%, %2%) can only be %3%\n") % (row + 1) % (col + 1) % (deduction.value + 1);
+  prefix(stack) << boost::format("(%1%, %2%) can only be %3%\n") % (row + 1) % (col + 1) % symbol(deduction.value);
 }
 
 template<unsigned size>
@@ -147,7 +155,7 @@ void TextExplainer<size>::propagation_single_place_deduction_begin(
 ) const {
   const auto [row, col] = deduction.cell;
   prefix(stack) << boost::format("In region %4%, only (%1%, %2%) can be %3%\n")
-    % (row + 1) % (col + 1) % (deduction.value + 1) % (deduction.region + 1);
+    % (row + 1) % (col + 1) % symbol(deduction.value) % (deduction.region + 1);
 }
 
 template<unsigned size>
@@ -201,7 +209,7 @@ void TextExplainer<size>::hypothesis_begin(
   const typename Explanation<size>::Hypothesis& hypothesis
 ) const {
   const auto [row, col] = exploration.cell;
-  prefix(stack) << boost::format("(%1%, %2%) may be %3%\n") % (row + 1) % (col + 1) % (hypothesis.value + 1);
+  prefix(stack) << boost::format("(%1%, %2%) may be %3%\n") % (row + 1) % (col + 1) % symbol(hypothesis.value);
 }
 
 template<unsigned size>
@@ -213,10 +221,10 @@ void TextExplainer<size>::hypothesis_end(
   const auto [row, col] = exploration.cell;
   if (hypothesis.successful) {
     prefix(stack) << boost::format("(%1%, %2%) can indeed be %3%\n")
-      % (row + 1) % (col + 1) % (hypothesis.value + 1);
+      % (row + 1) % (col + 1) % symbol(hypothesis.value);
   } else {
     prefix(stack) << boost::format("Hypothesis that (%1%, %2%) may have been %3% must be back-tracked\n")
-      % (row + 1) % (col + 1) % (hypothesis.value + 1);
+      % (row + 1) % (col + 1) % symbol(hypothesis.value);
   }
 }
 
@@ -231,3 +239,5 @@ void TextExplainer<size>::exploration_end(
 
 template class TextExplainer<4>;
 template class TextExplainer<9>;
+template class TextExplainer<16>;
+template class TextExplainer<25>;

@@ -111,3 +111,5 @@ std::optional<Sudoku<ValueCell, size>> solve_using_sat(Sudoku<ValueCell, size> s
 
 template std::optional<Sudoku<ValueCell, 4>> solve_using_sat(Sudoku<ValueCell, 4>);
 template std::optional<Sudoku<ValueCell, 9>> solve_using_sat(Sudoku<ValueCell, 9>);
+template std::optional<Sudoku<ValueCell, 16>> solve_using_sat(Sudoku<ValueCell, 16>);
+template std::optional<Sudoku<ValueCell, 25>> solve_using_sat(Sudoku<ValueCell, 25>);

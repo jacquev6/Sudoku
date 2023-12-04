@@ -8,6 +8,13 @@
 
 #include <boost/format.hpp>
 
+#include "../puzzle/sudoku-alphabet.hpp"
+
+
+template<unsigned size>
+char HtmlExplainer<size>::symbol(unsigned value) const {
+  return SudokuAlphabet<size>::get_symbol(value);
+}
 
 template<unsigned size>
 void HtmlExplainer<size>::inputs(
@@ -38,7 +45,7 @@ void HtmlExplainer<size>::initial_deduction_end(
   });
   index_file <<
     boost::format("<p>(%1%, %2%) can be deduced because it's the only place for %3% in region %4%:</p>\n")
-    % (row + 1) % (col + 1) % (deduction.value + 1) % (deduction.region + 1);
+    % (row + 1) % (col + 1) % symbol(deduction.value) % (deduction.region + 1);
   index_file << "<p><img src=\"" << image_name << "\"/></p>\n";
 }
 
@@ -54,7 +61,7 @@ void HtmlExplainer<size>::propagation_empty_begin(
 ) const {
   const auto [src_row, src_col] = propagation.source;
   index_file
-    << "<h2>" << propagation.value + 1 << " in (" << src_row + 1 << ", " << src_col + 1 << ") has no effect</h2>\n";
+    << "<h2>" << symbol(propagation.value) << " in (" << src_row + 1 << ", " << src_col + 1 << ") has no effect</h2>\n";
 }
 
 template<unsigned size>
@@ -129,7 +136,7 @@ void HtmlExplainer<size>::propagation_single_value_deduction_end(
   });
   index_file <<
     boost::format("<p>(%1%, %2%) can be deduced because it only has one possible value (%3%):</p>\n")
-    % (row + 1) % (col + 1) % (deduction.value + 1);
+    % (row + 1) % (col + 1) % symbol(deduction.value);
   index_file << "<p><img src=\"" << image_name << "\"/></p>\n";
 }
 
@@ -176,7 +183,7 @@ void HtmlExplainer<size>::propagation_single_place_deduction_end(
   });
   index_file <<
     boost::format("<p>(%1%, %2%) can be deduced because it's the only place for %3% in region %4%:</p>\n")
-    % (row + 1) % (col + 1) % (deduction.value + 1) % (deduction.region + 1);
+    % (row + 1) % (col + 1) % symbol(deduction.value) % (deduction.region + 1);
   index_file << "<p><img src=\"" << image_name << "\"/></p>\n";
 }
 
@@ -265,9 +272,9 @@ void HtmlExplainer<size>::hypothesis_before_propagations(
   const typename Explanation<size>::Hypothesis& hypothesis
 ) const {
   const auto [row, col] = exploration.cell;
-  index_file << "<h2>Trying " << hypothesis.value + 1 << " for (" << row + 1 << ", " << col + 1 << ")</h2>\n";
+  index_file << "<h2>Trying " << symbol(hypothesis.value) << " for (" << row + 1 << ", " << col + 1 << ")</h2>\n";
   const std::string image_name =
-    str(boost::format("exploration-%1%-%2%--%3%.png") % (row + 1) % (col + 1) % (hypothesis.value + 1));
+    str(boost::format("exploration-%1%-%2%--%3%.png") % (row + 1) % (col + 1) % symbol(hypothesis.value));
   make_image(stack, image_name, {
     .possible = true,
     .bold_todo = true,
@@ -333,3 +340,5 @@ void HtmlExplainer<size>::make_image(
 
 template class HtmlExplainer<4>;
 template class HtmlExplainer<9>;
+template class HtmlExplainer<16>;
+template class HtmlExplainer<25>;

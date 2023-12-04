@@ -118,3 +118,5 @@ void Explanation<size>::Builder::operator()(const ExplorationIsDone<size>&) {}
 
 template class Explanation<4>;
 template class Explanation<9>;
+template class Explanation<16>;
+template class Explanation<25>;

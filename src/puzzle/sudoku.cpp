@@ -1,8 +1,10 @@
 // Copyright 2023 Vincent Jacques
 
 #include "sudoku.hpp"
+#include "sudoku-alphabet.hpp"
 
 #include <cassert>
+#include <map>
 
 #include <doctest.h>  // NOLINT(build/include_order): keep last because it defines really common names like CHECK
 
@@ -18,8 +20,9 @@ Sudoku<ValueCell, size> Sudoku<ValueCell, size>::load(std::istream& is) {
 
     for (const unsigned col : SudokuConstants<size>::values) {
       const char c = line[col];
-      if (c >= '1' && c <= '9') {
-        sudoku.cell({row, col}).set(c - '1');
+      const std::optional<unsigned> value = SudokuAlphabet<size>::get_value(c);
+      if (value) {
+        sudoku.cell({row, col}).set(*value);
       }
     }
   }
@@ -32,11 +35,7 @@ void Sudoku<ValueCell, size>::dump(std::ostream& os) const {
   for (const unsigned row : SudokuConstants<size>::values) {
     for (const unsigned col : SudokuConstants<size>::values) {
       const auto value = this->cell({row, col}).get();
-      if (value) {
-        os << *value + 1;
-      } else {
-        os << '.';
-      }
+      os << SudokuAlphabet<size>::get_symbol(*value);
     }
     os << '\n';
   }
@@ -44,6 +43,8 @@ void Sudoku<ValueCell, size>::dump(std::ostream& os) const {
 
 template class Sudoku<ValueCell, 4>;
 template class Sudoku<ValueCell, 9>;
+template class Sudoku<ValueCell, 16>;
+template class Sudoku<ValueCell, 25>;
 
 
 // LCOV_EXCL_START

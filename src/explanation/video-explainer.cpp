@@ -822,3 +822,5 @@ void explain_as_video(
 
 template void explain_as_video<4>(const Explanation<4>&, video::Serializer*, unsigned, unsigned);
 template void explain_as_video<9>(const Explanation<9>&, video::Serializer*, unsigned, unsigned);
+template void explain_as_video<16>(const Explanation<16>&, video::Serializer*, unsigned, unsigned);
+template void explain_as_video<25>(const Explanation<25>&, video::Serializer*, unsigned, unsigned);

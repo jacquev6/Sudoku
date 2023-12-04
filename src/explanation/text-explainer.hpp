@@ -177,6 +177,8 @@ class TextExplainer {
   std::ostream& prefix(
     const Stack<ExplainableSudoku<size>>&) const;
 
+  char symbol(unsigned value) const;
+
  private:
   std::ostream& os;
 };
